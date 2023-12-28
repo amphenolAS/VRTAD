@@ -7,8 +7,15 @@ package com.advrt.pages;
 
 import java.io.IOException;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import com.advrt.pages.AD_UMPage;
 import com.advrt.base.BaseClass;
 import com.advrt.utility.TestUtilities;
 
@@ -84,6 +91,12 @@ public class LoginPage extends BaseClass {
 	}
    
 	//.........................
+	
+	public void clickpwd() {
+		clickOn(MainLoginPW);
+
+	}
+	
 	
 	// Enter User PW: {0}")
 		public void EnterUserPW(String PW) {
@@ -257,6 +270,14 @@ public class LoginPage extends BaseClass {
 		ClickLoginBtn();
 		Thread.sleep(2000);
 	}
+	
+	
+	public void LockedLogin(String UID, String PW) throws InterruptedException {
+		EnterUserID(UID);
+		EnterUserPW(PW);
+		ClickLoginBtn();
+		Thread.sleep(2000);
+	}
 
 	// Login method for User OTHER THAN Kaye/411... to verify authentication
 	// failures")
@@ -363,6 +384,67 @@ public class LoginPage extends BaseClass {
 		return SWVer[1];
 	}
 	
+	
+	
+	
+	
+	public AD_UMPage ADLogin_UMpage(String UID, String PW) throws InterruptedException, IOException {
+		MainLoginUID.click();
+		EnterUserID(UID);
+		EnterUserPW(PW);
+		Thread.sleep(500);
+		ClickLoginBtn();
+		Thread.sleep(1000);
+
+		return new AD_UMPage();
+	}
+	
+	public PoliciesPage ADLogin_PPpage(String UID, String PW) throws InterruptedException, IOException {
+		MainLoginUID.click();
+		EnterUserID(UID);
+		EnterUserPW(PW);
+		Thread.sleep(500);
+		ClickLoginBtn();
+		Thread.sleep(1000);
+
+		return new PoliciesPage();
+	}
+	
+	
+/*
+	public PasswordToolPage Presscrtl_E() throws IOException, AWTException, InterruptedException {
+		clickOn(MainLoginPW);
+		Actions actions = new Actions(driver);
+        //actions.sendKeys(MainLoginPW, Keys.CONTROL, "e").build().perform();
+		//MainLoginPW.sendKeys(Keys.chord(Keys.CONTROL+ "e"));
+		//MainLoginPW.sendKeys(Keys.CONTROL+ "e");
+		//actions.keyDown(Keys.CONTROL).sendKeys("e").keyUp(Keys.CONTROL).build().perform();
+		//actions.sendKeys(Keys.chord(Keys.chord(Keys.CONTROL+"E"))).build().perform();
+		
+		Robot rb= new Robot();
+	     rb.delay(3000);
+	        rb.keyPress(KeyEvent.VK_CONTROL);
+	        rb.keyPress(KeyEvent.VK_E);
+	        rb.keyRelease(KeyEvent.VK_CONTROL);
+	        rb.keyRelease(KeyEvent.VK_E);
+	      Thread.sleep(3000);
+		
+		//rb.keyPress(KeyEvent.VK_CONTROL);
+		//rb.keyPress(KeyEvent.VK_E);
+		
+        return new PasswordToolPage();
+
+
+	}*/
+	
+	
+	public boolean Is_PswdHeaderScreen_Displayed() {
+		WebElement PswdHeader=driver.findElementByAccessibilityId("txtEmergencyPasswordAccess");
+		return IsElementEnabledStatus(PswdHeader);
+	}
+	
+	
+	
 	/*public void click_loginBtn_Loginfail(int val) throws InterruptedException {
 		for (int i = 0; i <val; i++) {
 				
@@ -371,6 +453,16 @@ public class LoginPage extends BaseClass {
 
 			    }
 		}*/
+	
+	
+	// Click the OK button of the popup message
+		public void click_OK_popup() throws InterruptedException {
+			if (IsElementVisibleStatus(driver.findElementByAccessibilityId("Popup Window"))) {
+			WebElement Ok_Btn = driver.findElementByAccessibilityId("Button0");
+			clickOn(Ok_Btn);
+			Thread.sleep(1000);
+			
+		}}
 			    
 	// Click the login button repetitively based on the preference setting for the
 	// User to be disabled
@@ -396,6 +488,35 @@ public class LoginPage extends BaseClass {
 	
 		
 	
-	}}
+	}
+	
+	
+	//------------------
+	//DomainNameTextbox
+		public String Fetch_DomainNameTextbox() {
+			WebElement DomainNameTextbox = driver.findElementByAccessibilityId("DomainNameTextbox");
+			return FetchText(DomainNameTextbox);
+		}
+		
+		
+		public void Clear_DomainName() {
+			WebElement DomainNameTextbox = driver.findElementByAccessibilityId("DomainNameTextbox");
+			ClearText(DomainNameTextbox);
+		}
+		
+		
+		//ADLogin_PPpage
+		public PoliciesPage ADLogin_Policypage(String UID, String PW) throws InterruptedException, IOException {
+			MainLoginUID.click();
+			EnterUserID(UID);
+			EnterUserPW(PW);
+			Thread.sleep(500);
+			ClickLoginBtn();
+			Thread.sleep(1000);
+
+			return new PoliciesPage();
+		}
+	
+}
 
 

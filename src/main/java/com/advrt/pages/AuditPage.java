@@ -89,6 +89,13 @@ public class AuditPage extends BaseClass {
 		return FetchText(Act_Txt.get(3));
 	}
 	
+	// Verify that the below details is displaying when user filter the particular action
+		public String get_auditEvent_text10() {
+			List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+					.findElements(By.className("TextBlock"));
+			return FetchText(Act_Txt.get(10));
+		}
+	
 	//CLick Back button to navigate to Main Hub page
 	public MainHubPage Click_BackBtn() throws IOException {
 		clickOn(BackBtn_AuditPg);		
@@ -101,4 +108,18 @@ public class AuditPage extends BaseClass {
 		Thread.sleep(1000);
 	}
 
+	// Verify that the below details is displaying when user filter the particular action
+			public String get_userName_text() {
+				List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+						.findElements(By.className("TextBlock"));
+				return FetchText(Act_Txt.get(1));
+			}
+			
+			
+			public String get_auditUsercommit_text() {
+				List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+						.findElements(By.className("TextBlock"));
+				return FetchText(Act_Txt.get(4));
+			}
+	
 }

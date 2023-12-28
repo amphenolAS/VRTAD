@@ -114,6 +114,11 @@ public class FM_SyncOutPage extends BaseClass {
                               return new FM_SyncOutwithAsset();
                               
                }
+               
+               
+               public  void ClickSyncOutOkBtn() throws InterruptedException, IOException {
+                   clickOn(SyncOutOKbtn);
+    }
                               
             // Enter sync in folder path
            	public void enter_Filepath(String pathname) throws AWTException, IOException, InterruptedException{

@@ -70,9 +70,9 @@ public class ADpopupTest extends BaseClass{
 		
 
 		// Rename the VRT Data Files folder if exists in order to make the system default
-	/*	renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 		//Copy the Default DataFIles folder from Test Data to the App service location.
-		//String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
+		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
 		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
 		tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
 		
@@ -103,7 +103,7 @@ public class ADpopupTest extends BaseClass{
 		LoginPage = MainHubPage.UserSignOut();
 		AppClose();
 		Thread.sleep(2000);
-		*/
+		
 	}
 	
 	//After All the tests are conducted
@@ -230,7 +230,7 @@ public class ADpopupTest extends BaseClass{
 
 	}
 
-	// Verify if user able to enter the password in the password field in the Enter
+	// AD05-Verify if user able to enter the password in the password field in the Enter
 	// Active Directory User credentials popup
 
 	@Test(groups = { "Sanity",
@@ -446,7 +446,9 @@ public class ADpopupTest extends BaseClass{
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
 
 		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		Thread.sleep(500);
 		PoliciesPage.clickOn_ConnectBtn();
+		Thread.sleep(1000);
 		
 		sa.assertEquals(PoliciesPage.get_connectionStatus(), "Yes",
 				"Fail: port number 636 is not displayed based on the selection of Authentication Type as Secure");
@@ -523,46 +525,23 @@ public class ADpopupTest extends BaseClass{
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
 
 		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Abc@123", "10.17.17.54", "Secure");
+		PoliciesPage.clickOn_ConnectBtn();
 
 		sa.assertEquals(tu.get_popup_text(), "Invalid Credential, Please try again",
 				"Fail: User login pop up is not displaying when user clicked on Accept btn");
 
 		sa.assertAll();
 	}
-	
 	
 	
 	//AD19-Verify if Active Directory should not be activated with invalid Domain Name credentials after clicking on the Connect button
-	
 	@Test(groups = { "Sanity",
-			"Regression" }, description = "AD19-Verify if Active Directory should not be activated with invalid Domain Name credentials after clicking on the Connect button")
+			"Regression" }, description = "//AD19-Verify if Active Directory should not be activated with invalid Domain Name credentials after clicking on the Connect button")
 
 	public void AD19() throws InterruptedException {
 
-		extentTest = extent.startTest("AD19-Verify if Active Directory should not be activated with invalid Domain Name credentials after clicking on the Connect button");
-
-		SoftAssert sa = new SoftAssert();
-
-// Here we are entering the wrong Domain Name as per the TC specification
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		sa.assertEquals(tu.get_popup_text(), "Invalid Credential, Please try again",
-				"Fail: User login pop up is not displaying when user clicked on Accept btn");
-
-		sa.assertAll();
-	}
-
-//AD20-Verify if Active Directory should not be activated if entered port and Domain port is different
-
-	@Test(groups = { "Sanity",
-			"Regression" }, description = "AD20-Verify if Active Directory should not be activated if entered port and Domain port is different")
-
-	public void AD20() throws InterruptedException {
-
 		extentTest = extent.startTest(
-				"AD20-Verify if Active Directory should not be activated if entered port and Domain port is different");
+				"AD19-Verify if Active Directory should not be activated with invalid Domain Name credentials after clicking on the Connect button");
 		SoftAssert sa = new SoftAssert();
 
      //Here we are entering the wrong Domain as per the TC specification
@@ -570,11 +549,36 @@ public class ADpopupTest extends BaseClass{
 
 		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.ab.oo.54", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
-		sa.assertEquals(tu.get_popup_text(), "Invalid Credential, Please try again",
+		sa.assertEquals(tu.get_popup_text(), "Offline Mode: Your credentials cannot get validated,please connect to your Domain to update the Active Directory information!",
 				"Fail: User login pop up is not displaying when user clicked on Accept btn");
 
 		sa.assertAll();
 	}
+	
+	
+	
+	//AD20-Verify if Active Directory should not be activated if entered port and Domain port is different
+		@Test(groups = { "Sanity",
+				"Regression" }, description = "AD20-Verify if Active Directory should not be activated if entered port and Domain port is different")
+
+		public void AD20() throws InterruptedException {
+
+			extentTest = extent.startTest(
+					"AD20-Verify if Active Directory should not be activated if entered port and Domain port is different");
+			SoftAssert sa = new SoftAssert();
+
+			// Here we are entering the wrong Domain as per the TC specification
+			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			PoliciesPage.Enter_PortNo("12qwe");
+			PoliciesPage.clickOn_ConnectBtn();
+
+			sa.assertEquals(tu.get_popup_text(),
+					"Offline Mode: Your credentials cannot get validated,please connect to your Domain to update the Active Directory information!",
+					"Fail: alert not occured ");
+
+			sa.assertAll();
+		}
 	
 	
 	//Verify if Active Directory should not be activated if Authentication type is selected differently for the Domain
@@ -582,17 +586,17 @@ public class ADpopupTest extends BaseClass{
 	//AD22-Verify if Validation message should be displayed if any of the field is blank in the Enter Active Directory User Credentials popup
 
 	@Test(groups = { "Sanity",
-			"Regression" }, description = "AD20-Verify if Active Directory should not be activated if entered port and Domain port is different")
+			"Regression" }, description = "AD22-Verify if Validation message should be displayed if any of the field is blank in the Enter Active Directory User Credentials popup")
 
 	public void AD22() throws InterruptedException {
 
 		extentTest = extent.startTest(
-				"AD20-Verify if Active Directory should not be activated if entered port and Domain port is different");
+				"AD22-Verify if Validation message should be displayed if any of the field is blank in the Enter Active Directory User Credentials popup");
 		SoftAssert sa = new SoftAssert();
 
 //Here we are entering the wrong Domain as per the TC specification
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "  ", "10.17.17.54", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
 		
 		sa.assertEquals(tu.get_popup_text(), "Invalid Credential, Please try again",
@@ -603,27 +607,7 @@ public class ADpopupTest extends BaseClass{
 	
 	//AD23-Verify if entered data in the Enter Active Directory User Credentials popup should be cleared on clicking the cancel button at popup
 
-	@Test(groups = { "Sanity",
-			"Regression" }, description = "AD20-Verify if Active Directory should not be activated if entered port and Domain port is different")
-
-	public void AD23() throws InterruptedException {
-
-		extentTest = extent.startTest(
-				"AD20-Verify if Active Directory should not be activated if entered port and Domain port is different");
-		SoftAssert sa = new SoftAssert();
-
-		// Here we are entering the wrong Domain as per the TC specification
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.Enter_PortNo("12qwe");
-		PoliciesPage.clickOn_ConnectBtn();
-
-		sa.assertEquals(tu.get_popup_text(),
-				"Offline Mode: Your credentials cannot get validated,please connect to your Domain to update the Active Directory information!",
-				"Fail: alert not occured ");
-
-		sa.assertAll();
-	}
+	
 
 	//AD24-Verify if click on X button Enter Active Directory User Credentials popup should be closed
 	
@@ -636,15 +620,39 @@ public class ADpopupTest extends BaseClass{
 				"AD24-Verify if click on X button Enter Active Directory User Credentials popup should be closed");
 		SoftAssert sa = new SoftAssert();
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-        // Here we are entering the wrong Domain as per the TC specification
+		Thread.sleep(500);
 		PoliciesPage.Click_LDAPCloseButton_Btn();
+		Thread.sleep(1000);
 		
-		sa.assertEquals(PoliciesPage.UserLoginPopupVisible(), false ,
+		sa.assertEquals(PoliciesPage.ADUserLoginPopupVisible(), false ,
 				"Fail: User login pop up is not displaying when user clicked on Accept btn");
-
-		sa.assertAll();
 		
 		sa.assertAll();
 	}
+	
+	
+	
+	 //AD26-Verify if Update button displayed when Active Directory is activated
+		@Test(groups = { "Sanity",
+				"Regression" }, description = "AD26-Verify if Update button displayed when Active Directory is activated")
+
+		public void AD() throws InterruptedException {
+
+			extentTest = extent.startTest("AD26-Verify if Update button displayed when Active Directory is activated");
+
+			SoftAssert sa = new SoftAssert();
+
+	    // Here we are entering the wrong Domain Name as per the TC specification
+			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			PoliciesPage.clickOn_ConnectBtn();
+			
+			sa.assertEquals(PoliciesPage.is_UpdateBtnvisible(), true,
+					"Fail: Update button is not visible after connecting");
+
+
+			sa.assertAll();
+		}
 	
 }

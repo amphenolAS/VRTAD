@@ -11,6 +11,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.advrt.pages.AD_UMPage;
+import com.advrt.pages.SelectBaseStationPage;
 import com.advrt.base.BaseClass;
 
 public class MainHubPage extends BaseClass {
@@ -30,7 +32,7 @@ public class MainHubPage extends BaseClass {
 		//MainUILoggedinUserTitle = driver.findElementByAccessibilityId("UserDesignationTextBlock");
 		//MainUILoggedinUserName = driver.findElementByAccessibilityId("UserNameTextBlock");
 		MainUIAdminTile = driver.findElementByName("Admin");
-		MainUIPageTitle = driver.findElementByName("ValProbe RT System");
+		//MainUIPageTitle = driver.findElementByName("ValProbe RT System");
 		MainUIEquipmentTitle = driver.findElementByName("Equipment");
 		FileManagementTitle = driver.findElementByName("File Management");
 		AuditTitle = driver.findElementByName("Audit");
@@ -73,6 +75,22 @@ public class MainHubPage extends BaseClass {
 		WebElement UserDesigTextBlock = driver.findElementByAccessibilityId("UserDesignationTextBlock");
 		return IsElementEnabledStatus(UserDesigTextBlock);
 	}
+	
+	// Click the Admin Tile to navigate UserManagementPage
+		public AD_UMPage AD_ClickAdminTile_UMpage() throws InterruptedException, IOException {
+			clickOn(MainUIAdminTile);
+			Thread.sleep(500);
+			return new AD_UMPage();
+		}
+		
+		
+		
+		public UserManagementPage_Manual ClickAdminTile_manualUM() throws InterruptedException, IOException {
+			clickOn(MainUIAdminTile);
+			Thread.sleep(500);
+			return new UserManagementPage_Manual();
+		}
+		
 
 	// Verify the Logged in User credentials
 	public String LoggedinUserName() {
@@ -203,5 +221,43 @@ public class MainHubPage extends BaseClass {
 		return FetchText(Msg);
 	}
 
+	
+	// Click the Audit Tile when user does not have default access privilege
+		public void ClickAuditTitle_alrt() throws InterruptedException {
+			clickOn(AuditTitle);
+			Thread.sleep(500);
+		}
+	
+	//Fetch Text Equipment count From Equipement Tile
+			public String EquipmentCntInEquipmentTileOfMainHubPage() throws InterruptedException {
+				List<WebElement> eqpCoucnt = driver.findElementsByAccessibilityId("TitleCountTextBlock");
+				return FetchText(eqpCoucnt.get(2));
+			}
+			
 
+			
+			public SelectBaseStationPage Click_Discover() throws InterruptedException, IOException {
+				WebElement DiscoverTile = driver.findElementByName("Discover");
+				clickOn(DiscoverTile);
+				Thread.sleep(500);
+				return new SelectBaseStationPage();
+			}
+
+			public void Click_Discover_alrt() throws InterruptedException, IOException {
+				WebElement DiscoverTile = driver.findElementByName("Discover");
+				clickOn(DiscoverTile);
+				Thread.sleep(500);
+				
+			}
+			
+			
+			public ADUM_page ClickAdminTile_ADUM() throws InterruptedException, IOException {
+				clickOn(MainUIAdminTile);
+				Thread.sleep(500);
+				return new ADUM_page();
+			}
+			
+			
+			
+			
 }

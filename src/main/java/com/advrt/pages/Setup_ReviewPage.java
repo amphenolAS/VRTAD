@@ -656,5 +656,25 @@ public class Setup_ReviewPage extends BaseClass {
 		WebElement LgInPopup = driver.findElementByName("Enter User Credentials");
 		return IsElementVisibleStatus(LgInPopup);
 	}
+	
+	
+	// Click expected TOD action option like "Yes or No or Cancel" as input to the method
+		// to perform the corresponding TOD Save Alert message Click save button
+		public void click_Save_Btn(String QStart, String TODAlertAction, String UID, String PW,String commit)
+				throws InterruptedException {
+
+			if (!QStart.equals("Manual")) {
+				clickOn(SaveSetup_Btn);
+				//UserLoginPopup(UID, PW);
+				//UserLoginPopup_UserCommentTextBox(UID, PW,commit);
+				click_Yes_TODAlertMsg_Btn(TODAlertAction);
+				Thread.sleep(1000);
+			} else {
+				clickOn(SaveSetup_Btn);
+				////UserLoginPopup(UID, PW);
+				UserLoginPopup_UserCommentTextBox(UID, PW,commit);
+				Thread.sleep(1000);
+			}
+		}
 
 }

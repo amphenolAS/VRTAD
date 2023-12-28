@@ -412,4 +412,17 @@ public class Setup_defineSetupPage extends BaseClass {
 		return FetchText(SWVersion_About_info);
 	}
 
+	
+	// Clear Sensor count data
+		public void clear_defineSetupPage_SensorCount1() {
+			WebElement Sensor_Val = driver.findElementByAccessibilityId("PART_TextBox");
+			ClearText(Sensor_Val);
+		}
+		
+		// Get the sensor text
+					public String get_Sensorcount_text1() {
+						WebElement Sensor_Val = driver.findElementByAccessibilityId("PART_TextBox");	
+						return FetchText(Sensor_Val);
+					}
+			
 }

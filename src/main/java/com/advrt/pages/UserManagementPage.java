@@ -201,6 +201,14 @@ public class UserManagementPage extends BaseClass {
 	public boolean IsSaveButtonEnable() {
 		return IsElementEnabledStatus(SaveUMBtn);
 	}
+	
+	
+	// Click NewUser button
+		public void ClickSaveUser() throws InterruptedException {
+			Thread.sleep(1000);
+			clickOn(SaveUMBtn);
+					}
+
 
 	// Click NewUser button
 	public void ClickNewUser() throws InterruptedException {

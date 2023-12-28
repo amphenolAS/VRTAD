@@ -16,6 +16,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
+import com.advrt.pages.SelectBaseStationPage;
 import com.advrt.base.BaseClass;
 import com.advrt.utility.TestUtilities;
 
@@ -40,7 +41,7 @@ public class assetDetailsPage extends BaseClass {
 	WebElement ReportsTile_Count = null;
 	WebElement DocsTile_Count = null;
 	WebElement UploadDocs_Btn = null;
-
+	WebElement InitiateCalib_Btn = null;
 	WebElement InitiateQual_Btn = null;
 	WebElement SetupsHeaderTxt = null;
 	WebElement NewSetupCreate_Btn = null;
@@ -58,6 +59,7 @@ public class assetDetailsPage extends BaseClass {
 	WebElement LastValidated = null;
 	WebElement assetDeleteIcon = null;
 	WebElement Yesbtn = null;
+	WebElement InitiateVerification_Btn=null;
 
 	private void initElements() {
 		AssetDetailPageTitle = driver.findElementByAccessibilityId("AssetsNameTextBlock");
@@ -76,7 +78,8 @@ public class assetDetailsPage extends BaseClass {
 		QualTile_Count = driver.findElementByAccessibilityId("QualificationCountTextBlock");
 		ReportsTile_Count = driver.findElementByAccessibilityId("ReportsCountTextBlock");
 		DocsTile_Count = driver.findElementByAccessibilityId("DocumentsCountTextBlock");
-		
+		//InitiateCalib_Btn = driver.findElementByAccessibilityId("StartCalibrationButton");
+		//InitiateVerification_Btn=driver.findElementByAccessibilityId("StartVerificationButton");
 		InitiateQual_Btn = driver.findElementByAccessibilityId("StartQualificationButton");
 		SetupsHeaderTxt = driver.findElementByAccessibilityId("SetupsHeaderTextBlock");
 		NewSetupCreate_Btn = driver.findElementByAccessibilityId("CreateSetupButton");
@@ -117,7 +120,7 @@ public class assetDetailsPage extends BaseClass {
 		ReportsTile_Count = null;
 		DocsTile_Count = null;
 		UploadDocs_Btn = null;
-		
+		 InitiateCalib_Btn = null;
 		InitiateQual_Btn = null;
 		SetupsHeaderTxt = null;
 		NewSetupCreate_Btn = null;
@@ -135,6 +138,7 @@ public class assetDetailsPage extends BaseClass {
 		LastValidated = null;
 		assetDeleteIcon = null;
 		Yesbtn = null;
+		InitiateVerification_Btn=null;
 	}
 
 // Check the presence of AssetID field
@@ -189,6 +193,28 @@ public class assetDetailsPage extends BaseClass {
 			clickOn(SetupsHeaderTxt);
 		}
 		
+		// click on Initiate Calibration button under Setup tile
+				public void click_InitiateCalibBtn() {
+					clickOn(InitiateCalib_Btn);
+				}
+				
+				// click on Initiate Verification button under Setup tile
+				public void click_InitiateVerificationBtn() {
+					clickOn(InitiateVerification_Btn);
+				}
+				// click on DeleteQualificationButton
+				public void click_DeleteButton() {
+					WebElement DeleteBtn_Qual = driver.findElementByAccessibilityId("DeleteButton");
+					clickOn(DeleteBtn_Qual);
+				}
+				
+				
+				// click on Initiate Calibration button under Setup tile for guestuser
+				public SelectBaseStationPage click_InitiateCalibBtn1() throws IOException {
+					clickOn(InitiateCalib_Btn);
+					return  new SelectBaseStationPage();
+				}
+		
 // Check the presence of Asset DeleteIcon button
 	public boolean assetDeleteIcon_state() {
 		return IsElementVisibleStatus(assetDeleteIcon);
@@ -218,6 +244,12 @@ public class assetDetailsPage extends BaseClass {
 		return FetchText(Date);
 	}
 
+	
+	// click on Initiate Verification button under Setup tile
+	public SelectBaseStationPage click_InitiateVerificationBtn1() throws IOException {
+		clickOn(InitiateVerification_Btn);
+		return  new SelectBaseStationPage();
+	}
 	// check the presence of date under Qual study file ( which has sync in to
 	// application )
 	public String get_DateUnder_Qual() {
@@ -262,6 +294,13 @@ public class assetDetailsPage extends BaseClass {
 		return IsElementVisibleStatus(DeleteBtn_Qual);
 	}
 
+	// Check the presence of Delete Btn in Qual section
+		public void Qual_DeleteBtn() {
+			WebElement DeleteBtn_Qual = driver.findElementByAccessibilityId("DeleteQualificationButton");
+			clickOn(DeleteBtn_Qual);
+		}
+
+	
 	// Qual list Count
 
 	public int QualCount() throws InterruptedException, IOException {
@@ -621,6 +660,13 @@ public class assetDetailsPage extends BaseClass {
 		clickOn(GraphReports_Btn);
 	}
 	
+	
+	// click on the setup sub section from Reports tile
+		public void Click_AuditReportsButton() {
+			WebElement AuditReports_Btn = driver.findElementByAccessibilityId("auditReportsButton");
+			clickOn(AuditReports_Btn);
+		}
+	
 // Get the Reports count data form the Setup tile
 	public String reportsTile_countdata() {
 		return FetchText(ReportsTile_Count);
@@ -646,6 +692,9 @@ public class assetDetailsPage extends BaseClass {
 		clickOn(Asset_DocsTile);
 		Thread.sleep(1000);
 	}
+	
+	
+	
 
 // Click the Upload Docs button under Assets Docs tile
 	public void click_UploadDocsBtn() throws InterruptedException {
@@ -1227,22 +1276,30 @@ public class assetDetailsPage extends BaseClass {
 	
 	// Click edit Setup create button
 		public void click_editStupBtn1() throws InterruptedException, IOException {
-
 			List<WebElement> SetupEdit_Btn = driver.findElementsByAccessibilityId("EditButton");
 			clickOn(SetupEdit_Btn.get(1));
 			// Thread.sleep(1000);
 		}
+		
+		
+		
+		// Click edit Setup create button
+				public void click_editStupBtn0() throws InterruptedException, IOException {
+					List<WebElement> SetupEdit_Btn = driver.findElementsByAccessibilityId("EditButton");
+					clickOn(SetupEdit_Btn.get(0));
+				}
+		
+		
+		
 
 	public Setup_defineSetupPage editStupBtn_Position_0() throws InterruptedException, IOException {
 		List<WebElement> SetupEdit_Btn = driver.findElementsByAccessibilityId("EditButton");
-
 		clickOn(SetupEdit_Btn.get(0));
 		return new Setup_defineSetupPage();
 	}
 
 	public Setup_defineSetupPage editStupBtn_Position_1() throws InterruptedException, IOException {
 		List<WebElement> SetupEdit_Btn = driver.findElementsByAccessibilityId("EditButton");
-
 		clickOn(SetupEdit_Btn.get(1));
 		return new Setup_defineSetupPage();
 	}
@@ -1398,5 +1455,118 @@ public class assetDetailsPage extends BaseClass {
 		return FetchText(SetupList.get(1));
 
 	}
+	
+	
+	// Click the Yes button of the popup message
+		public void click_YesBtn_popup() throws InterruptedException {
+			WebElement Yes_Btn = driver.findElementByAccessibilityId("Button1");
+
+			try
+			{
+				Thread.sleep(1000);
+				clickOn(Yes_Btn);
+			}
+			catch (Exception e) {
+				Yes_Btn = driver.findElementByAccessibilityId("Button1");
+				Thread.sleep(1000);
+				clickOn(Yes_Btn);
+			}
+		}
+
+		
+		// verify the presence of the setupname
+		public String SetupName_Visible1() {
+			List<WebElement> Setupname =driver.findElementByClassName("ListView").findElements(By.className("TextBlock"));
+			return FetchText(Setupname.get(0));
+
+		}
+		
+		// Study file name for syncIn Setup
+				public String Report_StudyFilename_text() {
+			        List<WebElement> Report_StudyFilename = driver.findElementByClassName("ListViewItem")
+			                                        .findElements(By.className("TextBlock"));
+			        return FetchText(Report_StudyFilename.get(0));
+
+			}
+			
+		
+		
+		public void Click_GraphName(String GraphName) throws IOException {
+			WebElement FilesList = driver.findElementByClassName("ListView");
+			clickOn(FilesList);
+			List<WebElement> GraphList = driver.findElementByClassName("ListView")
+					.findElements(By.className("ListViewItem"));
+
+			// System.out.println("Total setup created: " +SetupList.size());
+			// Loop for the different setup tiles created
+			for (int i = 0; i < GraphList.size(); i++) {
+				// System.out.println("setup list: " +SetupList.get(i).getText());
+
+				List<WebElement> GraphTileInfoList = GraphList.get(i).findElements(By.className("TextBlock"));
+
+				 //System.out.println(" setup info count: " + SetupTileInfoList.size());
+				// Fetch all the contents of the Asset tile
+				for (int j = 0; j < GraphTileInfoList.size(); j++) {
+					// System.out.println("setup TileInfo: "+SetupTileInfoList.get(j).getText());
+					 //SetupTileInfoList.get(j).click();
+					String st = GraphTileInfoList.get(j).getText();
+					if (st.equals(GraphName)) {
+						GraphTileInfoList.get(j).click();
+
+						break;
+					} else {
+						Actions ac = new Actions(driver);
+						ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
+					}
+
+				}
+			}
+
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		public void Click_AuditName(String AuditName) throws IOException {
+			WebElement FilesList = driver.findElementByClassName("ListView");
+			clickOn(FilesList);
+			List<WebElement> AuditList = driver.findElementByClassName("ListView")
+					.findElements(By.className("ListViewItem"));
+
+			// System.out.println("Total setup created: " +SetupList.size());
+			// Loop for the different setup tiles created
+			for (int i = 0; i < AuditList.size(); i++) {
+				// System.out.println("setup list: " +SetupList.get(i).getText());
+
+				List<WebElement> AuditTileInfoList = AuditList.get(i).findElements(By.className("TextBlock"));
+
+				 //System.out.println(" setup info count: " + SetupTileInfoList.size());
+				// Fetch all the contents of the Asset tile
+				for (int j = 0; j < AuditTileInfoList.size(); j++) {
+					// System.out.println("setup TileInfo: "+SetupTileInfoList.get(j).getText());
+					 //SetupTileInfoList.get(j).click();
+					String st = AuditTileInfoList.get(j).getText();
+					if (st.equals(AuditName)) {
+						AuditTileInfoList.get(j).click();
+
+						break;
+					} else {
+						Actions ac = new Actions(driver);
+						ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
+					}
+
+				}
+			}
+
+		}
 
 }

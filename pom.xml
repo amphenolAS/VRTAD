@@ -23,9 +23,9 @@
 				<configuration>
 					<testFailureIgnore>true</testFailureIgnore>
 					<suiteXmlFiles>
-						<!-- <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile> -->
+						 <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile> 
 						<!-- <suiteXmlFile>src/test/resources/RegressionTest.xml</suiteXmlFile> -->
-						<suiteXmlFile>src/test/resources/LoginTest.xml</suiteXmlFile>
+					<!-- <suiteXmlFile>src/test/resources/PreferenceTest.xml</suiteXmlFile>-->
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>
@@ -218,7 +218,12 @@
 
 
 
-
+<!--
+		<dependency>
+			<groupId>ADVRT</groupId>
+			<artifactId>ADVRT</artifactId>
+			<version>0.0.3-SNAPSHOT</version>
+		</dependency>-->
 	</dependencies>
 
 </project>

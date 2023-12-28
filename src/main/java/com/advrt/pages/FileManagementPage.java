@@ -3,6 +3,8 @@ package com.advrt.pages;
 
 import java.io.IOException;
 import org.openqa.selenium.WebElement;
+
+import com.advrt.pages.FM_SyncInPage;
 import com.advrt.base.BaseClass;
 
 public class FileManagementPage extends BaseClass {
@@ -62,6 +64,14 @@ public class FileManagementPage extends BaseClass {
                               return new FM_SyncInPage();
                }
                
+               
+            // Move to SynIn Page by Clicking the header SyncIn Button
+               public FM_SyncInPage ClickSyncInBtn_SyncinPagewithcommit(String UID, String PW,String commit) throws InterruptedException, IOException {
+                              clickOn(SyncInBtn);
+                              Thread.sleep(500);
+                              UserLoginPopup_UserCommentTextBox(UID, PW,commit);
+                              return new FM_SyncInPage();
+               }
                // Verify if login Pop is displayed by Clicking the header SyncIn Button
                public void ClickSyncInBtn(String UID, String PW) throws InterruptedException, IOException {
                               clickOn(SyncInBtn);
@@ -79,6 +89,23 @@ public class FileManagementPage extends BaseClass {
                /*----------------------
                Methods of Sync Out Page
                ------------------------*/
+           	
+           	
+           	
+           	
+         // Move to SynIn Page by Clicking the header SyncIn Button
+            public FM_SyncOutPage ClickSyncoutBtn_SyncOutPagewithcommit(String UID, String PW,String commit) throws InterruptedException, IOException {
+                           clickOn(SyncOutBtn);
+                           Thread.sleep(500);
+                           UserLoginPopup_UserCommentTextBox(UID, PW,commit);
+                           return new FM_SyncOutPage();
+            }
+           	
+           	
+           	
+           	
+           	
+           	
            	
                // Move to SynOut Page by Clicking the header SyncIn Button
            	
@@ -122,6 +149,15 @@ public class FileManagementPage extends BaseClass {
             	        Thread.sleep(500);
             	        clickOn(okbtn);        
             	    }                 
+               }
+               
+               
+            // Move to SynIn Page by Clicking the header SyncIn Button
+               public FM_SyncInPage AD_ClickSyncInBtn_SyncinPage_withcommit(String UID, String PW,String Pwd) throws InterruptedException, IOException {
+                              clickOn(SyncInBtn);
+                              Thread.sleep(500);
+                              UserLoginPopup_UserCommentTextBox(UID, PW, Pwd);
+                              return new FM_SyncInPage();
                }
                
 
@@ -169,5 +205,23 @@ public class FileManagementPage extends BaseClass {
                
 			}
 
+               
+            // Move to SynIn Page by Clicking the header SyncIn Button
+               public void AD_ClickSyncInBtn_SyncinPage_withcommit_alrt(String UID, String PW,String Pwd) throws InterruptedException, IOException {
+                              clickOn(SyncInBtn);
+                              Thread.sleep(500);
+                              UserLoginPopup_UserCommentTextBox(UID, PW, Pwd);
+                             
+               }
+               
+               
+               
+               // Move to SynIn Page by Clicking the header SyncIn Button
+               public FM_SyncInPage ClickSyncInBtn_SyncinPage(String UID, String PW,String comm) throws InterruptedException, IOException {
+                              clickOn(SyncInBtn);
+                              Thread.sleep(500);
+                              UserLoginPopup_UserCommentTextBox(UID, PW,comm);
+                              return new FM_SyncInPage();
+               }
 		
 }

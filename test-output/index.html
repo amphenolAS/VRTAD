@@ -7,7 +7,7 @@
 
     <link type="text/css" href="testng-reports1.css" rel="stylesheet" id="ultra" />
     <link type="text/css" href="testng-reports.css" rel="stylesheet" id="retro" disabled="false"/>
-    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="testng-reports.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type='text/javascript'>
@@ -21,8 +21,7 @@
      -->
   </head>
 
-  <body>
-    <div class="top-banner-root">
+  <body>    <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
@@ -51,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\Ruchika.Behura\AppData\Local\Temp\testng-eclipse--1717211152\testng-customsuite.xml</span>
+                    <span>C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse--1445864857\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -104,7 +103,7 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.ADpopupTest" class="method navigator-link" hash-for-method="AD02">AD02</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.AD_PrivilageAccessTest" class="method navigator-link" hash-for-method="PA0027">PA0027</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Default_suite -->
@@ -122,16 +121,16 @@
           <div class="suite-Default_suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">com.advrt.testcases.ADpopupTest</span>
+              <span class="class-name">com.advrt.testcases.AD_PrivilageAccessTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="AD02">
-                  </a> <!-- AD02 -->
-                  <span class="method-name">AD02</span>
+                  <a name="PA0027">
+                  </a> <!-- PA0027 -->
+                  <span class="method-name">PA0027</span>
                   <em>
-(AD02-Verify if clicking on the Active Directory User button Enter Active Directory User credentials popup displayed)                  </em>
+(PA027-Verify if User able to access the Modify Equipment Module when the Modify Equipment Privilege is checked)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -139,7 +138,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\Ruchika.Behura\AppData\Local\Temp\testng-eclipse--1717211152\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse--1445864857\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -148,11 +147,11 @@
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.advrt.testcases.ADpopupTest&quot;&gt;
+      &lt;class name=&quot;com.advrt.testcases.AD_PrivilageAccessTest&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;AD02&quot;/&gt;
+          &lt;include name=&quot;PA0027&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- com.advrt.testcases.ADpopupTest --&gt;
+      &lt;/class&gt; &lt;!-- com.advrt.testcases.AD_PrivilageAccessTest --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -180,7 +179,7 @@
               <span class="test-group-name">Regression</span>
               <br/>
               <div class="method-in-group">
-                <span class="method-in-group-name">AD02</span>
+                <span class="method-in-group-name">PA0027</span>
                 <br/>
               </div> <!-- method-in-group -->
             </div> <!-- test-group -->
@@ -188,7 +187,7 @@
               <span class="test-group-name">Sanity</span>
               <br/>
               <div class="method-in-group">
-                <span class="method-in-group-name">AD02</span>
+                <span class="method-in-group-name">PA0027</span>
                 <br/>
               </div> <!-- method-in-group -->
             </div> <!-- test-group -->
@@ -210,14 +209,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'AD02')
-data.setCell(0, 2, 'com.advrt.testcases.ADpopupTest')
-data.setCell(0, 3, 696);
+data.setCell(0, 1, 'PA0027')
+data.setCell(0, 2, 'com.advrt.testcases.AD_PrivilageAccessTest')
+data.setCell(0, 3, 93380);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 696 ms</span>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -232,53 +231,51 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">21 ignored methods</span>
+            <span class="header-content">20 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
-              <span class="ignored-class-name">com.advrt.testcases.ADpopupTest</span>
+              <span class="ignored-class-name">com.advrt.testcases.AD_PrivilageAccessTest</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">AD05</span>
+                <span class="ignored-method-name">PA0047</span>
                 <br/>
-                <span class="ignored-method-name">AD16</span>
+                <span class="ignored-method-name">PA0025</span>
                 <br/>
-                <span class="ignored-method-name">AD06</span>
+                <span class="ignored-method-name">PA0017</span>
                 <br/>
-                <span class="ignored-method-name">AD17</span>
+                <span class="ignored-method-name">PA032</span>
                 <br/>
-                <span class="ignored-method-name">AD07</span>
+                <span class="ignored-method-name">PA051</span>
                 <br/>
-                <span class="ignored-method-name">AD18</span>
+                <span class="ignored-method-name">PA0021</span>
                 <br/>
-                <span class="ignored-method-name">AD08</span>
+                <span class="ignored-method-name">PA033</span>
                 <br/>
-                <span class="ignored-method-name">AD19</span>
+                <span class="ignored-method-name">PA0013</span>
                 <br/>
-                <span class="ignored-method-name">AD09</span>
+                <span class="ignored-method-name">PA0049</span>
                 <br/>
-                <span class="ignored-method-name">AD20</span>
+                <span class="ignored-method-name">PA0011</span>
                 <br/>
-                <span class="ignored-method-name">AD10</span>
+                <span class="ignored-method-name">PA0045</span>
                 <br/>
-                <span class="ignored-method-name">AD11</span>
+                <span class="ignored-method-name">PA0029</span>
                 <br/>
-                <span class="ignored-method-name">AD22</span>
+                <span class="ignored-method-name">PA0019</span>
                 <br/>
-                <span class="ignored-method-name">AD01</span>
+                <span class="ignored-method-name">PA009</span>
                 <br/>
-                <span class="ignored-method-name">AD12</span>
+                <span class="ignored-method-name">PA003</span>
                 <br/>
-                <span class="ignored-method-name">AD23</span>
+                <span class="ignored-method-name">PA001</span>
                 <br/>
-                <span class="ignored-method-name">AD13</span>
+                <span class="ignored-method-name">PA037</span>
                 <br/>
-                <span class="ignored-method-name">AD24</span>
+                <span class="ignored-method-name">PA007</span>
                 <br/>
-                <span class="ignored-method-name">AD03</span>
+                <span class="ignored-method-name">PA035</span>
                 <br/>
-                <span class="ignored-method-name">AD14</span>
-                <br/>
-                <span class="ignored-method-name">AD04</span>
+                <span class="ignored-method-name">PA005</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
@@ -290,26 +287,26 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.advrt.testcases.ADpopupTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.advrt.testcases.AD_PrivilageAccessTest</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
                 <span class="method-name">PreSetUp</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-class before -->
               <div class="configuration-method before">
                 <span class="method-name">Setup</span>
-                <span class="method-start">257 ms</span>
+                <span class="method-start">95738 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">AD02</span>
-                <span class="method-start">24516 ms</span>
+                <span class="method-name">PA0027</span>
+                <span class="method-start">107632 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
-                <span class="method-name">Teardown([TestResult name=AD02 status=SUCCESS method=ADpopupTest.AD02()[pri:0, instance:com.advrt.testcases.A...)</span>
-                <span class="method-start">25216 ms</span>
+                <span class="method-name">Teardown([TestResult name=PA0027 status=SUCCESS method=AD_PrivilageAccessTest.PA0027()[pri:14, instance:com.a...)</span>
+                <span class="method-start">201014 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-class after">
                 <span class="method-name">endReport</span>
-                <span class="method-start">30313 ms</span>
+                <span class="method-start">206084 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

@@ -458,6 +458,93 @@ public class NewEquipmentCreation_Page extends BaseClass {
 
 		return ManufacturingCal_Due_Date.isEnabled();
 	}
+	
+	
+	// Enter Mandatory fields and create Equipment
+			public void EqipCreation1(String Aid, String Etype, String EMN) throws InterruptedException {
+				enterSerialNo(Aid);
+				select_EquipmentType(Etype);
+				enterNewModelNumber(EMN);
+				
+				//ClickSaveButton();
+			}
+
+			//fecth text from Caliberation Due Date
+			public void click_CaliDueDate()
+			{
+				List<WebElement> CaliDueDate = driver.findElementsByAccessibilityId("PART_PickerButton");
+				clickOn(CaliDueDate.get(1));
+			}
+	
+			 //Select the date
+	        public  void selectReqDate(String mon, String dt, String yr) throws InterruptedException
+	    	{
+	        	click_CaliDueDate();
+	    		Thread.sleep(2000);
+	    		//PART_Popup    TextBlock  
+	    		Actions act = new Actions(driver);
+	    		for(int i=0; i<12;i++)
+	    		{
+	    			try
+	    			{
+	    				//WebElement month = driver.findElementByAccessibilityId("PART_Popup").findElement(By.name("October"));
+	    				WebElement month = driver.findElementByAccessibilityId("PART_Popup").findElement(By.name(mon));
+	    				if(IsElementVisibleStatus(month))
+	    				{
+	    					clickOn(month);
+	    					break;
+	    				}
+	    			}
+	    			catch (Exception e) {
+	    				act.sendKeys(Keys.ARROW_UP).build().perform();
+	    			}
+	    		}
+	    		act.sendKeys(Keys.ARROW_RIGHT).build().perform();
+	    		for(int i=0; i<31;i++)
+	    		{
+	    			try
+	    			{
+	    				//WebElement date = driver.findElementByAccessibilityId("PART_Popup").findElement(By.name("13"));
+	    				WebElement date = driver.findElementByAccessibilityId("PART_Popup").findElement(By.name(dt));
+	    				if(IsElementVisibleStatus(date))
+	    				{
+	    					clickOn(date);
+	    					break;
+	    				}
+	    			}
+	    			catch (Exception e) {
+	    				act.sendKeys(Keys.ARROW_UP).build().perform();
+	    			}
+	    		}
+	    		act.sendKeys(Keys.ARROW_RIGHT).build().perform();
+	    		for(int i=0; i<31;i++)
+	    		{
+	    			try
+	    			{
+	    				//WebElement year = driver.findElementByAccessibilityId("PART_Popup").findElement(By.name("2020"));
+	    				WebElement year = driver.findElementByAccessibilityId("PART_Popup").findElement(By.name(yr));
+	    				if(IsElementVisibleStatus(year))
+	    				{
+	    					clickOn(year);
+	    					break;
+	    				}
+	    			}
+	    			catch (Exception e) {
+	    				act.sendKeys(Keys.ARROW_UP).build().perform();
+	    			}
+	    		}
+	    	}
+	        
+	        
+	
+	        public void select_LastDate() throws InterruptedException
+	    	{
+	    		WebElement selectBtn = driver.findElementByAccessibilityId("PART_SelectorOKButton");//PART_Popup
+	    		Thread.sleep(1000);
+	    		clickOn(selectBtn);
+	    	}
+	
+
 
 	public void selectManufacturingCalDate_Yr(String Yr) throws InterruptedException {
 

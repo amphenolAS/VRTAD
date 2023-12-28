@@ -584,7 +584,8 @@ public class assetCreationPage extends BaseClass {
 	public void capture_Camera_Img() throws InterruptedException {
 		click_Img_Camera_Btn();
 
-		WebElement Click_Camera_Wdw_capture_Btn = driver.findElementByName("Take Photo");
+		//WebElement Click_Camera_Wdw_capture_Btn = driver.findElementByName("Take Photo");//
+		WebElement Click_Camera_Wdw_capture_Btn =driver.findElementByAccessibilityId("CaptureButton_0");
 		clickOn(Click_Camera_Wdw_capture_Btn);
 		Thread.sleep(500);
 		WebElement Click_Camera_Wdw_Accept_Btn = driver.findElementByName("Accept");

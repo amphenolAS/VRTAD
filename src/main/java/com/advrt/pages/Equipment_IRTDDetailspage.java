@@ -326,8 +326,16 @@ public class Equipment_IRTDDetailspage extends BaseClass {
 		Thread.sleep(2000);
 
 	}
+	
+	
+	//
+	public void Equip_click_CopyToDrive() throws InterruptedException {
+		WebElement Copytodrive_Btn = driver.findElementByName("Copy to drive");
+		clickOn(Copytodrive_Btn);
+		Thread.sleep(2000);
+	}
 
-	public void Select_DocName(String DocName) throws IOException {
+	public void Select_DocName(String DocName) throws IOException, InterruptedException {
 		List<WebElement> SetupList = driver.findElementByClassName("ListView")
 				.findElements(By.className("ListViewItem"));
 
@@ -337,10 +345,11 @@ public class Equipment_IRTDDetailspage extends BaseClass {
 
 			for (int j = 0; j < DocTileInfoList.size(); j++) {
 
-				String st = DocTileInfoList.get(j).getText();
-				if (st.equals(DocName)) {
-					DocTileInfoList.get(j).click();
-
+				//String st = DocTileInfoList.get(j).getText();
+				if ( DocTileInfoList.get(j).getText().equals(DocName)) {
+					//DocTileInfoList.get(j).click();
+clickOn(DocTileInfoList.get(j));
+Thread.sleep(1000);
 					break;
 				} else {
 					Actions ac = new Actions(driver);

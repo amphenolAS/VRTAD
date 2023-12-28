@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import com.advrt.pages.Equipment_IOBoxPage;
 import com.advrt.base.BaseClass;
 
 public class EquipmentHubPage extends BaseClass {
@@ -21,7 +23,7 @@ public class EquipmentHubPage extends BaseClass {
 	WebElement Back_btn = null;
 
 	private void initElements() {
-		AddButton = driver.findElementByAccessibilityId("AddEquipmentsButton");
+		AddButton = driver.findElementByAccessibilityId("AddEquipmentsButton");//AddEquipmentsButton
 		VRTLogger = driver.findElementByAccessibilityId("TitleTextBlock1");
 		EquipmentHeaderTextBlock = driver.findElementByAccessibilityId("EquipmentHeaderTextBlock");
 		Back_btn = driver.findElementByAccessibilityId("ArrowGlyph");
@@ -45,6 +47,7 @@ public class EquipmentHubPage extends BaseClass {
 
 	// Click AddButton
 	public NewEquipmentCreation_Page ClickAddButton() throws InterruptedException, IOException {
+		//WebElement AddButton = driver.findElementByAccessibilityId("AddEquipmentsButton");
 		clickOn(AddButton);
 		// Thread.sleep(1000);
 		return new NewEquipmentCreation_Page();
@@ -71,6 +74,15 @@ public class EquipmentHubPage extends BaseClass {
 
 		return IsElementVisibleStatus(VRTLogger);
 	}
+	
+	
+	// Click AddButton
+    public void ClickAddButton_alrt() throws InterruptedException, IOException {
+    	 WebElement AddButton = driver.findElementByAccessibilityId("AddEquipmentsButton");
+                    clickOn(AddButton);
+                   
+    }
+
 
 	// Click on VRT List box of Equipment page
 	public Equipment_VRTLoggerHubPage Click_VRTLogger_listbox() throws IOException {
@@ -125,4 +137,58 @@ public class EquipmentHubPage extends BaseClass {
 		return Listcounts.get(j).getText();
 
 	}
+	
+	
+	//Equipement items
+    public Equipment_IOBoxPage select_EqupmentItem(String name) throws IOException
+     {
+    	List<WebElement> eqpItem = driver.findElementsByClassName("GridViewItem");
+    			
+    	
+    	for(WebElement item: eqpItem)
+    	{
+    		if(FetchText(item).equalsIgnoreCase(name))
+    		{
+    			clickOn(item);
+    			break;
+    		}
+    	}
+    	return new Equipment_IOBoxPage();
+    }
+    
+  //check visiblity of Equipements
+    public boolean is_ReqEpuipmentVisible(String name)
+    {
+    	List<WebElement> eqpItem = driver.findElementsByClassName("GridViewItem");
+    			
+    	boolean flag = false;
+    	for(WebElement item: eqpItem)
+    	{
+    		if(FetchText(item).equalsIgnoreCase(name))
+    		{
+    			IsElementVisibleStatus(item);
+    			flag = true;
+    			break;
+    		}
+    }
+    	return flag;
+    	
+    }
+    
+    
+    public int EpuipmentCountOnEquipmentHubPage()
+    {
+    	List<WebElement> eqpItem = driver.findElementsByClassName("GridViewItem");
+    			
+    	int count = 0;
+    	for(WebElement item: eqpItem)
+    	{
+    		if(IsElementVisibleStatus(item))
+    		{
+    			count++;
+    		}
+    }
+    	return count;
+    	
+    }
 }

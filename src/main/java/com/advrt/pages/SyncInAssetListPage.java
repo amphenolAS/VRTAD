@@ -120,6 +120,21 @@ public class SyncInAssetListPage  extends BaseClass{
 	}
 	
 
-	
+	public void click_OkOnSyncInSelections()
+	{
+		WebElement okBtn = driver.findElementByAccessibilityId("SyncInAssetsPopup").findElement(By.name("OK"));
+		clickOn(okBtn);
+	}
 
+	
+	
+	//SyncInUserCheckBox
+	
+	
+			// click on SyncInEquipmentCheckBox
+					public void click_Users_CheckBox() {
+						WebElement SyncIn_EquipmentCheckBox = driver.findElementByAccessibilityId("SyncInEquipmentCheckBox");
+						clickOn(SyncIn_EquipmentCheckBox);
+					}
+			
 }

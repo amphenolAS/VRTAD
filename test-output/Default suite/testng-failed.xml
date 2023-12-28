@@ -3,15 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.advrt.testcases.ADpopupTest">
+      <class name="com.advrt.testcases.AD_PrivilageAccessTest">
         <methods>
-          <include name="PreSetUp"/>
           <include name="Teardown"/>
+          <include name="PA0027"/>
           <include name="endReport"/>
           <include name="Setup"/>
-          <include name="AD02"/>
+          <include name="PreSetUp"/>
         </methods>
-      </class> <!-- com.advrt.testcases.ADpopupTest -->
+      </class> <!-- com.advrt.testcases.AD_PrivilageAccessTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

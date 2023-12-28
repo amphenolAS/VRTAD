@@ -102,6 +102,13 @@ public class FM_SyncInPage extends BaseClass{
 	}
 	
 	
+	// Click the Filter button
+		public void click_SyncInOK_btn_alrt() throws IOException, InterruptedException {
+			//Thread.sleep(1000);
+			clickOn(SyncInOKbtn);
+			clickOn(SyncInOKbtn);
+		}
+	
 	//Click the SycnIn Alert confirmation message
 	public void click_SyncIn_AlrtMag() {
 		clickOn(FltrByDtBtn);
@@ -112,5 +119,22 @@ public class FM_SyncInPage extends BaseClass{
 		clickOn(SyncInBackbtn);
 		return new MainHubPage();
 	}
+	
+	//click on the browse button
+		public void click_BrowseBtn()
+		{
+			clickOn(SyncInBrowseBtn);
+		}
+		
+		
+		//Verify the window expolrer button
+		public boolean is_ExplorerWinInvoked()
+		{
+			//Switch to file explorer window 
+			driver.switchTo().activeElement();
+			
+			WebElement win = driver.findElementByXPath("//*[normalize-space(.='Select Folder')]");
+			return IsElementVisibleStatus(win);
+		}
 	
 }

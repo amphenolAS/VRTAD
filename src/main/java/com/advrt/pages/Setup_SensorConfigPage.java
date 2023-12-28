@@ -86,6 +86,13 @@ public class Setup_SensorConfigPage extends BaseClass {
 		clickOn(GroupSensors_btn);
 		return new Setup_GroupSensorsPage();
 	}
+	
+	//click on select button
+		public void click_SelectBtn()
+		{
+			WebElement AddBtn_Field = driver.findElementByAccessibilityId("SelectButton");
+			clickOn(AddBtn_Field);
+		}
 
 	// click GroupSensors_btn to navigate Group Sensors page click YES (less number
 	// of sensor config)

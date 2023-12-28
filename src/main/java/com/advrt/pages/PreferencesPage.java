@@ -6,6 +6,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.advrt.pages.AD_UMPage;
 import com.advrt.base.BaseClass;
 
 public class PreferencesPage extends BaseClass {
@@ -32,6 +33,8 @@ public class PreferencesPage extends BaseClass {
 	WebElement SaveButton = null;
 	WebElement CancelButton = null;
 	WebElement BackUMBtn = null;
+	WebElement UserCommentAudit = null;
+	WebElement	InstrumentCalibWarningCheckBoxField=null;
 
 	// Page element Initialize method
 	private void initElements() {
@@ -57,7 +60,8 @@ public class PreferencesPage extends BaseClass {
 		SaveButton = driver.findElementByAccessibilityId("SaveButton");
 		CancelButton = driver.findElementByAccessibilityId("CancelButton");
 		BackUMBtn = driver.findElementByAccessibilityId("BackButton");
-
+		 UserCommentAudit = driver.findElementByAccessibilityId("UserCommentAuditTrailCheckBox");
+		 InstrumentCalibWarningCheckBoxField =driver.findElementByAccessibilityId("InstrumentCalibWarningCheckBox");
 	}
 
 	// Constructor for initializing the page elements
@@ -90,6 +94,8 @@ public class PreferencesPage extends BaseClass {
 		SaveButton = null;
 		CancelButton = null;
 		BackUMBtn = null;
+		 UserCommentAudit = null;
+	InstrumentCalibWarningCheckBoxField=null;
 
 	}
 
@@ -120,11 +126,41 @@ public class PreferencesPage extends BaseClass {
 	public boolean IsLineFrequencyComboBox_Presence() {
 		return IsElementEnabledStatus(LineFrequencyComboBox);
 	}
-
+	
+	// Check if Mandatory user comment audit enabled
+	public boolean IsUserAudit_Enabled() {
+		return IsElementEnabledStatus(UserCommentAudit);
+		}
+	
+	//click on Mandatory user comment
+	public void click_Mandatory_user_comment() {
+		clickOn(UserCommentAudit);
+	}
+	
+	public boolean IsMandatoryuser_checked() {
+		return checkboxSelectStatus(UserCommentAudit);//checkboxSelectStatus
+		}
+	
+	// Check if Instrumnent calibration warning field displayed
+	public boolean IsInstCal_Presence() {
+		return IsElementVisibleStatus(InstrumentCalibWarningCheckBoxField);
+		}
+	
+	public boolean IsInstCal_checked() {
+		return checkboxSelectStatus(InstrumentCalibWarningCheckBoxField);//checkboxSelectStatus
+		}
+	
+	
 	// Check if Preferences page is displayed
 	public boolean IsPressureComboBox_Presence() {
 		return IsElementEnabledStatus(PressureComboBox);
 	}
+	
+	// Check if Mandatory user comment displayed
+				public boolean IsUserAudit_Presence() {
+					return IsElementVisibleStatus(UserCommentAudit);
+					}
+				
 
 	// Check if MachineIDTextBlock is displayed
 	public boolean IsMachineIDTextBlock_Presence() {
@@ -449,5 +485,52 @@ public class PreferencesPage extends BaseClass {
 	public void clickOnAllowDValueEditingCheckBox() {
 		clickOn(AllowDValueEditingCheckBox);
 	}
+	
+	
+	public String Fetch_Defaultval_monthComboBox() {
+		WebElement monthcombo=driver.findElementByAccessibilityId("InstrumentCalibWarningComboBox").findElement(By.className("TextBlock"));
+		return FetchText(monthcombo);
+	}
+	
+	public boolean IsAllowDValueEditing_Presence() {
+		return IsElementVisibleStatus(AllowDValueEditingCheckBox);
+		}
+	
+	public boolean IsReportfooter_Presence() {
+		
+		WebElement report=driver.findElementByName("Report Footer");
+		return IsElementVisibleStatus(report);
+	}
+	
+	
+	public void clickon_IsInstCal() {
+		clickOn(InstrumentCalibWarningCheckBoxField);
+	}
+	
+	
+	
+		
+		public boolean IsFooterFirstPageCheckBox_selected() {
+			return checkboxSelectStatus(cbkFooterFirstPage);
+		}
+
+	
+		public boolean IsFooterLastPageCheckBox_selected() {
+			return checkboxSelectStatus(cbkFooterLastPage);
+		}
+
+	
+		
+		public boolean IsFooterAllPagesCheckBox_selected() {
+			return checkboxSelectStatus(cbkFooterAllPages);
+		}
+		
+		public AD_UMPage click_UMtab() throws InterruptedException, IOException {
+			WebElement	AD_UMHeaderText = driver.findElementByName("User Management");
+				clickOn(AD_UMHeaderText);
+				Thread.sleep(500);
+				return new AD_UMPage();
+
+			}
 
 }

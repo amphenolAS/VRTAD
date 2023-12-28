@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Proxy;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -88,7 +89,7 @@ public class BaseClass {
 			capabilities.setCapability("deviceName", "WindowsPC");
             capabilities.setCapability("app", Url);
             capabilities.setCapability("ms:waitForAppLaunch", "10");
-	
+            
             driver = new WindowsDriver(new URL("http://127.0.0.1:4723"), capabilities);	 http://127.0.0.1:<4723>
 //            driver = new WindowsDriver(new URL("http://localhost:4723"), capabilities);
 			driver.manage().window().maximize();
@@ -376,6 +377,38 @@ public class BaseClass {
 			WebElement CameraClose = driver.findElementByName("Close Camera");
 			clickOn(CameraClose);
 		}
+		
+		
+		
+		/*
+		public static void LaunchAppoffline(String Url) throws InterruptedException {
+			try {
+				DesiredCapabilities capabilities = new DesiredCapabilities();
+				capabilities.setCapability("deviceName", "WindowsPC");
+	            capabilities.setCapability("app", Url);
+	            capabilities.setCapability("ms:waitForAppLaunch", "10");
+	            
+	            BrowserMobProxy proxy = new BrowserMobProxyServer();
+	            proxy.start();
+
+	            Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
+
+	            DesiredCapabilites capabilities = new DesiredCapabilities();
+	            capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+
+	            
+	            driver = new WindowsDriver(new URL("http://127.0.0.1:4723"), capabilities);	 http://127.0.0.1:<4723>
+//	            driver = new WindowsDriver(new URL("http://localhost:4723"), capabilities);
+				driver.manage().window().maximize();
+				driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+				tdriver.set(driver);
+
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}		
+		}
+		*/
+		
 	
 		
 		/*//Ref: https://stackoverflow.com/questions/14637107/runnable-jar-file-not-found-exception/14637240#14637240

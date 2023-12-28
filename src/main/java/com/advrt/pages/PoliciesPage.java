@@ -13,6 +13,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import com.advrt.pages.AD_UMPage;
 import com.advrt.base.BaseClass;
 
 public class PoliciesPage extends BaseClass {
@@ -40,6 +41,9 @@ public class PoliciesPage extends BaseClass {
 	WebElement InstrumentCalibWarningComboBox = null;
 	WebElement CancelButton = null;
 	WebElement ActiveDirectoryUser_btn = null;
+	WebElement AllowGuestloginCheckBox=null;
+	WebElement GuestUserTypeComboBox=null;
+	
 
 	// Page element Initialize method
 	private void initElements() {
@@ -71,6 +75,8 @@ public class PoliciesPage extends BaseClass {
 		// driver.findElementByAccessibilityId("InstrumentCalibWarning_A_ID3");
 		CancelButton = driver.findElementByAccessibilityId("CancelButton");
 		ActiveDirectoryUser_btn = driver.findElementByAccessibilityId("tgbLDAPUser");
+		AllowGuestloginCheckBox=driver.findElementByAccessibilityId("AllowGuestloginCheckBox");
+		GuestUserTypeComboBox=driver.findElementByAccessibilityId("UserTypeComboBox");
 
 	}
 
@@ -94,6 +100,8 @@ public class PoliciesPage extends BaseClass {
 		Passwords = null;
 		UserManagement_TAB = null;
 		ActiveDirectoryUser_btn = null;
+	 AllowGuestloginCheckBox=null;
+	GuestUserTypeComboBox=null;
 	}
 
 	/*----------------------
@@ -125,6 +133,12 @@ public class PoliciesPage extends BaseClass {
 		clickOn(UserManagement_TAB);
 		return new UserManagementPage();
 	}
+	
+	// Navigate to UM page
+		public UserManagementPage_Manual click_UMHeader1() throws IOException {
+			clickOn(UserManagement_TAB);
+			return new UserManagementPage_Manual();
+		}
 
 	// click on clickOn(pwdcombobox);
 	public void PWDLengthBox_Click() throws InterruptedException {
@@ -200,7 +214,7 @@ public class PoliciesPage extends BaseClass {
 	}
 
 	public boolean IsUserIdEntryCheckBox_Enabled() {
-		return checkboxSelectStatus(DisplayUserIdEntryCheckBox);
+		return checkboxSelectStatus(DisplayUserIdEntryCheckBox);//DisplayUserIdEntryCheckBox
 	}
 
 //	public void UserIdEntryCheckBox_Status() throws InterruptedException {
@@ -276,6 +290,14 @@ public class PoliciesPage extends BaseClass {
 
 	public boolean UserLoginPopupVisible() throws InterruptedException {
 		WebElement LgInPopup = driver.findElementByName("Enter User Credentials");
+		return IsElementVisibleStatus(LgInPopup);
+	}
+	
+	
+	public boolean ADUserLoginPopupVisible() throws InterruptedException {
+		//WebElement LgInPopup = driver.findElementByName("Enter User Credentials");//LDAPCredentialTextBlock
+		WebElement LgInPopup = driver.findElementByName("Enter ActiveDirectory User Credentials");
+		Thread.sleep(1000);
 		return IsElementVisibleStatus(LgInPopup);
 	}
 
@@ -503,8 +525,9 @@ public class PoliciesPage extends BaseClass {
 	//LDAPCloseButton
 	
 	
-	public void Click_LDAPCloseButton_Btn() {
+	public void Click_LDAPCloseButton_Btn() throws InterruptedException {
 		WebElement LDAPLoginPopup = driver.findElementByAccessibilityId("LDAPCloseButton");
+		Thread.sleep(500);
 		clickOn(LDAPLoginPopup);
 	}
 		
@@ -521,11 +544,14 @@ public class PoliciesPage extends BaseClass {
 		if (Atype.equals(AType1.getText())) {
 			clickOn(AType1);
 			Thread.sleep(500);
-		} else if (AType2.equals(AType2.getText())) {
+		} else if (Atype.equals(AType2.getText())) {
 			clickOn(AType2);
 		}
 	}
-
+	
+	
+	
+	
 	// getText from Authentication Type ComboBox
 
 	public String getText_ATypeComboBox() {
@@ -600,7 +626,9 @@ public class PoliciesPage extends BaseClass {
 		WebElement connectionStatus = driver.findElementByAccessibilityId("textblockConnStatus");
 		return FetchText(connectionStatus);
 	}
-
+	
+	
+	
 	
 	
 	
@@ -649,6 +677,14 @@ public class PoliciesPage extends BaseClass {
 		return FetchText(ADDomainName);
 	}
 	
+	// Navigate to ADUM page
+			public AD_UMPage click_AD_UMHeader() throws IOException, InterruptedException {
+			clickOn(UserManagement_TAB);
+			Thread.sleep(500);
+			return new AD_UMPage();
+				
+			}
+	
 	
 	//click on Accept btn 
 	
@@ -656,4 +692,153 @@ public class PoliciesPage extends BaseClass {
 		WebElement acceptbtn = driver.findElementByAccessibilityId("Button1");
 		clickOn(acceptbtn);
 	}
+	
+	
+	
+	public void selectListUser(String user) throws InterruptedException {
+		List<WebElement> users=driver.findElementByAccessibilityId("UserListScrollViewer").findElements(By.className("ListBox"));
+		for(int i=0;i<=users.size();i++) {
+			System.out.println(users.size());
+		List<WebElement> usersinfo=driver.findElementByAccessibilityId("UsersListBox").findElements(By.className("ListBoxItem"));
+		for(int j=0;j<=usersinfo.size();j++) {
+			String str=users.get(j).getText();
+			if(str.equals(user)) {
+				users.get(j).click();
+				Thread.sleep(1000);
+				break;
+			}else {
+				Actions ac= new Actions(driver);
+				ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();}
+			}
+		}
+		}
+		
+
+	
+	//AllowGuestloginCheckBox
+	
+	public void click_on_AllowGuest() {
+		clickOn(AllowGuestloginCheckBox);
+	}
+	
+	public void click_on_AllowGuest2() {
+		Actions act=new Actions(driver);
+		act.doubleClick(AllowGuestloginCheckBox);
+		
+	}
+	
+	public boolean IsAllowGuestEnabled() {
+		return IsElementEnabledStatus(AllowGuestloginCheckBox);
+	}
+	
+	public boolean IsGuestUsertypeEnabled() {
+		return IsElementEnabledStatus(GuestUserTypeComboBox);
+	}
+	
+	
+	public void selectGuestuser(int i) {
+		clickOn(GuestUserTypeComboBox);
+		List<WebElement> user=driver.findElementByAccessibilityId("UserTypeComboBox").findElements(By.className("ComboBoxItem"));
+		user.get(i).click();
+	}
+
+	public AD_UMPage click_YesBtn_popup() throws IOException {
+		
+		WebElement Yes_Btn = driver.findElementByAccessibilityId("Button1");
+		clickOn(Yes_Btn);
+		return new AD_UMPage();
+	}
+	
+	
+	
+	public boolean IsAllowGuestuser_checked() {
+		return checkboxSelectStatus(GuestUserTypeComboBox);//checkboxSelectStatus
+		}
+	
+	
+	//====Ruchika
+	
+	public UserManagementPage_Manual ClickUserManagement_TAB1() throws InterruptedException, IOException {
+		clickOn(UserManagement_TAB);
+		return new UserManagementPage_Manual();
+	}
+	
+	
+	public ADUM_page ClickUM_Tab_AD() throws InterruptedException, IOException {
+		clickOn(UserManagement_TAB);
+		return new ADUM_page();
+	}
+	
+	
+	public UserManagementPage_Manual click_UmHeader() throws IOException {
+		clickOn(UserManagement_TAB);
+		return new UserManagementPage_Manual();
+	}
+	
+///------------checking
+	
+	
+	
+	public boolean IspwdlengthcheckboxEnabled() {
+		return IsElementEnabledStatus(pwdcheckbox);
+	}
+	
+	
+	public boolean IsExpirepwdcheckboxEnabled() {
+		return IsElementEnabledStatus(ExpirePasswordCheckBox);
+	}
+	
+		
+	public boolean IsDisableUserafterAttemptsCheckBoxEnabled() {
+		return IsElementEnabledStatus(DisableUserafterAttemptsCheckBox);
+	}
+	
+	
+	public boolean IsUserIdEntryCheckBox_Enabled1() {
+		return IsElementEnabledStatus(DisableUserafterAttemptsCheckBox);
+	}
+	
+
+
+
+	public boolean Is_ActiveDirectoryUserbutton_Enabled() {
+		return IsElementEnabledStatus(ActiveDirectoryUser_btn);
+	}
+	
+	
+	
+	
+	
+	//is ADlogin pop up displaying 
+	public boolean is_ADLoginpopup_visible() {
+	WebElement ADLgInPopup = driver.findElementByName("Enter ActiveDirectory User Credentials");
+	return IsElementVisibleStatus (ADLgInPopup);
+	}
+	
+	
+
+	//btnRetry
+	
+	public boolean  is_UpdateBtnvisible() {
+		WebElement update_Btn = driver.findElementByAccessibilityId("btnRetry");
+		return IsElementVisibleStatus(update_Btn);
+	}
+	
+	
+	//click on update btn
+	
+	public void  click_UpdateBtn() {
+		WebElement update_Btn = driver.findElementByAccessibilityId("btnRetry");
+		clickOn(update_Btn);
+	}
+	
+	
+	
+	
+	
+	
+	
 }
+	
+	
+

@@ -297,5 +297,37 @@ public class Equipment_IRTDHubPage extends BaseClass {
 		WebElement RefreshButton = driver.findElementByAccessibilityId("RefreshButton");
 		clickOn(RefreshButton);
 	}
+	
+	
+	
+	// Select the IRTD serial number in IRTDHubPage
+		public void Click_IrtdSerialNo1(String SN) throws InterruptedException, IOException {
+
+			List<WebElement> IrtdList = driver.findElementByAccessibilityId("loggersGrid")
+					.findElements(By.className("GridViewItem"));
+			// List<WebElement> IrtdSerial = driver.findElementByName("Serial No:
+			// ").findElements(By.className("TextBlock"));
+			// System.out.println("Total IRTD Equipments created: " + IrtdList.size());
+
+			// Loop for the different serial number created
+			for (int i = 0; i < IrtdList.size(); i++) {
+				// System.out.println("serial number : " + IrtdList.get(i).getText());
+
+				List<WebElement> IRTDTileInfoList = IrtdList.get(i).findElements(By.className("TextBlock"));
+				// System.out.println(" IRTD tile info count: " + IRTDTileInfoList.size());
+
+				// Fetch all the contents of the Asset tile
+				for (int j = 0; j < IRTDTileInfoList.size(); j++) {
+					// System.out.println("AssetTileInfo: "+IRTDTileInfoList.get(j).getText());
+
+					if (IRTDTileInfoList.get(j).getText().contains(SN)) {
+						clickOn(IRTDTileInfoList.get(j));
+						Thread.sleep(1000);
+						break;
+					}
+				}
+			}
+			
+		}
 
 }
