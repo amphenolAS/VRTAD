@@ -157,7 +157,7 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 
 	@Test(priority = 0, description = "Audit01-Verify if audit record displayed for the successful login")
 
-	public void AD01() throws InterruptedException, IOException {
+	public void Audit01() throws InterruptedException, IOException {
 		extentTest = extent
 				.startTest("Audit01-Verify if audit record displayed for the successful login");
 		SoftAssert sa = new SoftAssert();

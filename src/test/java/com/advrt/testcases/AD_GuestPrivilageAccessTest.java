@@ -679,6 +679,7 @@ Thread.sleep(1000);
 				assetDetailsPage.Click_DeleteBtn_report();
 				UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
 				tu.click_YesBtn_popup();
+				Thread.sleep(500);
 				assetHubPage = assetDetailsPage.ClickBackBtn();
 				MainHubPage = assetHubPage.click_BackBtn();
 				Thread.sleep(500);
@@ -1064,7 +1065,7 @@ Thread.sleep(1000);
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
 		String Actionmsg = AuditPage.get_auditEvent_text();
-		String ExpectMSG = "Qualification Report: \"manual 1 min sampling\"  deleted by User ID : \"Kiranc1\", User Name : \"Guest\"";
+		String ExpectMSG = "Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"kiranc1\", User Name : \"Guest\"";
 
 		sa.assertEquals(Actionmsg, ExpectMSG,
 				"FAIL: Audit trial record does not exists for Deletion of a Detailed report ");

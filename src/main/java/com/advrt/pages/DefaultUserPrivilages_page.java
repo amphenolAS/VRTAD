@@ -635,7 +635,21 @@ public class DefaultUserPrivilages_page extends BaseClass {
 
           
             		
-            		
+            		// click on update button
+
+            	       public ADUM_page clickOn_UpdateBtn(String un, String pwd, String txt) throws IOException, InterruptedException {
+
+            	              WebElement btnconnect = driver.findElementByAccessibilityId("btnConnect");
+            	              clickOn(btnconnect);
+
+            	              tu.UserLoginPopup_UserCommentTextBox(un, pwd,txt);
+
+            	              Thread.sleep(1000);
+            	              return new ADUM_page();
+
+            	       }
+            	     
+		
             		
             		
 }

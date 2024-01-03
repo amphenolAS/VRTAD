@@ -211,7 +211,7 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 
 	@Test(description = "AD_SYNCIN_001 Verify the Audit trail entry  while login with the  Active Directory Admin  User")
 
-	public void AD_Equipment_Audit_001() throws InterruptedException, AWTException, IOException {
+	public void AD_SYNCIN_Audit_001() throws InterruptedException, AWTException, IOException {
 		extentTest = extent
 				.startTest("AD_SYNCIN_001 Verify the Audit trail entry  while login with the  Active Directory Admin  User");
 		
@@ -229,7 +229,7 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 	
 	@Test(description = "AD_SYNCIN_002 Verify the Audit trail entry while peforming SYNCIN operation with the  Active Directory Admin  User")
 
-	public void AD_Equipment_Audit_002() throws InterruptedException, AWTException, IOException {
+	public void AD_SYNCIN_Audit_002() throws InterruptedException, AWTException, IOException {
 		extentTest = extent
 				.startTest("AD_SYNCIN_002 Verify the Audit trail entry while peforming SYNCIN operation with the  Active Directory Admin  User");
 		
@@ -271,7 +271,7 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 	
 		@Test(description = "AD_SYNCIN_003 Verify the no Audit trail entry is recoreded related to users when peforming SYNCIN operation when User check box is unckecked with the  Active Directory Admin  User")
 
-		public void AD_SYNCIN_003() throws InterruptedException, AWTException, IOException {
+		public void AD_SYNCIN_Audit_003() throws InterruptedException, AWTException, IOException {
 			extentTest = extent
 					.startTest("AD_SYNCIN_003 Verify the no Audit trail entry is recoreded related to users when peforming SYNCIN operation when User check box is unckecked with the  Active Directory Admin  User");
 			

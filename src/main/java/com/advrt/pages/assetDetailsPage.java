@@ -1456,6 +1456,34 @@ public class assetDetailsPage extends BaseClass {
 
 	}
 	
+	//Button1
+		public void clickYes_delete() throws InterruptedException, IOException {
+			WebElement Yesbtn = driver.findElementByAccessibilityId("Button1");
+			clickOn(Yesbtn);
+			
+		}
+		
+		// CopyToDrive Btn in QUAL sub group
+		public void click_Qual_CopyToDrive_Btn() throws InterruptedException {
+			WebElement CopyQualTo_Drive = driver.findElementByAccessibilityId("CopyQualToDrive");
+			clickOn(CopyQualTo_Drive);
+			Thread.sleep(2000);
+		}
+		
+		// Click the Copy to drive button
+		public void click_Setup_CopyToDrive() throws InterruptedException {
+			WebElement Copytodrive_Btn = driver.findElementByAccessibilityId("CopySetupToDriveButton");
+			clickOn(Copytodrive_Btn);
+			Thread.sleep(2000);
+		}
+	
+	// CopyToDrive Btn in Setup Reports
+		public void click_Report_CopyToDrive_Btn() throws InterruptedException {
+			WebElement CopyToDrive_Report = driver.findElementByAccessibilityId("CopyReportToDrive");
+			clickOn(CopyToDrive_Report);
+			Thread.sleep(2000);
+		}
+	
 	
 	// Click the Yes button of the popup message
 		public void click_YesBtn_popup() throws InterruptedException {
@@ -1473,6 +1501,35 @@ public class assetDetailsPage extends BaseClass {
 			}
 		}
 
+		public void Select_ReportFile1(String SR) throws InterruptedException, IOException {
+			
+//			WebElement FilesList = driver.findElementByClassName("ListView");
+//			clickOn(FilesList);
+			List<WebElement> REPORTList = driver.findElementByClassName("ListView")
+					.findElements(By.className("ListViewItem"));
+	// Loop for the different serial number created
+			for (int i = 0; i < REPORTList.size(); i++) {
+				// System.out.println("serial number : " + REPORTList.get(i).getText());
+				List<WebElement> REPORTInfoList = REPORTList.get(i).findElements(By.className("TextBlock"));
+
+				// System.out.println(" setup info count: " + SetupTileInfoList.size());
+				// Fetch all the contents of the Asset tile
+				for (int j = 0; j < REPORTInfoList.size(); j++) {
+					//System.out.println("setup TileInfo: "+REPORTInfoList.get(j).getText());
+
+					
+					if (REPORTInfoList.get(j).getText().equals(SR)) {
+						clickOn(REPORTInfoList.get(j));
+						Thread.sleep(1000);
+						break;
+					
+					}
+				}
+			}
+			
+		}
+
+		
 		
 		// verify the presence of the setupname
 		public String SetupName_Visible1() {

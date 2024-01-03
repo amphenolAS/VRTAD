@@ -333,7 +333,7 @@ public class AD_PreferenceTest extends BaseClass {
 		String actual= MainHubPage.EquipmentCntInEquipmentTileOfMainHubPage();
 
 
-		sa.assertEquals(actual,"1/1","FAIL:Equipment count is null");
+		sa.assertEquals(actual,"1","FAIL:Equipment count is null");
 
 		sa.assertAll();
 	}

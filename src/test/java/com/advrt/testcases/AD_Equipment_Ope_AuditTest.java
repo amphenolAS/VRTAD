@@ -317,11 +317,11 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 	
    //AD_Equipment_Audit _025 Verify the Audit trail entry while Modifying Equipment ID with the  Active Directory Operator  User
 	
-	@Test( description = "AD_Equipment_Audit _015 Verify the Audit trail entry while Modifying Equipment ID with the  Active Directory Operator  User")
+	@Test( description = "AD_Equipment_Audit _025 Verify the Audit trail entry while Modifying Equipment ID with the  Active Directory Operator  User")
 
 	public void AD_Equipment_Audit_025() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
-				"AD_Equipment_Audit _015 Verify the Audit trail entry while Modifying Equipment ID with the  Active Directory Operator  User");
+				"AD_Equipment_Audit _025 Verify the Audit trail entry while Modifying Equipment ID with the  Active Directory Operator  User");
 
 		SoftAssert sa = new SoftAssert();
 		EquipmentHubPage = MainHubPage.ClickEquipmentTile();

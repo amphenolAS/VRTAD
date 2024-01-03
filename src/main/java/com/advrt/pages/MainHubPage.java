@@ -32,7 +32,7 @@ public class MainHubPage extends BaseClass {
 		//MainUILoggedinUserTitle = driver.findElementByAccessibilityId("UserDesignationTextBlock");
 		//MainUILoggedinUserName = driver.findElementByAccessibilityId("UserNameTextBlock");
 		MainUIAdminTile = driver.findElementByName("Admin");
-		//MainUIPageTitle = driver.findElementByName("ValProbe RT System");
+		MainUIPageTitle = driver.findElementByName("ValProbe RT System");
 		MainUIEquipmentTitle = driver.findElementByName("Equipment");
 		FileManagementTitle = driver.findElementByName("File Management");
 		AuditTitle = driver.findElementByName("Audit");

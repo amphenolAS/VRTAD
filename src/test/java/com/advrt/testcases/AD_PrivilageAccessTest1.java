@@ -751,7 +751,6 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 			Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn();
 			Setup_GroupSensorsPage.click_DfltGrp_Btn();
 			Setup_CalculationsPage = Setup_GroupSensorsPage.Click_CalculationsTab();
-			//Setup_CalVerParametersPage=	Setup_CalculationsPage.Click_NxtBtn();
 			Setup_QualParamPage=	Setup_CalculationsPage.Click_NxtBtn();
 			Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 			Setup_ReviewPage.click_Save_Btn("Manual", "Yes", "kiranc1","Amphenol@123","usercommitted.");
@@ -786,9 +785,7 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 			DefaultUserPrivilages_page.Click_ArchieveData();
 			DefaultUserPrivilages_page.NewSaveButton();
 			UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "usercomitted");
-			//AD_UMPage.Select_grp();
 			AD_UMPage.select_grp("QA Testers2");
-			//AD_UMPage.select_2grp("QA Testers2");
 			AD_UMPage.select_UserTitle("Manager");
 			AD_UMPage.select_UserType1("all");
 			AD_UMPage.clickSavebtn();
@@ -932,8 +929,9 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 			EquipmentHubPage=NewEquipmentCreation_Page.ClickBackBtn();
 			Thread.sleep(500);
 			Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
-			Thread.sleep(500);
+			Thread.sleep(1000);
 			Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EL011c");
+			Thread.sleep(500);
 			Equipment_IRTDDetailspage.clickDeleteEquipmentIcon();
 			UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "usercomitted");
 			Thread.sleep(500);
@@ -1193,6 +1191,7 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("all");
 		AD_UMPage.clickSavebtn();
+		Thread.sleep(500);
 		UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "usercomitted");
 		tu.click_OK_popup();
 		MainHubPage=AD_UMPage.click_BackBtn();

@@ -1179,8 +1179,8 @@ public void PA0027() throws InterruptedException, IOException, ParseException {
 	AD_UMPage.select_UserTitle("Manager");
 	AD_UMPage.select_UserType1("NewUserType");
 	DefaultUserPrivilages_page=AD_UMPage.newUserType("User");
-	DefaultUserPrivilages_page.Click_Create_UserManagement();//while running individually must uncommit
-	DefaultUserPrivilages_page.Click_Create_Equipmet();// while running individually must uncommit
+	//DefaultUserPrivilages_page.Click_Create_UserManagement();//while running individually must uncommit
+	//DefaultUserPrivilages_page.Click_Create_Equipmet();// while running individually must uncommit
 	DefaultUserPrivilages_page.Click_ModifyEquipment();
 	DefaultUserPrivilages_page.NewSaveButton();
 	UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");

@@ -740,7 +740,7 @@ public class AD_Asset_Sup_AuditTest extends BaseClass{
 		
 		@Test( description = "AD_Asset_ Audit 040 Verify the Audit trail entry after modifying Asset Validation frequency with Months option form drop down with the  Active Directory Supervisor   User")
 
-		public void AD_Asset_Audit_016() throws InterruptedException, AWTException, IOException {
+		public void AD_Asset_Audit_040() throws InterruptedException, AWTException, IOException {
 			extentTest = extent.startTest("AD_Asset_ Audit 040 Verify the Audit trail entry after modifying Asset Validation frequency with Months option form drop down with the  Active Directory Supervisor   User");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_032");
@@ -844,7 +844,7 @@ public class AD_Asset_Sup_AuditTest extends BaseClass{
 		
 		@Test(description = "AD_Asset_ Audit 043 Verify the Audit trail entry after Deleting  Asset Description with the  Active Directory Supervisor   User")
 
-		public void AD_Asset_Audit_019() throws InterruptedException, AWTException, IOException {
+		public void AD_Asset_Audit_043() throws InterruptedException, AWTException, IOException {
 			extentTest = extent.startTest(
 					"AD_Asset_ Audit 043 Verify the Audit trail entry after Deleting  Asset Description with the  Active Directory Supervisor   User");
 

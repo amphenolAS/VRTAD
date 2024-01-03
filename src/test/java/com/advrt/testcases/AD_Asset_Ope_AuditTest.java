@@ -644,6 +644,7 @@ public class AD_Asset_Ope_AuditTest extends BaseClass{
 	assetCreationPage.clickSaveBtn();
 	Thread.sleep(500);
 	tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
+	Thread.sleep(500);
 	tu.click_Close_alertmsg();
 	Thread.sleep(500);
 	assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -886,7 +887,7 @@ sa.assertAll();
 		
 		
 		@Test( description = "AD_Asset_ Audit 070 Verify the Audit trail entry after Changing Asset image with the  Active Directory Operator   User")
-		public void AD_Asset_Audit_045 ()
+		public void AD_Asset_Audit_070 ()
 				throws InterruptedException, ParseException, AWTException, IOException {
 			extentTest = extent.startTest("AD_Asset_ Audit 070 Verify the Audit trail entry after Changing Asset image with the  Active Directory Operator   User");
 			SoftAssert sa = new SoftAssert();
@@ -984,7 +985,7 @@ sa.assertAll();
 		//AD_Asset_ Audit 071 Verify the Audit trail entry after Deleting  Asset image with the  Active Directory Operator   User
 
 		@Test(description = "AD_Asset_ Audit 071 Verify the Audit trail entry after Deleting  Asset image with the  Active Directory Operator   User")
-		public void AD_Asset_Audit_070() throws InterruptedException, ParseException, AWTException, IOException {
+		public void AD_Asset_Audit_071() throws InterruptedException, ParseException, AWTException, IOException {
 			extentTest = extent.startTest(
 					"AD_Asset_ Audit 071 Verify the Audit trail entry after Deleting  Asset image with the  Active Directory Operator   User");
 

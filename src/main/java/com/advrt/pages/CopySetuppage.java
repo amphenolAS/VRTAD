@@ -237,5 +237,16 @@ public class CopySetuppage extends BaseClass {
 		WebElement FilterBtn = driver.findElementByAccessibilityId("PART_FilterButton");
 		clickOn(FilterBtn);
 	}
+	
+	public void select_alertOption(String choice) {
+        WebElement Yes_Alert_btn = driver.findElementByName("Yes");
+        WebElement No_Alert_btn = driver.findElementByName("No");
+        if (choice.equalsIgnoreCase("Yes")) {
+               clickOn(Yes_Alert_btn);
+ } else {
+               clickOn(No_Alert_btn);
+        }
+ }
+
 
 }

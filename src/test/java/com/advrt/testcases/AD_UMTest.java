@@ -171,7 +171,7 @@ public class AD_UMTest extends BaseClass{
 	
  //UM20 - Verify if User Management screen displays New User creation when Active Directory is not activated	
 
-	@Test(groups = { "Sanity",
+	@Test(priority=0,groups = { "Sanity",
 			"Regression" }, description = "UM20 - Verify if User Management screen displays New User creation when Active Directory is not activated")
 
 	public void AD20() throws InterruptedException, AWTException, IOException {
@@ -190,7 +190,7 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 	// Administrator
 	// if Active Directory user as System Administrator exists in the application
 
-	@Test(groups = { "Sanity",
+	@Test(priority=1,groups = { "Sanity",
 			"Regression" }, description = "UM21-Verify if System able to create the first manual user as System Administrator if Active Directory user as System Administrator exists in the application")
 
 	public void UM21() throws InterruptedException, AWTException, IOException {
@@ -215,7 +215,7 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 	
 	// UM22-Verify if user able to create the user with the Operator Privileges
 
-	@Test(groups = { "Sanity",
+	@Test(priority=2,groups = { "Sanity",
 	"Regression" }, description = "UM22-Verify if user able to create the user with the Operator Privileges ")
 
 	public void UM22() throws InterruptedException, AWTException, IOException {
@@ -243,7 +243,7 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 	
 	//UM23-Verify if user able to create the user with the Supervisor Privileges 
 	
-	@Test(groups = { "Sanity",
+	@Test(priority=3,groups = { "Sanity",
 			"Regression" }, description = "UM23-Verify if user able to create the user with the Supervisor Privileges")
 
 	public void UM23() throws InterruptedException, AWTException, IOException {
@@ -267,7 +267,7 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 	
 	//UM24-Verify if user able to create the user with the System Administrator Privileges 
 		
-		@Test(groups = { "Sanity",
+		@Test(priority=4,groups = { "Sanity",
 				"Regression" }, description = "UM24-Verify if user able to create the user with the System Administrator Privileges")
 
 		public void UM24() throws InterruptedException, AWTException, IOException {
@@ -284,7 +284,7 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 	//UM25-Verify if user able to create the user with the Create New User type Privileges 
 		
 		
-	@Test(groups = { "Sanity",
+	@Test(priority=5,groups = { "Sanity",
 			"Regression" }, description = "UM25-Verify if user able to create the user with the Create New User type Privileges")
 
 	public void UM25() throws InterruptedException, AWTException, IOException {
@@ -303,12 +303,13 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 // UM02-Verify if the different groups are displayed in the Select group
 // dropdown
 
-@Test(groups = { "Sanity","Regression" }, description = "UM02-Verify if the different groups are displayed in the Select group dropdown")
+@Test(priority=6,groups = { "Sanity","Regression" }, description = "UM02-Verify if the different groups are displayed in the Select group dropdown")
 
 public void AD02() throws InterruptedException, AWTException {
 	extentTest = extent.startTest("UM02-Verify if the different groups are displayed in the Select group dropdown");
 	SoftAssert sa = new SoftAssert();
 
+	
 	ADUM_page.select_grp("QA Testers");
 	String Gname = ADUM_page.Fetch_Groupname();
 	sa.assertEquals(Gname, "QA Testers", "FAIL: Group Name is not available");
@@ -321,7 +322,7 @@ public void AD02() throws InterruptedException, AWTException {
 
 //ClickOn_SelectUsers
 
-@Test(groups = { "Sanity",
+@Test(priority=7,groups = { "Sanity",
 		"Regression" }, description = "UM02-Verify if the different groups are displayed in the Select group dropdown")
 
 public void AD03() throws InterruptedException, AWTException {
@@ -330,6 +331,7 @@ public void AD03() throws InterruptedException, AWTException {
 
 	ADUM_page.select_grp("QA Testers");
 	ADUM_page.select_user(1);
+	Thread.sleep(500);
 	sa.assertEquals(ADUM_page.Is_SelectUser_available(), true, "FAIL: select user option is not available");
 
 	sa.assertAll();
@@ -338,7 +340,7 @@ public void AD03() throws InterruptedException, AWTException {
 //UM04-Verify if System able to configure the first group as System Administrator if manual user as
 //System Administrator exists in the application
 
-@Test(groups = { "Sanity",
+@Test(priority=8,groups = { "Sanity",
 		"Regression" }, description = "UM04-Verify if System able to configure the first group as System Administrator if manual user as System Administrator exists in the application")
 
 public void AD04() throws InterruptedException, AWTException, IOException {

@@ -43,7 +43,6 @@ public class Equipment_IRTDDetailspage extends BaseClass {
 	// Button1
 	private void initElements() {
 		IRTDHeader = driver.findElementByAccessibilityId("EquipmentsHeaderTextBlock");
-		
 		DocumentsButton = driver.findElementByAccessibilityId("DocumentsButton");
 		UploadDocs_Btn = driver.findElementByAccessibilityId("UploadDocumentsButton");
 		DocsTile_Count = driver.findElementByAccessibilityId("DocumentsCountTextBlock");
