@@ -462,8 +462,29 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 	}
 	
 	
-	//Audit13-Verify if audit should be recorded when the group user type modified from one user type to another user type
 	
+	//Audit13-Verify if audit should be recorded when the group is unmapped
+		@Test(priority = 11, description = "Audit13-Verify if audit should be recorded when the group is unmapped")
+	 
+		public void Audit13() throws InterruptedException, IOException, AWTException {
+			extentTest = extent.startTest("Audit13-Verify if audit should be recorded when the group is unmapped");
+
+	 
+			System.out.println("This Tc is covered in AD_UMtest2  class file ");
+	 
+		}
+
+	 
+		//Audit14-Verify if audit should be recorded when the user login to the application as Allow Guest Login user
+		@Test(priority = 12, description = "Audit14-Verify if audit should be recorded when the user login to the application as Allow Guest Login user")
+	 
+		public void Audit14() throws InterruptedException, IOException, AWTException {
+			extentTest = extent.startTest("Audit14-Verify if audit should be recorded when the user login to the application as Allow Guest Login user");
+
+	 
+			System.out.println("This Tc is covered in AD Allow Guest Login  class file ");
+	 
+		}	
 	
 	
 }

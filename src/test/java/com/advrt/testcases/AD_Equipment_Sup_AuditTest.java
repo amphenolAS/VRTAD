@@ -483,7 +483,7 @@ public class AD_Equipment_Sup_AuditTest  extends BaseClass{
 		String ExpectMSG1 = "Equipment Image field of \"E018\" deleted by  User ID : \"Ruchika1\" , User Name : \"Ruchika1\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG1, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 	
-		//
+		
 		MainHubPage = AuditPage.Click_BackBtn();
 		EquipmentHubPage = MainHubPage.ClickEquipmentTile();
 		
@@ -525,7 +525,7 @@ public class AD_Equipment_Sup_AuditTest  extends BaseClass{
 	
 	@Test(description = "AD_Equipment_Audit _020 Verify the Audit trail entry while Adding new  Equipment Image with the  Active Directory Supervisor  User")
 
-	public void AD_Equipment_Audit_009() throws InterruptedException, AWTException, IOException {
+	public void AD_Equipment_Audit_020() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"AD_Equipment_Audit _020 Verify the Audit trail entry while Adding new  Equipment Image with the  Active Directory Supervisor  User");
 
@@ -574,7 +574,7 @@ public class AD_Equipment_Sup_AuditTest  extends BaseClass{
 		MainHubPage = EquipmentHubPage.ClickBackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Kaveri.Bedar\\git\\ADVRT\\src\\test\\resources\\TestData\\AutoLogs\"";
+		String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Kaveri.Bedar\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG2, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 	
 		sa.assertAll();	

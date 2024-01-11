@@ -1052,8 +1052,142 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			 
 		}
 			
-	
+
 		
 		
 		
-}
+		
+				
+		//CA012-Verify if the Asset has been created with copied setups
+			
+			@Test(groups = { "Regression" }, description = "CA012 -Verify if the Asset has been created with copied setups")
+
+			public void CA012() throws InterruptedException, IOException, AWTException, ParseException {
+				extentTest = extent
+						.startTest("CA012 -Verify if the Asset has been created with copied setups");
+				SoftAssert sa = new SoftAssert();
+				assetHubPage = MainHubPage.Click_AssetTile2();
+				assetCreationPage = assetHubPage.Click_AddAssetButton();
+				assetCreationPage.assetCreation("AstCA012", "Asset052", "HeatBath", "AAS", "HYBD");
+				tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
+				tu.click_Close_alertmsg();
+				assetHubPage = assetCreationPage.clickBackBtn();
+				assetDetailsPage = assetHubPage.click_assetTile("AstCA012");
+				Copyassetpage = assetDetailsPage.clickCopyasset();
+
+				Copyassetpage.Enter_NewAssetNameField("CA012q");
+				Copyassetpage.Enter_NewAssetIDField("12q");
+				Copyassetpage.click_copy_Btn();
+
+			    tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "copyassetdone");
+			    
+				assetDetailsPage = Copyassetpage.clickBack_Button();
+				assetHubPage = assetDetailsPage.ClickBackBtn();
+	            MainHubPage = assetHubPage.click_BackBtn();
+				
+				AuditPage = MainHubPage.ClickAuditTitle();
+				Thread.sleep(2000);
+
+				sa.assertEquals(AuditPage.get_auditEvent_text(),
+						"Asset : \"CA012q\" is created by User Id : \"Ruchika1\" , User Name : \"Ruchika1\".");
+				
+				sa.assertAll();
+			}
+
+			
+			// CA011-Verify the on-click functionality of the copy button in Copy Asset
+			// screen
+
+			@Test(groups = {
+					"Regression" }, description = "CA011-Verify the on-click functionality of the copy button in Copy Asset screen")
+
+			public void CA011() throws InterruptedException, IOException, AWTException, ParseException {
+				extentTest = extent
+						.startTest("CA011-Verify the on-click functionality of the copy button in Copy Asset screen");
+
+				System.out.println("This TC has covered in CA010 ");
+
+			}
+			
+			
+			// CA013-Verify the date and time of the copied setups in the copied Asset
+
+			@Test(groups = {
+					"Regression" }, description = "CA013-Verify the date and time of the copied setups in the copied Asset")
+
+			public void CA013() throws InterruptedException, IOException, AWTException, ParseException {
+				extentTest = extent.startTest("CA013-Verify the date and time of the copied setups in the copied Asset");
+
+				System.out.println("This TC has covered in CA010 ");
+
+	         }
+			
+			
+			//CA014-Verify if Audit trial record exists for copy asset.
+			
+			@Test(groups = {
+					"Regression" }, description = "CA014-Verify if Audit trial record exists for copy asset")
+
+			public void CA014() throws InterruptedException, IOException, AWTException, ParseException {
+				extentTest = extent.startTest("CA014-Verify if Audit trial record exists for copy asset");
+
+				System.out.println("This TC has covered in CA010 ");
+
+	         }
+			
+			//CA015-Verify user is unable to delete the copied asset if it has any files in it
+			
+			
+			
+			@Test(groups = { "Regression" }, description = "CA015-Verify user is unable to delete the copied asset if it has any files in it")
+
+			public void CA015() throws InterruptedException, IOException, AWTException, ParseException {
+				extentTest = extent
+						.startTest("CA015-Verify user is unable to delete the copied asset if it has any files in it");
+				SoftAssert sa = new SoftAssert();
+				assetHubPage = MainHubPage.Click_AssetTile2();
+				assetCreationPage = assetHubPage.Click_AddAssetButton();
+				assetCreationPage.assetCreation("Ast015", "A15", "HeatBath", "AAS", "HYBD");
+				tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
+				tu.click_Close_alertmsg();
+				assetHubPage = assetCreationPage.clickBackBtn();
+				assetDetailsPage = assetHubPage.click_assetTile("Ast015");
+				Copyassetpage = assetDetailsPage.clickCopyasset();
+
+				Copyassetpage.Enter_NewAssetNameField("CA015");
+				Copyassetpage.Enter_NewAssetIDField("15");
+				Copyassetpage.click_copy_Btn();
+
+			    tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "copyassetdone");
+			    
+				assetDetailsPage = Copyassetpage.clickBack_Button();
+				assetDetailsPage.Click_DeleteAsset();
+				tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "deleteast");
+				assetHubPage = assetDetailsPage.Delete_ClickYesBtn();
+				MainHubPage = assetHubPage.click_BackBtn();
+				AuditPage = MainHubPage.ClickAuditTitle();
+				Thread.sleep(2000);
+				String Actionmsg = AuditPage.get_auditEvent_text();
+				String ExpectMSG = "Asset: \"Ast015\" is deleted by User Id : \"Ruchika1\" , User Name : \"Ruchika1\"";
+				sa.assertEquals(Actionmsg, ExpectMSG, "FAIL: Audit trial record does not exists for Delete asset activity");
+				sa.assertAll();
+				
+			}
+			
+			//CA016-Verify user is able to delete the copied asset if it has no files in it
+			
+			@Test(groups = { "Regression" }, description = "CA016-Verify user is able to delete the copied asset if it has no files in it")
+
+			public void CA016() throws InterruptedException, IOException, AWTException, ParseException {
+				extentTest = extent
+						.startTest("CA016-Verify user is able to delete the copied asset if it has no files in it");
+				
+				System.out.println("This has covered in CA015");
+				
+			}
+			
+			
+	}
+		
+		
+		

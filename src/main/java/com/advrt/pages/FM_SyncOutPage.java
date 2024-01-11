@@ -10,6 +10,7 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.Driver;
+import java.io.File;
 
 import org.openqa.selenium.WebElement;
 
@@ -104,11 +105,7 @@ public class FM_SyncOutPage extends BaseClass {
                               SyncOutTextBox.clear();
                }
                
-               public  FM_SyncOutwithNoAssets ClickSyncOutOkBtn1() throws InterruptedException, IOException {
-                              clickOn(SyncOutOKbtn);
-                              return new FM_SyncOutwithNoAssets();
-                              
-               }
+               
                public  FM_SyncOutwithAsset ClickSyncOutOkBtn2() throws InterruptedException, IOException {
                               clickOn(SyncOutOKbtn);
                               return new FM_SyncOutwithAsset();
@@ -186,5 +183,35 @@ public class FM_SyncOutPage extends BaseClass {
                }*/
                
 
+
+               public String create_Foler(String path)
+              	{
+//              		String filePath = System.getProperty("user.home")+"\\Documents\\SyncIn";
+              			//String filePath = "C:\\Users\\Vijay.Jyothula\\Documents\\SyncIn";
+              		        File folder = new File(path);
+              		        String folderPath = "" ;
+              		       if(!folder.exists())
+              		       {
+              		    	   folder.mkdir();
+              		       }
+              		       else//(folder.exists())File
+              		        {
+              		        	//tu.DeleteFiles(System.getProperty("user.home")+"\\Documents\\SyncIn");
+              		        	folder.delete();
+              		        }
+              		        if(!folder.exists())
+              		        {
+              		        	folder.mkdirs();
+              		        }
+              		        folderPath = folder.getAbsolutePath();
+              		        return folderPath;
+              	}
+                  
+               
+               public  FM_SyncOutAssetListPage ClickSyncOutOkBtn1() throws InterruptedException, IOException {
+                   clickOn(SyncOutOKbtn);
+                   return new FM_SyncOutAssetListPage();
+    }
+        
 
 }

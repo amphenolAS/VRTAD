@@ -1095,7 +1095,7 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 	@Test(priority=14,groups = { "Sanity",
 	"Regression" }, description = "PA038-Verify if User not able to access the Camera Access Module when the Camera Access Privilege is unchecked")
 
-	public void PA037() throws InterruptedException, IOException, ParseException {
+	public void PA038() throws InterruptedException, IOException, ParseException {
 		extentTest = extent
 				.startTest("//PA038-Verify if User not able to access the Camera Access Module when the Camera Access Privilege is unchecked");
 		SoftAssert sa = new SoftAssert();

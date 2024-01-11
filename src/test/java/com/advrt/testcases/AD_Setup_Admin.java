@@ -106,8 +106,9 @@ public class AD_Setup_Admin extends BaseClass {
 		// extent.addSystemInfo("ScriptVersion-Git",
 		// prop1.getProperty("git.commit.id.describe-short").split("-")[0]);
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
-		System.out.println("AD-UM Test in Progress..");
+		System.out.println("_AD_Setup_Admin Test in Progress..");
 
+		
 		// Rename the VRT Data Files folder if exists in order to make the system
 		// default
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
@@ -149,8 +150,6 @@ public class AD_Setup_Admin extends BaseClass {
 		Thread.sleep(1000);
 		ADUM_page = PoliciesPage.ClickUM_Tab_AD();
 		ADUM_page.select_grp("Automation");// Automation
-		// AD_UMPage.Select_user();
-		// ADUM_page.select_user(0);
 		ADUM_page.enterNewUserTitle("Manager");
 		ADUM_page.SelectUType("SystemAdministrator");
 		Thread.sleep(1000);
@@ -165,15 +164,13 @@ public class AD_Setup_Admin extends BaseClass {
 		LoginPage = new LoginPage();
 		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
 		ADUM_page = MainHubPage.ClickAdminTile_ADUM();
-		// AD_UMPage.Select_grp();
 		ADUM_page.select_grp("Automation");// Automation
-		// AD_UMPage.Select_user();
-		// ADUM_page.select_user(0);
 		DefaultUserPrivilages_page = ADUM_page.SelectUType1("NewUserType");
 		DefaultUserPrivilages_page.Enter_NewUserType("SystemAdministrator");
 		DefaultUserPrivilages_page.click_UPSetupCreationCheckBox();
 		DefaultUserPrivilages_page.click_UPModifySetupCheckBox();
-		// DefaultUserPrivilages_page.click_UPSetupdeleteCheckBox();
+		DefaultUserPrivilages_page.Click_Create_AssetCheckBox1();
+		//DefaultUserPrivilages_page.click_UPSetupdeleteCheckBox();
 		ADUM_page = DefaultUserPrivilages_page.clickOn_UpdateBtn("ruchika1", "Amphenol@123", "text");
 		MainHubPage = ADUM_page.ClickBackButn();
 		ADUM_page = MainHubPage.ClickAdminTile_ADUM();
@@ -378,7 +375,7 @@ public class AD_Setup_Admin extends BaseClass {
 	//Setup_Audit_003-Verify the Audit trail entry  while Editing  a Setup in Define setup Page with the  AD   group
 	
 	
-	/*	@Test(priority = 3,description = "Setup_Audit_004-Verify the Audit trail entry  while Editing  a Setup in sensor configuration page with the  AD   group")
+		@Test(priority = 3,description = "Setup_Audit_004-Verify the Audit trail entry  while Editing  a Setup in sensor configuration page with the  AD   group")
 
 		public void Setup_Audit_004() throws InterruptedException, AWTException, IOException {
 			extentTest = extent.startTest(
@@ -388,15 +385,15 @@ public class AD_Setup_Admin extends BaseClass {
 
 			assetHubPage = MainHubPage.Click_AssetTile();
 			assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
-			assetDetailsPage.Click_SetupName("test");
+			assetDetailsPage.Click_SetupName("Manual 5 sec SR");
 			
 			defineSetupPage = assetDetailsPage.click_editStupBtn();
 			Setup_SensorConfigPage = defineSetupPage.click_defineSetupPage_nxtBtn();
 			Setup_SensorConfigPage.Click_Addsensors_Expanderbtn();
 			Setup_SensorConfigPage.Enter_TemperatureCount_textField("6");
-			
-			Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_LessSnsrconfig();
-			
+			Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_LessSnsrconfig(); 
+			//Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nxtbtn_ForChangingExistingSC();
+			Setup_GroupSensorsPage.click_DfltGrp_Btn();
 			Setup_CalculationsPage = Setup_GroupSensorsPage.Click_CalculationsTab();
 			Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 			Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
@@ -408,7 +405,7 @@ public class AD_Setup_Admin extends BaseClass {
 			MainHubPage = assetHubPage.click_BackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
 
-			String expaudit = "Setup: \"test\" is modified in Tab : \"Define Setup\" by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+			String expaudit = "Setup: \"Manual 5 sec SR\" is modified in Tab : \"Sensors Configuration & Group Sensors\" by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 
@@ -416,7 +413,7 @@ public class AD_Setup_Admin extends BaseClass {
 		
 		
 	}
-	*/
+	
 	
 	
 	//Setup_Audit_005-Verify the Audit trail entry  while Editing  a Setup in Group sensors  page with the  AD   group
@@ -558,12 +555,13 @@ public class AD_Setup_Admin extends BaseClass {
 
 		assetHubPage = MainHubPage.Click_AssetTile();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
-		assetDetailsPage.Click_SetupName("test");
+		assetDetailsPage.Click_SetupName("Manual 5 sec SR");
 		
 		defineSetupPage = assetDetailsPage.click_editStupBtn();
 		Setup_SensorConfigPage = defineSetupPage.click_defineSetupPage_nxtBtn();
 		Setup_SensorConfigPage.Click_Addsensors_Expanderbtn();	
 		Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_LessSnsrconfig();
+		Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn();
 		Setup_CalculationsPage = Setup_GroupSensorsPage.Click_CalculationsTab();
 		Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 		Setup_QualParamPage.select_SR("2 Seconds");
@@ -572,14 +570,17 @@ public class AD_Setup_Admin extends BaseClass {
 		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
 		Setup_ReviewPage.click_CopyAsNewSetup_Button();
 		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
-		Setup_ReviewPage.Enter_NewSetupName("copysetup1");
-		
-		assetDetailsPage = Setup_ReviewPage.click_backBtn();
+		Setup_ReviewPage.Enter_NewSetupName("copysetup3");
+		//Thread.sleep(500);
+	    //Setup_ReviewPage.click_backBtn();
+		//Thread.sleep(500);
+		assetDetailsPage=Setup_ReviewPage.click_backBtn_WithAlert();
+Thread.sleep(1000);
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Setup: \"copysetup1\" copied by User ID : \"Ruchika1\" , User Name : \"Ruchika1\"";
+		String expaudit = "Setup: \"copysetup3\" copied by User ID : \"Ruchika1\" , User Name : \"Ruchika1\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 		sa.assertAll();
@@ -652,7 +653,7 @@ public class AD_Setup_Admin extends BaseClass {
 		
 		assetDetailsPage.Click_reportsTile();
 		assetDetailsPage.Click_SetupReportsButton();
-		assetDetailsPage.Select_ReportFile1("test");
+		assetDetailsPage.Select_ReportFile1("manual 1 min sampling");
 		Thread.sleep(1000);
 		assetDetailsPage.click_Report_CopyToDrive_Btn();
 		assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "reports");
@@ -664,7 +665,7 @@ public class AD_Setup_Admin extends BaseClass {
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Report - \"test\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Ruchika.Behura\\eclipse-workspace\\ADVRT\\src\\test\\resources\\TestData\\AutoLogs\\Se=(test)=()=0=11-Dec-2023 15-27-41=.pdf\"";
+		String expaudit = "Report - \"manual 1 min sampling\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Kaveri.Bedar\\Desktop\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\\Se=(manual 1 min sampling)=()=0=19-Mar-2020 13-52-45=.pdf\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 		sa.assertAll();
@@ -685,13 +686,15 @@ public class AD_Setup_Admin extends BaseClass {
 
 	assetHubPage = MainHubPage.Click_AssetTile();
 	assetCreationPage = assetHubPage.ClickAddAssetBtn();
-	assetCreationPage.assetCreation("Ast004", "04", "HeatBath", "AAS", "HYBD");
+	assetCreationPage.assetCreation("Ast009", "04", "HeatBath", "Aas", "Hyd");
 
 	tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
 	tu.click_Close_alertmsg();
 	assetHubPage = assetCreationPage.clickBackBtn();
-	assetDetailsPage = assetHubPage.click_assetTile("Ast004");
-	defineSetupPage.enter_defineSetupPage_setupName("Set001");
+	assetDetailsPage = assetHubPage.click_assetTile("Ast009");
+	defineSetupPage = assetDetailsPage.click_NewStupCreateBtn();
+	defineSetupPage.clear_defineSetupPage_setupName();
+	defineSetupPage.enter_defineSetupPage_setupName("Set003");
 	defineSetupPage.enter_defineSetupPage_SensorCount("50");
 	Setup_SensorConfigPage = defineSetupPage.click_defineSetupPage_nxtBtn();
 	Setup_SensorConfigPage.Click_Addsensors_Expanderbtn();
@@ -711,13 +714,14 @@ public class AD_Setup_Admin extends BaseClass {
 	UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
 	assetDetailsPage = Setup_ReviewPage.click_backBtn();
 	assetHubPage = assetDetailsPage.ClickBackBtn();
-	assetDetailsPage = assetHubPage.click_assetTile("Ast004");
-	assetDetailsPage.Click_SetupName("Set001");
+	assetDetailsPage = assetHubPage.click_assetTile("Ast009");
+	assetDetailsPage.Click_SetupName("Set003");
 	CopySetuppage = assetDetailsPage.click_CopyStup_Btn();
 	CopySetuppage.clickONCheckBOX_1();
 	CopySetuppage.click_copy_Btn();
+	tu.click_YesBtn_popup();
 	UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
-	CopySetuppage.select_alertOption("Yes");
+	//CopySetuppage.select_alertOption("Yes");
 	assetDetailsPage = CopySetuppage.Click_Back_Btn();
 	assetHubPage = assetDetailsPage.ClickBackBtn();
 	MainHubPage = assetHubPage.click_BackBtn();
@@ -747,12 +751,13 @@ public class AD_Setup_Admin extends BaseClass {
 		assetDetailsPage.Click_SetupReportsButton();
 		assetDetailsPage.Select_ReportFile1("test");
 		assetDetailsPage.Click_DeleteBtn_report();	
+		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
 		assetDetailsPage.clickYes_delete();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		
-		String expaudit ="Setup Report : \"test\"  deleted by User ID : \"Ruchika1\"";
+		String expaudit ="Setup Report : \"manual 1 min sampling\"  deleted by User ID : \"Ruchika1\", User Name : \"Ruchika1\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 		sa.assertAll();
 }
@@ -784,7 +789,7 @@ public class AD_Setup_Admin extends BaseClass {
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Setup - \"test\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Ruchika.Behura\\eclipse-workspace\\ADVRT\\src\\test\\resources\\TestData\\AutoLogs\\00090FFE00016573329E.cfg\"";
+		String expaudit = "Setup - \"test\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Ruchika.Behura\\eclipse-workspace\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\\00090FFE00016573329E.cfg\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup copy drive is not audited");
 		sa.assertAll();
@@ -817,7 +822,7 @@ public class AD_Setup_Admin extends BaseClass {
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Qualification - \"manual 1 min sampling\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Ruchika.Behura\\Pictures\\Feedback\\{72BD0E9A-C288-4B13-9D2C-C1FC0F01EE25}\\20200318131241_20200318155600_60_637201438503438416.rtq\"";
+		String expaudit = "Qualification - \"manual 1 min sampling\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Kaveri.Bedar\\Desktop\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\\20200318131241_20200318155600_60_637201438503438416.rtq\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: qual copy drive is not audited");
 		sa.assertAll();
@@ -937,8 +942,9 @@ public class AD_Setup_Admin extends BaseClass {
 			assetDetailsPage.Click_SetupName("manual 1 min sampling");
 			assetDetailsPage.Click_DeleteBtn_report();
 			UserLoginPopup_UserCommentTextBox("2", "459123", "comment");
-			assetDetailsPage.clickYes_delete();
-			
+			Thread.sleep(500);
+			//assetDetailsPage.clickYes_delete();
+			tu.click_YesBtn_popup();
 			assetDetailsPage = CopySetuppage.Click_Back_Btn();
 			assetHubPage = assetDetailsPage.ClickBackBtn();
 			MainHubPage = assetHubPage.click_BackBtn();
@@ -967,7 +973,8 @@ public class AD_Setup_Admin extends BaseClass {
 			assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 			assetDetailsPage.Click_SetupName("manual 1 min sampling");
 			assetDetailsPage.click_InitiateQualBtn();
-			assetDetailsPage = CopySetuppage.Click_Back_Btn();
+			Thread.sleep(500);
+			//assetDetailsPage = CopySetuppage.Click_Back_Btn();
 			assetHubPage = assetDetailsPage.ClickBackBtn();
 			MainHubPage = assetHubPage.click_BackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
@@ -978,4 +985,284 @@ public class AD_Setup_Admin extends BaseClass {
 			sa.assertAll();
 			
 		}
-}
+		
+		
+
+
+			
+
+	   //CS016-Verify if only selected setups files are copied to the Asset
+			
+			@Test(priority = 21,description = "CS016-Verify if only selected setups files are copied to the Asset"
+					+ "")
+
+			public void CS016() throws InterruptedException, AWTException, IOException {
+				extentTest = extent.startTest("CS016-Verify if only selected setups files are copied to the Asset");
+
+				System.out.println("Covered in Setup_Audit_008 method");
+			
+			}		
+			
+			
+	 //CS014-Verify if the _Copy_ button on _Copy Setup_ page is visible but if no one setup file is selected, should show message _Please select at least one setup to copy_
+			
+			@Test(priority = 22,description = "CS014-Verify if the _Copy_ button on _Copy Setup_ page is visible but if no one setup file is selected, should show message _Please select at least one setup to copy_")
+
+			public void CS014() throws InterruptedException, AWTException, IOException {
+				extentTest = extent.startTest(
+						"CS014-Verify if the _Copy_ button on _Copy Setup_ page is visible but if no one setup file is selected, should show message _Please select at least one setup to copy_");
+
+				SoftAssert sa = new SoftAssert();
+
+				assetHubPage = MainHubPage.Click_AssetTile();
+				assetCreationPage = assetHubPage.ClickAddAssetBtn();
+				assetCreationPage.assetCreation("NewAsset", "03", "HeatBath", "Aas", "Hyd");
+				tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
+				
+				assetHubPage = assetCreationPage.clickBackBtn();
+				assetHubPage = MainHubPage.Click_AssetTile();
+				assetDetailsPage = assetHubPage.click_assetTile("NewAsset");
+				defineSetupPage = assetDetailsPage.click_NewStupCreateBtn();
+				defineSetupPage.clear_defineSetupPage_setupName();
+				defineSetupPage.enter_defineSetupPage_setupName("Newset");
+				defineSetupPage.click_defineSetupPage_SensorCountField();
+				defineSetupPage.enter_defineSetupPage_SensorCount("300");
+				defineSetupPage.enter_defineSetupPage_SOP("10");
+				defineSetupPage.enter_defineSetupPage_LoadDesc("load");
+				defineSetupPage.enter_defineSetupPage_comments("com");
+
+				Setup_SensorConfigPage = defineSetupPage.click_defineSetupPage_nxtBtn();
+				Setup_SensorConfigPage.Click_Addsensors_Expanderbtn();
+				Setup_SensorConfigPage.Enter_TemperatureCount_textField("5");
+				Setup_SensorConfigPage.Enter_PressureCount_textField("5");
+
+				Setup_SensorConfigPage.Click_Configurationsensors_Expanderbtn();
+				Setup_SensorConfigPage.select_Sensortype_temp();
+				Setup_SensorConfigPage.Enter_Num_To("5");
+				Setup_SensorConfigPage.Enter_SensorLabel("TMP");
+				Setup_SensorConfigPage.Click_assignBtn();
+
+				Setup_SensorConfigPage.select_Sensortype_Pr();
+				Setup_SensorConfigPage.Enter_Num_To("5");
+				Setup_SensorConfigPage.Enter_SensorLabel("PSR");
+				Setup_SensorConfigPage.Click_assignBtn();
+				// Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn();
+				Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_LessSnsrconfig();
+				Setup_GroupSensorsPage.click_DfltGrp_Btn();
+				Setup_CalculationsPage = Setup_GroupSensorsPage.Click_CalculationsTab();
+				Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
+				Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
+				Setup_ReviewPage.clickSaveBtn();
+				UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+				Thread.sleep(1000);
+				
+				assetDetailsPage = Setup_ReviewPage.click_backBtn();
+				assetDetailsPage.Click_SetupName("test");
+				CopySetuppage = assetDetailsPage.click_CopyStup_Btn();
+				CopySetuppage.click_copy_Btn();
+				String alert = tu.get_AlertMsg_text();
+				
+				sa.assertEquals(alert, "Please select at least one setup to copy" , "FAIL : Alert message has not appeared");
+				
+				assetDetailsPage =	CopySetuppage.Click_Back_Btn();
+				assetDetailsPage.Click_SetupName("Newset");
+				CopySetuppage = assetDetailsPage.click_CopyStup_Btn();
+				CopySetuppage.Click_Selectall_chkbox();
+				
+				sa.assertEquals(CopySetuppage.is_SelectAll_ChkboxField_checkedin(), true, "FAIL :  ");	
+				
+				sa.assertAll();
+				
+			}	
+			
+			
+		//CS015-Verify if single or multiple Setups selection can be done on _Copy Setup_screen	
+			
+			@Test(priority = 23,description = "CS015-Verify if single or multiple Setups selection can be done on _Copy Setup_screen")
+
+			public void CS015() throws InterruptedException, AWTException, IOException {
+				extentTest = extent.startTest(
+						"CS015-Verify if single or multiple Setups selection can be done on _Copy Setup_screen");
+
+				
+				System.out.println("This Tc cover in CS014");
+				
+			}	
+			
+			
+		//CS017-Verify if selecting the file (s) and clicking on _Copy_ button invokes _Do you want to copy the setup(s)_ with -Yes- and -No- buttons.	
+			
+			
+			@Test(priority = 24,description = "CS017-Verify if selecting the file (s) and clicking on _Copy_ button invokes _Do you want to copy the setup(s)_ with -Yes- and -No- buttons.")
+
+			public void CS017() throws InterruptedException, AWTException, IOException {
+				extentTest = extent.startTest(
+						"CS017-Verify if selecting the file (s) and clicking on _Copy_ button invokes _Do you want to copy the setup(s)_ with -Yes- and -No- buttons.");
+
+				SoftAssert sa = new SoftAssert();
+
+				assetHubPage = MainHubPage.Click_AssetTile();
+				assetCreationPage = assetHubPage.ClickAddAssetBtn();
+				assetCreationPage.assetCreation("CS017", "17", "HeatBath", "Aas", "Hyd");
+				tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
+				
+				assetHubPage = assetCreationPage.clickBackBtn();
+				assetHubPage = MainHubPage.Click_AssetTile();
+				assetDetailsPage = assetHubPage.click_assetTile("CS017");
+				defineSetupPage = assetDetailsPage.click_NewStupCreateBtn();
+				defineSetupPage.clear_defineSetupPage_setupName();
+				defineSetupPage.enter_defineSetupPage_setupName("S017");
+				defineSetupPage.click_defineSetupPage_SensorCountField();
+				defineSetupPage.enter_defineSetupPage_SensorCount("300");
+				defineSetupPage.enter_defineSetupPage_SOP("10");
+				defineSetupPage.enter_defineSetupPage_LoadDesc("load");
+				defineSetupPage.enter_defineSetupPage_comments("com");
+
+				Setup_SensorConfigPage = defineSetupPage.click_defineSetupPage_nxtBtn();
+				Setup_SensorConfigPage.Click_Addsensors_Expanderbtn();
+				Setup_SensorConfigPage.Enter_TemperatureCount_textField("5");
+				Setup_SensorConfigPage.Enter_PressureCount_textField("5");
+
+				Setup_SensorConfigPage.Click_Configurationsensors_Expanderbtn();
+				Setup_SensorConfigPage.select_Sensortype_temp();
+				Setup_SensorConfigPage.Enter_Num_To("5");
+				Setup_SensorConfigPage.Enter_SensorLabel("TMP");
+				Setup_SensorConfigPage.Click_assignBtn();
+
+				Setup_SensorConfigPage.select_Sensortype_Pr();
+				Setup_SensorConfigPage.Enter_Num_To("5");
+				Setup_SensorConfigPage.Enter_SensorLabel("PSR");
+				Setup_SensorConfigPage.Click_assignBtn();
+				// Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn();
+				Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_LessSnsrconfig();
+				Setup_GroupSensorsPage.click_DfltGrp_Btn();
+				Setup_CalculationsPage = Setup_GroupSensorsPage.Click_CalculationsTab();
+				Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
+				Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
+				Setup_ReviewPage.clickSaveBtn();
+				UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+				Thread.sleep(1000);
+				
+				assetDetailsPage = Setup_ReviewPage.click_backBtn();
+				assetDetailsPage.Click_SetupName("S017");
+				CopySetuppage = assetDetailsPage.click_CopyStup_Btn();
+				CopySetuppage.clickONCheckBOX_1();
+				String selectedSetupFile = CopySetuppage.get_copysetupname();
+				CopySetuppage.click_copy_Btn();
+				
+				String alert = tu.get_popup_text();
+				
+				sa.assertEquals(alert, "Do you want to copy the setup(s)?" , "FAIL : Alert message not appearing");	
+				
+				
+				tu.click_YesBtn_popup();
+				UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+
+				String ExpAlrtMsg = "1 setup(s) copied successfully.";
+
+				String ActAlrtMsg = tu.get_AlertMsg_text();
+				sa.assertEquals(ActAlrtMsg, ExpAlrtMsg, "Fail : Actual Alert message is not match with expected alert contain");
+				
+				
+				assetDetailsPage = CopySetuppage.Click_Back_Btn();
+				String sname = assetDetailsPage.Get_Setup_Name();
+				sa.assertEquals(selectedSetupFile, sname, "Fail : Setup name is not matching with copied setup name");
+
+				assetHubPage = assetDetailsPage.ClickBackBtn();
+				MainHubPage = assetHubPage.click_BackBtn();
+				AuditPage = MainHubPage.ClickAuditTitle();
+
+				String expaudit = "\"1\" setup(s) copied successfully by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+
+				sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
+
+				sa.assertAll();
+			
+	        }
+			
+			
+			//CS018-Verify if clicking -Yes- invokes -Enter user Credentials- box. and clicking No will not perform copy operation
+			
+			@Test(priority = 25, description = "CS018-Verify if clicking -Yes- invokes -Enter user Credentials- box. and clicking No will not perform copy operation")
+
+			public void CS018() throws InterruptedException, AWTException, IOException {
+				extentTest = extent.startTest(
+						"CS018-Verify if clicking -Yes- invokes -Enter user Credentials- box. and clicking No will not perform copy operation");
+
+				System.out.println("This Tc cover in CS017");
+
+			}
+
+			
+			// CS019-Verify the setup is copied to the correct selected location for Copy
+
+			@Test(priority = 26, description = "CS019-Verify the setup is copied to the correct selected location for Copy")
+
+			public void CS019() throws InterruptedException, AWTException, IOException {
+				extentTest = extent.startTest("CS019-Verify the setup is copied to the correct selected location for Copy");
+
+				System.out.println("This Tc cover in CS017");
+
+			}
+			
+		//CS020-Verify if the Copied file is available at the Asset details setups screen
+			
+			@Test(priority = 27, description = "CS020-Verify if the Copied file is available at the Asset details setups screen")
+
+			public void CS020() throws InterruptedException, AWTException, IOException {
+				extentTest = extent.startTest("CS020-Verify if the Copied file is available at the Asset details setups screen");
+
+				System.out.println("This Tc cover in CS017");
+
+			}
+			
+			
+		// CS021-Verify if the same setup can be copied to the same location multiple times
+			
+			@Test(priority = 28, dependsOnMethods = "CS017",description = "CS021-Verify if the same setup can be copied to the same location multiple times")
+			public void CS021() throws InterruptedException, ParseException, IOException, AWTException {
+
+				extentTest = extent
+						.startTest("CS021-Verify if the same setup can be copied to the same location multiple times");
+				SoftAssert sa = new SoftAssert();
+				
+				assetHubPage = MainHubPage.Click_AssetTile();
+				assetDetailsPage = assetHubPage.click_assetTile("CS017");
+				assetDetailsPage.Click_SetupName("S017");
+				CopySetuppage = assetDetailsPage.click_CopyStup_Btn();
+				
+				CopySetuppage.clickONCheckBOX_1();
+				String selectedSetupFile = CopySetuppage.get_copysetupname();
+				CopySetuppage.click_copy_Btn();
+				tu.click_YesBtn_popup();
+				UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+
+				String ActcopysetupAlert = CopySetuppage.get_text_copyAst_popup();
+				
+				String ExpAlrtMsg = "Setup \""+selectedSetupFile+"\" already exists, do you want to overwrite it?";
+				
+				sa.assertEquals(ActcopysetupAlert, ExpAlrtMsg,
+						"Fail : overwrite Alert message is not match with expected alert contain");
+				//Setup "testt" already exists, do you want to overwrite it?
+				sa.assertAll();
+
+			
+			}
+		  
+			
+	 
+	//CS022-Verify if Audit trail captures the name of the setup that was copied, along with user id and user name, and date_time
+			
+		@Test(priority = 28, description = "CS022-Verify if Audit trail captures the name of the setup that was copied, along with user id and user name, and date_time")
+			public void CS022() throws InterruptedException, ParseException, IOException, AWTException {
+
+				extentTest = extent
+						.startTest("CS022-Verify if Audit trail captures the name of the setup that was copied, along with user id and user name, and date_time");
+
+				System.out.println("Similar to CS017");
+	              
+			}
+			
+			
+			
+	}

@@ -275,6 +275,14 @@ public class PoliciesPage extends BaseClass {
 		Thread.sleep(1000);
 		clickOn(CancelButton);
 	}
+	
+	
+	// Click Cancel Button
+		public void Click_ADCancelButton() throws InterruptedException {
+			WebElement cnclBtn=driver.findElementByAccessibilityId("btnCancel");
+			Thread.sleep(1000);
+			clickOn(cnclBtn);
+		}
 
 	// Click on um tab
 	public UserManagementPage ClickUserManagement_TAB() throws InterruptedException, IOException {
@@ -368,7 +376,6 @@ public class PoliciesPage extends BaseClass {
 
 //click On ExpirePasswordCheckBox
 	public void click_ExpirePasswordCheckBox() throws InterruptedException {
-
 		clickOn(ExpirePasswordCheckBox);
 	}
 
@@ -833,8 +840,16 @@ public class PoliciesPage extends BaseClass {
 	}
 	
 	
+	public boolean  is_connectionstatusvisible() {
+		WebElement connection_Btn = driver.findElementByAccessibilityId("textblockConnStatus");
+		return IsElementVisibleStatus(connection_Btn);
+	}
 	
-	
+	public  String is_connectionstatus() throws InterruptedException {
+		WebElement connection_status = driver.findElementByAccessibilityId("textblockConnStatus");
+		Thread.sleep(500);
+		return FetchText(connection_status);
+	}
 	
 	
 	

@@ -357,6 +357,16 @@ public class Setup_ReviewPage extends BaseClass {
 		Thread.sleep(2000);
 
 	}
+	
+	
+	// Click the Yes button of the popup message
+			public assetDetailsPage click_YesBtn_popup() throws InterruptedException, IOException {
+				WebElement Yes_Btn = driver.findElementByAccessibilityId("Button1");
+				
+				clickOn(Yes_Btn);
+				 Thread.sleep(1000);
+					return new assetDetailsPage();
+			}
 
 	public assetDetailsPage click_backBtn_WithAlert() throws InterruptedException, IOException {
 		clickOn(Back_btn);

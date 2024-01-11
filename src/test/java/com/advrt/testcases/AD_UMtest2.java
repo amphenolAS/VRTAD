@@ -1,8 +1,3 @@
-/**
- * @author ruchika
-
- *
- */
 
 package com.advrt.testcases;
 
@@ -934,7 +929,45 @@ public class AD_UMtest2 extends BaseClass{
 
    	}
      
-    
+ 
+     //UM60-Verify if Validation message should be displayed when user trying to unmap the group where the application is having one group
+     
+     @Test(groups = {"Regression" }, description = "UM60-Verify if Validation message should be displayed when user trying to unmap the group where the application is having one group")
+
+     public void UM60() throws InterruptedException, IOException, AWTException, ParseException {
+
+    		extentTest = extent.startTest("UM60-Verify if Validation message should be displayed when user trying to unmap the group where the application is having one group");
+
+    		SoftAssert sa = new SoftAssert();
+
+    		ADUM_page.select_grp("QA Testers");
+    		ADUM_page.select_user(2);
+    		ADUM_page.enterNewUserTitle("Manager");
+ 		ADUM_page.SelectUType("SystemAdministrator");
+ 	
+ 		ADUM_page.click_UnmapBtn();
+ 		String alertMSG = tu.get_popup_text();
+ 		
+ 		sa.assertEquals(alertMSG, "Unmap group has denied, due to system need to have at least one Administrator user.", "FAIL:alert message not displaying");
+    		sa.assertAll();
+
+ 		
+ 		
+ }
+     
+  // UM37- Verify if User should not be able to create new user type while
+ 	// creating the first user
+  
+ 	@Test(groups = {
+ 			"Regression" }, description = "UM37- Verify if User should not be able to create new user type while creating the first user")
+  
+ 	public void UM37() throws InterruptedException, IOException, AWTException, ParseException {
+  
+ 		extentTest = extent.startTest(
+ 				"UM37- Verify if User should not be able to create new user type while creating the first user");
+  
+ 		System.out.println("This has covered in before class");
+ 	}	
     
 	
 }

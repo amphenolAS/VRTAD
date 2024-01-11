@@ -979,7 +979,7 @@ public class AD_Asset_Sup_AuditTest extends BaseClass{
 		// image with the Active Directory Supervisor User
 
 		@Test(description = "AD_Asset_ Audit 047 Verify the Audit trail entry after Uploading new  Asset image with the  Active Directory Supervisor User")
-		public void AD_Asset_Audit_023() throws InterruptedException, ParseException, AWTException, IOException {
+		public void AD_Asset_Audit_047() throws InterruptedException, ParseException, AWTException, IOException {
 			extentTest = extent.startTest(
 					"AD_Asset_ Audit 047 Verify the Audit trail entry after Uploading new  Asset image with the  Active Directory Supervisor User");
 

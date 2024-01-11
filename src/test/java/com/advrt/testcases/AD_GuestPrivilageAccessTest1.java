@@ -150,6 +150,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
+		Thread.sleep(500);
 		PoliciesPage.clickOn_AcceptBtn();	
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
@@ -685,6 +686,39 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 
 	//PA078-Verify if Guest User not able to access the Archive Data Module when the Archive Data Privilege is unchecked
 
+	@Test(priority=19,groups = { "Sanity",
+	"Regression" }, description = "PA078-Verify if Guest User not able to access the Archive Data Module when the Archive Data Privilege is unchecked")
+
+	public void PA078() throws InterruptedException, IOException, ParseException {
+		extentTest = extent
+				.startTest("PA078-Verify if Guest User not able to access the Archive Data Module when the Archive Data Privilege is unchecked");
+		SoftAssert sa = new SoftAssert();
+
+
+		DefaultUserPrivilages_page.Click_ArchieveData();
+		DefaultUserPrivilages_page.NewSaveButton();
+		UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "usercomitted");
+		MainHubPage=AD_UMPage.click_BackBtn();
+		Thread.sleep(2000);
+		MainHubPage.UserSignOut();
+		LoginPage = new LoginPage();
+		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		FileManagementPage=MainHubPage.ClickFileManagementTitle();
+		FileManagementPage.Click_ArchiveTabwithcomment_alert("kiranc1","Amphenol@123","commit");
+
+		Thread.sleep(500);
+
+
+		String ExpectedMsg="User does not have sufficient privileges to perform this operation";
+
+		sa.assertEquals(tu.get_AlertMsg_text(), ExpectedMsg,
+				"FAIL:User  able to access  Archieve when the Archieve is unchecked");
+
+
+		sa.assertAll();}
+
+	
+	
 
 	//Pa080-Verify if Guest User not able to access the Create Equipment Module when the Create Equipment Privilege is unchecked
 

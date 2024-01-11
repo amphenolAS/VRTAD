@@ -396,7 +396,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 
 	@Test(description = "AD_Equipment_Audit _026 Verify the Audit trail entry while Deleting  Equipment ID with the  Active Directory Operator  User")
 
-	public void AD_Equipment_Audit_016() throws InterruptedException, AWTException, IOException {
+	public void AD_Equipment_Audit_026() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"AD_Equipment_Audit _016 Verify the Audit trail entry while Deleting  Equipment ID with the  Active Directory Operator  User");
 
@@ -408,7 +408,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 
 	@Test(description = "AD_Equipment_Audit _017 Verify the Audit trail entry while Adding new   Equipment ID with the  Active Directory Operator  User")
 
-	public void AD_Equipment_Audit_017() throws InterruptedException, AWTException, IOException {
+	public void AD_Equipment_Audit_027() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"AD_Equipment_Audit _017 Verify the Audit trail entry while Adding new   Equipment ID with the  Active Directory Operator  User");
 
@@ -567,7 +567,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		MainHubPage = EquipmentHubPage.ClickBackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Kaveri.Bedar\\git\\ADVRT\\src\\test\\resources\\TestData\\AutoLogs\"";
+		String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Kaveri.Bedar\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG2, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 	
 		sa.assertAll();	

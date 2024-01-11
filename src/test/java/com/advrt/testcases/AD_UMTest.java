@@ -1,8 +1,3 @@
-/**
- * @author ruchika
-
- *
- */
 
 package com.advrt.testcases;
 
@@ -174,7 +169,7 @@ public class AD_UMTest extends BaseClass{
 	@Test(priority=0,groups = { "Sanity",
 			"Regression" }, description = "UM20 - Verify if User Management screen displays New User creation when Active Directory is not activated")
 
-	public void AD20() throws InterruptedException, AWTException, IOException {
+	public void UM20() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"UM20 - Verify if User Management screen displays New User creation when Active Directory is not activated");
 
@@ -300,50 +295,64 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 	
 	
 	
-// UM02-Verify if the different groups are displayed in the Select group
-// dropdown
 
-@Test(priority=6,groups = { "Sanity","Regression" }, description = "UM02-Verify if the different groups are displayed in the Select group dropdown")
 
-public void AD02() throws InterruptedException, AWTException {
-	extentTest = extent.startTest("UM02-Verify if the different groups are displayed in the Select group dropdown");
+
+
+//UM01-Verify if User Management screen displays the Select Group when the Active Directory is activated
+
+@Test(priority=6,groups = { "Sanity","Regression" }, description = "UM01-Verify if User Management screen displays the Select Group when the Active Directory is activated")
+
+public void UM01() throws InterruptedException, AWTException {
+	extentTest = extent.startTest("UM01-Verify if User Management screen displays the Select Group when the Active Directory is activated");
 	SoftAssert sa = new SoftAssert();
 
-	
-	ADUM_page.select_grp("QA Testers");
-	String Gname = ADUM_page.Fetch_Groupname();
-	sa.assertEquals(Gname, "QA Testers", "FAIL: Group Name is not available");
+	System.out.println("The Test Case covered in Before class");
 
-	sa.assertAll();
+}
+
+
+
+
+//UM02-Verify if the different groups are displayed in the Select group dropdown
+
+@Test(priority=7,groups = { "Sanity","Regression" }, description = "UM02-Verify if the different groups are displayed in the Select group dropdown")
+
+public void UM02() throws InterruptedException, AWTException {
+extentTest = extent.startTest("UM02-Verify if the different groups are displayed in the Select group dropdown");
+SoftAssert sa = new SoftAssert();
+
+ADUM_page.select_grp("QA Testers");
+String Gname = ADUM_page.Fetch_Groupname();
+sa.assertEquals(Gname, "QA Testers", "FAIL: Group Name is not available");
+
+sa.assertAll();
 
 }
 
 //AD03-Verify if the users are displayed in the dropdown when the groups is selected from the user group
 
-//ClickOn_SelectUsers
+@Test(priority=8,groups = { "Sanity",
+	"Regression" }, description = "UM03-Verify if the users are displayed in the dropdown when the groups is selected from the user group")
 
-@Test(priority=7,groups = { "Sanity",
-		"Regression" }, description = "UM02-Verify if the different groups are displayed in the Select group dropdown")
+public void UM03() throws InterruptedException, AWTException {
+extentTest = extent.startTest("UM03-Verify if the users are displayed in the dropdown when the groups is selected from the user group");
+SoftAssert sa = new SoftAssert();
 
-public void AD03() throws InterruptedException, AWTException {
-	extentTest = extent.startTest("UM02-Verify if the different groups are displayed in the Select group dropdown");
-	SoftAssert sa = new SoftAssert();
+ADUM_page.select_grp("QA Testers");
+ADUM_page.select_user(1);
+sa.assertEquals(ADUM_page.Is_SelectUser_available(), true, "FAIL: select user option is not available");
 
-	ADUM_page.select_grp("QA Testers");
-	ADUM_page.select_user(1);
-	Thread.sleep(500);
-	sa.assertEquals(ADUM_page.Is_SelectUser_available(), true, "FAIL: select user option is not available");
-
-	sa.assertAll();
+sa.assertAll();
 }
 
 //UM04-Verify if System able to configure the first group as System Administrator if manual user as
 //System Administrator exists in the application
 
-@Test(priority=8,groups = { "Sanity",
+@Test(groups = { "Sanity",
 		"Regression" }, description = "UM04-Verify if System able to configure the first group as System Administrator if manual user as System Administrator exists in the application")
 
-public void AD04() throws InterruptedException, AWTException, IOException {
+public void UM04() throws InterruptedException, AWTException, IOException {
 	extentTest = extent.startTest(
 			"UM04-Verify if System able to configure the first group as System Administrator if manual user as System Administrator exists in the application");
 
@@ -357,10 +366,7 @@ public void AD04() throws InterruptedException, AWTException, IOException {
 	UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 	tu.click_OK_popup();
 	tu.click_OK_popup();
-	sa.assertAll();
 }
-
-
 
 
 }

@@ -1,8 +1,3 @@
-/**
- * @author ruchika
-
- *
- */
 
 package com.advrt.testcases;
 
@@ -31,8 +26,6 @@ import com.advrt.pages.MainHubPage;
 import com.advrt.pages.UserManagementPage;
 import com.advrt.pages.PoliciesPage;
 import com.advrt.utility.TestUtilities;
-import com.advrt.utility.setupCreationUtility;
-import com.advrt.utility.userManagementUtility;
 
 
 public class ADpopupTest extends BaseClass{
@@ -68,7 +61,7 @@ public class ADpopupTest extends BaseClass{
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("ADpopup Test in Progress..");
 		
-
+/*
 		// Rename the VRT Data Files folder if exists in order to make the system default
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 		//Copy the Default DataFIles folder from Test Data to the App service location.
@@ -102,7 +95,7 @@ public class ADpopupTest extends BaseClass{
 		MainHubPage = UserManagementPage.ClickBackButn();
 		LoginPage = MainHubPage.UserSignOut();
 		AppClose();
-		Thread.sleep(2000);
+		Thread.sleep(2000);*/
 		
 	}
 	
@@ -606,7 +599,26 @@ public class ADpopupTest extends BaseClass{
 	}
 	
 	//AD23-Verify if entered data in the Enter Active Directory User Credentials popup should be cleared on clicking the cancel button at popup
+	
+    @Test(groups = { "Sanity",
+                  "Regression" }, description = "AD23-Verify if entered data in the Enter Active Directory User Credentials popup should be cleared on clicking the cancel button at popup")
 
+    public void AD23() throws InterruptedException {
+
+           extentTest = extent.startTest(
+                        "AD23-Verify if entered data in the Enter Active Directory User Credentials popup should be cleared on clicking the cancel button at popup");
+           SoftAssert sa = new SoftAssert();
+
+           // Here we are entering the wrong Domain as per the TC specification
+           PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+           PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+           PoliciesPage.Enter_PortNo("12qwe");
+           PoliciesPage.Click_ADCancelButton();
+           
+           sa.assertEquals(PoliciesPage.Fetch_UseID(),null,"FAIL : details is not available");
+
+           sa.assertAll();
+    }
 	
 
 	//AD24-Verify if click on X button Enter Active Directory User Credentials popup should be closed
@@ -630,13 +642,33 @@ public class ADpopupTest extends BaseClass{
 		sa.assertAll();
 	}
 	
+	//AD25-Verify if Active Directory Connected status should be displayed as Yes if Active Directory is activated
 	
+		@Test(groups = { "Sanity",
+				"Regression" }, description = "AD25-Verify if Active Directory Connected status should be displayed as Yes if Active Directory is activated")
+
+		public void AD25() throws InterruptedException {
+
+			extentTest = extent.startTest(
+					"AD25-Verify if Active Directory Connected status should be displayed as Yes if Active Directory is activated");
+			SoftAssert sa = new SoftAssert();
+			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			Thread.sleep(500);
+			PoliciesPage.clickOn_ConnectBtn();
+			Thread.sleep(500);
+			
+			sa.assertEquals(PoliciesPage.is_connectionstatus(), "Yes" ,
+					"Fail: User login pop up is not displaying when user clicked on Accept btn");
+			
+			sa.assertAll();
+		}
 	
 	 //AD26-Verify if Update button displayed when Active Directory is activated
 		@Test(groups = { "Sanity",
 				"Regression" }, description = "AD26-Verify if Update button displayed when Active Directory is activated")
 
-		public void AD() throws InterruptedException {
+		public void AD26() throws InterruptedException {
 
 			extentTest = extent.startTest("AD26-Verify if Update button displayed when Active Directory is activated");
 
@@ -654,5 +686,117 @@ public class ADpopupTest extends BaseClass{
 
 			sa.assertAll();
 		}
+		
+		
+		// AD27-Verify if Enter Active Directory User Credentials popup with the
+		// existing connection details displayed once Clicking on the Update button when
+		// Active Directory is activated
+
+		@Test(groups = { "Sanity",
+				"Regression" }, description = "AD27-Verify if Enter Active Directory User Credentials popup with the existing connection details displayed once Clicking on the Update button when Active Directory is activated	")
+
+		public void AD27() throws InterruptedException {
+
+			extentTest = extent.startTest(
+					"AD27-Verify if Enter Active Directory User Credentials popup with the existing connection details displayed once Clicking on the Update button when Active Directory is activated	");
+			SoftAssert sa = new SoftAssert();
+			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			PoliciesPage.clickOn_ConnectBtn();
+			// PoliciesPage.ClickSaveButton();
+			// PoliciesPage.clickOn_AcceptBtn();
+			// UserLoginPopup_UserCommentTextBox("1", "111111", "ok");
+			// tu.click_OK_popup();
+			PoliciesPage.click_UpdateBtn();
+
+			sa.assertEquals(PoliciesPage.Is_LDAPLoginPopup_Displayed(), true,
+					"Fail:Update Btn is not displaying even the AD is connected");
+
+			sa.assertAll();
+		}
+
+		// AD28-Verify if user able to update the existing connection details once
+		// clicking on the Update button
+
+		@Test(groups = { "Sanity",
+				"Regression" }, description = "AD28-Verify if user able to update the existing connection details once clicking on the Update button")
+
+		public void AD28() throws InterruptedException {
+
+			extentTest = extent.startTest(
+					"AD28-Verify if user able to update the existing connection details once clicking on the Update button");
+			SoftAssert sa = new SoftAssert();
+
+			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			PoliciesPage.clickOn_ConnectBtn();
+			PoliciesPage.click_UpdateBtn();
+
+			sa.assertEquals(PoliciesPage.get_AD_DomainName_text(), "10.17.17.54",
+
+					"Fail: Accutal domain name is not matching with the expected domain name  in AD domain name text box ");
+
+			sa.assertEquals(PoliciesPage.getText_ATypeComboBox(), "Secure",
+					"Fail:  Authentication Type secure is not selected ");
+
+			sa.assertEquals(PoliciesPage.getText_PortNoTextBox(), "389",
+					"Fail: port number 389 is not displayed based on the selection of Authentication Type as Secure");
+
+			sa.assertAll();
+
+		}
+
+		// AD29-Verify if Active Directory Connection is deactivated once Clicking on
+		// the Active Directory User button when Active Directory is activated
+
+		@Test(groups = { "Sanity",
+				"Regression" }, description = "AD28-Verify if user able to update the existing connection details once clicking on the Update button")
+
+		public void AD29() throws InterruptedException {
+
+			extentTest = extent.startTest(
+					"AD28-Verify if user able to update the existing connection details once clicking on the Update button");
+			SoftAssert sa = new SoftAssert();
+
+			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			PoliciesPage.clickOn_ConnectBtn();
+			PoliciesPage.ClickSaveButton();
+			PoliciesPage.clickOn_AcceptBtn();
+			UserLoginPopup_UserCommentTextBox("1", "111111", "connect");
+			tu.click_OK_popup();
+			System.out.println(PoliciesPage.get_connectionStatus());
+			sa.assertEquals(PoliciesPage.get_connectionStatus(), "Yes", "Fail:Not connected");
+	//now disconnect
+
+			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+			PoliciesPage.ClickSaveButton();
+			UserLoginPopup_UserCommentTextBox("1", "111111", "disconnect");
+			tu.click_OK_popup();
+			System.out.println(PoliciesPage.get_connectionStatus());
+			sa.assertEquals(PoliciesPage.get_connectionStatus(), "No", "Fail: Connection status is not displaying as No ");
+
+			sa.assertAll();
+
+		}
+
+	//AD30-Verify if Active Directory Connected displayed as No if Active Directory is not activated
+
+		@Test(groups = { "Sanity",
+				"Regression" }, description = "AD30-Verify if Active Directory Connected displayed as No if Active Directory is not activated")
+
+		public void AD30() throws InterruptedException {
+
+			extentTest = extent.startTest(
+					"AD30-Verify if Active Directory Connected displayed as No if Active Directory is not activated");
+
+			System.out.println("This is covered in  AD29");
+
+		}
+
+
 	
 }

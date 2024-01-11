@@ -15,6 +15,7 @@ public class FileManagementPage extends BaseClass {
                WebElement SyncOutBtn = null;
                WebElement ArchiveBtn = null;
                WebElement VRTConvertBtn = null;
+               WebElement    BackButton=null;
                
                
                private void initElements() {
@@ -23,6 +24,7 @@ public class FileManagementPage extends BaseClass {
                               SyncOutBtn = driver.findElementByAccessibilityId("SyncOut");
                               VRTConvertBtn = driver.findElementByAccessibilityId("VRTConvert");
                               //OKButton=driver.findElementByName("OK");
+                              BackButton = driver.findElementByAccessibilityId("BackButton");
                               
                               
                }
@@ -178,6 +180,15 @@ public class FileManagementPage extends BaseClass {
                               return new FM_ArchivePage();
                }
                
+               
+            // Move to Archive Page by Clicking the header SyncIn Button
+               public void Click_ArchiveTabwithcomment_alert(String UID, String PW,String commit) throws InterruptedException, IOException {
+                              clickOn(ArchiveBtn);
+                              Thread.sleep(500);
+                              UserLoginPopup_UserCommentTextBox(UID, PW,commit);
+                              
+               }
+               
                // Alert message Move to Archive Page by Clicking the header SyncIn Button
                public void Click_ArchiveTab_Alertmsg(String UID, String PW) throws InterruptedException, IOException {
                               clickOn(ArchiveBtn);
@@ -223,5 +234,25 @@ public class FileManagementPage extends BaseClass {
                               UserLoginPopup_UserCommentTextBox(UID, PW,comm);
                               return new FM_SyncInPage();
                }
+               
+               
+               public FM_SyncOutPage ClickSyncOutBtn_SyncOutPage(String UID, String PW, String com) throws InterruptedException, IOException {
+                   clickOn(SyncOutBtn);
+                   Thread.sleep(500);
+                   UserLoginPopup_UserCommentTextBox(UID, PW,com);
+                   return new FM_SyncOutPage();
+    }
+               
+               
+//BackButton
+               
+               public MainHubPage click_Backbtn() throws IOException, InterruptedException {
+            	   Thread.sleep(1000);
+            	   clickOn(BackButton);
+            	   return new MainHubPage();
+            	   
+               }
+               
+               
 		
 }

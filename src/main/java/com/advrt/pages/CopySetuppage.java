@@ -64,6 +64,9 @@ public class CopySetuppage extends BaseClass {
 	public boolean SelectAll_ChkboxField_Isvisible() {
 		return IsElementVisibleStatus(SelectAll_ChkboxField);
 	}
+	
+	
+	
 
 	// Click on SETUP_Header to sort by alphabetical order
 	public void Click_SETUP_Header() {
@@ -180,6 +183,12 @@ public class CopySetuppage extends BaseClass {
 		return astlist.isEmpty();
 
 	}
+	
+	
+	//is checkbox checked in
+		public boolean is_SelectAll_ChkboxField_checkedin() {
+			return checkboxSelectStatus(SelectAll_ChkboxField);
+		}
 
 	//
 	public int SetupCount() {

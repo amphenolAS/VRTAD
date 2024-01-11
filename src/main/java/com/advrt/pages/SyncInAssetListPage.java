@@ -126,6 +126,22 @@ public class SyncInAssetListPage  extends BaseClass{
 		clickOn(okBtn);
 	}
 
+	//SyncOutTemplateCheckBox
+
+			public void click_Pass_Fail_CriteriaTemplates() {
+				WebElement SyncOutTemplateCheckBox = driver.findElementByAccessibilityId("SyncOutTemplateCheckBox");
+				clickOn(SyncOutTemplateCheckBox);
+			}
+			
+			
+			//SyncInAuditCheckBox
+			
+			public void click_Audit_CheckBox() {
+				
+				clickOn(SyncInAudit_chkbx);
+			}
+				
+			
 	
 	
 	//SyncInUserCheckBox

@@ -222,7 +222,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 
 	@Test(description = "AD_Equipment_Audit _002 Verify the Audit trail entry while Creating a new Equipment with the  Active Directory Admin   User")
 
-	public void AD_Asset_Audit_002() throws InterruptedException, AWTException, IOException {
+	public void AD_Equipment_Audit_002() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"AD_Equipment_Audit _002 Verify the Audit trail entry while Creating a new Equipment with the  Active Directory Admin   User");
 
@@ -248,7 +248,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 	@Test(groups = { "Sanity",
 			"Regression" }, description = "AD_Asset_ Audit 003-Verify the Audit trail entry after modifying asset name with the  Active Directory Admin User")
 
-	public void AD_Asset_Audit_003() throws InterruptedException, AWTException, IOException {
+	public void AD_Equipment_Audit_003() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"AD_Asset_ Audit 003-Verify the Audit trail entry after modifying asset name with the  Active Directory Admin User");
 
@@ -281,7 +281,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 	
 	@Test( description = "AD_Equipment_Audit _004 Verify the Audit trail entry while Modifying Equipment ID with the  Active Directory Admin User")
 
-	public void AD_Asset_Audit_004() throws InterruptedException, AWTException, IOException {
+	public void AD_Equipment_Audit_004() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"AD_Equipment_Audit _004 Verify the Audit trail entry while Modifying Equipment ID with the  Active Directory Admin User");
 
@@ -359,7 +359,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 
 	@Test(description = "AD_Equipment_Audit _005 Verify the Audit trail entry while Deleting  Equipment ID with the  Active Directory Admin  User")
 
-	public void AD_Asset_Audit_005() throws InterruptedException, AWTException, IOException {
+	public void AD_Equipment_Audit_005() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"AD_Equipment_Audit _005 Verify the Audit trail entry while Deleting  Equipment ID with the  Active Directory Admin  User");
 
@@ -372,7 +372,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 
 	@Test(description = "AD_Equipment_Audit _006 Verify the Audit trail entry while Adding new   Equipment ID with the  Active Directory Admin  User")
 
-	public void AD_Asset_Audit_006() throws InterruptedException, AWTException, IOException {
+	public void AD_Equipment_Audit_006() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"AD_Equipment_Audit _006 Verify the Audit trail entry while Adding new   Equipment ID with the  Active Directory Admin  User");
 
@@ -532,7 +532,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 			MainHubPage = EquipmentHubPage.ClickBackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
 			Thread.sleep(2000);
-			String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Kaveri.Bedar\\git\\ADVRT\\src\\test\\resources\\TestData\\AutoLogs\"";
+			String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Kaveri.Bedar\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\"";
 			sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG2, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 		
 			sa.assertAll();	

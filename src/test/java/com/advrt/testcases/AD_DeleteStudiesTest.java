@@ -40,8 +40,6 @@ import com.advrt.pages.assetHubPage;
 import com.advrt.pages.assetDetailsPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.utility.TestUtilities;
-import com.advrt.utility.setupCreationUtility;
-import com.advrt.utility.userManagementUtility;
 
 
 public class AD_DeleteStudiesTest extends BaseClass{
