@@ -94,7 +94,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		
 
 	// Rename the VRT Data Files folder if exists in order to make the system default
-		 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+	/* renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 			//Copy the Default DataFIles folder from Test Data to the App service location.
 			String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
 			String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
@@ -155,11 +155,31 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 			tu.UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "created");
 			tu.click_OK_popup();
 			
-			MainHubPage = ADUM_page.ClickBackButn();
-			LoginPage = MainHubPage.UserSignOut();
-			tu.AppClose();
-			Thread.sleep(2000);
 			
+			MainHubPage = ADUM_page.ClickBackButn();
+			ADUM_page = MainHubPage.ClickAdminTile_ADUM();
+			
+			DefaultUserPrivilages_page=ADUM_page.SelectUType1("NewUserType");
+			DefaultUserPrivilages_page.Enter_NewUserType("Operator");
+			
+			DefaultUserPrivilages_page.Click_ManualSync();
+			
+            ADUM_page =	DefaultUserPrivilages_page.clickOn_UpdateBtn();//"kiranc", "Amphenol@123", "updated"
+			
+			ADUM_page.select_grp("Automation");
+			ADUM_page.SelectUType("Operator");
+			ADUM_page.enterNewUserTitle("Manager");
+			Thread.sleep(1000);
+			ADUM_page.ClickNewUserSaveButton();
+			tu.UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "updated");
+			tu.click_OK_popup();
+			MainHubPage = ADUM_page.ClickBackButn();
+			LoginPage =MainHubPage.UserSignOut();
+			
+			tu.AppClose();
+			
+			Thread.sleep(2000);
+			*/
 		}
 	
 	//After All the tests are conducted
