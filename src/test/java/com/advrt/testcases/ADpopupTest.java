@@ -61,9 +61,9 @@ public class ADpopupTest extends BaseClass{
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("ADpopup Test in Progress..");
 		
-/*
+
 		// Rename the VRT Data Files folder if exists in order to make the system default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+/*		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 		//Copy the Default DataFIles folder from Test Data to the App service location.
 		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
 		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
@@ -95,7 +95,7 @@ public class ADpopupTest extends BaseClass{
 		MainHubPage = UserManagementPage.ClickBackButn();
 		LoginPage = MainHubPage.UserSignOut();
 		AppClose();
-		Thread.sleep(2000);*/
+		Thread.sleep(2000); */
 		
 	}
 	
@@ -632,11 +632,11 @@ public class ADpopupTest extends BaseClass{
 				"AD24-Verify if click on X button Enter Active Directory User Credentials popup should be closed");
 		SoftAssert sa = new SoftAssert();
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		Thread.sleep(500);
+		Thread.sleep(1000);
 		PoliciesPage.Click_LDAPCloseButton_Btn();
 		Thread.sleep(1000);
 		
-		sa.assertEquals(PoliciesPage.ADUserLoginPopupVisible(), false ,
+		sa.assertEquals(PoliciesPage.ADUserLoginPopupVisible(),false,
 				"Fail: User login pop up is not displaying when user clicked on Accept btn");
 		
 		sa.assertAll();

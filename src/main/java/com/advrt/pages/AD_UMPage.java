@@ -515,11 +515,13 @@ public class AD_UMPage extends BaseClass {
 
 	
 	public void select_grp(String name) throws InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(3000);
         WebElement SelectGroup = driver.findElementByAccessibilityId("ComboBoxGroup");
         clickOn(SelectGroup);
+        Thread.sleep(500);
         List<WebElement> grplist=driver.findElementByAccessibilityId("ComboBoxGroup").findElements(By.className("ComboBoxItem"));
         //grplist.get(1).sendKeys("QA Testers");
+       Thread.sleep(500);
         WebElement grpName=grplist.get(1);
               grpName.sendKeys(name);//EditableCombo
         WebElement click=driver.findElementByName(name);

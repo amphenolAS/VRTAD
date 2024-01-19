@@ -117,6 +117,7 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 		Thread.sleep(2000);
 
 	}
+	
 
 	//After All the tests are conducted
 	//@AfterTest
@@ -132,17 +133,8 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 	public void Setup() throws InterruptedException, IOException {
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		//MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		//AD_UMPage = LoginPage.ADLogin_UMpage(getUID("adminFull"), getPW("adminFull"));
 		PoliciesPage	 = LoginPage.ADLogin_PPpage(getUID("adminFull"), getPW("adminFull"));
-		//AD_UMPage = LoginPage.ADLogin_UMpage("kiranc", "Amphenol@123");
-		//UserManagementPage = LoginPage.ADLogin_UMpage1(getUID("adminFull"), getPW("adminFull"));
-		//AD_UMPage = MainHubPage.AD_ClickAdminTile_UMpage();
 		Thread.sleep(1000);
-		//PoliciesPage = AD_UMPage.Click_Policy();
-	
-		
-		
 	}
 
 	@AfterMethod(alwaysRun=true)

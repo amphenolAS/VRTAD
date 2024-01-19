@@ -1049,12 +1049,12 @@ public class AD_PrivilageAccessTest extends BaseClass{
 
 	public void PA0050() throws InterruptedException, IOException, ParseException {
 		extentTest = extent
-				.startTest("PA049-Verify if User able to access the Preferences Module when the Preferences Privilege is checked ");
+				.startTest("PA050-Verify if User able to access the Preferences Module when the Preferences Privilege is checked ");
 		SoftAssert sa = new SoftAssert();
 
-		//AD_UMPage.Select_grp();
+		
 		AD_UMPage.select_grp("QA Testers");
-		//AD_UMPage.Select_user();
+		
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("NewUserType");
@@ -1464,12 +1464,11 @@ public void PA051() throws InterruptedException, IOException, ParseException, AW
 	
 	sa.assertEquals(SelectBaseStationPage.SelectBaseStationTitle_state(), true,
 			"Fail: Guest unable to access Verification module  ");
-	sa.assertAll();
-	
+	sa.assertAll();	
 
 }
 
-
+/*CRT Dependent
 //PA033-Verify if User able to access the Create Reports Module when the Create Reports Privilege is checked 
 
 @Test(priority=19,groups = { "Sanity",
@@ -1480,7 +1479,7 @@ public void PA033() throws InterruptedException, IOException, ParseException, AW
 			.startTest("PA033-Verify if User able to access the Create Reports Module when the Create Reports Privilege is checked ");
 	SoftAssert sa = new SoftAssert();
 
-	
+	System.out.println("CRT DEPENDENT from build 16");
 	AD_UMPage.select_grp("QA Testers");
 	AD_UMPage.select_UserTitle("Manager");
 	AD_UMPage.select_UserType1("NewUserType");
@@ -1536,6 +1535,8 @@ public void PA033() throws InterruptedException, IOException, ParseException, AW
 	
 
 }
+*/
+
 
 //PA035-Verify if User able to access the Delete StudyFiles/Reports Module when the Delete StudyFiles/Reports Privilege is checked 
 

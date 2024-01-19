@@ -50,9 +50,6 @@ public class AD_Asset_Ope_AuditTest extends BaseClass{
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-
 	public ExtentReports extent;
 	public ExtentTest extentTest;
 	TestUtilities tu = new TestUtilities();
@@ -142,8 +139,6 @@ public class AD_Asset_Ope_AuditTest extends BaseClass{
 			ADUM_page=MainHubPage.ClickAdminTile_ADUM();
 			//AD_UMPage.Select_grp();
 			ADUM_page.select_grp("Automation");//Automation
-			//AD_UMPage.Select_user();
-			//ADUM_page.select_user(0);
 			ADUM_page.enterNewUserTitle("Manager");
 			ADUM_page.SelectUType("Operator");
 			Thread.sleep(1000);
