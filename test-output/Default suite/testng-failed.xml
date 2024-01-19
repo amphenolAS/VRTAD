@@ -3,21 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.advrt.testcases.AD_FM_Syncin_AuditTest_Operator">
+      <class name="com.advrt.testcases.AD_PrivilageAccessTest1">
         <methods>
-          <include name="AD_SYNCIN_030"/>
-          <include name="endReport"/>
-          <include name="AD_SYNCIN_024"/>
           <include name="Setup"/>
-          <include name="AD_SYNCIN_031"/>
-          <include name="AD_SYNCIN_027"/>
-          <include name="Teardown"/>
-          <include name="AD_SYNCIN_029"/>
+          <include name="PA030"/>
           <include name="PreSetUp"/>
-          <include name="AD_SYNCIN_026"/>
-          <include name="AD_SYNCIN_025"/>
+          <include name="Teardown"/>
+          <include name="endReport"/>
         </methods>
-      </class> <!-- com.advrt.testcases.AD_FM_Syncin_AuditTest_Operator -->
+      </class> <!-- com.advrt.testcases.AD_PrivilageAccessTest1 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

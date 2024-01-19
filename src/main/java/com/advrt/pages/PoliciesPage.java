@@ -303,10 +303,22 @@ public class PoliciesPage extends BaseClass {
 	
 	
 	public boolean ADUserLoginPopupVisible() throws InterruptedException {
-		//WebElement LgInPopup = driver.findElementByName("Enter User Credentials");//LDAPCredentialTextBlock
-		WebElement LgInPopup = driver.findElementByName("Enter ActiveDirectory User Credentials");
-		Thread.sleep(1000);
-		return IsElementVisibleStatus(LgInPopup);
+		
+		
+		boolean status = false;
+		try
+		{
+			WebElement LgInPopup = driver.findElementByAccessibilityId("LDAPCredentialTextBlock");
+			if(IsElementVisibleStatus(LgInPopup))
+			{
+				status = true;
+			}
+		}
+		catch (Exception e) {
+			e.getMessage();
+		}
+		
+		return status;
 	}
 
 	// click on BackButton

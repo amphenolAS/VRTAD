@@ -394,7 +394,7 @@ public class AD_PreferenceTest extends BaseClass {
 	}
 
 	//Preferences10-Verify if Allow Editing of D Value in Lethality Equation field is unchecked by default in the Preferences screen
-	@Test(groups = { "Sanity",
+	@Test(priority=11,groups = { "Sanity",
 	"Regression" }, description = "Preferences10-Verify if Allow Editing of D Value in Lethality Equation field is unchecked by default in the Preferences screen")
 
 	public void ADP10() throws InterruptedException, IOException {
@@ -508,7 +508,7 @@ public class AD_PreferenceTest extends BaseClass {
 
 	
 	//Policies
-	@Test(priority = 15,groups = { "Sanity",
+	@Test(priority = 12,groups = { "Sanity",
 	"Regression" }, description = "AD_Policies03-Verify if Required minimum password length should not applicable when Active Directory Enabled")
 
 	public void AD_Policies03() throws InterruptedException, IOException {

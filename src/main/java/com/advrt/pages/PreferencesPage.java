@@ -39,10 +39,10 @@ public class PreferencesPage extends BaseClass {
 	// Page element Initialize method
 	private void initElements() {
 		PreferencesHeaderText = driver.findElementByAccessibilityId("PreferencesButton");
-		CompanyNameTextBox = driver.findElementByAccessibilityId("CompanyNameTextBox");
+		CompanyNameTextBox = driver.findElementByAccessibilityId("CompanyNameTextBox");//CompanyNameTextBox
 		TemparatureComboBox = driver.findElementByAccessibilityId("TemparatureComboBox");
 		MaxGroupComboBox = driver.findElementByAccessibilityId("MaxGroupComboBox");
-		LineFrequencyComboBox = driver.findElementByAccessibilityId("LineFrequencyComboBox");
+		//LineFrequencyComboBox = driver.findElementByAccessibilityId("LineFrequencyComboBox");
 		PressureComboBox = driver.findElementByAccessibilityId("PressureComboBox");
 		MachineIDTextBlock = driver.findElementByAccessibilityId("MachineIDTextBlock");
 		AlternateMachineID = driver.findElementByAccessibilityId("AlternatIDTextBox");

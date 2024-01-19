@@ -1068,8 +1068,8 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				SoftAssert sa = new SoftAssert();
 				assetHubPage = MainHubPage.Click_AssetTile2();
 				assetCreationPage = assetHubPage.Click_AddAssetButton();
-				assetCreationPage.assetCreation("AstCA012", "Asset052", "HeatBath", "AAS", "HYBD");
-				tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
+				assetCreationPage.assetCreation("AstCA012", "Asset052", "HeatBath", "Aas", "Hyd");
+				tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "Assetcreation");
 				tu.click_Close_alertmsg();
 				assetHubPage = assetCreationPage.clickBackBtn();
 				assetDetailsPage = assetHubPage.click_assetTile("AstCA012");
@@ -1079,7 +1079,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				Copyassetpage.Enter_NewAssetIDField("12q");
 				Copyassetpage.click_copy_Btn();
 
-			    tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "copyassetdone");
+			    tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "copyassetdone");
 			    
 				assetDetailsPage = Copyassetpage.clickBack_Button();
 				assetHubPage = assetDetailsPage.ClickBackBtn();
@@ -1089,7 +1089,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				Thread.sleep(2000);
 
 				sa.assertEquals(AuditPage.get_auditEvent_text(),
-						"Asset : \"CA012q\" is created by User Id : \"Ruchika1\" , User Name : \"Ruchika1\".");
+						"Asset : \"CA012q\" is created by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
 				
 				sa.assertAll();
 			}
@@ -1147,8 +1147,8 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				SoftAssert sa = new SoftAssert();
 				assetHubPage = MainHubPage.Click_AssetTile2();
 				assetCreationPage = assetHubPage.Click_AddAssetButton();
-				assetCreationPage.assetCreation("Ast015", "A15", "HeatBath", "AAS", "HYBD");
-				tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
+				assetCreationPage.assetCreation("Ast015", "A15", "HeatBath", "Aas", "Hyd");
+				tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "Assetcreation");
 				tu.click_Close_alertmsg();
 				assetHubPage = assetCreationPage.clickBackBtn();
 				assetDetailsPage = assetHubPage.click_assetTile("Ast015");
@@ -1158,17 +1158,17 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				Copyassetpage.Enter_NewAssetIDField("15");
 				Copyassetpage.click_copy_Btn();
 
-			    tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "copyassetdone");
+			    tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "copyassetdone");
 			    
 				assetDetailsPage = Copyassetpage.clickBack_Button();
 				assetDetailsPage.Click_DeleteAsset();
-				tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "deleteast");
+				tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "deleteast");
 				assetHubPage = assetDetailsPage.Delete_ClickYesBtn();
 				MainHubPage = assetHubPage.click_BackBtn();
 				AuditPage = MainHubPage.ClickAuditTitle();
 				Thread.sleep(2000);
 				String Actionmsg = AuditPage.get_auditEvent_text();
-				String ExpectMSG = "Asset: \"Ast015\" is deleted by User Id : \"Ruchika1\" , User Name : \"Ruchika1\"";
+				String ExpectMSG = "Asset: \"Ast015\" is deleted by User Id : \"Kiranc1\" , User Name : \"Kiranc1\"";
 				sa.assertEquals(Actionmsg, ExpectMSG, "FAIL: Audit trial record does not exists for Delete asset activity");
 				sa.assertAll();
 				

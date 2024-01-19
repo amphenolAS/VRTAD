@@ -907,7 +907,7 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 			
 			
 			//DefaultUserPrivilages_page.Click_Create_Equipmet();//while runing in suit uncommit
-			DefaultUserPrivilages_page.Click_ModifyEquipment();//while runing in suit uncommit
+			//DefaultUserPrivilages_page.Click_ModifyEquipment();//while runing in suit uncommit
 			DefaultUserPrivilages_page.Click_DeleteEquipment();
 			DefaultUserPrivilages_page.NewSaveButton();
 			UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "usercomitted");
@@ -930,13 +930,15 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 			Thread.sleep(500);
 			Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
 			Thread.sleep(1000);
-			Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EL011c");
+			Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EL010c");
 			Thread.sleep(500);
 			Equipment_IRTDDetailspage.clickDeleteEquipmentIcon();
+			tu.click_YesBtn_popup();
 			UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "usercomitted");
 			Thread.sleep(500);
 			
 		        String ActualMsg=tu.get_AlertMsg_text();
+		        Thread.sleep(1000);
 				String ExpectedMsg="User does not have sufficient privileges to perform this operation";
 			
 			sa.assertEquals(ActualMsg, ExpectedMsg,
@@ -1210,6 +1212,7 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 	}
 	
 	
+	/*CRT Dependent
 	//PA034-Verify if User not able to access the Create Reports Module when the Create Reports Privilege is unchecked
 
 	@Test(priority=17,groups = { "Sanity",
@@ -1219,6 +1222,8 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 		extentTest = extent
 				.startTest("PA034-Verify if User not able to access the Create Reports Module when the Create Reports Privilege is unchecked ");
 		SoftAssert sa = new SoftAssert();
+		
+		System.out.println("CRT DEPENDENT from build 16");
 		DefaultUserPrivilages_page.Click_Create_Reports();
 		DefaultUserPrivilages_page.Click_ManualSync();
 		DefaultUserPrivilages_page.NewSaveButton();
@@ -1268,7 +1273,7 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 		
 		
 		
-	}
+	}*/
 
 	//PA036-Verify if User not able to access the Delete StudyFiles/Reports Module when the Delete StudyFiles/Reports Privilege is unchecked
 

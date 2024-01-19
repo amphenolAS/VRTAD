@@ -102,7 +102,7 @@ public class AD_UMtest2 extends BaseClass{
 		PoliciesPage.clickOn_AcceptBtn();
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
 	
 		ADUM_page.select_grp("QA Testers");
@@ -513,6 +513,7 @@ public class AD_UMtest2 extends BaseClass{
 			Thread.sleep(1000);
 
 			DefaultUserPrivilages_page.Enter_NewUserType(AName);
+			DefaultUserPrivilages_page.Click_Create_UserManagement();
 			DefaultUserPrivilages_page.click_savebtn_alert();
 
 			sa.assertEquals(tu.get_popup_text(), "Please enter valid text for  New User Type.",
