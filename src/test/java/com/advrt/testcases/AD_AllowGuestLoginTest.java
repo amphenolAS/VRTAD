@@ -45,9 +45,6 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-
 	public ExtentReports extent;
 	public ExtentTest extentTest;
 	TestUtilities tu = new TestUtilities();

@@ -50,6 +50,9 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
+	
 
 	public ExtentReports extent;
 	public ExtentTest extentTest;
