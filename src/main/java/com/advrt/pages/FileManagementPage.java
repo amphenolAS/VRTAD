@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.openqa.selenium.WebElement;
 
 import com.advrt.pages.FM_SyncInPage;
+import com.advrt.pages.FM_VRTConvertPage;
 import com.advrt.base.BaseClass;
 
 public class FileManagementPage extends BaseClass {
@@ -181,6 +182,14 @@ public class FileManagementPage extends BaseClass {
                }
                
                
+               public FM_ArchivePage Click_ArchiveTabwithcommit(String UID, String PW,String commit) throws InterruptedException, IOException {
+                   clickOn(ArchiveBtn);
+                   Thread.sleep(500);
+                   UserLoginPopup_UserCommentTextBox(UID, PW,commit);
+                   return new FM_ArchivePage();
+    }
+    
+               
             // Move to Archive Page by Clicking the header SyncIn Button
                public void Click_ArchiveTabwithcomment_alert(String UID, String PW,String commit) throws InterruptedException, IOException {
                               clickOn(ArchiveBtn);
@@ -207,6 +216,14 @@ public class FileManagementPage extends BaseClass {
                               UserLoginPopup(UID, PW);
                               return new FM_VRTConvert();
                }
+               
+               
+               public FM_VRTConvert Click_VRTConvertTabwithcommit(String UID, String PW,String commit) throws InterruptedException, IOException {
+                   clickOn(ArchiveBtn);
+                   Thread.sleep(500);
+                   UserLoginPopup_UserCommentTextBox(UID, PW,commit);
+                   return new FM_VRTConvert();
+    }
                
                // Move to Archive Page by Clicking the header SyncIn Button
                public void Click_VRTConvertTab_WithAlertMsg(String UID, String PW) throws InterruptedException, IOException {
@@ -253,6 +270,19 @@ public class FileManagementPage extends BaseClass {
             	   
                }
                
+               public FM_VRTConvertPage Click_AvsConvert_Btn(String UID, String PW) throws InterruptedException, IOException {
+  	   			  clickOn(VRTConvertBtn);
+                    Thread.sleep(500);
+                    UserLoginPopup(UID, PW);
+                    return new FM_VRTConvertPage();
+     }
+               public FM_VRTConvertPage Click_AvsConvert_Btnwithcomment(String UID, String PW,String commit) throws InterruptedException, IOException {
+   	   			  clickOn(VRTConvertBtn);
+                     Thread.sleep(500);
+                     UserLoginPopup_UserCommentTextBox(UID, PW,commit);
+                     return new FM_VRTConvertPage();
+      }
+                
                
 		
 }

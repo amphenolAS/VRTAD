@@ -1,46 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-01-19T09:47:09 IST" name="Default suite" finished-at="2024-01-19T09:51:08 IST" duration-ms="239085">
+  <suite started-at="2024-02-15T10:47:01 IST" name="Default suite" finished-at="2024-02-15T10:47:16 IST" duration-ms="15140">
     <groups>
       <group name="Sanity">
-        <method signature="AD_PrivilageAccessTest.PA035()[pri:20, instance:com.advrt.testcases.AD_PrivilageAccessTest@1df8da7a]" name="PA035" class="com.advrt.testcases.AD_PrivilageAccessTest"/>
+        <method signature="AD_LoginTest.Login30()[pri:20, instance:com.advrt.testcases.AD_LoginTest@660acfb]" name="Login30" class="com.advrt.testcases.AD_LoginTest"/>
       </group> <!-- Sanity -->
       <group name="Regression">
-        <method signature="AD_PrivilageAccessTest.PA035()[pri:20, instance:com.advrt.testcases.AD_PrivilageAccessTest@1df8da7a]" name="PA035" class="com.advrt.testcases.AD_PrivilageAccessTest"/>
+        <method signature="AD_LoginTest.Login30()[pri:20, instance:com.advrt.testcases.AD_LoginTest@660acfb]" name="Login30" class="com.advrt.testcases.AD_LoginTest"/>
       </group> <!-- Regression -->
     </groups>
-    <test started-at="2024-01-19T09:47:09 IST" name="Default test" finished-at="2024-01-19T09:51:08 IST" duration-ms="239085">
-      <class name="com.advrt.testcases.AD_PrivilageAccessTest">
-        <test-method is-config="true" signature="PreSetUp()[pri:0, instance:com.advrt.testcases.AD_PrivilageAccessTest@1df8da7a]" started-at="2024-01-19T09:47:09 IST" name="PreSetUp" finished-at="2024-01-19T09:48:51 IST" duration-ms="101541" status="PASS">
+    <test started-at="2024-02-15T10:47:01 IST" name="Default test" finished-at="2024-02-15T10:47:16 IST" duration-ms="15140">
+      <class name="com.advrt.testcases.AD_LoginTest">
+        <test-method is-config="true" signature="PreSetUp()[pri:0, instance:com.advrt.testcases.AD_LoginTest@660acfb]" started-at="2024-02-15T10:47:01 IST" name="PreSetUp" finished-at="2024-02-15T10:47:01 IST" duration-ms="159" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- PreSetUp -->
-        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_PrivilageAccessTest@1df8da7a]" started-at="2024-01-19T09:48:51 IST" name="Setup" finished-at="2024-01-19T09:49:03 IST" duration-ms="12367" status="PASS">
+        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_LoginTest@660acfb]" started-at="2024-02-15T10:47:01 IST" name="Setup" finished-at="2024-02-15T10:47:05 IST" duration-ms="3684" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Setup -->
-        <test-method signature="PA035()[pri:20, instance:com.advrt.testcases.AD_PrivilageAccessTest@1df8da7a]" started-at="2024-01-19T09:49:03 IST" name="PA035" description="PA035-Verify if User able to access the Delete StudyFiles/Reports Module when the Delete StudyFiles/Reports Privilege is checked  " finished-at="2024-01-19T09:51:03 IST" duration-ms="119208" status="PASS">
+        <test-method signature="Login30()[pri:20, instance:com.advrt.testcases.AD_LoginTest@660acfb]" started-at="2024-02-15T10:47:05 IST" name="Login30" description="Login30-Verify if validation message is displayed when Active Directory user login to the application where the Active Directory user available in the multiple groups" finished-at="2024-02-15T10:47:10 IST" duration-ms="4753" status="FAIL">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[The following asserts failed:
+FAIL: Application allowed the dafult user when AD is connected expected [Deleted user Credential, Please try again] but found [Password expired, please contact administrator.]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: The following asserts failed:
+FAIL: Application allowed the dafult user when AD is connected expected [Deleted user Credential, Please try again] but found [Password expired, please contact administrator.]
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
+at com.advrt.testcases.AD_LoginTest.Login30(AD_LoginTest.java:570)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:848)
+at org.testng.TestRunner.run(TestRunner.java:621)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+at org.testng.TestNG.runSuites(TestNG.java:1114)
+at org.testng.TestNG.run(TestNG.java:1082)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- PA035 -->
-        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_PrivilageAccessTest@1df8da7a]" started-at="2024-01-19T09:51:03 IST" name="Teardown" finished-at="2024-01-19T09:51:08 IST" duration-ms="5072" status="PASS">
+        </test-method> <!-- Login30 -->
+        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_LoginTest@660acfb]" started-at="2024-02-15T10:47:10 IST" name="Teardown" finished-at="2024-02-15T10:47:15 IST" duration-ms="5651" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=PA035 status=SUCCESS method=AD_PrivilageAccessTest.PA035()[pri:20, instance:com.advrt.testcases.AD_PrivilageAccessTest@1df8da7a] output={null}]]]>
+                <![CDATA[[TestResult name=Login30 status=FAILURE method=AD_LoginTest.Login30()[pri:20, instance:com.advrt.testcases.AD_LoginTest@660acfb] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Teardown -->
-        <test-method is-config="true" signature="endReport()[pri:0, instance:com.advrt.testcases.AD_PrivilageAccessTest@1df8da7a]" started-at="2024-01-19T09:51:08 IST" name="endReport" finished-at="2024-01-19T09:51:08 IST" duration-ms="829" status="PASS">
+        <test-method is-config="true" signature="endReport()[pri:0, instance:com.advrt.testcases.AD_LoginTest@660acfb]" started-at="2024-02-15T10:47:15 IST" name="endReport" finished-at="2024-02-15T10:47:16 IST" duration-ms="825" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endReport -->
-      </class> <!-- com.advrt.testcases.AD_PrivilageAccessTest -->
+      </class> <!-- com.advrt.testcases.AD_LoginTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

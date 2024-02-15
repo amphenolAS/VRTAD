@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Default_suite" class="navigator-link">
-              <span class="suite-name border-passed">Default suite</span>
+              <span class="suite-name border-failed">Default suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -50,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse-861590000\testng-customsuite.xml</span>
+                    <span>C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse--774742480\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -92,21 +92,21 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">1 method, 1 failed,   </span>
                   </li>
                   <li>
-                    <span class="method-list-title passed">Passed methods</span>
-                    <span class="show-or-hide-methods passed">
-                      <a href="#" panel-name="suite-Default_suite" class="hide-methods passed suite-Default_suite"> (hide)</a> <!-- hide-methods passed suite-Default_suite -->
-                      <a href="#" panel-name="suite-Default_suite" class="show-methods passed suite-Default_suite"> (show)</a> <!-- show-methods passed suite-Default_suite -->
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Default_suite" class="hide-methods failed suite-Default_suite"> (hide)</a> <!-- hide-methods failed suite-Default_suite -->
+                      <a href="#" panel-name="suite-Default_suite" class="show-methods failed suite-Default_suite"> (show)</a> <!-- show-methods failed suite-Default_suite -->
                     </span>
-                    <div class="method-list-content passed suite-Default_suite">
+                    <div class="method-list-content failed suite-Default_suite">
                       <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.AD_PrivilageAccessTest" class="method navigator-link" hash-for-method="PA035">PA035</a> <!-- method navigator-link -->
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.AD_LoginTest" class="method navigator-link" hash-for-method="Login30">Login30</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content passed suite-Default_suite -->
+                    </div> <!-- method-list-content failed suite-Default_suite -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -118,27 +118,62 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Default_suite" class="panel Default_suite">
-          <div class="suite-Default_suite-class-passed">
+          <div class="suite-Default_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">com.advrt.testcases.AD_PrivilageAccessTest</span>
+              <img src="failed.png"/>
+              <span class="class-name">com.advrt.testcases.AD_LoginTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="PA035">
-                  </a> <!-- PA035 -->
-                  <span class="method-name">PA035</span>
+                  <a name="Login30">
+                  </a> <!-- Login30 -->
+                  <span class="method-name">Login30</span>
+                  <div class="stack-trace">java.lang.AssertionError: The following asserts failed:
+	FAIL: Application allowed the dafult user when AD is connected expected [Deleted user Credential, Please try again] but found [Password expired, please contact administrator.]
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
+	at com.advrt.testcases.AD_LoginTest.Login30(AD_LoginTest.java:570)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:848)
+	at org.testng.TestRunner.run(TestRunner.java:621)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+	at org.testng.TestNG.runSuites(TestNG.java:1114)
+	at org.testng.TestNG.run(TestNG.java:1082)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+
+</div> <!-- stack-trace -->
                   <em>
-(PA035-Verify if User able to access the Delete StudyFiles/Reports Module when the Delete StudyFiles/Reports Privilege is checked  )                  </em>
+(Login30-Verify if validation message is displayed when Active Directory user login to the application where the Active Directory user available in the multiple groups)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Default_suite-class-passed -->
+          </div> <!-- suite-Default_suite-class-failed -->
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse-861590000\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse--774742480\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -147,11 +182,11 @@
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.advrt.testcases.AD_PrivilageAccessTest&quot;&gt;
+      &lt;class name=&quot;com.advrt.testcases.AD_LoginTest&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;PA035&quot;/&gt;
+          &lt;include name=&quot;Login30&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- com.advrt.testcases.AD_PrivilageAccessTest --&gt;
+      &lt;/class&gt; &lt;!-- com.advrt.testcases.AD_LoginTest --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -179,7 +214,7 @@
               <span class="test-group-name">Regression</span>
               <br/>
               <div class="method-in-group">
-                <span class="method-in-group-name">PA035</span>
+                <span class="method-in-group-name">Login30</span>
                 <br/>
               </div> <!-- method-in-group -->
             </div> <!-- test-group -->
@@ -187,7 +222,7 @@
               <span class="test-group-name">Sanity</span>
               <br/>
               <div class="method-in-group">
-                <span class="method-in-group-name">PA035</span>
+                <span class="method-in-group-name">Login30</span>
                 <br/>
               </div> <!-- method-in-group -->
             </div> <!-- test-group -->
@@ -209,14 +244,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'PA035')
-data.setCell(0, 2, 'com.advrt.testcases.AD_PrivilageAccessTest')
-data.setCell(0, 3, 119208);
+data.setCell(0, 1, 'Login30')
+data.setCell(0, 2, 'com.advrt.testcases.AD_LoginTest')
+data.setCell(0, 3, 4753);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 1 minutes</span>
+              <span class="suite-total-time">Total running time: 4 seconds</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -231,49 +266,55 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">19 ignored methods</span>
+            <span class="header-content">22 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
-              <span class="ignored-class-name">com.advrt.testcases.AD_PrivilageAccessTest</span>
+              <span class="ignored-class-name">com.advrt.testcases.AD_LoginTest</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">PA0025</span>
+                <span class="ignored-method-name">Login12</span>
                 <br/>
-                <span class="ignored-method-name">PA0047</span>
+                <span class="ignored-method-name">Login34</span>
                 <br/>
-                <span class="ignored-method-name">PA0017</span>
+                <span class="ignored-method-name">Login01</span>
                 <br/>
-                <span class="ignored-method-name">PA031</span>
+                <span class="ignored-method-name">Login33</span>
                 <br/>
-                <span class="ignored-method-name">PA0027</span>
+                <span class="ignored-method-name">Login11</span>
                 <br/>
-                <span class="ignored-method-name">PA051</span>
+                <span class="ignored-method-name">Login27</span>
                 <br/>
-                <span class="ignored-method-name">PA007</span>
+                <span class="ignored-method-name">Login05</span>
                 <br/>
-                <span class="ignored-method-name">PA0050</span>
+                <span class="ignored-method-name">Login16</span>
                 <br/>
-                <span class="ignored-method-name">PA005</span>
+                <span class="ignored-method-name">Login13</span>
                 <br/>
-                <span class="ignored-method-name">PA003</span>
+                <span class="ignored-method-name">Login02</span>
                 <br/>
-                <span class="ignored-method-name">PA0019</span>
+                <span class="ignored-method-name">Login24</span>
                 <br/>
-                <span class="ignored-method-name">PA037</span>
+                <span class="ignored-method-name">Login10</span>
                 <br/>
-                <span class="ignored-method-name">PA0029</span>
+                <span class="ignored-method-name">Login15</span>
                 <br/>
-                <span class="ignored-method-name">PA001</span>
+                <span class="ignored-method-name">Login04</span>
                 <br/>
-                <span class="ignored-method-name">PA0011</span>
+                <span class="ignored-method-name">Login26</span>
                 <br/>
-                <span class="ignored-method-name">PA0021</span>
+                <span class="ignored-method-name">Login06</span>
                 <br/>
-                <span class="ignored-method-name">PA009</span>
+                <span class="ignored-method-name">Login17</span>
                 <br/>
-                <span class="ignored-method-name">PA0013</span>
+                <span class="ignored-method-name">Login14</span>
                 <br/>
-                <span class="ignored-method-name">PA0045</span>
+                <span class="ignored-method-name">Login03</span>
+                <br/>
+                <span class="ignored-method-name">Login25</span>
+                <br/>
+                <span class="ignored-method-name">Login08</span>
+                <br/>
+                <span class="ignored-method-name">Login18</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
@@ -285,26 +326,28 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.advrt.testcases.AD_PrivilageAccessTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.advrt.testcases.AD_LoginTest</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
                 <span class="method-name">PreSetUp</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-class before -->
               <div class="configuration-method before">
                 <span class="method-name">Setup</span>
-                <span class="method-start">101564 ms</span>
+                <span class="method-start">171 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">PA035</span>
-                <span class="method-start">113931 ms</span>
+                <img src="failed.png">
+                </img>
+                <span class="method-name">Login30</span>
+                <span class="method-start">3856 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
-                <span class="method-name">Teardown([TestResult name=PA035 status=SUCCESS method=AD_PrivilageAccessTest.PA035()[pri:20, instance:com.adv...)</span>
-                <span class="method-start">233141 ms</span>
+                <span class="method-name">Teardown([TestResult name=Login30 status=FAILURE method=AD_LoginTest.Login30()[pri:20, instance:com.advrt.tes...)</span>
+                <span class="method-start">8612 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-class after">
                 <span class="method-name">endReport</span>
-                <span class="method-start">238217 ms</span>
+                <span class="method-start">14284 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

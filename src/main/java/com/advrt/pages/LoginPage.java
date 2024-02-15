@@ -279,6 +279,23 @@ public class LoginPage extends BaseClass {
 		Thread.sleep(2000);
 	}
 
+	public void DeletedLogin(String UID, String PW) throws InterruptedException {
+		EnterUserID(UID);
+		EnterUserPW(PW);
+		ClickLoginBtn();
+		Thread.sleep(2000);
+	}
+	
+	
+	public void MultipleuserLogin(String UID, String PW) throws InterruptedException {
+		EnterUserID(UID);
+		EnterUserPW(PW);
+		ClickLoginBtn();
+		Thread.sleep(2000);
+	}
+
+
+	
 	// Login method for User OTHER THAN Kaye/411... to verify authentication
 	// failures")
 	public void AlertLogin(String UID, String PW) throws InterruptedException {

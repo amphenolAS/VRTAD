@@ -32,7 +32,7 @@ public class FM_SyncInPage extends BaseClass{
 		SyncInBrowseBtn = driver.findElementByAccessibilityId("SyncInFolderBrowseButton");
 		SyncInTextBox = driver.findElementByAccessibilityId("SyncInFolderTextBox");
 		FltrByDtBtn = driver.findElementByAccessibilityId("SyncInDateFilterCheckBox");
-		SyncInOKbtn = driver.findElementByAccessibilityId("SyncInFolderOKButton");
+		SyncInOKbtn = driver.findElementByAccessibilityId("SyncInFolderOKButton");//SyncInFolderOKButton
 		SyncInBackbtn = driver.findElementByAccessibilityId("BackButton");
 
 	}
@@ -97,7 +97,7 @@ public class FM_SyncInPage extends BaseClass{
 	public SyncInAssetListPage click_SyncInOK_btn() throws IOException, InterruptedException {
 		//Thread.sleep(1000);
 		clickOn(SyncInOKbtn);
-		clickOn(SyncInOKbtn);
+		//clickOn(SyncInOKbtn);
 		return new SyncInAssetListPage();
 	}
 	
@@ -136,5 +136,12 @@ public class FM_SyncInPage extends BaseClass{
 			WebElement win = driver.findElementByXPath("//*[normalize-space(.='Select Folder')]");
 			return IsElementVisibleStatus(win);
 		}
+
+		public void unSelect_FilterBtn() throws InterruptedException
+	{
+		if(checkboxSelectStatus(FltrByDtBtn))
+			Thread.sleep(5000);
+		clickOn(FltrByDtBtn);
+	}
 	
 }
