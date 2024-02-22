@@ -32,7 +32,7 @@ import com.advrt.pages.MainHubPage;
 import com.advrt.pages.UserManagementPage_Manual;
 import com.advrt.pages.PoliciesPage;
 import com.advrt.pages.AuditPage;
-
+import com.advrt.pages.AD_UMPage;
 import com.advrt.pages.ADUM_page;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.utility.ADUserManagementUtility;
@@ -59,6 +59,7 @@ public class AD_LoginTest extends BaseClass{
 	ADUM_page ADUM_page;
 	DefaultUserPrivilages_page DefaultUserPrivilages_page;
 	AuditPage AuditPage;
+	AD_UMPage AD_UMPage;
 	static String AdmnUN = "User1";
 	
 	
@@ -76,6 +77,7 @@ public class AD_LoginTest extends BaseClass{
 		System.out.println("AD-Login Test in Progress..");
 		
 
+		/*
 	// Rename the VRT Data Files folder if exists in order to make the system default
       	renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 			//Copy the Default DataFIles folder from Test Data to the App service location.
@@ -112,11 +114,10 @@ public class AD_LoginTest extends BaseClass{
 			PoliciesPage.clickOn_AcceptBtn();
 			UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 			tu.click_OK_popup();
-			
+		
 			ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
 			Thread.sleep(1000);
 			ADUM_page.select_grp("Automation");
-			//ADUM_page.select_user(0);
 			ADUM_page.enterNewUserTitle("Manager");
 			ADUM_page.SelectUType("SystemAdministrator");
 			Thread.sleep(1000);
@@ -125,8 +126,9 @@ public class AD_LoginTest extends BaseClass{
 			UserLoginPopup_UserCommentTextBox("1", "111111", "Admin");
 			
 			tu.click_OK_popup();
+		
 			tu.click_OK_popup();
-			Thread.sleep(2000);
+			Thread.sleep(2000);*/
 		
 		}
 	
@@ -145,10 +147,7 @@ public class AD_LoginTest extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		//MainHubPage = LoginPage.Login("Ruchika1","Amphenol@123");
-		//ADUM_page = MainHubPage.ClickAdminTile_UMpage();
-		//PoliciesPage = MainHubPage.ClickAdminTile_Polpage();
-		//ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
+		
 	}
 
 	@AfterMethod(alwaysRun=true)
@@ -186,7 +185,7 @@ public class AD_LoginTest extends BaseClass{
 	
 	// Login01-Verify if System able to connect to the Domain with Active Directory Credentials
 
-	@Test(groups = { "Sanity",
+	@Test(priority=0,groups = { "Sanity",
 			"Regression" }, description = "Login01-Verify if System able to connect to the Domain with Active Directory Credentials")
 
 	public void Login01() throws InterruptedException, AWTException, IOException {
@@ -197,7 +196,7 @@ public class AD_LoginTest extends BaseClass{
 		SoftAssert sa = new SoftAssert();
 		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.54");
 		
-		MainHubPage = LoginPage.Login("Ruchika1","Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
 		Thread.sleep(500);
 		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(),true);
 		sa.assertAll();
@@ -210,7 +209,7 @@ public class AD_LoginTest extends BaseClass{
 	// Login02-Verify if Kaye 411 User able to login to the system for the first
 	// time
 
-	@Test(groups = { "Sanity",
+	@Test(priority=1,groups = { "Sanity",
 			"Regression" }, description = "Login02-Verify if Kaye 411 User able to login to the system for the first time")
 
 	public void Login02() throws InterruptedException, AWTException, IOException {
@@ -223,7 +222,7 @@ public class AD_LoginTest extends BaseClass{
 	
 	//Login03-Verify if Kaye 411 user able to login to the application when the Active Directory is activated and Manual Users and Active Directory users are not available in the application
 
-		@Test(groups = { "Sanity",
+		@Test(priority=2,groups = { "Sanity",
 				"Regression" }, description = "Login03-Verify if Kaye 411 user able to login to the application when the Active Directory is activated and Manual Users and Active Directory users are not available in the application")
 
 		public void Login03() throws InterruptedException, AWTException, IOException {
@@ -239,7 +238,7 @@ public class AD_LoginTest extends BaseClass{
 		// the Active Directory is activated and Manual Users and Active Directory users
 		// are available in the application
 
-		@Test(groups = { "Sanity",
+		@Test(priority=3,groups = { "Sanity",
 		"Regression" }, description = "Login04-Verify if Active Directory user able to login to the application when the Active Directory is activated and Manual Users and Active Directory users are available in the application")
 
 public void Login04() throws InterruptedException, AWTException, IOException {
@@ -250,7 +249,7 @@ public void Login04() throws InterruptedException, AWTException, IOException {
 	SoftAssert sa = new SoftAssert();
 	sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.54");
 	
-	MainHubPage = LoginPage.Login("Ruchika1","Amphenol@123");
+	MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
 	
 	sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(),true);
 	sa.assertAll();
@@ -258,7 +257,7 @@ public void Login04() throws InterruptedException, AWTException, IOException {
 		
 	//Login05-Verify if Manual user able to login to the application and Policies and User Management screen displays to create the Active Directory users when the Active Directory is activated and Manual Users available and Active Directory users are not available in the application	
 
-		@Test(groups = { "Sanity",
+		@Test(priority=4,groups = { "Sanity",
 		"Regression" }, description = "Login05-Verify if Manual user able to login to the application and Policies and User Management screen displays to create the Active Directory users when the Active Directory is activated and Manual Users available and Active Directory users are not available in the application	\r\n"
 				+ "")
 
@@ -275,7 +274,7 @@ public void Login05() throws InterruptedException, AWTException, IOException {
 // the Active Directory is activated and Manual Users not available and Active
 // Directory users are available in the application
 
-@Test(groups = { "Sanity",
+@Test(priority=5,groups = { "Sanity",
 		"Regression" }, description = "Login06-Verify if Active Directory user able to login to the application when the Active Directory is activated and Manual Users not available and Active Directory users are available in the application")
 
 public void Login06() throws InterruptedException, AWTException, IOException {
@@ -292,7 +291,7 @@ public void Login06() throws InterruptedException, AWTException, IOException {
 
 
 
-@Test(groups = { "Sanity",
+@Test(priority=6,groups = { "Sanity",
 		"Regression" }, description = "Login08-Verify if Manual user able to login to the application when the Active Directory is not activated and Manual Users available and Active Directory users are not available in the application")
 
 public void Login08() throws InterruptedException, AWTException, IOException {
@@ -305,7 +304,7 @@ public void Login08() throws InterruptedException, AWTException, IOException {
 
 //Login10-Verify if Username displayed in the Login Screen when Active Directory Connected
 
-@Test(groups = { "Sanity",
+@Test(priority=7,groups = { "Sanity",
 		"Regression" }, description = "Login10-Verify if Username displayed in the Login Screen when Active Directory Connected")
 
 public void Login10() throws InterruptedException, AWTException, IOException {
@@ -323,7 +322,7 @@ public void Login10() throws InterruptedException, AWTException, IOException {
 
 //Login11-Verify if Password displayed in the Login Screen when Active Directory Connected
 
-@Test(groups = { "Sanity",
+@Test(priority=8,groups = { "Sanity",
 		"Regression" }, description = "Login11-Verify if Password displayed in the Login Screen when Active Directory Connected")
 
 public void Login11() throws InterruptedException, AWTException, IOException {
@@ -340,7 +339,7 @@ public void Login11() throws InterruptedException, AWTException, IOException {
 
 //Login12-Verify if Domain Name displayed in the Login Screen when Active Directory Connected
 
-@Test(groups = { "Sanity",
+@Test(priority=9,groups = { "Sanity",
 		"Regression" }, description = "Login12-Verify if Domain Name displayed in the Login Screen when Active Directory Connected")
 
 public void Login12() throws InterruptedException, AWTException, IOException {
@@ -357,7 +356,7 @@ public void Login12() throws InterruptedException, AWTException, IOException {
 //Login13-Verify if Domain Name should not be in editable mode in the Login Screen
 
 
-@Test(groups = { "Sanity",
+@Test(priority=10,groups = { "Sanity",
 		"Regression" }, description = "Login13-Verify if Domain Name should not be in editable mode in the Login Screen")
 
 public void Login13() throws InterruptedException, AWTException, IOException {
@@ -377,7 +376,7 @@ public void Login13() throws InterruptedException, AWTException, IOException {
 //Login14-Verify if Domain Name value should be displayed by default where the domain previously connected
 
 
-@Test(groups = { "Sanity",
+@Test(priority=11,groups = { "Sanity",
 "Regression" }, description = "Login14-Verify if Domain Name value should be displayed by default where the domain previously connected")
 
 public void Login14() throws InterruptedException, AWTException, IOException {
@@ -395,14 +394,14 @@ sa.assertAll();
 //Login15-Verify if System not allowed to logout from the application without Configuring the Active Directory user when Active Directory is activated
 
 
-@Test(groups = { "Sanity",
+@Test(priority=12,groups = { "Sanity",
 "Regression" }, description = "Login15-Verify if System not allowed to logout from the application without Configuring the Active Directory user when Active Directory is activated")
 
 public void Login15() throws InterruptedException, AWTException, IOException {
 extentTest = extent.startTest("Login15-Verify if System not allowed to logout from the application without Configuring the Active Directory user when Active Directory is activated");
 
 SoftAssert sa = new SoftAssert();
-MainHubPage = LoginPage.Login("Ruchika1","Amphenol@123");
+MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
 
 ADUM_page = MainHubPage.ClickAdminTile_ADUM();
 PoliciesPage = ADUM_page.ClickOn_PoliciesHeaderText();
@@ -419,7 +418,7 @@ sa.assertAll();
 
 
 
-@Test(groups = { "Sanity",
+@Test(priority=13,groups = { "Sanity",
 		"Regression" }, description = "Login16-Verify if System not allowed to logout from the application without creating the user when Active Directory is not activated")
 
 public void Login16() throws InterruptedException, AWTException, IOException {
@@ -432,7 +431,7 @@ public void Login16() throws InterruptedException, AWTException, IOException {
 
 //Login17- Verify if Kaye-411 user not able to login to the application once Active Directory users/groups synced to the HMI
 
-@Test(groups = { "Sanity",
+@Test(priority=14,groups = { "Sanity",
 "Regression" }, description = "Login17- Verify if Kaye-411 user not able to login to the application once Active Directory users/groups synced to the HMI")
 
 public void Login17() throws InterruptedException, AWTException, IOException {
@@ -458,7 +457,7 @@ sa.assertAll();
 //Login18-Verify if Kaye-411 user not able to login to the application once Local user created in the HMI
 
 
-@Test(groups = { "Sanity",
+@Test(priority=15,groups = { "Sanity",
 "Regression" }, description = "Login18-Verify if Kaye-411 user not able to login to the application once Local user created in the HMI")
 
 public void Login18() throws InterruptedException, AWTException, IOException {
@@ -474,7 +473,7 @@ System.out.println("This test case is to Login17 ");
 
 
 
-@Test(groups = { "Sanity",
+@Test(priority=16,groups = { "Sanity",
 "Regression" }, description = "Login24-Verify if validation message is displayed when user login to the application with invalid username Active Directory credentials")
 
 public void Login24() throws InterruptedException, AWTException, IOException {
@@ -496,7 +495,7 @@ sa.assertAll();
 //Login25-Verify if validation message is displayed when user login to the application with invalid password Active Directory credentials
 
 
-@Test(groups = { "Sanity",
+@Test(priority=17,groups = { "Sanity",
 "Regression" }, description = "Login25-Verify if validation message is displayed when user login to the application with invalid password Active Directory credentials")
 
 public void Login25() throws InterruptedException, AWTException, IOException {
@@ -506,7 +505,7 @@ extentTest = extent
 
 SoftAssert sa = new SoftAssert();
 
- LoginPage.InvalidLogin("Ruchika1","abc@123");
+ LoginPage.InvalidLogin("kaverib","abc@123");
 
 sa.assertEquals(tu.get_popup_text(),"Invalid Credential, Please try again","FAIL: Application allowed the dafult user when AD is connected");
 
@@ -514,6 +513,165 @@ sa.assertEquals(tu.get_popup_text(),"Invalid Credential, Please try again","FAIL
 sa.assertAll();
 
 }
+
+
+//Login26-Verify if validation message is displayed when user login to the application with locked Active Directory credentials
+
+@Test(priority=18,groups = { "Sanity",
+"Regression" }, description = "Login26-Verify if validation message is displayed when user login to the application with locked Active Directory credentials")
+public void Login26() throws InterruptedException, AWTException, IOException {
+extentTest = extent
+	.startTest("LLogin26-Verify if validation message is displayed when user login to the application with locked Active Directory credentials");
+
+
+SoftAssert sa = new SoftAssert();
+
+ LoginPage.LockedLogin("Disabled","Amphenol@123");
+
+sa.assertEquals(tu.get_popup_text(),"Invalid Credential, Please try again","FAIL: Application allowed the dafult user when AD is connected");
+
+sa.assertAll();
+
+}
+
+//Login27-Verify if validation message is displayed when deleted Active Directory user login to the application
+
+@Test(priority=19,groups = { "Sanity",
+"Regression" }, description = "Login27-Verify if validation message is displayed when deleted Active Directory user login to the application")
+public void Login27() throws InterruptedException, AWTException, IOException {
+extentTest = extent
+	.startTest("Login27-Verify if validation message is displayed when deleted Active Directory user login to the application");
+
+SoftAssert sa = new SoftAssert();
+
+ LoginPage.DeletedLogin("ec","Amphenol@123");
+
+sa.assertEquals(tu.get_popup_text(),"User must reset password.","FAIL: Application allowed the dafult user when AD is connected");
+
+sa.assertAll();
+
+}
+
+// Login30-Verify if validation message is displayed when Active Directory user login to the application where the Active Directory user available in the multiple groups
+
+
+@Test(priority=20,groups = { "Sanity",
+"Regression" }, description = "Login30-Verify if validation message is displayed when Active Directory user login to the application where the Active Directory user available in the multiple groups")
+public void Login30() throws InterruptedException, AWTException, IOException {
+extentTest = extent
+	.startTest("Login30-Verify if validation message is displayed when Active Directory user login to the application where the Active Directory user available in the multiple groups");
+
+SoftAssert sa = new SoftAssert();
+
+ LoginPage.MultipleuserLogin("Ruchika1","Amphenol@123");
+
+sa.assertEquals(tu.get_popup_text(),"Password expired, please contact administrator.","FAIL: Application allowed the dafult user when AD is connected");
+
+sa.assertAll();
+
+}
+
+// Login33-Verify if application should automatically logoff after creating the first user with default SystemAdministrator Privileges
+
+@Test(priority=21,groups = { "Sanity",
+"Regression" }, description = "Login33-Verify if application should automatically logoff after creating the first user with default SystemAdministrator Privileges")
+public void Login33() throws InterruptedException, AWTException, IOException {
+extentTest = extent
+	.startTest("Login33-Verify if application should automatically logoff after creating the first user with default SystemAdministrator Privileges\r\n"
+			+ "");
+
+SoftAssert sa = new SoftAssert();
+
+/*
+MainHubPage =LoginPage.Login("Ruchika1","Amphenol@123");
+AD_UMPage = MainHubPage.AD_ClickAdminTile_UMpage();
+PoliciesPage=AD_UMPage.AD_Click_Policy();
+PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+PoliciesPage.ClickSaveButton();
+UserLoginPopup_UserCommentTextBox("Ruchika1","Amphenol@123","commit1");
+tu.click_OK_popup();
+try {
+	tu.click_OK_popup();
+} catch (Exception e) {
+	e.printStackTrace();
+}
+
+Thread.sleep(1000);
+LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
+Thread.sleep(500);
+LoginPage = new LoginPage();
+MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
+UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
+
+Thread.sleep(1000);
+
+PoliciesPage = UserManagementPage_Manual.Click_Policy();
+
+PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+PoliciesPage.clickOn_ConnectBtn();
+PoliciesPage.ClickSaveButton();
+PoliciesPage.clickOn_AcceptBtn();
+UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"),"commit2");
+tu.click_OK_popup();
+try {
+	tu.click_OK_popup();
+} catch (Exception e) {
+	e.printStackTrace();
+}
+
+LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
+Thread.sleep(500);
+LoginPage = new LoginPage();
+MainHubPage =LoginPage.Login("Ruchika1","Amphenol@123");
+ADUM_page=MainHubPage.ClickAdminTile_ADUM();
+Thread.sleep(1000);
+ADUM_page.select_grp("Automation");
+ADUM_page.enterNewUserTitle("Manager");
+//ADUM_page.SelectUType("SystemAdministrator");
+AD_UMPage.select_UserType1("NewUserType");
+DefaultUserPrivilages_page=AD_UMPage.newUserType("SystemAdministrator");
+DefaultUserPrivilages_page.AllPrivilages();
+Thread.sleep(1000);
+DefaultUserPrivilages_page.NewSaveButton();
+UserLoginPopup_UserCommentTextBox("Ruchika1","Amphenol@123","commit1");
+ADUM_page.enterNewUserTitle("Manager");
+ADUM_page.SelectUType("SystemAdministrator");
+ADUM_page.ClickNewUserSaveButton();
+
+UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "Admin");
+
+tu.click_OK_popup();
+
+sa.assertEquals(tu.get_popup_text(),"User Type Changed","FAIL: Application allowed the dafult user when AD is connected");
+sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.54");*/
+
+System.out.println("This Tc has been Covered in Before class");
+
+sa.assertAll();
+
+}
+
+// Login34-Verify if application should automatically logoff after creating the first user with Modified SystemAdministrator Privileges
+
+
+@Test(priority=22,groups = { "Sanity",
+"Regression" }, description = "Login33-Verify if application should automatically logoff after creating the first user with default SystemAdministrator Privileges")
+public void Login34() throws InterruptedException, AWTException, IOException {
+extentTest = extent
+	.startTest("Login33-Verify if application should automatically logoff after creating the first user with default SystemAdministrator Privileges\r\n"
+			+ "");
+
+SoftAssert sa = new SoftAssert();
+
+
+System.out.println("This Tc has been Covered in Before class");
+
+
+sa.assertAll();
+
+}
+
 
 
 }

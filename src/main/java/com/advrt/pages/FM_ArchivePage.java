@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import org.openqa.selenium.WebElement;
 
+import com.advrt.pages.FM_ArchiveSelectionPage;
 import com.advrt.base.BaseClass;
 import com.advrt.utility.TestUtilities;
 
@@ -68,7 +69,95 @@ public class FM_ArchivePage extends BaseClass{
 		clickOn(ArchiveBrowseBtn);
 		Thread.sleep(2000);
 	}
-	
+	public boolean Is_ArchiveBrowseBtnVisible() {
+        return IsElementVisibleStatus(ArchiveBrowseBtn);
+    }
+	 public boolean is_ArchivePopupDateVisible()
+	 {
+		 boolean status = false;
+		try
+		{
+			 WebElement ArchivePopupDate = driver.findElementByAccessibilityId("AssestPopupDateHeaderLabels");
+			 IsElementVisibleStatus(ArchivePopupDate);
+			 status = true;
+		}
+		catch (Exception e) {
+			e.getMessage();
+		}
+		
+	    	return status;
+	 }
+	 public boolean is_ArchiveDateBtnVisible()
+     {
+     	return IsElementVisibleStatus(ArchiveByDtBtn);
+     }
+	 public boolean is_ArchiveOkBtnVisible()
+     {
+     	return IsElementVisibleStatus(ArchiveOKbtn);
+     }
+	 public void enterTxt_ArchiveTextBox(String val)
+    	{
+     	enterText(ArchiveTextBox, val);
+     }  
+	 public String  getText_ArchiveFilePath()
+     {
+                    return FetchText(ArchiveTextBox);
+     } 
+	 public void click_ArchiveDate()
+     {
+     	clickOn(ArchiveByDtBtn);
+     }
+	 public void click_Ok_DateSelectionPopUp() throws InterruptedException
+ 	{
+ 		WebElement okSymbol = driver.findElementByAccessibilityId("PART_SelectorOKButton");
+ 		Thread.sleep(1000);
+ 		clickOn(okSymbol);
+ 	}
+	 public FM_ArchiveSelectionPage click_OkBtn() throws IOException, InterruptedException
+     {
+     	clickOn(ArchiveOKbtn);
+     	Thread.sleep(2000);
+     	return new FM_ArchiveSelectionPage();
+     }
+	 public boolean is_MsgPopUpDisplayed()
+	 {
+		 boolean status = false;
+		 try
+		 {
+			WebElement popupMsg = driver.findElementByAccessibilityId("Popup Window");
+			IsElementVisibleStatus(popupMsg);
+			status = true;
+		 }
+		 catch (Exception e) {
+			e.getMessage();
+		}
+		 return status;
+		
+		 
+	 }
+	 public boolean is_DatePopupVisible()
+	 {
+		 WebElement datePopup = driver.findElementByAccessibilityId("PART_Popup");
+		 return IsElementVisibleStatus(datePopup);
+	 }
+	 public boolean is_LocDatePopUpDisplayed()
+	 {
+		 WebElement popup = driver.findElementByAccessibilityId("AssestPopupDateHeaderLabels");
+		 return IsElementVisibleStatus(popup);
+	 }
+	 public String getTxt_ArchiveDate()
+     {
+     	return FetchText(ArchiveByDtBtn);
+     } 
+  
+		public boolean is_ExplorerWinInvoked()
+       	{
+       		//Switch to file explorer window 
+       		driver.switchTo().activeElement();
+       		
+       		WebElement win = driver.findElementByXPath("//*[normalize-space(.='Select Folder')]");
+       		return IsElementVisibleStatus(win);
+       	} 
 	// Enter sync in folder path
 	public void enter_Filepath(String pathname) throws AWTException, IOException, InterruptedException{
 		Click_BrowseBtn();
@@ -97,7 +186,10 @@ public class FM_ArchivePage extends BaseClass{
 		driver.switchTo().activeElement();
 		Thread.sleep(500);
 	}
-	
+	 public boolean is_ArchiveHeaderBtnVisible() 
+     {
+     	return IsElementVisibleStatus(ArchiveHeaderBtn);
+     }
 
 
 }

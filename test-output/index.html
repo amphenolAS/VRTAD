@@ -50,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse-1460269450\testng-customsuite.xml</span>
+                    <span>C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse--774742480\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -103,7 +103,7 @@
                     <div class="method-list-content failed suite-Default_suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.AD_PrivilageAccessTest1" class="method navigator-link" hash-for-method="PA030">PA030</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.AD_LoginTest" class="method navigator-link" hash-for-method="Login30">Login30</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Default_suite -->
@@ -121,49 +121,19 @@
           <div class="suite-Default_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
-              <span class="class-name">com.advrt.testcases.AD_PrivilageAccessTest1</span>
+              <span class="class-name">com.advrt.testcases.AD_LoginTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="PA030">
-                  </a> <!-- PA030 -->
-                  <span class="method-name">PA030</span>
-                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 0 milliseconds
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
-Build info: version: &apos;3.141.59&apos;, revision: &apos;e82be7d358&apos;, time: &apos;2018-11-14T08:17:03&apos;
-System info: host: &apos;AASHYD-847B8Y2&apos;, ip: &apos;10.17.18.53&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.8&apos;
-Driver info: io.appium.java_client.windows.WindowsDriver
-Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
-Session ID: FF616804-BA55-4246-90D9-47AC415F93CA
-*** Element info: {Using=name, value=Enter User Credentials}
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
-	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
-	at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
-	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
-	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:42)
-	at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
-	at io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
-	at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMobileDriver.java:62)
-	at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
-	at io.appium.java_client.windows.WindowsDriver.findElement(WindowsDriver.java:1)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByName(RemoteWebDriver.java:404)
-	at io.appium.java_client.DefaultGenericMobileDriver.findElementByName(DefaultGenericMobileDriver.java:118)
-	at io.appium.java_client.AppiumDriver.findElementByName(AppiumDriver.java:1)
-	at io.appium.java_client.windows.WindowsDriver.findElementByName(WindowsDriver.java:1)
-	at com.advrt.base.BaseClass.UserLoginPopup_UserCommentTextBox(BaseClass.java:231)
-	at com.advrt.testcases.AD_PrivilageAccessTest1.PA030(AD_PrivilageAccessTest1.java:936)
+                  <a name="Login30">
+                  </a> <!-- Login30 -->
+                  <span class="method-name">Login30</span>
+                  <div class="stack-trace">java.lang.AssertionError: The following asserts failed:
+	FAIL: Application allowed the dafult user when AD is connected expected [Deleted user Credential, Please try again] but found [Password expired, please contact administrator.]
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
+	at com.advrt.testcases.AD_LoginTest.Login30(AD_LoginTest.java:570)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -195,7 +165,7 @@ Session ID: FF616804-BA55-4246-90D9-47AC415F93CA
 
 </div> <!-- stack-trace -->
                   <em>
-(PA030-Verify if User not able to access the Delete Equipment Module when the Delete Equipment Privilege is unchecked)                  </em>
+(Login30-Verify if validation message is displayed when Active Directory user login to the application where the Active Directory user available in the multiple groups)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -203,7 +173,7 @@ Session ID: FF616804-BA55-4246-90D9-47AC415F93CA
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse-1460269450\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse--774742480\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -212,11 +182,11 @@ Session ID: FF616804-BA55-4246-90D9-47AC415F93CA
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.advrt.testcases.AD_PrivilageAccessTest1&quot;&gt;
+      &lt;class name=&quot;com.advrt.testcases.AD_LoginTest&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;PA030&quot;/&gt;
+          &lt;include name=&quot;Login30&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- com.advrt.testcases.AD_PrivilageAccessTest1 --&gt;
+      &lt;/class&gt; &lt;!-- com.advrt.testcases.AD_LoginTest --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -244,7 +214,7 @@ Session ID: FF616804-BA55-4246-90D9-47AC415F93CA
               <span class="test-group-name">Regression</span>
               <br/>
               <div class="method-in-group">
-                <span class="method-in-group-name">PA030</span>
+                <span class="method-in-group-name">Login30</span>
                 <br/>
               </div> <!-- method-in-group -->
             </div> <!-- test-group -->
@@ -252,7 +222,7 @@ Session ID: FF616804-BA55-4246-90D9-47AC415F93CA
               <span class="test-group-name">Sanity</span>
               <br/>
               <div class="method-in-group">
-                <span class="method-in-group-name">PA030</span>
+                <span class="method-in-group-name">Login30</span>
                 <br/>
               </div> <!-- method-in-group -->
             </div> <!-- test-group -->
@@ -274,14 +244,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'PA030')
-data.setCell(0, 2, 'com.advrt.testcases.AD_PrivilageAccessTest1')
-data.setCell(0, 3, 90724);
+data.setCell(0, 1, 'Login30')
+data.setCell(0, 2, 'com.advrt.testcases.AD_LoginTest')
+data.setCell(0, 3, 4753);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 1 minutes</span>
+              <span class="suite-total-time">Total running time: 4 seconds</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -296,49 +266,55 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">19 ignored methods</span>
+            <span class="header-content">22 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
-              <span class="ignored-class-name">com.advrt.testcases.AD_PrivilageAccessTest1</span>
+              <span class="ignored-class-name">com.advrt.testcases.AD_LoginTest</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">PA050A</span>
+                <span class="ignored-method-name">Login12</span>
                 <br/>
-                <span class="ignored-method-name">PA022</span>
+                <span class="ignored-method-name">Login34</span>
                 <br/>
-                <span class="ignored-method-name">PA032</span>
+                <span class="ignored-method-name">Login01</span>
                 <br/>
-                <span class="ignored-method-name">PA010</span>
+                <span class="ignored-method-name">Login33</span>
                 <br/>
-                <span class="ignored-method-name">PA020</span>
+                <span class="ignored-method-name">Login11</span>
                 <br/>
-                <span class="ignored-method-name">PA052</span>
+                <span class="ignored-method-name">Login27</span>
                 <br/>
-                <span class="ignored-method-name">PA018</span>
+                <span class="ignored-method-name">Login05</span>
                 <br/>
-                <span class="ignored-method-name">PA028</span>
+                <span class="ignored-method-name">Login16</span>
                 <br/>
-                <span class="ignored-method-name">PA038</span>
+                <span class="ignored-method-name">Login13</span>
                 <br/>
-                <span class="ignored-method-name">PA004</span>
+                <span class="ignored-method-name">Login02</span>
                 <br/>
-                <span class="ignored-method-name">PA048</span>
+                <span class="ignored-method-name">Login24</span>
                 <br/>
-                <span class="ignored-method-name">PA026</span>
+                <span class="ignored-method-name">Login10</span>
                 <br/>
-                <span class="ignored-method-name">PA036</span>
+                <span class="ignored-method-name">Login15</span>
                 <br/>
-                <span class="ignored-method-name">PA014</span>
+                <span class="ignored-method-name">Login04</span>
                 <br/>
-                <span class="ignored-method-name">PA046</span>
+                <span class="ignored-method-name">Login26</span>
                 <br/>
-                <span class="ignored-method-name">PA024</span>
+                <span class="ignored-method-name">Login06</span>
                 <br/>
-                <span class="ignored-method-name">PA002</span>
+                <span class="ignored-method-name">Login17</span>
                 <br/>
-                <span class="ignored-method-name">PA034</span>
+                <span class="ignored-method-name">Login14</span>
                 <br/>
-                <span class="ignored-method-name">PA012</span>
+                <span class="ignored-method-name">Login03</span>
+                <br/>
+                <span class="ignored-method-name">Login25</span>
+                <br/>
+                <span class="ignored-method-name">Login08</span>
+                <br/>
+                <span class="ignored-method-name">Login18</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
@@ -350,28 +326,28 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.advrt.testcases.AD_PrivilageAccessTest1</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.advrt.testcases.AD_LoginTest</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
                 <span class="method-name">PreSetUp</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-class before -->
               <div class="configuration-method before">
                 <span class="method-name">Setup</span>
-                <span class="method-start">172676 ms</span>
+                <span class="method-start">171 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">PA030</span>
-                <span class="method-start">192579 ms</span>
+                <span class="method-name">Login30</span>
+                <span class="method-start">3856 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
-                <span class="method-name">Teardown([TestResult name=PA030 status=FAILURE method=AD_PrivilageAccessTest1.PA030()[pri:10, instance:com.ad...)</span>
-                <span class="method-start">283307 ms</span>
+                <span class="method-name">Teardown([TestResult name=Login30 status=FAILURE method=AD_LoginTest.Login30()[pri:20, instance:com.advrt.tes...)</span>
+                <span class="method-start">8612 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-class after">
                 <span class="method-name">endReport</span>
-                <span class="method-start">288486 ms</span>
+                <span class="method-start">14284 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

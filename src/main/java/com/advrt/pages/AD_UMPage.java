@@ -508,7 +508,6 @@ public class AD_UMPage extends BaseClass {
 		WebElement NewuserType=driver.findElementByAccessibilityId("NewDefaultUserPermissionsPopup").findElement(By.className("TextBox"));
 		clickOn(NewuserType);
 		enterText(NewuserType,name);
-		//NewuserType.sendKeys("NUserType");
 		return new DefaultUserPrivilages_page();
 	}
 

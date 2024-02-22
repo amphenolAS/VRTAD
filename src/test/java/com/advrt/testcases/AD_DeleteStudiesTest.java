@@ -190,9 +190,9 @@ public class AD_DeleteStudiesTest extends BaseClass{
 		//SyncIn
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
 		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit("kiranc","Amphenol@123","usercommitted");
-		Thread.sleep(500);
-		SyncInPage.enter_Filepath("syncin");
-		Thread.sleep(500);
+		Thread.sleep(700);
+		SyncInPage.enter_Filepath("syncin");//syncin
+		Thread.sleep(700);
 		SyncInPage.click_FltrBtn();
 		SyncInAssetListPage = SyncInPage.click_SyncInOK_btn();
 		SyncInAssetListPage.click_EquipmentCheckBox();
@@ -285,7 +285,9 @@ public class AD_DeleteStudiesTest extends BaseClass{
 			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted");
 			tu.click_YesBtn_popup();
 			assetHubPage = assetDetailsPage.ClickBackBtn();
+			Thread.sleep(1000);
 			MainHubPage = assetHubPage.click_BackBtn();
+			Thread.sleep(1000);
 			AuditPage = MainHubPage.ClickAuditTitle();
 			Thread.sleep(2000);
 			String ActualMsg = AuditPage.get_auditEvent_text();

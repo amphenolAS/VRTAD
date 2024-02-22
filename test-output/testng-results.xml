@@ -2,74 +2,37 @@
 <testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-01-18T15:51:37 IST" name="Default suite" finished-at="2024-01-18T15:56:26 IST" duration-ms="289318">
+  <suite started-at="2024-02-15T10:47:01 IST" name="Default suite" finished-at="2024-02-15T10:47:16 IST" duration-ms="15140">
     <groups>
       <group name="Sanity">
-        <method signature="AD_PrivilageAccessTest1.PA030()[pri:10, instance:com.advrt.testcases.AD_PrivilageAccessTest1@1df8da7a]" name="PA030" class="com.advrt.testcases.AD_PrivilageAccessTest1"/>
+        <method signature="AD_LoginTest.Login30()[pri:20, instance:com.advrt.testcases.AD_LoginTest@660acfb]" name="Login30" class="com.advrt.testcases.AD_LoginTest"/>
       </group> <!-- Sanity -->
       <group name="Regression">
-        <method signature="AD_PrivilageAccessTest1.PA030()[pri:10, instance:com.advrt.testcases.AD_PrivilageAccessTest1@1df8da7a]" name="PA030" class="com.advrt.testcases.AD_PrivilageAccessTest1"/>
+        <method signature="AD_LoginTest.Login30()[pri:20, instance:com.advrt.testcases.AD_LoginTest@660acfb]" name="Login30" class="com.advrt.testcases.AD_LoginTest"/>
       </group> <!-- Regression -->
     </groups>
-    <test started-at="2024-01-18T15:51:37 IST" name="Default test" finished-at="2024-01-18T15:56:26 IST" duration-ms="289318">
-      <class name="com.advrt.testcases.AD_PrivilageAccessTest1">
-        <test-method is-config="true" signature="PreSetUp()[pri:0, instance:com.advrt.testcases.AD_PrivilageAccessTest1@1df8da7a]" started-at="2024-01-18T15:51:37 IST" name="PreSetUp" finished-at="2024-01-18T15:54:30 IST" duration-ms="172663" status="PASS">
+    <test started-at="2024-02-15T10:47:01 IST" name="Default test" finished-at="2024-02-15T10:47:16 IST" duration-ms="15140">
+      <class name="com.advrt.testcases.AD_LoginTest">
+        <test-method is-config="true" signature="PreSetUp()[pri:0, instance:com.advrt.testcases.AD_LoginTest@660acfb]" started-at="2024-02-15T10:47:01 IST" name="PreSetUp" finished-at="2024-02-15T10:47:01 IST" duration-ms="159" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- PreSetUp -->
-        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_PrivilageAccessTest1@1df8da7a]" started-at="2024-01-18T15:54:30 IST" name="Setup" finished-at="2024-01-18T15:54:50 IST" duration-ms="19903" status="PASS">
+        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_LoginTest@660acfb]" started-at="2024-02-15T10:47:01 IST" name="Setup" finished-at="2024-02-15T10:47:05 IST" duration-ms="3684" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Setup -->
-        <test-method signature="PA030()[pri:10, instance:com.advrt.testcases.AD_PrivilageAccessTest1@1df8da7a]" started-at="2024-01-18T15:54:50 IST" name="PA030" description="PA030-Verify if User not able to access the Delete Equipment Module when the Delete Equipment Privilege is unchecked" finished-at="2024-01-18T15:56:20 IST" duration-ms="90724" status="FAIL">
-          <exception class="org.openqa.selenium.NoSuchElementException">
+        <test-method signature="Login30()[pri:20, instance:com.advrt.testcases.AD_LoginTest@660acfb]" started-at="2024-02-15T10:47:05 IST" name="Login30" description="Login30-Verify if validation message is displayed when Active Directory user login to the application where the Active Directory user available in the multiple groups" finished-at="2024-02-15T10:47:10 IST" duration-ms="4753" status="FAIL">
+          <exception class="java.lang.AssertionError">
             <message>
-              <![CDATA[An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 0 milliseconds
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.53', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
-Driver info: io.appium.java_client.windows.WindowsDriver
-Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
-Session ID: FF616804-BA55-4246-90D9-47AC415F93CA
-*** Element info: {Using=name, value=Enter User Credentials}]]>
+              <![CDATA[The following asserts failed:
+FAIL: Application allowed the dafult user when AD is connected expected [Deleted user Credential, Please try again] but found [Password expired, please contact administrator.]]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 0 milliseconds
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.53', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
-Driver info: io.appium.java_client.windows.WindowsDriver
-Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
-Session ID: FF616804-BA55-4246-90D9-47AC415F93CA
-*** Element info: {Using=name, value=Enter User Credentials}
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
-at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
-at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
-at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
-at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:42)
-at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
-at io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
-at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMobileDriver.java:62)
-at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
-at io.appium.java_client.windows.WindowsDriver.findElement(WindowsDriver.java:1)
-at org.openqa.selenium.remote.RemoteWebDriver.findElementByName(RemoteWebDriver.java:404)
-at io.appium.java_client.DefaultGenericMobileDriver.findElementByName(DefaultGenericMobileDriver.java:118)
-at io.appium.java_client.AppiumDriver.findElementByName(AppiumDriver.java:1)
-at io.appium.java_client.windows.WindowsDriver.findElementByName(WindowsDriver.java:1)
-at com.advrt.base.BaseClass.UserLoginPopup_UserCommentTextBox(BaseClass.java:231)
-at com.advrt.testcases.AD_PrivilageAccessTest1.PA030(AD_PrivilageAccessTest1.java:936)
+              <![CDATA[java.lang.AssertionError: The following asserts failed:
+FAIL: Application allowed the dafult user when AD is connected expected [Deleted user Credential, Please try again] but found [Password expired, please contact administrator.]
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
+at com.advrt.testcases.AD_LoginTest.Login30(AD_LoginTest.java:570)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -100,26 +63,26 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- PA030 -->
-        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_PrivilageAccessTest1@1df8da7a]" started-at="2024-01-18T15:56:20 IST" name="Teardown" finished-at="2024-01-18T15:56:26 IST" duration-ms="5172" status="PASS">
+        </test-method> <!-- Login30 -->
+        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_LoginTest@660acfb]" started-at="2024-02-15T10:47:10 IST" name="Teardown" finished-at="2024-02-15T10:47:15 IST" duration-ms="5651" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=PA030 status=FAILURE method=AD_PrivilageAccessTest1.PA030()[pri:10, instance:com.advrt.testcases.AD_PrivilageAccessTest1@1df8da7a] output={null}]]]>
+                <![CDATA[[TestResult name=Login30 status=FAILURE method=AD_LoginTest.Login30()[pri:20, instance:com.advrt.testcases.AD_LoginTest@660acfb] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Teardown -->
-        <test-method is-config="true" signature="endReport()[pri:0, instance:com.advrt.testcases.AD_PrivilageAccessTest1@1df8da7a]" started-at="2024-01-18T15:56:26 IST" name="endReport" finished-at="2024-01-18T15:56:26 IST" duration-ms="801" status="PASS">
+        <test-method is-config="true" signature="endReport()[pri:0, instance:com.advrt.testcases.AD_LoginTest@660acfb]" started-at="2024-02-15T10:47:15 IST" name="endReport" finished-at="2024-02-15T10:47:16 IST" duration-ms="825" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endReport -->
-      </class> <!-- com.advrt.testcases.AD_PrivilageAccessTest1 -->
+      </class> <!-- com.advrt.testcases.AD_LoginTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

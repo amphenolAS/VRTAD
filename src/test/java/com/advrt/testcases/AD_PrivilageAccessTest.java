@@ -1556,9 +1556,9 @@ public void PA035() throws InterruptedException, IOException, ParseException, AW
 	AD_UMPage.select_UserType1("NewUserType");
 	DefaultUserPrivilages_page=AD_UMPage.newUserType("User");
 	Thread.sleep(500);
-	//DefaultUserPrivilages_page.Click_Create_UserManagement();//while running individually must uncommit
-	//DefaultUserPrivilages_page.Click_Create_Reports();
-	//DefaultUserPrivilages_page.Click_ManualSync();//must commit while running through suite
+	DefaultUserPrivilages_page.Click_Create_UserManagement();//while running individually must uncommit
+	DefaultUserPrivilages_page.Click_Create_Reports();
+	DefaultUserPrivilages_page.Click_ManualSync();//must commit while running through suite
 	DefaultUserPrivilages_page.Click_DeleteStudyFiles_Reports();
 	DefaultUserPrivilages_page.Click_AuditCheckBox();
 	DefaultUserPrivilages_page.NewSaveButton();
