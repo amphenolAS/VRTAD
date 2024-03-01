@@ -93,9 +93,10 @@ public class ADUM_page extends BaseClass {
 		
 		//NewUserType
 		
-		public void SelectUType(String name) throws IOException {
+		public void SelectUType(String name) throws IOException, InterruptedException {
 			WebElement utype = driver.findElementByAccessibilityId("UserTypeComboBox");
 			clickOn(utype);
+			Thread.sleep(500);
 			List<WebElement> userlist=driver.findElementByAccessibilityId("UserTypeComboBox").findElements(By.className("ComboBoxItem"));
 			
 			WebElement userName = userlist.get(1);
@@ -247,7 +248,7 @@ public class ADUM_page extends BaseClass {
 		
 		
 		// Select UserType
-	/*	public void select_UserType(String Utype) throws InterruptedException {
+		public void select_UserType(String Utype) throws InterruptedException {
 			// System.out.println(Utype);
 			clickOn(UserTypeUMDropDown);
 			Thread.sleep(1000);
@@ -271,7 +272,7 @@ public class ADUM_page extends BaseClass {
 				Thread.sleep(500);
 			}
 
-		} */
+		} 
 		
 		
 		// Enter Title text
@@ -291,6 +292,16 @@ public class ADUM_page extends BaseClass {
 		clickOn(SaveUMBtn);
 		}
 		
+	
+		
+		// Click Save button
+				public void ClickupdateButton() throws InterruptedException {
+				WebElement	updateBtn = driver.findElementByAccessibilityId("SaveButton");
+				Thread.sleep(2000);	
+				clickOn(updateBtn);
+				Thread.sleep(500);
+				UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+				}
 		
 		
 		

@@ -673,5 +673,95 @@ sa.assertAll();
 }
 
 
+//Login19-Verify if the Unassigned users able to login to the application as per the Guest login as supervisor
+
+@Test(priority=23,groups = { "Sanity",
+"Regression" }, description = "Login19-Verify if the Unassigned users able to login to the application as per the Guest login as supervisor")
+public void Login19() throws InterruptedException, AWTException, IOException {
+extentTest = extent
+	.startTest("Login19-Verify if the Unassigned users able to login to the application as per the Guest login as supervisor");
+
+SoftAssert sa = new SoftAssert();
+
+
+System.out.println("This Tc has been Covered in AllowGuestlogin TC-AD_GL05");
+
+
+sa.assertAll();
+
+}
+
+//Login20-Verify if the Unassigned users able to login to the application as per the Guest login as Operator
+
+@Test(priority=24,groups = { "Sanity",
+"Regression" }, description = "Login20-Verify if the Unassigned users able to login to the application as per the Guest login as Operator")
+public void Login20() throws InterruptedException, AWTException, IOException {
+extentTest = extent
+	.startTest("Login20-Verify if the Unassigned users able to login to the application as per the Guest login as Operator");
+
+SoftAssert sa = new SoftAssert();
+
+
+System.out.println("This Tc has been Covered in AllowGuestlogin TC-AD_GL06");
+
+
+sa.assertAll();
+
+}
+
+//Login21-Verify if the Unassigned users able to login to the application as per the Guest login as Administrator
+
+@Test(priority=25,groups = { "Sanity",
+"Regression" }, description = "Login21-Verify if the Unassigned users able to login to the application as per the Guest login as Administrator")
+public void Login21() throws InterruptedException, AWTException, IOException {
+extentTest = extent
+	.startTest("Login21-Verify if the Unassigned users able to login to the application as per the Guest login as Administrator");
+
+SoftAssert sa = new SoftAssert();
+
+
+System.out.println("This Tc has been Covered in AllowGuestlogin TC-AD_GL07");
+
+
+sa.assertAll();
+
+}
+
+
+//Login22-Verify if the Unassigned users able to login to the application as per the Guest login as created New user type
+@Test(priority=26,groups = { "Sanity",
+"Regression" }, description = "Login22-Verify if the Unassigned users able to login to the application as per the Guest login as created New user type")
+public void Login22() throws InterruptedException, AWTException, IOException {
+extentTest = extent
+	.startTest("Login22-Verify if the Unassigned users able to login to the application as per the Guest login as created New user type");
+
+SoftAssert sa = new SoftAssert();
+
+
+System.out.println("This Tc has been Covered in AllowGuestlogin TC-AD_GL08");
+
+
+sa.assertAll();
+
+}
+
+//Login23-Verify if validation message displayed when user trying to login to the application where the Domain user not available in Active Directory
+@Test(priority=27,groups = { "Sanity",
+"Regression" }, description = "Login23-Verify if validation message displayed when user trying to login to the application where the Domain user not available in Active Directory")
+public void Login23() throws InterruptedException, AWTException, IOException {
+extentTest = extent
+	.startTest("Login23-Verify if validation message displayed when user trying to login to the application where the Domain user not available in Active Directory");
+
+SoftAssert sa = new SoftAssert();
+
+
+LoginPage.Login1("Kaveri","Amphenol@123");
+
+sa.assertEquals(tu.get_popup_text(),"Invalid Credential, Please try again","FAIL: Application allowed the dafult user when AD is connected");
+
+sa.assertAll();
+
+}
+
 
 }

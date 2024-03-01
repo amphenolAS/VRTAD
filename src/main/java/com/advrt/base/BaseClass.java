@@ -33,6 +33,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.advrt.pages.MainHubPage;
 import com.advrt.utility.TestUtilities;
 
 import io.appium.java_client.windows.WindowsDriver;
@@ -243,6 +244,46 @@ public class BaseClass {
 					Thread.sleep(1000);
 				}		
 			}
+			
+			
+			//Login Popup function to be called where invoked in respective pages 
+			public MainHubPage UserLoginPopup_UserCommentTextBox1(String UN, String PW,String usercomm) throws InterruptedException, IOException {
+				WebElement LgInPopup = driver.findElementByName("Enter User Credentials");
+				WebElement LgInUID = driver.findElementByAccessibilityId("UserIdTextBox");
+				WebElement LgInPW = driver.findElementByAccessibilityId("PasswordTextBox");
+				WebElement UserCommentTextBox = driver.findElementByAccessibilityId("UserCommentTextBox");
+
+				WebElement LgInOK = driver.findElementByAccessibilityId("ValidateUserOK");
+				//UserCommentTextBox
+				if (LgInPopup.isDisplayed()) {
+					LgInUID.sendKeys(UN);
+					LgInPW.sendKeys(PW);
+					UserCommentTextBox.sendKeys(usercomm);
+					LgInOK.click();
+					Thread.sleep(1000);
+				}	return new MainHubPage();	
+			}
+			
+			
+			//Login Popup function to be called where invoked in respective pages 
+			public void UserLoginPopup_UserCommentTextBox2(String UN, String PW,String usercomm) throws InterruptedException, IOException {
+				WebElement LgInPopup = driver.findElementByName("Enter User Credentials");
+				WebElement LgInUID = driver.findElementByAccessibilityId("UserIdTextBox");
+				WebElement LgInPW = driver.findElementByAccessibilityId("PasswordTextBox");
+				WebElement UserCommentTextBox = driver.findElementByAccessibilityId("UserCommentTextBox");
+
+				WebElement LgInOK = driver.findElementByAccessibilityId("ValidateUserOK");
+				//UserCommentTextBox
+				if (LgInPopup.isDisplayed()) {
+					LgInUID.sendKeys(UN);
+					LgInPW.sendKeys(PW);
+					UserCommentTextBox.sendKeys(usercomm);
+					LgInOK.click();
+					Thread.sleep(1000);
+				}		
+			}
+			
+			
 	// Verify the presence of Login Popup 
 	public boolean Is_LoginPopup_Displayed() throws InterruptedException {
 		WebElement LgInPopup = driver.findElementByName("Enter User Credentials");

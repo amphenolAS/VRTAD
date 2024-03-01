@@ -156,7 +156,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		PoliciesPage.clickOn_AcceptBtn();	
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
-Thread.sleep(1000);
+        Thread.sleep(1000);
 		AD_UMPage=PoliciesPage.click_AD_UMHeader();
 		AD_UMPage.select_grp("QA Testers");
 		AD_UMPage.select_user(1);
@@ -175,9 +175,7 @@ Thread.sleep(1000);
 		MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
 		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 		Thread.sleep(500);
-		//AD_UMPage.Select_grp();
 		AD_UMPage.select_grp("QA Testers");
-		//AD_UMPage.Select_user();
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("NewUserType");

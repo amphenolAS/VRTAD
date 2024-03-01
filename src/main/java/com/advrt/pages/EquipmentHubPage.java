@@ -21,13 +21,14 @@ public class EquipmentHubPage extends BaseClass {
 	WebElement VRTLogger = null;
 	WebElement EquipmentHeaderTextBlock = null;
 	WebElement Back_btn = null;
+	WebElement IntiQual_btn=null;
 
 	private void initElements() {
-		AddButton = driver.findElementByAccessibilityId("AddEquipmentsButton");//AddEquipmentsButton
+		AddButton = driver.findElementByAccessibilityId("AddEquipmentsButton");
 		VRTLogger = driver.findElementByAccessibilityId("TitleTextBlock1");
 		EquipmentHeaderTextBlock = driver.findElementByAccessibilityId("EquipmentHeaderTextBlock");
 		Back_btn = driver.findElementByAccessibilityId("ArrowGlyph");
-
+		IntiQual_btn = driver.findElementByAccessibilityId("SaveButton1");
 	}
 
 	EquipmentHubPage() throws IOException {
@@ -41,6 +42,7 @@ public class EquipmentHubPage extends BaseClass {
 		AddButton = null;
 		VRTLogger = null;
 		EquipmentHeaderTextBlock = null;
+		IntiQual_btn=null;
 		Back_btn = null;
 
 	}
@@ -97,6 +99,26 @@ public class EquipmentHubPage extends BaseClass {
 		Thread.sleep(1000);
 	}
 
+	
+	//click intiqual
+		public void IntiQual_Btn() throws InterruptedException {
+			clickOn(IntiQual_btn);
+			UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "commited");
+			Thread.sleep(1000);
+		}
+		
+		public void IntiQual_Btn1() throws InterruptedException {
+			clickOn(IntiQual_btn);
+			Thread.sleep(1000);
+		}
+
+		public void IntiQual_Btn_Alert() throws InterruptedException {
+			clickOn(IntiQual_btn);
+			//UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "commited");
+			//Thread.sleep(1000);
+		}
+
+	
 	// Fetch the Save Alert message
 		public String AlertMsg() {
 			WebElement Msg = driver.findElementByAccessibilityId("displayMessageTextBlock");
@@ -118,6 +140,20 @@ public class EquipmentHubPage extends BaseClass {
 	public boolean IsEquipmentHeader_Visible() {
 		return IsElementVisibleStatus(EquipmentHeaderTextBlock);
 	}
+	
+	//
+	public void loggerpopup() throws IOException {
+		List<WebElement> loggerpopup = driver.findElementByAccessibilityId("CalTypePopup").findElements(By.className("RadioButton"));
+	}
+	
+	//click on loggerokbutton
+	//
+	public setup_verificationpage loggerokbutton() throws IOException {
+		WebElement okbtn = driver.findElementByAccessibilityId("OKButton1");
+		clickOn(okbtn);
+		return new setup_verificationpage();
+	}
+	
 
 	// is InitiateVerification button visible
 
@@ -191,4 +227,28 @@ public class EquipmentHubPage extends BaseClass {
     	return count;
     	
     }
+    
+    
+    //CalTypePopup
+    
+    public void select_loggerradiobtn(int n) {
+		List<WebElement> radios=driver.findElementByAccessibilityId("CalTypePopup").findElements(By.className("TextBlock"));
+		 clickOn(radios.get(n));
+	}
+    
+    public void clickon_Humidityradiobtn() {
+    	WebElement Humiditybtn=driver.findElementByAccessibilityId("CalTypePopup").findElement(By.name("Humidity"));
+    	clickOn(Humiditybtn);
+
+	}
+    
+    
+    public void clickon_HumidityTempbtn() {
+    	WebElement tempbtn=driver.findElementByAccessibilityId("CalTypePopup").findElement(By.name("Only the Temperature Sensors (0-70 °C)"));
+    	clickOn(tempbtn);
+
+	}
+    
+    
+    
 }

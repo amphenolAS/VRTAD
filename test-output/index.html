@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite, 1 failed test</span>
+      <span class="top-banner-font-1">1 suite, 2 failed tests</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -50,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse--774742480\testng-customsuite.xml</span>
+                    <span>C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse--1329243122\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -60,7 +60,7 @@
                 </li>
                 <li>
                   <a href="#" panel-name="group-Default_suite" class="navigator-link ">
-                    <span>2 groups</span>
+                    <span>0 groups</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -92,7 +92,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method, 1 failed,   </span>
+                    <span class="method-stats">4 methods, 2 failed,   2 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title failed">Failed methods</span>
@@ -103,10 +103,34 @@
                     <div class="method-list-content failed suite-Default_suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.AD_LoginTest" class="method navigator-link" hash-for-method="Login30">Login30</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest" class="method navigator-link" hash-for-method="AD_Ver_Audit_029">AD_Ver_Audit_029</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest" class="method navigator-link" hash-for-method="AD_Ver_Audit_030">AD_Ver_Audit_030</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Default_suite -->
+                  </li>
+                  <li>
+                    <span class="method-list-title passed">Passed methods</span>
+                    <span class="show-or-hide-methods passed">
+                      <a href="#" panel-name="suite-Default_suite" class="hide-methods passed suite-Default_suite"> (hide)</a> <!-- hide-methods passed suite-Default_suite -->
+                      <a href="#" panel-name="suite-Default_suite" class="show-methods passed suite-Default_suite"> (show)</a> <!-- show-methods passed suite-Default_suite -->
+                    </span>
+                    <div class="method-list-content passed suite-Default_suite">
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest" class="method navigator-link" hash-for-method="AD_Ver_Audit_027">AD_Ver_Audit_027</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest" class="method navigator-link" hash-for-method="AD_Ver_Audit_028">AD_Ver_Audit_028</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content passed suite-Default_suite -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -121,19 +145,46 @@
           <div class="suite-Default_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
-              <span class="class-name">com.advrt.testcases.AD_LoginTest</span>
+              <span class="class-name">com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="Login30">
-                  </a> <!-- Login30 -->
-                  <span class="method-name">Login30</span>
-                  <div class="stack-trace">java.lang.AssertionError: The following asserts failed:
-	FAIL: Application allowed the dafult user when AD is connected expected [Deleted user Credential, Please try again] but found [Password expired, please contact administrator.]
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
-	at com.advrt.testcases.AD_LoginTest.Login30(AD_LoginTest.java:570)
+                  <a name="AD_Ver_Audit_029">
+                  </a> <!-- AD_Ver_Audit_029 -->
+                  <span class="method-name">AD_Ver_Audit_029</span>
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;3.141.59&apos;, revision: &apos;e82be7d358&apos;, time: &apos;2018-11-14T08:17:03&apos;
+System info: host: &apos;AASHYD-847B8Y2&apos;, ip: &apos;10.17.18.62&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.8&apos;
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: FE57BB12-0563-47BE-93D3-0C3ECEF49188
+*** Element info: {Using=accessibility id, value=btnQuitQual}
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
+	at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+	at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:42)
+	at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+	at io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMobileDriver.java:62)
+	at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
+	at io.appium.java_client.windows.WindowsDriver.findElement(WindowsDriver.java:1)
+	at io.appium.java_client.FindsByAccessibilityId.findElementByAccessibilityId(FindsByAccessibilityId.java:37)
+	at com.advrt.pages.SelectBaseStationPage.Click_SetBSideal(SelectBaseStationPage.java:105)
+	at com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest.AD_Ver_Audit_029(AD_Audit_VerificationwithoutPrivilageTest.java:589)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -165,15 +216,117 @@
 
 </div> <!-- stack-trace -->
                   <em>
-(Login30-Verify if validation message is displayed when Active Directory user login to the application where the Active Directory user available in the multiple groups)                  </em>
+(AD_Ver_Audit _029 Verify that when the logged in user has 'Run Verification' privilege and another user without 'Run Verification' privilege is not allowed to start the Verification study)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="AD_Ver_Audit_030">
+                  </a> <!-- AD_Ver_Audit_030 -->
+                  <span class="method-name">AD_Ver_Audit_030</span>
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;3.141.59&apos;, revision: &apos;e82be7d358&apos;, time: &apos;2018-11-14T08:17:03&apos;
+System info: host: &apos;AASHYD-847B8Y2&apos;, ip: &apos;10.17.18.62&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.8&apos;
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: AD383C36-A157-4F37-A8B2-E539C30592C5
+*** Element info: {Using=name, value=Select Loggers}
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
+	at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+	at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:42)
+	at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+	at io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMobileDriver.java:62)
+	at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
+	at io.appium.java_client.windows.WindowsDriver.findElement(WindowsDriver.java:1)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByName(RemoteWebDriver.java:404)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElementByName(DefaultGenericMobileDriver.java:118)
+	at io.appium.java_client.AppiumDriver.findElementByName(AppiumDriver.java:1)
+	at io.appium.java_client.windows.WindowsDriver.findElementByName(WindowsDriver.java:1)
+	at com.advrt.pages.SelectLoggersPage.initializeEelements(SelectLoggersPage.java:22)
+	at com.advrt.pages.SelectLoggersPage.&lt;init&gt;(SelectLoggersPage.java:31)
+	at com.advrt.pages.SelectBaseStationPage.Click_ConnectBtn(SelectBaseStationPage.java:115)
+	at com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest.AD_Ver_Audit_030(AD_Audit_VerificationwithoutPrivilageTest.java:622)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:848)
+	at org.testng.TestRunner.run(TestRunner.java:621)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+	at org.testng.TestNG.runSuites(TestNG.java:1114)
+	at org.testng.TestNG.run(TestNG.java:1082)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+
+</div> <!-- stack-trace -->
+                  <em>
+(AD_Ver_Audit _030 Verify that when the logged in user has 'Run Verification' privilege and another user without 'Run Verification' privilege is not allowed to abort the Verification study)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
           </div> <!-- suite-Default_suite-class-failed -->
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="AD_Ver_Audit_027">
+                  </a> <!-- AD_Ver_Audit_027 -->
+                  <span class="method-name">AD_Ver_Audit_027</span>
+                  <em>
+(AD_Ver_Audit _027 Verify that when the logged in user has 'Run Verification' privilege and another user without 'Run Verification' privilege is not allowed to delete a Verification setup)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="AD_Ver_Audit_028">
+                  </a> <!-- AD_Ver_Audit_028 -->
+                  <span class="method-name">AD_Ver_Audit_028</span>
+                  <em>
+(AD_Ver_Audit _028 Verify that when the logged in user has 'Run Verification' privilege and another user without 'Run Verification' privilege is not allowed to abort the Verification study in Program loggers screen)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-passed -->
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse--774742480\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\Kaveri.Bedar\AppData\Local\Temp\testng-eclipse--1329243122\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -182,11 +335,7 @@
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.advrt.testcases.AD_LoginTest&quot;&gt;
-        &lt;methods&gt;
-          &lt;include name=&quot;Login30&quot;/&gt;
-        &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- com.advrt.testcases.AD_LoginTest --&gt;
+      &lt;class name=&quot;com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -210,22 +359,6 @@
             <span class="header-content">Groups for Default suite</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
-            <div class="test-group">
-              <span class="test-group-name">Regression</span>
-              <br/>
-              <div class="method-in-group">
-                <span class="method-in-group-name">Login30</span>
-                <br/>
-              </div> <!-- method-in-group -->
-            </div> <!-- test-group -->
-            <div class="test-group">
-              <span class="test-group-name">Sanity</span>
-              <br/>
-              <div class="method-in-group">
-                <span class="method-in-group-name">Login30</span>
-                <br/>
-              </div> <!-- method-in-group -->
-            </div> <!-- test-group -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="times-Default_suite" class="panel">
@@ -242,16 +375,28 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(4);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'Login30')
-data.setCell(0, 2, 'com.advrt.testcases.AD_LoginTest')
-data.setCell(0, 3, 4753);
+data.setCell(0, 1, 'AD_Ver_Audit_029')
+data.setCell(0, 2, 'com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest')
+data.setCell(0, 3, 354452);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'AD_Ver_Audit_028')
+data.setCell(1, 2, 'com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest')
+data.setCell(1, 3, 201212);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'AD_Ver_Audit_027')
+data.setCell(2, 2, 'com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest')
+data.setCell(2, 3, 188607);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'AD_Ver_Audit_030')
+data.setCell(3, 2, 'com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest')
+data.setCell(3, 3, 108010);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 4 seconds</span>
+              <span class="suite-total-time">Total running time: 14 minutes</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -266,58 +411,9 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">22 ignored methods</span>
+            <span class="header-content">0 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
-            <div class="ignored-class-div">
-              <span class="ignored-class-name">com.advrt.testcases.AD_LoginTest</span>
-              <div class="ignored-methods-div">
-                <span class="ignored-method-name">Login12</span>
-                <br/>
-                <span class="ignored-method-name">Login34</span>
-                <br/>
-                <span class="ignored-method-name">Login01</span>
-                <br/>
-                <span class="ignored-method-name">Login33</span>
-                <br/>
-                <span class="ignored-method-name">Login11</span>
-                <br/>
-                <span class="ignored-method-name">Login27</span>
-                <br/>
-                <span class="ignored-method-name">Login05</span>
-                <br/>
-                <span class="ignored-method-name">Login16</span>
-                <br/>
-                <span class="ignored-method-name">Login13</span>
-                <br/>
-                <span class="ignored-method-name">Login02</span>
-                <br/>
-                <span class="ignored-method-name">Login24</span>
-                <br/>
-                <span class="ignored-method-name">Login10</span>
-                <br/>
-                <span class="ignored-method-name">Login15</span>
-                <br/>
-                <span class="ignored-method-name">Login04</span>
-                <br/>
-                <span class="ignored-method-name">Login26</span>
-                <br/>
-                <span class="ignored-method-name">Login06</span>
-                <br/>
-                <span class="ignored-method-name">Login17</span>
-                <br/>
-                <span class="ignored-method-name">Login14</span>
-                <br/>
-                <span class="ignored-method-name">Login03</span>
-                <br/>
-                <span class="ignored-method-name">Login25</span>
-                <br/>
-                <span class="ignored-method-name">Login08</span>
-                <br/>
-                <span class="ignored-method-name">Login18</span>
-                <br/>
-              </div> <!-- ignored-methods-div -->
-            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-Default_suite" class="panel">
@@ -326,28 +422,66 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.advrt.testcases.AD_LoginTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
                 <span class="method-name">PreSetUp</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-class before -->
               <div class="configuration-method before">
                 <span class="method-name">Setup</span>
-                <span class="method-start">171 ms</span>
+                <span class="method-start">166515 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">AD_Ver_Audit_027</span>
+                <span class="method-start">175468 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">Teardown([TestResult name=AD_Ver_Audit_027 status=SUCCESS method=AD_Audit_VerificationwithoutPrivilageTest.AD...)</span>
+                <span class="method-start">364078 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">Setup</span>
+                <span class="method-start">369134 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">AD_Ver_Audit_028</span>
+                <span class="method-start">377889 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">Teardown([TestResult name=AD_Ver_Audit_028 status=SUCCESS method=AD_Audit_VerificationwithoutPrivilageTest.AD...)</span>
+                <span class="method-start">579102 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">Setup</span>
+                <span class="method-start">584155 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">Login30</span>
-                <span class="method-start">3856 ms</span>
+                <span class="method-name">AD_Ver_Audit_029</span>
+                <span class="method-start">592578 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
-                <span class="method-name">Teardown([TestResult name=Login30 status=FAILURE method=AD_LoginTest.Login30()[pri:20, instance:com.advrt.tes...)</span>
-                <span class="method-start">8612 ms</span>
+                <span class="method-name">Teardown([TestResult name=AD_Ver_Audit_029 status=FAILURE method=AD_Audit_VerificationwithoutPrivilageTest.AD...)</span>
+                <span class="method-start">947033 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">Setup</span>
+                <span class="method-start">952188 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">AD_Ver_Audit_030</span>
+                <span class="method-start">960526 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">Teardown([TestResult name=AD_Ver_Audit_030 status=FAILURE method=AD_Audit_VerificationwithoutPrivilageTest.AD...)</span>
+                <span class="method-start">1068538 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-class after">
                 <span class="method-name">endReport</span>
-                <span class="method-start">14284 ms</span>
+                <span class="method-start">1074176 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

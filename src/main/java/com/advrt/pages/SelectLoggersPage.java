@@ -127,6 +127,23 @@ public class SelectLoggersPage extends BaseClass {
 		clickOn(NextButton);
 		Thread.sleep(2000);
 	}
+	
+	
+	
+	// Click the Mapping sensors button t0 navigate to Mapping sensors page
+		public SensorsInformationPage clickNext_SensorinfoBtn() throws InterruptedException, IOException {
+			clickOn(NextButton);
+			Thread.sleep(1000);
+			try {
+				WebElement Yes_Btn = driver.findElementByAccessibilityId("Button1");
+				Thread.sleep(1000);
+				clickOn(Yes_Btn);
+			}catch(Exception e) {
+				e.getMessage();
+			}
+			Thread.sleep(2000);
+			return new SensorsInformationPage();
+		}
 
 	// select Yes from the add equipment box
 	public void add_eqp_Yes() {

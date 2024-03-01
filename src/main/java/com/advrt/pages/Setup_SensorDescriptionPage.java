@@ -342,6 +342,7 @@ public class Setup_SensorDescriptionPage extends BaseClass {
 		return senr1.isEnabled();
 	}
 
+	/*
 	public static HashMap<Integer, Integer> get_LeftPaneDescription_Index() {
 
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
@@ -364,7 +365,7 @@ public class Setup_SensorDescriptionPage extends BaseClass {
 		List<WebElement> desclist = driver.findElementByAccessibilityId("PART_ScrollViewer")
 				.findElements(By.className("TextBlock"));
 		return desclist.get(z).getText();
-	}
+	}*/
 
 	// Presence of txtFrom Range box enable
 	public boolean is_From_textEnable() {

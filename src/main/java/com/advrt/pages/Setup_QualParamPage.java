@@ -1108,6 +1108,7 @@ public class Setup_QualParamPage extends BaseClass {
 
 	}
 
+	/*
 	// Select RF Threshold
 	public void select_RFT(String RFT) throws InterruptedException {
 		int rft = Integer.parseInt(RFT.split(",")[0]);
@@ -1137,7 +1138,7 @@ public class Setup_QualParamPage extends BaseClass {
 				}
 			}
 		}
-	}
+	}*/
 
 	// Click the Next button to move to Setup Review page
 	public Setup_ReviewPage Click_NxtBtn() throws IOException, InterruptedException {

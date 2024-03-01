@@ -158,9 +158,7 @@ public class AD_PrivilageAccessTest extends BaseClass{
 		tu.click_OK_popup();
         Thread.sleep(5000);
 		AD_UMPage=PoliciesPage.click_AD_UMHeader();
-		//AD_UMPage.Select_grp();
 		AD_UMPage.select_grp("QA Testers");
-		//AD_UMPage.Select_user();
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("SystemAdministrator");
