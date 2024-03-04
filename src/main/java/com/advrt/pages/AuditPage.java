@@ -102,6 +102,16 @@ public class AuditPage extends BaseClass {
 		return new MainHubPage();
 	}
 	
+	public boolean is_RequireditEventDisplayed(int index) {
+		List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+				.findElements(By.className("TextBlock"));
+		return IsElementVisibleStatus(Act_Txt.get(index));
+	}
+	public String get_ReqauditEvent_Time(int index) {
+		List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+				.findElements(By.className("TextBlock"));
+		return FetchText(Act_Txt.get(index));
+	}
 	//CLick Generate button to print Audit report
 	public void Click_GenerateReport_Btn() throws InterruptedException {
 		clickOn(GenerateReport_Btn);

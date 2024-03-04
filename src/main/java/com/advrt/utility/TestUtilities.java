@@ -157,7 +157,18 @@ public class TestUtilities extends com.advrt.base.BaseClass {
 		return strDate;
 	}
 	
-
+	public void deleteFolderContents(File folder)
+	{
+		if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    deleteFolderContents(file);
+                }
+            }
+        }
+        folder.delete();
+    }
 	
 	// get_CurrentDate_inCertainFormat:Rqd Date format MM-dd-YYYY = 12-31-2019 or
 	// MM/dd/YYYY = 12/31/2019
@@ -522,7 +533,22 @@ public class TestUtilities extends com.advrt.base.BaseClass {
 		    e.printStackTrace();
 		}
 	}
+	public void Copy_Folder(String SrcLocation, String DestnLocation) throws InterruptedException {		
+	//	create_Folder(DestnLocation);
+		String source = SrcLocation;
+		File srcDir = new File(source);
 
+		String destination = DestnLocation;
+		File destDir = new File(destination);
+
+		try {
+		    FileUtils.copyDirectory(srcDir, destDir);
+		    Thread.sleep(5000);
+		    System.out.println("Copy DataFiles Done");
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+	}
 	// Close alert message if visible
 	public void click_Close_alertmsg() throws InterruptedException {
 		if (!IsElementVisibleStatus(driver.findElementByAccessibilityId("displayMessageTextBlock"))) {
@@ -548,9 +574,16 @@ public class TestUtilities extends com.advrt.base.BaseClass {
 	// Click the OK button of the popup message
 	public void click_OK_popup() throws InterruptedException {
 		if (IsElementVisibleStatus(driver.findElementByAccessibilityId("Popup Window"))) {
-		WebElement Ok_Btn = driver.findElementByAccessibilityId("Button0");
+		try
+		{
+			WebElement Ok_Btn = driver.findElementByAccessibilityId("Button0");
 		clickOn(Ok_Btn);
 		Thread.sleep(1000);
+		}
+		catch (Exception e) {
+			WebElement Ok_Btn = driver.findElementByAccessibilityId("Button0");
+			clickOn(Ok_Btn);
+		}
 		
 	}}
 	

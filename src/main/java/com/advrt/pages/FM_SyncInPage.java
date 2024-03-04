@@ -87,7 +87,12 @@ public class FM_SyncInPage extends BaseClass{
 		driver.switchTo().activeElement();
 		Thread.sleep(1000);
 	}
-	
+	public void unSelect_FilterBtn() throws InterruptedException
+	{
+		if(checkboxSelectStatus(FltrByDtBtn))
+			Thread.sleep(5000);
+		clickOn(FltrByDtBtn);
+	}
 	//Click the Filter button
 	public void click_FltrBtn() {
 		clickOn(FltrByDtBtn);

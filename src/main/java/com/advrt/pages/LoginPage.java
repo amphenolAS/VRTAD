@@ -6,6 +6,7 @@
 package com.advrt.pages;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -259,7 +260,8 @@ public class LoginPage extends BaseClass {
 		Thread.sleep(500);
 		ClickLoginBtn();
 		Thread.sleep(1000);
-
+		int explicitWaitTimeout = 200000; 
+        driver.manage().timeouts().implicitlyWait(explicitWaitTimeout, TimeUnit.SECONDS);
 		return new MainHubPage();
 	}
 
