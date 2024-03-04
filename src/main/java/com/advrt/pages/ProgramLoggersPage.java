@@ -17,13 +17,18 @@ public class ProgramLoggersPage extends BaseClass {
 	// Calculation page element variable declaration definition
 	WebElement ProgramLoggersTitle = null;
 	WebElement NextButton = null;
-
+	WebElement AbortButton = null;
+	WebElement BackButton = null;
+	
 	private void initializeEelements() {
 		//ProgramLoggersTitle = driver.findElementByName("Program Loggers");
 		NextButton = driver.findElementByAccessibilityId("NextButton");
-
+		AbortButton = driver.findElementByAccessibilityId("btnQuitQual");
+		BackButton= driver.findElementByAccessibilityId("PreviousButton");
+	
 	}
 
+	
 	ProgramLoggersPage() throws IOException {
 		super();
 		initializeEelements();
@@ -33,6 +38,8 @@ public class ProgramLoggersPage extends BaseClass {
 	public void resetWebElements() {
 		ProgramLoggersTitle = null;
 		NextButton = null;
+		AbortButton =null;
+		BackButton=null;
 
 	}
 
@@ -65,4 +72,52 @@ public class ProgramLoggersPage extends BaseClass {
 		Thread.sleep(5000);
 		return new QualificationPage();
 	}
+	
+	
+	//Click the Qualification button to move to Qual page  after all loggers are programmed
+		public VerificationPage click_nextbtnV() throws IOException, InterruptedException {
+			boolean VerBtnEnableState1=driver.findElementByAccessibilityId("NextButton").isEnabled();
+			//System.out.println("Qualification Next button enable state1: "+QualBtnEnableState1);		
+			Thread.sleep(2000);
+			while (VerBtnEnableState1==false) {			
+				Thread.sleep(10000);
+				boolean verBtnEnableState2=driver.findElementByName("Initiate Verification").isEnabled();
+				//System.out.println("Qualification Next button enable state 2: "+QualBtnEnableState2);		
+				if (verBtnEnableState2==true) {
+					break;
+				}				
+			}
+			
+			clickOn(NextButton);
+			Thread.sleep(5000);
+			return new VerificationPage();
+		}
+		
+	
+	
+	
+	
+	public void clickAbortbtn() throws InterruptedException {
+		Thread.sleep(200);
+		clickOn(AbortButton);
+	}
+	
+	public void clickBackbtn() throws InterruptedException {
+		Thread.sleep(200);
+		clickOn(BackButton);
+
+	}
+	
+	
+	// Click the Yes button of the popup message
+		public MainHubPage click_YesBtn_popup() throws IOException {
+			WebElement Yes_Btn = driver.findElementByAccessibilityId("Button1");
+			clickOn(Yes_Btn);
+			return new MainHubPage();
+			
+		}
+		
+	
+	
+	
 }

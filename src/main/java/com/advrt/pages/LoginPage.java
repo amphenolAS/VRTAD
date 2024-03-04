@@ -271,6 +271,14 @@ public class LoginPage extends BaseClass {
 		Thread.sleep(2000);
 	}
 	
+	//Login method for invalid user
+		public void Login1(String UID, String PW) throws InterruptedException {
+			EnterUserID(UID);
+			EnterUserPW(PW);
+			ClickLoginBtn();
+			Thread.sleep(2000);
+		}
+		
 	
 	public void LockedLogin(String UID, String PW) throws InterruptedException {
 		EnterUserID(UID);

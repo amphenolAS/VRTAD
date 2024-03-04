@@ -866,6 +866,16 @@ public  int users_count() {
 		}
 
 
+		
+		
+		// Click Save button
+		public void ClickupdateButton() throws InterruptedException {
+		WebElement	updateBtn = driver.findElementByAccessibilityId("SaveButton");
+		Thread.sleep(2000);	
+		clickOn(updateBtn);
+		Thread.sleep(500);
+		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+		}
 
 }
 

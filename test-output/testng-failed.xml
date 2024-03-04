@@ -3,15 +3,16 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.advrt.testcases.AD_LoginTest">
+      <class name="com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest">
         <methods>
-          <include name="PreSetUp"/>
           <include name="Setup"/>
-          <include name="endReport"/>
-          <include name="Login30"/>
+          <include name="AD_Ver_Audit_029"/>
+          <include name="PreSetUp"/>
+          <include name="AD_Ver_Audit_030"/>
           <include name="Teardown"/>
+          <include name="endReport"/>
         </methods>
-      </class> <!-- com.advrt.testcases.AD_LoginTest -->
+      </class> <!-- com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.advrt.base.BaseClass;
+import com.advrt.pages.MainHubPage;
 
 public class SelectBaseStationPage extends BaseClass {
 
@@ -141,4 +142,25 @@ public class SelectBaseStationPage extends BaseClass {
 		clickOn(BackBtn);
 		return new MainHubPage();
 	}
+	
+	
+	
+	
+	public void Click_BSsettingsBtn() throws IOException, InterruptedException {
+		WebElement btnBsSettings=driver.findElementByAccessibilityId("btnBsSettings");
+		clickOn(btnBsSettings);
+	
+	}
+	
+	
+	// Click the OK button of the popup message
+		public void click_OK_popup() throws InterruptedException {
+			if (IsElementVisibleStatus(driver.findElementByAccessibilityId("Popup Window"))) {
+			WebElement Ok_Btn = driver.findElementByAccessibilityId("Button0");
+			clickOn(Ok_Btn);
+			Thread.sleep(1000);
+			//UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "committed");
+			
+		}}
+		
 }

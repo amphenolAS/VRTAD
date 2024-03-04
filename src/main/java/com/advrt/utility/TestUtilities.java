@@ -1,7 +1,4 @@
-/**
-* @author ruchika.behura
-*
-*/
+
 
 package com.advrt.utility;
 
@@ -16,13 +13,13 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.net.*;
-
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
@@ -728,5 +725,36 @@ public class TestUtilities extends com.advrt.base.BaseClass {
         
      return formattedFutureDate;
     }
+	
+	
+	public String CurrentDatenTime_certainformat() {
+		LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // Define a custom format using DateTimeFormatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");
+
+        // Format the current date and time using the formatter
+        String formattedDateTime = currentDateTime.format(formatter);
+      
+        
+     return formattedDateTime;
+    }
+	
+	
+	/*
+	public String CurrentDatenTime_certainformat1() {
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		LocalDateTime modifiedTime = currentDateTime.minusSeconds(3);
+
+        // Define a custom format using DateTimeFormatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // Format the current date and time using the formatter
+        String formattedDateTime = modifiedTime.format(formatter);
+      
+        
+     return formattedDateTime;
+    }*/
+	
 
 }
