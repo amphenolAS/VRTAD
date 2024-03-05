@@ -57,7 +57,34 @@ public class TestUtilities extends com.advrt.base.BaseClass {
 		// System.out.println("Date Format with MM-dd-yyyy : "+strDate);
 		return strDate;
 	}
+	public void deleteFolderContents(File folder)
+	{
+		if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    deleteFolderContents(file);
+                }
+            }
+        }
+        folder.delete();
+    }
+	public void Copy_Folder(String SrcLocation, String DestnLocation) throws InterruptedException {		
+		//	create_Folder(DestnLocation);
+			String source = SrcLocation;
+			File srcDir = new File(source);
 
+			String destination = DestnLocation;
+			File destDir = new File(destination);
+
+			try {
+			    FileUtils.copyDirectory(srcDir, destDir);
+			    Thread.sleep(5000);
+			    System.out.println("Copy DataFiles Done");
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
+		}
 	// Convert dd MMM yyyy type of Date input to a MM/dd/yyyy date format
 	public String convert_StringDate_to_ActualDate_inCertainFormat2(String dt) throws ParseException {
 		SimpleDateFormat formating = new SimpleDateFormat("dd MMM yyyy");

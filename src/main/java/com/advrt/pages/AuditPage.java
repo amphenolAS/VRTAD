@@ -1,7 +1,3 @@
-/**
-* @author ruchika.behura
-*
-*/
 
 package com.advrt.pages;
 
@@ -73,7 +69,20 @@ public class AuditPage extends BaseClass {
 		// WebElement msg = driver.findElementByName(");
 
 	}
-
+	// Verify that the below details is displaying when user filter the particular action
+	public boolean get_auditEvent_text17() {
+		List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+				.findElements(By.className("TextBlock"));
+		String text= FetchText(Act_Txt.get(17));
+		return false;
+		
+	}
+	// Verify that the below details is displaying when user filter the particular action
+			public String get_auditEvent_text18() {
+				List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+						.findElements(By.className("TextBlock"));
+				return FetchText(Act_Txt.get(17));
+			}
 	// Enter value into Action filter text box
 	public void EnterTxt_ActionFilter(String val) {
 		WebElement ActionFltr_ValueBox = driver.findElementByAccessibilityId("PART_ValueBox");
@@ -90,21 +99,11 @@ public class AuditPage extends BaseClass {
 	}
 	
 	// Verify that the below details is displaying when user filter the particular action
-		public String get_auditEvent_text18() {
+		public String get_auditEvent_text10() {
 			List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
 					.findElements(By.className("TextBlock"));
-			return FetchText(Act_Txt.get(17));
+			return FetchText(Act_Txt.get(10));
 		}
-		
-		
-		// Verify that the below details is displaying when user filter the particular action
-				public boolean get_auditEvent_text17() {
-					List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
-							.findElements(By.className("TextBlock"));
-					String text= FetchText(Act_Txt.get(17));
-					return false;
-					
-				}
 	
 	//CLick Back button to navigate to Main Hub page
 	public MainHubPage Click_BackBtn() throws IOException {
@@ -112,6 +111,16 @@ public class AuditPage extends BaseClass {
 		return new MainHubPage();
 	}
 	
+	public boolean is_RequireditEventDisplayed(int index) {
+		List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+				.findElements(By.className("TextBlock"));
+		return IsElementVisibleStatus(Act_Txt.get(index));
+	}
+	public String get_ReqauditEvent_Time(int index) {
+		List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+				.findElements(By.className("TextBlock"));
+		return FetchText(Act_Txt.get(index));
+	}
 	//CLick Generate button to print Audit report
 	public void Click_GenerateReport_Btn() throws InterruptedException {
 		clickOn(GenerateReport_Btn);
