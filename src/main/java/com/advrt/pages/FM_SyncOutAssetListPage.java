@@ -290,6 +290,14 @@ public class FM_SyncOutAssetListPage extends BaseClass{
                			clickOn(passFailCrite);
                		}
                	}
+            	public void selectPassFailCriteria()
+               	{
+               		WebElement passFailCrite = driver.findElementByAccessibilityId("SyncOutTemplateCheckBox");
+               		if(!checkboxSelectStatus(passFailCrite))
+               		{
+               			clickOn(passFailCrite);
+               		}
+               	}
                	//Verify wether SyncIn pop up window is displayed or not
                		public boolean is_SyncInPopUpWindowDisplyed()
                		{

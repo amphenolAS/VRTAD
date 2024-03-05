@@ -10,6 +10,7 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -125,7 +126,31 @@ public class SyncInAssetListPage  extends BaseClass{
 		WebElement okBtn = driver.findElementByAccessibilityId("SyncInAssetsPopup").findElement(By.name("OK"));
 		clickOn(okBtn);
 	}
-
+	public void click_OkOnSyncInSelections1()
+	{
+		//WebElement okBtn = driver.findElementByAccessibilityId("SyncInAssetsPopup").findElement(By.name("OK"));
+		List<WebElement> okBtn = driver.findElementsByName("OK");
+		clickOn(okBtn.get(1));
+	}
+	public void click_OK_popup() throws InterruptedException {
+		//	if (IsElementVisibleStatus(driver.findElementByAccessibilityId("Popup Window"))) {
+			int explicitWaitTimeout = 200000; 
+	        driver.manage().timeouts().implicitlyWait(explicitWaitTimeout, TimeUnit.SECONDS);
+			WebElement Ok_Btn = driver.findElementByAccessibilityId("Button0");
+			try
+			{
+				Thread.sleep(2000);
+				clickOn(Ok_Btn);
+			}
+			catch (Exception e) {
+				WebElement Ok_Btn1 = driver.findElementByAccessibilityId("Button0");
+				Thread.sleep(2000);
+				clickOn(Ok_Btn1);
+			}
+			
+			
+			
+		}
 	//SyncOutTemplateCheckBox
 
 			public void click_Pass_Fail_CriteriaTemplates() {
