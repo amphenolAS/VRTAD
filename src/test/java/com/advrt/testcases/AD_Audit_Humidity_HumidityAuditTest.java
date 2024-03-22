@@ -1,7 +1,5 @@
-/**
- * @author kaveriB
-
- *
+/*
+  @author kaveriB
  */
 
 package com.advrt.testcases;
@@ -328,7 +326,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 				
 				
 				
-			//	//AD_Ver_Audit _018 Verify the Audit trail entry  when deleted the verification setup for Humidity Loggers-Humidity Sensors
+				//AD_Ver_Audit _018 Verify the Audit trail entry  when deleted the verification setup for Humidity Loggers-Humidity Sensors
 		
 				@Test(priority=15,description = "AD_Ver_Audit _018 Verify the Audit trail entry  when deleted the verification setup for Humidity Loggers-Humidity Sensors\r\n"
 						+ "		")

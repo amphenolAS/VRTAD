@@ -1231,6 +1231,8 @@ public class assetDetailsPage extends BaseClass {
 
 	public void selectFolder_CopyToDrive(String folderName, String tile)
 			throws InterruptedException, AWTException, IOException {
+		click_Copytodrive();
+		Thread.sleep(1000);
 		if (tile.equalsIgnoreCase("setup")) {
 			click_Copytodrive();
 			// Select any folder present in the resource folder TestData
@@ -1455,6 +1457,15 @@ public class assetDetailsPage extends BaseClass {
 		return FetchText(SetupList.get(1));
 
 	}
+	
+	
+	// Click the Yes button of the popup message
+		public assetDetailsPage click_YesBtn_popup1() throws IOException {
+			WebElement Yes_Btn = driver.findElementByAccessibilityId("Button1");
+			clickOn(Yes_Btn);
+			return new assetDetailsPage();
+		}
+	
 	
 	//Button1
 		public void clickYes_delete() throws InterruptedException, IOException {

@@ -84,6 +84,7 @@ public class Setup_SensorConfigPage extends BaseClass {
 	// click GroupSensors_btn to navigate Group Sensors page
 	public Setup_GroupSensorsPage Click_nextbtn() throws IOException {
 		clickOn(GroupSensors_btn);
+		
 		return new Setup_GroupSensorsPage();
 	}
 	
@@ -98,9 +99,14 @@ public class Setup_SensorConfigPage extends BaseClass {
 	// of sensor config)
 	public Setup_GroupSensorsPage Click_nextbtn_LessSnsrconfig() throws IOException {
 		clickOn(GroupSensors_btn);
-
-		WebElement Yesbtn = driver.findElementByName("Yes");
-		clickOn(Yesbtn);
+try {WebElement Yesbtn = driver.findElementByName("Yes");
+clickOn(Yesbtn);
+	
+} catch (Exception e) {
+	WebElement Yesbtn = driver.findElementByName("Yes");
+	clickOn(Yesbtn);
+}
+		
 		return new Setup_GroupSensorsPage();
 	}
 

@@ -388,5 +388,13 @@ public class FM_SyncOutAssetListPage extends BaseClass{
 		WebElement Yes_Btn = driver.findElementByAccessibilityId("Button1");
 		clickOn(Yes_Btn);
 	}
-	
+    
+    public void selectPassFailCriteria()
+   	{
+   		WebElement passFailCrite = driver.findElementByAccessibilityId("SyncOutTemplateCheckBox");
+   		if(!checkboxSelectStatus(passFailCrite))
+   		{
+   			clickOn(passFailCrite);
+   		}
+   	}
 }

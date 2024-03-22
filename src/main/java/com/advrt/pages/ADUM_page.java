@@ -240,7 +240,8 @@ public class ADUM_page extends BaseClass {
 		//verify select users options are available
 		
 		//Select User
-		public boolean Is_SelectUser_available() throws AWTException {
+		public boolean Is_SelectUser_available() throws AWTException, InterruptedException {
+			Thread.sleep(1000);
 			WebElement SelectGroup = driver.findElementByName("Select User");
 			return IsElementVisibleStatus(SelectGroup);
 		}

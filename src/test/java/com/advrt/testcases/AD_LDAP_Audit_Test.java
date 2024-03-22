@@ -271,7 +271,7 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 		
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1","Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
 		
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
@@ -290,9 +290,11 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 		PoliciesPage.ClickSaveButton();
 		
 		
-		tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "comment");
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
+		Thread.sleep(3000);
 		tu.click_OK_popup();
-		tu.click_OK_popup();
+		Thread.sleep(5000);
+		//tu.click_OK_popup();
 		Thread.sleep(2000);
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
@@ -302,10 +304,10 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
 		AuditPage.Click_ActionFilter_Icon();
-		AuditPage.EnterTxt_ActionFilter("\"Active Directory User\" field modified from \"True\" to \"False \"  by User ID : \"Ruchika1\", User Name : \"Ruchika1\"");
+		AuditPage.EnterTxt_ActionFilter("\"Active Directory User\" field modified from \"True\" to \"False \"  by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"");
 		AuditPage.click_Action_FilterBtn();
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"\"Active Directory User\" field modified from \"True\" to \"False \"  by User ID : \"Ruchika1\", User Name : \"Ruchika1\"");
+				"\"Active Directory User\" field modified from \"True\" to \"False \"  by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"");
 		
 		sa.assertAll();
 	}
@@ -360,7 +362,7 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
 
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
@@ -384,7 +386,7 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 	public void Audit08() throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest("Audit08-Verify if audit should be recorded for the New User Type Creation");
 		SoftAssert sa = new SoftAssert();
-		MainHubPage = LoginPage.Login("ruchika1","Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
 		ADUM_page = MainHubPage.ClickAdminTile_ADUM();
 		ADUM_page.select_grp("Automation");
 		
@@ -401,7 +403,7 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 		ADUM_page.SelectUType("Newuser");
 		ADUM_page.ClickNewUserSaveButton();
 		
-		tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "updated");
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "updated");
 		tu.click_OK_popup();
 		
 		MainHubPage =	ADUM_page.ClickBackButn();
@@ -410,10 +412,10 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 		Thread.sleep(2000);
 		AuditPage.Click_ActionFilter_Icon();
 		AuditPage.EnterTxt_ActionFilter(
-				"User Group : \"Automation\"  , User Type : \"SystemAdministrator\" to \"newuser\" , User Privileges : \"Create Assets\" , Modified by User ID : \"Ruchika1\" , User Name : \"Ruchika1\"");
+				"User Group : \"Automation\"  , User Type : \"SystemAdministrator\" to \"newuser\" , User Privileges : \"Create Assets\" , Modified by User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"");
 		AuditPage.click_Action_FilterBtn();
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"User Group : \"Automation\"  , User Type : \"SystemAdministrator\" to \"newuser\" , User Privileges : \"Create Assets\" , Modified by User ID : \"Ruchika1\" , User Name : \"Ruchika1\"");
+				"User Group : \"Automation\"  , User Type : \"SystemAdministrator\" to \"newuser\" , User Privileges : \"Create Assets\" , Modified by User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"");
 
 		sa.assertAll();
 

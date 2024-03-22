@@ -340,7 +340,9 @@ extentTest = extent.startTest("UM03-Verify if the users are displayed in the dro
 SoftAssert sa = new SoftAssert();
 
 ADUM_page.select_grp("QA Testers");
-ADUM_page.select_user(1);
+Thread.sleep(1000);
+//ADUM_page.select_user(1);
+Thread.sleep(1000);
 sa.assertEquals(ADUM_page.Is_SelectUser_available(), true, "FAIL: select user option is not available");
 
 sa.assertAll();

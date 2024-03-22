@@ -131,5 +131,13 @@ public class AuditPage extends BaseClass {
 						.findElements(By.className("TextBlock"));
 				return FetchText(Act_Txt.get(4));
 			}
+			
+			
+			
+			public String get_ReqauditEvent_Time(int index) {
+				List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+						.findElements(By.className("TextBlock"));
+				return FetchText(Act_Txt.get(index));
+			}
 	
 }

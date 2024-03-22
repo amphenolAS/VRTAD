@@ -274,7 +274,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 	 * @throws IOException 
 	*********/
 
-	/*
+	
 	//AD_Ver_Audit _023 Verify that when a logged in user without 'Run Verification' privilege is not allowed to initiate a Verification study
 		
 		@Test(priority=0,description = "AD_Ver_Audit _023 Verify that when a logged in user without 'Run Verification' privilege is not allowed to initiate a Verification study")
@@ -398,7 +398,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			
 		}
 		
-		*/
+		
 		//	AD_Ver_Audit _027 Verify that when the logged in user has 'Run Verification' privilege and another user without 'Run Verification' privilege is not allowed to delete a Verification setup
 
 		@Test(priority=4,description = "AD_Ver_Audit _027 Verify that when the logged in user has 'Run Verification' privilege and another user without 'Run Verification' privilege is not allowed to delete a Verification setup")
@@ -493,7 +493,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			String BSIP="10.17.18.112";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
-			//TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
+			TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
 			SelectLoggersPage.Select_LogListbox("ZD82");
 			Thread.sleep(2000);
 			SensorsInformationPage=SelectLoggersPage.clickNext_SensorinfoBtn();
@@ -562,8 +562,8 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			String BSIP="10.17.18.112";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
-			//TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
-			SelectLoggersPage.Select_LogListbox("ZD82");
+			TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
+			SelectLoggersPage.Select_LogListbox("ZE07");
 			Thread.sleep(2000);
 			SensorsInformationPage=SelectLoggersPage.clickNext_SensorinfoBtn();
 			//TimeUnit.SECONDS.sleep(30);
@@ -620,8 +620,8 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			String BSIP="10.17.18.112";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
-			//TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
-			SelectLoggersPage.Select_LogListbox("ZD82");
+			TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
+			SelectLoggersPage.Select_LogListbox("ZE07");
 			Thread.sleep(2000);
 			SensorsInformationPage=SelectLoggersPage.clickNext_SensorinfoBtn();
 			//TimeUnit.SECONDS.sleep(30);

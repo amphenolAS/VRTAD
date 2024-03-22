@@ -740,6 +740,38 @@ public class TestUtilities extends com.advrt.base.BaseClass {
      return formattedDateTime;
     }
 	
+	public void deleteFolderContents(File folder)
+	{
+		if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    deleteFolderContents(file);
+                }
+            }
+        }
+        folder.delete();
+    }
+	
+	
+	public void Copy_Folder(String SrcLocation, String DestnLocation) throws InterruptedException {		
+		//	create_Folder(DestnLocation);
+			String source = SrcLocation;
+			File srcDir = new File(source);
+
+			String destination = DestnLocation;
+			File destDir = new File(destination);
+
+			try {
+			    FileUtils.copyDirectory(srcDir, destDir);
+			    Thread.sleep(5000);
+			    System.out.println("Copy DataFiles Done");
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
+		}
+
+	
 	
 	/*
 	public String CurrentDatenTime_certainformat1() {

@@ -94,7 +94,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		
 
 	// Rename the VRT Data Files folder if exists in order to make the system default
-	/* renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+	 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 			//Copy the Default DataFIles folder from Test Data to the App service location.
 			String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
 			String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
@@ -179,7 +179,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 			tu.AppClose();
 			
 			Thread.sleep(2000);
-			*/
+			
 		}
 	
 	//After All the tests are conducted
@@ -197,7 +197,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1","Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
 		
 	}
 
@@ -247,7 +247,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		AuditPage = MainHubPage.ClickAuditTitle();
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"User ID : \"Ruchika1\",User Name : \"Ruchika1\" Logged in to System.");
+				"User ID : \"Kaverib\",User Name : \"Kaveri Bedar\" Logged in to System.");
 
 		sa.assertAll();
 
@@ -267,7 +267,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		// Conduct a Syncin operation
 
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("ruchika1", "Amphenol@123", "comm");
+		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("kaverib", "Amphenol@123", "comm");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		Thread.sleep(1000);
@@ -281,16 +281,16 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		Thread.sleep(3000);
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
 		MainHubPage.ClickAuditTitle();
 
 		AuditPage = MainHubPage.ClickAuditTitle();
 		AuditPage.Click_ActionFilter_Icon();
 		AuditPage.EnterTxt_ActionFilter(
-				"User ID : \"Ruchika1\" ,  User Name: \"Ruchika1\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+				"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 		AuditPage.click_Action_FilterBtn();
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"User ID : \"Ruchika1\" ,  User Name: \"Ruchika1\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+				"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 
 		sa.assertAll();
 
@@ -311,7 +311,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		// Conduct a Syncin operation
 
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("ruchika1", "Amphenol@123", "comm");
+		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("kaverib", "Amphenol@123", "comm");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		Thread.sleep(1000);
@@ -325,16 +325,16 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		Thread.sleep(3000);
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
 		MainHubPage.ClickAuditTitle();
 
 		AuditPage = MainHubPage.ClickAuditTitle();
 		AuditPage.Click_ActionFilter_Icon();
 		AuditPage.EnterTxt_ActionFilter(
-				"User ID : \"Ruchika1\" ,  User Name: \"Ruchika1\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+				"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 		AuditPage.click_Action_FilterBtn();
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"User ID : \"Ruchika1\" ,  User Name: \"Ruchika1\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+				"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 
 		sa.assertAll();
 
@@ -355,7 +355,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		// Conduct a Syncin operation
 
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("ruchika1", "Amphenol@123", "comm");
+		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("kaverib", "Amphenol@123", "comm");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		Thread.sleep(1000);
@@ -367,16 +367,16 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		Thread.sleep(3000);
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
 		MainHubPage.ClickAuditTitle();
 
 		AuditPage = MainHubPage.ClickAuditTitle();
 		AuditPage.Click_ActionFilter_Icon();
 		AuditPage.EnterTxt_ActionFilter(
-				"User ID : \"Ruchika1\" ,  User Name: \"Ruchika1\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+				"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 		AuditPage.click_Action_FilterBtn();
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"User ID : \"Ruchika1\" ,  User Name: \"Ruchika1\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+				"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 
 		sa.assertAll();
 
@@ -398,7 +398,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		// Conduct a Syncin operation
 
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("ruchika1", "Amphenol@123", "comm");
+		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("kaverib", "Amphenol@123", "comm");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		Thread.sleep(1000);
@@ -412,16 +412,16 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		Thread.sleep(3000);
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
 		MainHubPage.ClickAuditTitle();
 
 		AuditPage = MainHubPage.ClickAuditTitle();
 		AuditPage.Click_ActionFilter_Icon();
 		AuditPage.EnterTxt_ActionFilter(
-				"User ID : \"Ruchika1\" ,  User Name: \"Ruchika1\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+				"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 		AuditPage.click_Action_FilterBtn();
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"User ID : \"Ruchika1\" ,  User Name: \"Ruchika1\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+				"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 
 		sa.assertAll();
 
@@ -433,7 +433,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 
 	@Test(description = "AD_SYNCIN_028 Verify the  Audit trail entry is recoreded related to users when peforming SYNCIN operation when User check box is ckecked with the  Active Directory Operator  User")
 
-	public void AD_SYNCIN_006() throws InterruptedException, AWTException, IOException {
+	public void AD_SYNCIN_028() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"AD_SYNCIN_028 Verify the  Audit trail entry is recoreded related to users when peforming SYNCIN operation when User check box is ckecked with the  Active Directory Operator  User");
 
@@ -458,7 +458,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		// Conduct a Syncin operation
 
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("ruchika1", "Amphenol@123", "comm");
+		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("kaverib", "Amphenol@123", "comm");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		Thread.sleep(1000);
@@ -472,7 +472,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		Thread.sleep(3000);
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
 		MainHubPage.ClickAuditTitle();
 
 		AuditPage = MainHubPage.ClickAuditTitle();
@@ -503,7 +503,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		// Conduct a Syncin operation
 
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("ruchika1", "Amphenol@123", "comm");
+		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("kaverib", "Amphenol@123", "comm");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		Thread.sleep(1000);
@@ -519,7 +519,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		Thread.sleep(3000);
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
 		MainHubPage.ClickAuditTitle();
 
 		AuditPage = MainHubPage.ClickAuditTitle();
@@ -547,7 +547,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		// Conduct a Syncin operation
 
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("ruchika1", "Amphenol@123", "comm");
+		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("kaverib", "Amphenol@123", "comm");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		Thread.sleep(1000);
@@ -564,7 +564,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 		Thread.sleep(3000);
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
 		MainHubPage.ClickAuditTitle();
 
 		AuditPage = MainHubPage.ClickAuditTitle();
@@ -582,7 +582,7 @@ public class AD_FM_Syncin_AuditTest_Operator extends BaseClass{
 
 	@Test(description = "AD_SYNCIN_032 Verify the Audit trail entry while peforming SYNCIN operation by Select All button  with the  Active Directory Operator  User")
 
-	public void AD_SYNCIN_032() throws InterruptedException, AWTException, IOException {
+	public void AD_SYNCIN_033() throws InterruptedException, AWTException, IOException {
 
 		extentTest = extent.startTest(
 				"AD_SYNCIN_032 Verify the Audit trail entry while peforming SYNCIN operation by Select All button  with the  Active Directory Operator  User");
