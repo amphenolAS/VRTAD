@@ -321,7 +321,9 @@ public class AD_UMtest2 extends BaseClass{
 			ADUM_page.ClickNewUserSaveButton();
 			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","comment");
 			tu.click_OK_popup();
+			
 			MainHubPage=ADUM_page.ClickBackButn();
+			
 			MainHubPage.UserSignOut();
 			LoginPage = new LoginPage();
 			MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
@@ -938,9 +940,7 @@ public class AD_UMtest2 extends BaseClass{
 
     		extentTest = extent.startTest("UM60-Verify if Validation message should be displayed when user trying to unmap the group where the application is having one group");
 
-    		SoftAssert sa = new SoftAssert();
-
-    		
+    		SoftAssert sa = new SoftAssert();	
     		
     		ADUM_page.select_grp("QA Testers");
     		ADUM_page.select_user(2);
