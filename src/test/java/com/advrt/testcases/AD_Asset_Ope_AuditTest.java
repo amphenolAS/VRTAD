@@ -54,6 +54,9 @@ public class AD_Asset_Ope_AuditTest extends BaseClass{
 	public ExtentTest extentTest;
 	TestUtilities tu = new TestUtilities();
 	
+	
+	
+	
 	//Initialization of pages
 	Copyassetpage Copyassetpage;
 	assetDetailsPage assetDetailsPage;
