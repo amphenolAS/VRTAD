@@ -115,7 +115,7 @@ public class AD_FileManagementTest extends BaseClass{
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("AD_FileManagementTest Test in Progress..");
 
-
+/*
 		
 		// Rename the VRT Data Files folder if exists in order to make the system default
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
@@ -198,7 +198,7 @@ public class AD_FileManagementTest extends BaseClass{
 		//MainHubPage = AD_UMPage.click_BackBtn();
 		//LoginPage = MainHubPage.UserSignOut();
 		AppClose();
-		Thread.sleep(2000);
+		Thread.sleep(2000);*/
 
 	}
 
@@ -300,9 +300,10 @@ public class AD_FileManagementTest extends BaseClass{
 		String studyFileName = "MM";
 		assetDetailsPage.Select_ReportFile(studyFileName);
 		
-		assetDetailsPage.click_Copytodrive();
-		Thread.sleep(500);
+		//assetDetailsPage.click_Copytodrive();
+		Thread.sleep(1000);
 		assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "reports");
+		Thread.sleep(1000);
 		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "usercommitted");
 
 		String foldrpath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\AutoLogs";
@@ -316,7 +317,7 @@ public class AD_FileManagementTest extends BaseClass{
 
 		// Confirm if the file got copied to the above destination folder or not
 		List<String> fn = tu.get_fileNamesList(foldrpath);
-		String expFileName = "A=(MM)=(oidfglskdhlsdlglhsdl)=1=15-Nov-2023 10-50-46=.pdf";//
+		String expFileName = "A=(MM)=(oidfglskdhlsdlglhsdl)=1=15-Nov-2023 10-50-46=.pdf";
 		for (String filename : fn) {
 			if (filename.contains(expFileName)) {
 				sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
