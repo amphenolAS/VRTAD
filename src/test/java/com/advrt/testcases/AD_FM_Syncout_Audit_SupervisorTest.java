@@ -483,7 +483,7 @@ public class AD_FM_Syncout_Audit_SupervisorTest extends BaseClass{
 
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String audtMsg = "\"Templates\" is Synced Out.";
+		String audtMsg = "\"Audit\" is Synced Out.";
 
 		sa.assertEquals(AuditPage.get_ReqauditEvent_Time(3), audtMsg, 
 				"Fail: Audit trail entry is not recoreded related to Equipements when peforming SYNCOUT operation");

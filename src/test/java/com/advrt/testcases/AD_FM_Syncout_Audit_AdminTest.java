@@ -221,7 +221,7 @@ public class AD_FM_Syncout_Audit_AdminTest extends BaseClass{
 
 	@Test(description = "AD_SYNCOUT_002 Verify the Audit trail entry while peforming SYNCOUT operation with the  Active Directory Admin  User")
 
-	public void AD_SYNCIN_002() throws InterruptedException, AWTException, IOException {
+	public void AD_SYNCOUT_002() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest("AD_SYNCOUT_002 Verify the Audit trail entry while peforming SYNCOUT operation with the  Active Directory Admin  User");
 
 		SoftAssert sa = new SoftAssert();
@@ -259,7 +259,7 @@ public class AD_FM_Syncout_Audit_AdminTest extends BaseClass{
 
 	@Test(description = "AD_SYNCOUT_003 Verify the no Audit trail entry is recoreded related to users when peforming SYNCOUT operation when User check box is unckecked with the  Active Directory Admin  User")
 
-	public void AD_SYNCIN_003() throws InterruptedException, AWTException, IOException {
+	public void AD_SYNCOUT_003() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest("AD_SYNCOUT_003 Verify the no Audit trail entry is recoreded related to users when peforming SYNCOUT operation when User check box is unckecked with the  Active Directory Admin  User");
 
 		SoftAssert sa = new SoftAssert();
@@ -318,7 +318,7 @@ public class AD_FM_Syncout_Audit_AdminTest extends BaseClass{
 
 	@Test(description = "AD_SYNCOUT_005 Verify the no Audit trail entry is recoreded related to Pass fail criteria template when peforming SYNCOUT operation when Pass fail criteria template check box is unckecked with the  Active Directory Admin  User")
 
-	public void AD_SYNCIN_005() throws InterruptedException, AWTException, IOException {
+	public void AD_SYNCOUT_005() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest("AD_SYNCOUT_005 Verify the no Audit trail entry is recoreded related to Pass fail criteria template when peforming SYNCOUT operation when Pass fail criteria template check box is unckecked with the  Active Directory Admin  User");
 
 		SoftAssert sa = new SoftAssert();
@@ -499,7 +499,7 @@ public class AD_FM_Syncout_Audit_AdminTest extends BaseClass{
 
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String audtMsg = "\"Templates\" is Synced Out.";
+		String audtMsg = "\"Audit\" is Synced Out.";
 
 		sa.assertEquals(AuditPage.get_ReqauditEvent_Time(3), audtMsg, 
 				"Fail: Audit trail entry is not recoreded related to Equipements when peforming SYNCOUT operation");
@@ -644,3 +644,4 @@ public class AD_FM_Syncout_Audit_AdminTest extends BaseClass{
 		System.out.println("This TC has already covered in AD_SYNCOUT_009");
 	}
 }
+

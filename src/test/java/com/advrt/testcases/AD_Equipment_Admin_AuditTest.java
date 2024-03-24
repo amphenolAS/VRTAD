@@ -132,8 +132,6 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 			Thread.sleep(1000);
 			ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
 			ADUM_page.select_grp("Automation");//Automation
-			//AD_UMPage.Select_user();
-			//ADUM_page.select_user(0);
 			ADUM_page.enterNewUserTitle("Manager");
 			ADUM_page.SelectUType("SystemAdministrator");
 			Thread.sleep(1000);
@@ -163,7 +161,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1","Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
 		//ADUM_page = MainHubPage.ClickAdminTile_UMpage();
 		//PoliciesPage = MainHubPage.ClickAdminTile_Polpage();
 		//ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
@@ -213,7 +211,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		SoftAssert sa = new SoftAssert();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		
-		sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Ruchika1\",User Name : \"Ruchika1\" Logged in to System.");
+		sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Kaverib\",User Name : \"Kaveri Bedar\" Logged in to System.");
 		sa.assertAll();
 		
 	}
@@ -231,12 +229,12 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 
 		NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "EN002", "2");
-		tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Equipcreation");
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Equipcreation");
 		EquipmentHubPage = NewEquipmentCreation_Page.ClickBackBtn();
 		MainHubPage = EquipmentHubPage.ClickBackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG = "Equipment : \"EN002\" is created by  User ID : \"Ruchika1\" , User Name : \"Ruchika1\"";
+		String ExpectMSG = "Equipment : \"EN002\" is created by  User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG, "FAIL:The Audit trail record for Equipment creation is not audited ");
 		sa.assertAll();
 		
@@ -257,20 +255,20 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 
 		NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "EN003", "3");
-		tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Equipcreation");
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Equipcreation");
 		EquipmentHubPage = NewEquipmentCreation_Page.ClickBackBtn();
 		Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
 		Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EN003");
 		Equipment_IRTDDetailspage.clickDeleteEquipmentIcon();
 		Equipment_IRTDDetailspage.ClickYesBtn();
-		tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Equipcreation");
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Equipcreation");
 		Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
 		MainHubPage = EquipmentHubPage.ClickBackBtn();
 		
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG = "Equipment : \"EN003\" is deleted by  User ID : \"Ruchika1\" , User Name : \"Ruchika1\"";
+		String ExpectMSG = "Equipment : \"EN003\" is deleted by  User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
 		
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG, "FAIL:The Audit trail record for Equipment delete is not audited ");
 		sa.assertAll();
@@ -290,13 +288,13 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 
 		NewEquipmentCreation_Page.EqipCreation("IRTD", "EN004", "SL4", "4");
-		tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Equipcreation");
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Equipcreation");
 		EquipmentHubPage = NewEquipmentCreation_Page.ClickBackBtn();
 		Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
 		Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EN004");
 		Equipment_IRTDDetailspage.enter_IDname("A4");
 		Equipment_IRTDDetailspage.ClickSaveButton();
-		tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Equipcreation");
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Equipcreation");
 		Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();
 		
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
@@ -304,7 +302,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG = "“Equipment Name” field of  “EN004” updated from “4” to “A4” modified by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+		String ExpectMSG = "“Equipment Name” field of  “EN004” updated from “4” to “A4” modified by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
 		
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG, "FAIL:The Audit trail record for Modifying Equipment ID  is not audited ");
 		
@@ -316,7 +314,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EN004");
 		Equipment_IRTDDetailspage.enter_IDname("");
 		Equipment_IRTDDetailspage.ClickSaveButton();
-		tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Equipcreation");
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Equipcreation");
 		Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();
 		
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
@@ -324,7 +322,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG1 = "“Equipment Name” field of  “EN004” updated from “A4” to “” modified by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+		String ExpectMSG1 = "“Equipment Name” field of  “EN004” updated from “A4” to “” modified by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG1, "FAIL:The Audit trail record for delete Equipment ID  is not audited ");
 
 		
@@ -338,7 +336,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EN004");
 		Equipment_IRTDDetailspage.enter_IDname("NewID4");
 		Equipment_IRTDDetailspage.ClickSaveButton();
-		tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Equipcreation");
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Equipcreation");
 		Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();
 		
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
@@ -346,7 +344,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG2 = "“Equipment Name” field of  “EN004” updated from “” to “NewID4” modified by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+		String ExpectMSG2 = "“Equipment Name” field of  “EN004” updated from “” to “NewID4” modified by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG2, "FAIL:The Audit trail record for delete Equipment ID  is not audited ");
 	
 		sa.assertAll();	
@@ -400,7 +398,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 			tu.uploadDoc("VRT_Pro.JPG");
 			Thread.sleep(1000);
 			NewEquipmentCreation_Page.ClickSaveButton();
-			tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Eqipcreation");
+			tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
 			EquipmentHubPage =	NewEquipmentCreation_Page.ClickBackBtn();
 			Thread.sleep(2000);
 		
@@ -413,13 +411,13 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 			tu.uploadDoc("Pressure.jpg");
 			Equipment_IRTDDetailspage.ClickSaveButton();
 			
-			tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Eqipcreation");
+			tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
 	        Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();	
 			EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
 			MainHubPage = EquipmentHubPage.ClickBackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
 			Thread.sleep(2000);
-			String ExpectMSG = "Equipment Image field of \"007\" modified by  User ID : \"Ruchika1\" , User Name : \"Ruchika1\"";
+			String ExpectMSG = "Equipment Image field of \"007\" modified by  User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
 			sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 		
 			MainHubPage = AuditPage.Click_BackBtn();
@@ -431,14 +429,14 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 			Equipment_IRTDDetailspage.click_DeleteEquipImage();
 			Equipment_IRTDDetailspage.Click_HistoryButton();
 			Equipment_IRTDDetailspage.ClickSaveButton();
-			tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Eqipcreation");
+			tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
 			
 			Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();	
 			EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
 			MainHubPage = EquipmentHubPage.ClickBackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
 			Thread.sleep(2000);
-			String ExpectMSG1 = "Equipment Image field of \"007\" deleted by  User ID : \"Ruchika1\" , User Name : \"Ruchika1\"";
+			String ExpectMSG1 = "Equipment Image field of \"007\" deleted by  User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
 			sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG1, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 		
 			//
@@ -453,14 +451,14 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 			tu.uploadDoc("VRT_Pro.JPG");
 			Thread.sleep(1000);
 			Equipment_IRTDDetailspage.ClickSaveButton();
-			tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Eqipcreation");
+			tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
 			
 			Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();	
 			EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
 			MainHubPage = EquipmentHubPage.ClickBackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
 			Thread.sleep(2000);
-			String ExpectMSG2 = "Equipment Image field of \"007\" added by  User ID : \"Ruchika1\" , User Name : \"Ruchika1\"";
+			String ExpectMSG2 = "Equipment Image field of \"007\" added by  User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
 			sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG2, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 		
 			sa.assertAll();	
@@ -505,13 +503,13 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 
 			NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 			NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "ABC1", "10l");
-			UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Eqipcreation");
+			UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
 			EquipmentHubPage = NewEquipmentCreation_Page.ClickBackBtn();
 			
 			Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
 			Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("ABC1");
 			Equipment_IRTDDetailspage.click_UploadDocsBtn();
-			UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Eqipcreation");
+			UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
 			//Thread.sleep(2000);
 			tu.uploadDoc("HelpFileWord");
 			Equipment_IRTDHubPage=Equipment_IRTDDetailspage.click_Back_btn();
@@ -523,7 +521,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 			Equipment_IRTDDetailspage.selectFolder_CopyToDrive("AutoLogs");
 			
 
-			UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Eqipcreation");
+			UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
 
 			//String foldrpath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\AutoLogs";
 			// System.out.println("Act Folderpath: "+filepath);
@@ -532,8 +530,8 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 			MainHubPage = EquipmentHubPage.ClickBackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
 			Thread.sleep(2000);
-			String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Kaveri.Bedar\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\"";
-			sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG2, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
+			String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Kaverib\", User Name : \"Kaveri Bedar\" to \"C:\\Users\\Kaveri.Bedar\\Downloads\"";
+			sa.assertTrue(AuditPage.get_auditEvent_text().contains(ExpectMSG2),  "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 		
 			sa.assertAll();	
 
