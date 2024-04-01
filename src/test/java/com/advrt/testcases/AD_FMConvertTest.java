@@ -1,6 +1,5 @@
 /**
  * @author kaveriB
-
  *
  */
 
@@ -177,7 +176,7 @@ public class AD_FMConvertTest extends BaseClass{
 		LoginPage = new LoginPage();
 		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
 	
-		/*
+		
 		//SyncIn
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
 		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit("kaverib","Amphenol@123","usercommitted");
@@ -200,7 +199,7 @@ public class AD_FMConvertTest extends BaseClass{
 		//MainHubPage = AD_UMPage.click_BackBtn();
 		//LoginPage = MainHubPage.UserSignOut();
 		AppClose();
-		Thread.sleep(2000);*/
+		Thread.sleep(2000);
 
 	}
 

@@ -453,7 +453,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 	@Test(priority=6,groups = { "Sanity",
 	"Regression" }, description = "PA068-Verify if Guest User not able to access the Delete Assets Module when the Delete Assets Privilege is unchecked")
 
-	public void PA014() throws InterruptedException, IOException, ParseException {
+	public void PA068() throws InterruptedException, IOException, ParseException {
 		extentTest = extent
 				.startTest("PA068-Verify if Guest User not able to access the Delete Assets Module when the Delete Assets Privilege is unchecked");
 		SoftAssert sa = new SoftAssert();

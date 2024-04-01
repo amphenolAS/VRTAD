@@ -123,7 +123,7 @@ public class AD_Audit_TemperatureVerificationTest extends BaseClass{
 		System.out.println("AD_AuditVerificationTest Test in Progress..");
 		
 
-/*	
+
 	// Rename the VRT Data Files folder if exists in order to make the system default
 		 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 			//Copy the Default DataFIles folder from Test Data to the App service location.
@@ -217,7 +217,7 @@ public class AD_Audit_TemperatureVerificationTest extends BaseClass{
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
 			AppClose();
-			Thread.sleep(2000);*/
+			Thread.sleep(2000);
 			
 		
 		}

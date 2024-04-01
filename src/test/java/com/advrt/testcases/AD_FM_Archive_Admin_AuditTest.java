@@ -135,7 +135,6 @@ public class AD_FM_Archive_Admin_AuditTest extends BaseClass{
 				e.printStackTrace();
 			}
 			
-			
 			PoliciesPage = UserManagementPage_Manual.Click_Policy();
 			
 			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
@@ -148,7 +147,7 @@ public class AD_FM_Archive_Admin_AuditTest extends BaseClass{
 			tu.click_OK_popup();
 			Thread.sleep(1000);
 			ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
-			ADUM_page.select_grp("Automation");//Automation
+			ADUM_page.select_grp("Automation");
 			ADUM_page.enterNewUserTitle("Manager");
 			ADUM_page.SelectUType("SystemAdministrator");
 			Thread.sleep(1000);

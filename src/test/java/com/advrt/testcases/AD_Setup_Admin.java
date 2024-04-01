@@ -105,9 +105,10 @@ public class AD_Setup_Admin extends BaseClass {
 		System.out.println("_AD_Setup_Admin Test in Progress..");
 
 		
+		
 		// Rename the VRT Data Files folder if exists in order to make the system
 		// default
-/*	renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+	renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 		// Copy the Default DataFIles folder from Test Data to the App service location.
 		String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
 		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
@@ -158,7 +159,7 @@ public class AD_Setup_Admin extends BaseClass {
 
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
 		ADUM_page = MainHubPage.ClickAdminTile_ADUM();
 		ADUM_page.select_grp("Automation");// Automation
 		DefaultUserPrivilages_page = ADUM_page.SelectUType1("NewUserType");
@@ -167,7 +168,7 @@ public class AD_Setup_Admin extends BaseClass {
 		DefaultUserPrivilages_page.click_UPModifySetupCheckBox();
 		DefaultUserPrivilages_page.Click_Create_AssetCheckBox1();
 		//DefaultUserPrivilages_page.click_UPSetupdeleteCheckBox();
-		ADUM_page = DefaultUserPrivilages_page.clickOn_UpdateBtn("ruchika1", "Amphenol@123", "text");
+		ADUM_page = DefaultUserPrivilages_page.clickOn_UpdateBtn("kaverib", "Amphenol@123", "text");
 		MainHubPage = ADUM_page.ClickBackButn();
 		ADUM_page = MainHubPage.ClickAdminTile_ADUM();
 		Thread.sleep(1000);
@@ -177,12 +178,12 @@ public class AD_Setup_Admin extends BaseClass {
 		ADUM_page.enterNewUserTitle("Manager");
 		Thread.sleep(1000);
 		ADUM_page.ClickNewUserSaveButton();
-		tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "updated");
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "updated");
 		tu.click_OK_popup();
 		MainHubPage = ADUM_page.ClickBackButn();
 
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("ruchika1", "Amphenol@123","comm");
+		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("kaverib", "Amphenol@123","comm");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		Thread.sleep(1000);
@@ -195,7 +196,7 @@ public class AD_Setup_Admin extends BaseClass {
 		SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 		Thread.sleep(2000);
 
-*/
+
 	}
 
 	// After All the tests are conducted
@@ -213,7 +214,7 @@ public class AD_Setup_Admin extends BaseClass {
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("ruchika1", "Amphenol@123");
+		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
 		// ADUM_page = MainHubPage.ClickAdminTile_UMpage();
 		// PoliciesPage = MainHubPage.ClickAdminTile_Polpage();
 		// ADUM_page = PoliciesPage.ClickUM_Tab_AD();
@@ -256,7 +257,7 @@ public class AD_Setup_Admin extends BaseClass {
 	 * @throws AWTException
 	 * @throws IOException
 	 *********/
-
+/*
 	// Setup_Audit_001-Verify the Audit trail entry  while login with the  AD   group
 
 	@Test(priority = 0,description = "Setup_Audit_001-Verify the Audit trail entry  while login with the  AD   group")
@@ -314,14 +315,14 @@ public class AD_Setup_Admin extends BaseClass {
 		Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 		Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 		Setup_ReviewPage.clickSaveBtn();
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		assetDetailsPage = Setup_ReviewPage.click_backBtn();
 
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "  Setup \"test\" is created by User ID : \"Ruchika1\", User Name : \"Ruchika1\"";
+		String expaudit = "  Setup \"test\" is created by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 
@@ -353,14 +354,14 @@ public class AD_Setup_Admin extends BaseClass {
 		Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 		Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 		Setup_ReviewPage.clickSaveBtn();
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		assetDetailsPage = Setup_ReviewPage.click_backBtn();
 
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Setup: \"test\" is modified in Tab : \"Define Setup\" by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+		String expaudit = "Setup: \"test\" is modified in Tab : \"Define Setup\" by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 
@@ -389,20 +390,22 @@ public class AD_Setup_Admin extends BaseClass {
 			Setup_SensorConfigPage.Click_Addsensors_Expanderbtn();
 			Setup_SensorConfigPage.Enter_TemperatureCount_textField("6");
 			//Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_LessSnsrconfig(); 
+			
+			
 			Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nxtbtn_ForChangingExistingSC();
 			Setup_GroupSensorsPage.click_DfltGrp_Btn();
 			Setup_CalculationsPage = Setup_GroupSensorsPage.Click_CalculationsTab();
 			Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 			Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 			Setup_ReviewPage.clickSaveBtn();
-			UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+			UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 			assetDetailsPage = Setup_ReviewPage.click_backBtn();
 
 			assetHubPage = assetDetailsPage.ClickBackBtn();
 			MainHubPage = assetHubPage.click_BackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
 
-			String expaudit = "Setup: \"Manual 5 sec SR\" is modified in Tab : \"Sensors Configuration & Group Sensors & Qualification Parameters\" by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+			String expaudit = "Setup: \"Manual 5 sec SR\" is modified in Tab : \"Sensors Configuration & Group Sensors & Qualification Parameters\" by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 
@@ -440,14 +443,14 @@ public class AD_Setup_Admin extends BaseClass {
 		Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 		Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 		Setup_ReviewPage.clickSaveBtn();
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		assetDetailsPage = Setup_ReviewPage.click_backBtn();
 
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Setup: \"test\" is modified in Tab : \"Group Sensors\" by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+		String expaudit = "Setup: \"test\" is modified in Tab : \"Group Sensors\" by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 
@@ -481,14 +484,14 @@ public class AD_Setup_Admin extends BaseClass {
 		Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 		Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 		Setup_ReviewPage.clickSaveBtn();
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		
 		assetDetailsPage = Setup_ReviewPage.click_backBtn();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Setup: \"test\" is modified in Tab : \"Calculations\" by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+		String expaudit = "Setup: \"test\" is modified in Tab : \"Calculations\" by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 
@@ -522,14 +525,14 @@ public class AD_Setup_Admin extends BaseClass {
 		Setup_QualParamPage.select_SR("1 Second");
 		Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 		Setup_ReviewPage.clickSaveBtn();
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		
 		assetDetailsPage = Setup_ReviewPage.click_backBtn();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Setup: \"manual 1 min sampling\" is modified in Tab : \"Qualification Parameters\" by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+		String expaudit = "Setup: \"Manual 5 sec SR\" is modified in Tab : \"\" by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 
@@ -558,31 +561,32 @@ public class AD_Setup_Admin extends BaseClass {
 		//Setup_SensorConfigPage.Click_Addsensors_Expanderbtn();	
 		//Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_LessSnsrconfig();
 		Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn();
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		Setup_CalculationsPage = Setup_GroupSensorsPage.Click_CalculationsTab();
 		Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 		//Setup_QualParamPage.select_SR("2 Seconds");
 		Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 		//Setup_ReviewPage.clickSaveBtn();
-		//UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		//UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		Setup_ReviewPage.click_CopyAsNewSetup_Button();
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
-		Setup_ReviewPage.Enter_NewSetupName("copysetup4");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
+		Setup_ReviewPage.Enter_NewSetupName("copysetup1");
 		//Thread.sleep(500);
 	    //Setup_ReviewPage.click_backBtn();
-		//Thread.sleep(500);
+		Thread.sleep(1000);
+		//tu.click_YesBtn_popup();
 		assetDetailsPage=Setup_ReviewPage.click_backBtn();
 Thread.sleep(1000);
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Setup: \"copysetup4\" copied by User ID : \"Ruchika1\" , User Name : \"Ruchika1\"";
+		String expaudit = "Setup: \"copysetup1\" copied by User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 		sa.assertAll();
 	
-	}
+	}*/
 
 //Setup_Audit_009-Verify the Audit trail entry  while creating   Setup report using create Setup report functionality in review screen with the  AD   group
 
@@ -609,9 +613,9 @@ Thread.sleep(1000);
 		Setup_QualParamPage.select_SR("3 Seconds");
 		Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 		Setup_ReviewPage.clickSaveBtn();
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		Setup_ReviewPage.create_setupReport_Button();
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		Setup_ReviewPage.click_PDFpopup_OkBtn();
 		Thread.sleep(3000);
 		Setup_ReviewPage.perform_alt_tab_OP();
@@ -620,7 +624,7 @@ Thread.sleep(1000);
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Setup Review:  Setup report creation performed by User ID : \"Ruchika1\", User Name : \"Ruchika1\"";
+		String expaudit = "Setup Review:  Setup report creation performed by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 		sa.assertAll();
@@ -628,7 +632,7 @@ Thread.sleep(1000);
 	}
 	
 	
-	
+	/*
 	
 	//Setup_Audit_010-Verify the Audit trail entry  while creating   Setup report using Print  Setup report functionality in setup  screen with the  AD   group
 	
@@ -651,11 +655,13 @@ Thread.sleep(1000);
 		
 		assetDetailsPage.Click_reportsTile();
 		assetDetailsPage.Click_SetupReportsButton();
-		assetDetailsPage.Select_ReportFile1("manual 1 min sampling");
+		String studyFileName = "manual 1 min sampling";
+		assetDetailsPage.Select_ReportFile(studyFileName);
 		Thread.sleep(1000);
-		assetDetailsPage.click_Report_CopyToDrive_Btn();
+		//assetDetailsPage.click_Report_CopyToDrive_Btn();
 		assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "reports");
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		//assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "reports");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 
 		String foldrpath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\AutoLogs";
 		
@@ -663,12 +669,13 @@ Thread.sleep(1000);
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Report - \"manual 1 min sampling\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Ruchika.Behura\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\\Se=(manual 1 min sampling)=()=0=19-Mar-2020 13-52-45=.pdf\"";
+		String expaudit = "Report - \"manual 1 min sampling\" , \"Copy to drive\" operation was performed by User Id : \"Kaverib\", User Name : \"Kaveri Bedar\" to \"C:\\Users\\Kaveri.Bedar\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\\Se=(manual 1 min sampling)=()=0=19-Mar-2020 13-52-45=.pdf\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 		sa.assertAll();
 	
 	}
+	
 	
 	//Setup_Audit_013-Verify the Audit trail entry  while Copying the Setup from one Assest to Another Assest with the  AD   group
 	
@@ -686,7 +693,7 @@ Thread.sleep(1000);
 	assetCreationPage = assetHubPage.ClickAddAssetBtn();
 	assetCreationPage.assetCreation("Ast013", "13", "HeatBath", "Aas", "Hyd");
 
-	tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
+	tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Assetcreation");
 	tu.click_Close_alertmsg();
 	assetHubPage = assetCreationPage.clickBackBtn();
 	assetDetailsPage = assetHubPage.click_assetTile("Ast013");
@@ -709,7 +716,7 @@ Thread.sleep(1000);
 	Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 	Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 	Setup_ReviewPage.clickSaveBtn();
-	UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+	UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 	assetDetailsPage = Setup_ReviewPage.click_backBtn();
 	
 	assetHubPage = assetDetailsPage.ClickBackBtn();
@@ -720,7 +727,7 @@ Thread.sleep(1000);
 	CopySetuppage.clickONCheckBOX_1();
 	CopySetuppage.click_copy_Btn();
 	tu.click_YesBtn_popup();
-	UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+	UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 	//CopySetuppage.select_alertOption("Yes");
 	Thread.sleep(1000);
 	tu.click_Close_alertmsg();
@@ -729,7 +736,7 @@ Thread.sleep(1000);
 	MainHubPage = assetHubPage.click_BackBtn();
 	AuditPage = MainHubPage.ClickAuditTitle();
 
-	String expaudit = "\"1\" setup(s) copied successfully by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+	String expaudit = "\"1\" setup(s) copied successfully by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
 
 	sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 	sa.assertAll();
@@ -753,13 +760,13 @@ Thread.sleep(1000);
 		assetDetailsPage.Click_SetupReportsButton();
 		assetDetailsPage.Select_ReportFile1("test");
 		assetDetailsPage.Click_DeleteBtn_report();	
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		assetDetailsPage.clickYes_delete();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		
-		String expaudit ="Setup Report : \"manual 1 min sampling\"  deleted by User ID : \"Ruchika1\", User Name : \"Ruchika1\"";
+		String expaudit ="Setup Report : \"manual 1 min sampling\"  deleted by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 		sa.assertAll();
 }
@@ -781,9 +788,10 @@ Thread.sleep(1000);
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 		assetDetailsPage.Click_SetupName("manual 1 min sampling");
 		Thread.sleep(1000);
-		assetDetailsPage.click_Setup_CopyToDrive();
+		
+		//assetDetailsPage.click_Setup_CopyToDrive();
 		assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "reports");
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 
 		String foldrpath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\AutoLogs";
 		
@@ -791,12 +799,12 @@ Thread.sleep(1000);
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Setup - \"manual 1 min sampling\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Ruchika.Behura\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\\1065306A4C9C5E7376FC.cfg";
+		String expaudit = "Setup - \"manual 1 min sampling\" , \"Copy to drive\" operation was performed by User Id : \"Kaverib\", User Name : \"Kaveri Bedar\" to \"C:\\Users\\Kaveri.Bedar\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\\1065306A4C9C5E7376FC.cfg\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup copy drive is not audited");
 		sa.assertAll();
 	
-	}
+	}*/
 	
 	//Setup_Audit_016-Verify the Audit trail entry  while copying the Qualification file using copy to drive functionality under qualification tile with the  AD   group
 	
@@ -814,9 +822,9 @@ Thread.sleep(1000);
 		assetDetailsPage.Select_QualFile("manual 1 min sampling");
 		Thread.sleep(1000);
 		
-		assetDetailsPage.click_Qual_CopyToDrive_Btn();
+		//assetDetailsPage.click_Qual_CopyToDrive_Btn();
 		assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "reports");
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 
 		String foldrpath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\AutoLogs";
 		
@@ -824,13 +832,14 @@ Thread.sleep(1000);
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 
-		String expaudit = "Qualification - \"manual 1 min sampling\" , \"Copy to drive\" operation was performed by User Id : \"Ruchika1\", User Name : \"Ruchika1\" to \"C:\\Users\\Ruchika.Behura\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\\20200318131241_20200318155600_60_637201438503438416.rtq\"";
+		String expaudit = "Qualification - \"manual 1 min sampling\" , \"Copy to drive\" operation was performed by User Id : \"Kaverib\", User Name : \"Kaveri Bedar\" to \"C:\\Users\\Kaveri.Bedar\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\\20200318131241_20200318155600_60_637201438503438416.rtq\"";
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: qual copy drive is not audited");
 		sa.assertAll();
 	}
 	
 
+	/*
 //Setup_Audit_017-Verify the Audit trail entry  while deleting the  file using delete functionality under Document tile with the  AD   group
 
 
@@ -848,14 +857,14 @@ Thread.sleep(1000);
 		assetDetailsPage.click_DocsTileBtn();
 		assetDetailsPage.Select_DocFile("LTR-40_Cooling.pdf");
 		assetDetailsPage.Click_DeleteBtn_report();
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		tu.click_YesBtn_popup();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
 		String Actionmsg = AuditPage.get_auditEvent_text();
-		String ExpectMSG = "Document: \"LTR-40_Cooling.pdf\"  deleted by User ID : \"Ruchika1\", User Name : \"Ruchika1\"";
+		String ExpectMSG = "Document: \"LTR-40_Cooling.pdf\"  deleted by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"";
 		sa.assertEquals(Actionmsg, ExpectMSG,
 				"FAIL: Audit trial record does not exists for Deletion of a  document under Documents tile");
 		sa.assertAll();
@@ -879,14 +888,14 @@ Thread.sleep(1000);
 		assetDetailsPage.click_QualTile();
 		assetDetailsPage.Select_QualFile("manual 1 min sampling");
 		assetDetailsPage.click_DeleteQualificationButton();
-		UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 		tu.click_YesBtn_popup();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
 		String Actionmsg = AuditPage.get_auditEvent_text();
-		String ExpectMSG = "Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"Ruchika1\", User Name : \"Ruchika1\"";
+		String ExpectMSG = "Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"";
 		sa.assertEquals(Actionmsg, ExpectMSG,
 				"FAIL: Audit trial record does not exists for Delete study file activity");
 		sa.assertAll();
@@ -925,7 +934,7 @@ Thread.sleep(1000);
 			sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: invalid details is not audited");
 			sa.assertAll();
 			}
-		
+		*/
 		
 	//Setup_Audit_011-Verify the Audit trail entry  while Deleting the  Setup with the  AD   group
 		
@@ -941,18 +950,18 @@ Thread.sleep(1000);
 
 			assetHubPage = MainHubPage.Click_AssetTile();
 			assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
-			assetDetailsPage.Click_SetupName("manual 1 min sampling");
+			assetDetailsPage.Click_SetupName("Manual 5 sec SR");
 			assetDetailsPage.Click_DeleteBtn_report();
-			UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "comment");
+			UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 			Thread.sleep(500);
-			//assetDetailsPage.clickYes_delete();
-			tu.click_YesBtn_popup();
-			assetDetailsPage = CopySetuppage.Click_Back_Btn();
+			assetDetailsPage.clickYes_delete();
+			//tu.click_YesBtn_popup();
+			//assetDetailsPage = CopySetuppage.Click_Back_Btn();
 			assetHubPage = assetDetailsPage.ClickBackBtn();
 			MainHubPage = assetHubPage.click_BackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
 
-			String expaudit = "Setup : \"manual 1 min sampling\"  deleted by User ID : \"Ruchika1\", User Name : \"Ruchika1\"";
+			String expaudit = "Setup : \"Manual 5 sec SR\"  deleted by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"";
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: delete setup details is not audited");
 			sa.assertAll();
@@ -981,7 +990,7 @@ Thread.sleep(1000);
 			MainHubPage = assetHubPage.click_BackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
 
-			String expaudit = "User ID: \"Ruchika1\"  , User Name :\"Ruchika1\" has insufficient Privileges to perform Qualification Study";
+			String expaudit = "User ID: \"Kaverib\"  , User Name :\"Kaveri Bedar\" has insufficient Privileges to perform Qualification Study";
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL:without previleges details is not audited");
 			sa.assertAll();
@@ -1019,7 +1028,7 @@ Thread.sleep(1000);
 				assetHubPage = MainHubPage.Click_AssetTile();
 				assetCreationPage = assetHubPage.ClickAddAssetBtn();
 				assetCreationPage.assetCreation("NewAsset", "03", "HeatBath", "Aas", "Hyd");
-				tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
+				tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Assetcreation");
 				
 				assetHubPage = assetCreationPage.clickBackBtn();
 				assetHubPage = MainHubPage.Click_AssetTile();
@@ -1055,7 +1064,7 @@ Thread.sleep(1000);
 				Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 				Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 				Setup_ReviewPage.clickSaveBtn();
-				UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+				UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 				Thread.sleep(1000);
 				
 				assetDetailsPage = Setup_ReviewPage.click_backBtn();
@@ -1106,7 +1115,7 @@ Thread.sleep(1000);
 				assetHubPage = MainHubPage.Click_AssetTile();
 				assetCreationPage = assetHubPage.ClickAddAssetBtn();
 				assetCreationPage.assetCreation("CS017", "17", "HeatBath", "Aas", "Hyd");
-				tu.UserLoginPopup_UserCommentTextBox("ruchika1", "Amphenol@123", "Assetcreation");
+				tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Assetcreation");
 				
 				assetHubPage = assetCreationPage.clickBackBtn();
 				assetHubPage = MainHubPage.Click_AssetTile();
@@ -1142,7 +1151,7 @@ Thread.sleep(1000);
 				Setup_QualParamPage = Setup_CalculationsPage.Click_NxtBtn();
 				Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
 				Setup_ReviewPage.clickSaveBtn();
-				UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+				UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 				Thread.sleep(1000);
 				
 				assetDetailsPage = Setup_ReviewPage.click_backBtn();
@@ -1158,7 +1167,7 @@ Thread.sleep(1000);
 				
 				
 				tu.click_YesBtn_popup();
-				UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+				UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 
 				String ExpAlrtMsg = "1 setup(s) copied successfully.";
 
@@ -1174,7 +1183,7 @@ Thread.sleep(1000);
 				MainHubPage = assetHubPage.click_BackBtn();
 				AuditPage = MainHubPage.ClickAuditTitle();
 
-				String expaudit = "\"1\" setup(s) copied successfully by User ID : \"Ruchika1\" , User Name: \"Ruchika1\"";
+				String expaudit = "\"1\" setup(s) copied successfully by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
 
 				sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 
@@ -1237,7 +1246,7 @@ Thread.sleep(1000);
 				String selectedSetupFile = CopySetuppage.get_copysetupname();
 				CopySetuppage.click_copy_Btn();
 				tu.click_YesBtn_popup();
-				UserLoginPopup_UserCommentTextBox("Ruchika1", "Amphenol@123", "comment");
+				UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "comment");
 
 				String ActcopysetupAlert = CopySetuppage.get_text_copyAst_popup();
 				

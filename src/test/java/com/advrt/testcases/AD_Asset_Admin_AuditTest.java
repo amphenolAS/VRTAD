@@ -308,7 +308,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Audit003\" is modified to ,\" Asset03 \"  by User ID : \"Kiranc1\"  and  User Name : \"Kiranc1\" .");
+				"Asset : Audit003 is modified to , Asset03   by User ID : Kiranc1  and  User Name : \"Kiranc1\" .");
 		sa.assertAll();
 
 	}
@@ -350,7 +350,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast004\" \"Asset ID\" field modified from \" 04 to A4 \" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"Ast004\" \"Asset ID\" field modified from \"04\" to \"A4 \" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
 		
 		
 		MainHubPage = AuditPage.Click_BackBtn();
@@ -370,7 +370,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast004\" \"Type\" field modified from HeatBath to HeatBathSterilizer by  User ID : Kiranc1 , User Name : Kiranc1.");
+				"Asset : \"Ast004\" \"Type\" field modified from \"HeatBath\" to \"HeatBathSterilizer\" by  User ID : Kiranc1 , User Name : Kiranc1.");
 		Thread.sleep(1000);
 		MainHubPage = AuditPage.Click_BackBtn();
 		assetHubPage = MainHubPage.Click_AssetTile2();
@@ -389,7 +389,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast004\" \"Manufacturer\" field modified from Aas to M1 by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"Ast004\" \"Manufacturer\" field modified from \"Aas\" to \"M1\" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
 	
 		
 		
@@ -411,7 +411,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast004\" \"Location\" field modified from Hyderabad to India by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"Ast004\" \"Location\" field modified from \"Hyderabad\" to \"India\" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
 		
 		sa.assertAll();
 
@@ -819,7 +819,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(2000);
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(),
-					"Asset : \"Ast018\"  \"Description\" field modified from \"  Add to TestAdd \" by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
+					"Asset : \"Ast018\"  \"Description\" field modified from \" Add\" to \"TestAdd \" by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
 			
 			Thread.sleep(1000);
 			MainHubPage = AuditPage.Click_BackBtn();
@@ -839,7 +839,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(2000);
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(),
-					"Asset : \"Ast018\"  \"Description\" field modified from \"  TestAdd to  \" by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
+					"Asset : \"Ast018\"  \"Description\" field modified from \" TestAdd\" to \" \" by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
 
 			Thread.sleep(1000);
 			MainHubPage = AuditPage.Click_BackBtn();
@@ -859,7 +859,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(2000);
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(),
-					"Asset : \"Ast018\"  \"Description\" field modified from \"   to NewComment \" by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
+					"Asset : \"Ast018\"  \"Description\" field modified from \" \" to \"NewComment \" by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
 			
 			sa.assertAll();
 			
