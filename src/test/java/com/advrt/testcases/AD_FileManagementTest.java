@@ -115,7 +115,7 @@ public class AD_FileManagementTest extends BaseClass{
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("AD_FileManagementTest Test in Progress..");
 
-/*
+
 		
 		// Rename the VRT Data Files folder if exists in order to make the system default
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
@@ -198,7 +198,7 @@ public class AD_FileManagementTest extends BaseClass{
 		//MainHubPage = AD_UMPage.click_BackBtn();
 		//LoginPage = MainHubPage.UserSignOut();
 		AppClose();
-		Thread.sleep(2000);*/
+		Thread.sleep(2000);
 
 	}
 

@@ -257,7 +257,7 @@ public class AD_Setup_Admin extends BaseClass {
 	 * @throws AWTException
 	 * @throws IOException
 	 *********/
-/*
+
 	// Setup_Audit_001-Verify the Audit trail entry  while login with the  AD   group
 
 	@Test(priority = 0,description = "Setup_Audit_001-Verify the Audit trail entry  while login with the  AD   group")
@@ -586,7 +586,7 @@ Thread.sleep(1000);
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup creation is not audited");
 		sa.assertAll();
 	
-	}*/
+	}
 
 //Setup_Audit_009-Verify the Audit trail entry  while creating   Setup report using create Setup report functionality in review screen with the  AD   group
 
@@ -632,7 +632,7 @@ Thread.sleep(1000);
 	}
 	
 	
-	/*
+	
 	
 	//Setup_Audit_010-Verify the Audit trail entry  while creating   Setup report using Print  Setup report functionality in setup  screen with the  AD   group
 	
@@ -804,7 +804,7 @@ Thread.sleep(1000);
 		sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: Setup copy drive is not audited");
 		sa.assertAll();
 	
-	}*/
+	}
 	
 	//Setup_Audit_016-Verify the Audit trail entry  while copying the Qualification file using copy to drive functionality under qualification tile with the  AD   group
 	
@@ -839,7 +839,7 @@ Thread.sleep(1000);
 	}
 	
 
-	/*
+	
 //Setup_Audit_017-Verify the Audit trail entry  while deleting the  file using delete functionality under Document tile with the  AD   group
 
 
@@ -934,7 +934,7 @@ Thread.sleep(1000);
 			sa.assertEquals(AuditPage.get_auditEvent_text(), expaudit, "FAIL: invalid details is not audited");
 			sa.assertAll();
 			}
-		*/
+		
 		
 	//Setup_Audit_011-Verify the Audit trail entry  while Deleting the  Setup with the  AD   group
 		

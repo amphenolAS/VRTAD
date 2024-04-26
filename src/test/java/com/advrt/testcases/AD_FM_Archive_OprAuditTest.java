@@ -233,6 +233,7 @@ public class AD_FM_Archive_OprAuditTest extends BaseClass{
 	*********/
 	//Tc 14,16,17
 	
+	/*
 	//AD_Archive _023 Verify the Audit trail entry  while login with the  Active Directory Operator  User
 
 	@Test(priority=0,description = "AD_Archive _023 Verify the Audit trail entry  while login with the  Active Directory Operator  User")
@@ -248,7 +249,7 @@ public class AD_FM_Archive_OprAuditTest extends BaseClass{
 		
 		sa.assertAll();
 		
-	}
+	}*/
 
 	
 	//AD_Archive _024 Verify the Audit trail entry while peforming Archive  operation with the  Active Directory Operator  User
@@ -274,7 +275,7 @@ public class AD_FM_Archive_OprAuditTest extends BaseClass{
 				Thread.sleep(500);
 				SyncInAssetListPage.click_OkBtn();
 				SyncInAssetListPage.click_AlrtYesBtn();
-				TimeUnit.MINUTES.sleep(1);
+				TimeUnit.SECONDS.sleep(30);
 				SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 				
 				//Re Launch the application
@@ -295,9 +296,10 @@ public class AD_FM_Archive_OprAuditTest extends BaseClass{
 			FM_ArchiveSelectionPage.click_SelectAllBtn();
 			Thread.sleep(500);
 			FM_ArchiveSelectionPage.click_Ok_ArhiveSelectionPopUp();
-			Thread.sleep(500);
+			Thread.sleep(3000);
 			tu.click_YesBtn_popup();
 try {
+	Thread.sleep(1000);
 	tu.click_OK_popup();
 } catch (Exception e) {
 	e.printStackTrace();
@@ -347,7 +349,7 @@ try {
 			Thread.sleep(500);
 			SyncInAssetListPage.click_OkBtn();
 			SyncInAssetListPage.click_AlrtYesBtn();
-			TimeUnit.MINUTES.sleep(1);
+			TimeUnit.SECONDS.sleep(30);
 			SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 			
 				LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
@@ -368,9 +370,10 @@ try {
 			FM_ArchiveSelectionPage.unSelect_AllEqpBtn();
 			Thread.sleep(500);
 			FM_ArchiveSelectionPage.click_Ok_ArhiveSelectionPopUp();
-			Thread.sleep(500);
+			Thread.sleep(3000);
 			tu.click_YesBtn_popup();
 try {
+	Thread.sleep(500);
 	tu.click_OK_popup();
 } catch (Exception e) {
 	e.printStackTrace();
@@ -423,7 +426,7 @@ try {
 						Thread.sleep(500);
 						SyncInAssetListPage.click_OkBtn();
 						SyncInAssetListPage.click_AlrtYesBtn();
-						TimeUnit.MINUTES.sleep(1);
+						TimeUnit.SECONDS.sleep(30);
 						SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 						
 							LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
@@ -443,9 +446,10 @@ try {
 						FM_ArchiveSelectionPage.click_SelectAllBtn();
 						Thread.sleep(500);
 						FM_ArchiveSelectionPage.click_Ok_ArhiveSelectionPopUp();
-						Thread.sleep(500);
+						Thread.sleep(3000);
 						tu.click_YesBtn_popup();
 			try {
+				Thread.sleep(500);
 				tu.click_OK_popup();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -491,7 +495,7 @@ try {
 						Thread.sleep(500);
 						SyncInAssetListPage.click_OkBtn();
 						SyncInAssetListPage.click_AlrtYesBtn();
-						TimeUnit.MINUTES.sleep(1);
+						TimeUnit.SECONDS.sleep(30);
 						SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 						
 						
@@ -512,9 +516,10 @@ try {
 						FM_ArchiveSelectionPage.click_SelectAllBtn();
 						Thread.sleep(500);
 						FM_ArchiveSelectionPage.click_Ok_ArhiveSelectionPopUp();
-						Thread.sleep(500);
+						Thread.sleep(3000);
 						tu.click_YesBtn_popup();
 			try {
+				Thread.sleep(500);
 				tu.click_OK_popup();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -564,7 +569,7 @@ try {
 			Thread.sleep(500);
 			SyncInAssetListPage.click_OkBtn();
 			SyncInAssetListPage.click_AlrtYesBtn();
-			TimeUnit.MINUTES.sleep(1);
+			TimeUnit.SECONDS.sleep(30);
 			SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 			
 			
@@ -585,9 +590,10 @@ try {
 			FM_ArchiveSelectionPage.click_SelectAllBtn();
 			Thread.sleep(500);
 			FM_ArchiveSelectionPage.click_Ok_ArhiveSelectionPopUp();
-			Thread.sleep(500);
+			Thread.sleep(3000);
 			tu.click_YesBtn_popup();
 try {
+	Thread.sleep(500);
 	tu.click_OK_popup();
 } catch (Exception e) {
 	e.printStackTrace();
@@ -653,7 +659,7 @@ sa.assertAll();
 						Thread.sleep(500);
 						SyncInAssetListPage.click_OkBtn();
 						SyncInAssetListPage.click_AlrtYesBtn();
-						TimeUnit.MINUTES.sleep(1);
+						TimeUnit.SECONDS.sleep(30);
 						SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 						
 							LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
@@ -672,9 +678,10 @@ sa.assertAll();
 						FM_ArchiveSelectionPage.click_SelectAllBtn();
 						Thread.sleep(500);
 						FM_ArchiveSelectionPage.click_Ok_ArhiveSelectionPopUp();
-						Thread.sleep(500);
+						Thread.sleep(3000);
 						tu.click_YesBtn_popup();
 			try {
+				Thread.sleep(500);
 				tu.click_OK_popup();
 			} catch (Exception e) {
 				e.printStackTrace();

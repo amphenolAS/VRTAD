@@ -1,81 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="4" passed="2" failed="2" skipped="0">
+<testng-results ignored="0" total="7" passed="1" failed="1" skipped="5">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-03-01T15:47:29 IST" name="Default suite" finished-at="2024-03-01T16:05:24 IST" duration-ms="1075033">
+  <suite started-at="2024-04-25T17:34:17 IST" name="Default suite" finished-at="2024-04-25T17:39:03 IST" duration-ms="285923">
     <groups>
     </groups>
-    <test started-at="2024-03-01T15:47:29 IST" name="Default test" finished-at="2024-03-01T16:05:24 IST" duration-ms="1075033">
-      <class name="com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest">
-        <test-method is-config="true" signature="PreSetUp()[pri:0, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T15:47:29 IST" name="PreSetUp" finished-at="2024-03-01T15:50:15 IST" duration-ms="166503" status="PASS">
+    <test started-at="2024-04-25T17:34:17 IST" name="Default test" finished-at="2024-04-25T17:39:03 IST" duration-ms="285923">
+      <class name="com.advrt.testcases.AD_FM_Archive_OprAuditTest">
+        <test-method is-config="true" signature="PreSetUp()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:34:18 IST" name="PreSetUp" finished-at="2024-04-25T17:36:34 IST" duration-ms="136443" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- PreSetUp -->
-        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T15:50:15 IST" name="Setup" finished-at="2024-03-01T15:50:24 IST" duration-ms="8952" status="PASS">
+        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:36:34 IST" name="Setup" finished-at="2024-04-25T17:36:42 IST" duration-ms="8291" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Setup -->
-        <test-method signature="AD_Ver_Audit_027()[pri:4, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T15:50:24 IST" name="AD_Ver_Audit_027" description="AD_Ver_Audit _027 Verify that when the logged in user has &#039;Run Verification&#039; privilege and another user without &#039;Run Verification&#039; privilege is not allowed to delete a Verification setup" finished-at="2024-03-01T15:53:33 IST" duration-ms="188607" status="PASS">
+        <test-method signature="AD_Archive_023()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:36:42 IST" name="AD_Archive_023" description="AD_Archive _023 Verify the Audit trail entry  while login with the  Active Directory Operator  User" finished-at="2024-04-25T17:36:44 IST" duration-ms="2219" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- AD_Ver_Audit_027 -->
-        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T15:53:33 IST" name="Teardown" finished-at="2024-03-01T15:53:38 IST" duration-ms="5053" status="PASS">
+        </test-method> <!-- AD_Archive_023 -->
+        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:36:44 IST" name="Teardown" finished-at="2024-04-25T17:36:50 IST" duration-ms="5060" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=AD_Ver_Audit_027 status=SUCCESS method=AD_Audit_VerificationwithoutPrivilageTest.AD_Ver_Audit_027()[pri:4, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39] output={null}]]]>
+                <![CDATA[[TestResult name=AD_Archive_023 status=SUCCESS method=AD_FM_Archive_OprAuditTest.AD_Archive_023()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Teardown -->
-        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T15:53:38 IST" name="Setup" finished-at="2024-03-01T15:53:47 IST" duration-ms="8755" status="PASS">
+        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:36:50 IST" name="Setup" finished-at="2024-04-25T17:36:58 IST" duration-ms="8406" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Setup -->
-        <test-method signature="AD_Ver_Audit_028()[pri:5, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T15:53:47 IST" name="AD_Ver_Audit_028" description="AD_Ver_Audit _028 Verify that when the logged in user has &#039;Run Verification&#039; privilege and another user without &#039;Run Verification&#039; privilege is not allowed to abort the Verification study in Program loggers screen" finished-at="2024-03-01T15:57:08 IST" duration-ms="201212" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- AD_Ver_Audit_028 -->
-        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T15:57:08 IST" name="Teardown" finished-at="2024-03-01T15:57:13 IST" duration-ms="5051" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=AD_Ver_Audit_028 status=SUCCESS method=AD_Audit_VerificationwithoutPrivilageTest.AD_Ver_Audit_028()[pri:5, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Teardown -->
-        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T15:57:13 IST" name="Setup" finished-at="2024-03-01T15:57:21 IST" duration-ms="8423" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Setup -->
-        <test-method signature="AD_Ver_Audit_029()[pri:6, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T15:57:21 IST" name="AD_Ver_Audit_029" description="AD_Ver_Audit _029 Verify that when the logged in user has &#039;Run Verification&#039; privilege and another user without &#039;Run Verification&#039; privilege is not allowed to start the Verification study" finished-at="2024-03-01T16:03:16 IST" duration-ms="354452" status="FAIL">
-          <exception class="org.openqa.selenium.NoSuchElementException">
+        <test-method signature="AD_Archive_024()[pri:1, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:36:58 IST" name="AD_Archive_024" description="AD_Archive _024 Verify the Audit trail entry while peforming Archive  operation with the  Active Directory Operator  User" finished-at="2024-04-25T17:37:55 IST" duration-ms="57162" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
             <message>
-              <![CDATA[An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
+              <![CDATA[Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.62', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
 Driver info: io.appium.java_client.windows.WindowsDriver
 Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
-Session ID: FE57BB12-0563-47BE-93D3-0C3ECEF49188
-*** Element info: {Using=accessibility id, value=btnQuitQual}]]>
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127
+*** Element info: {Using=accessibility id, value=Button0}]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.62', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
 Driver info: io.appium.java_client.windows.WindowsDriver
 Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
-Session ID: FE57BB12-0563-47BE-93D3-0C3ECEF49188
-*** Element info: {Using=accessibility id, value=btnQuitQual}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127
+*** Element info: {Using=accessibility id, value=Button0}
 at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -97,8 +76,8 @@ at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMo
 at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
 at io.appium.java_client.windows.WindowsDriver.findElement(WindowsDriver.java:1)
 at io.appium.java_client.FindsByAccessibilityId.findElementByAccessibilityId(FindsByAccessibilityId.java:37)
-at com.advrt.pages.SelectBaseStationPage.Click_SetBSideal(SelectBaseStationPage.java:105)
-at com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest.AD_Ver_Audit_029(AD_Audit_VerificationwithoutPrivilageTest.java:589)
+at com.advrt.pages.SyncInAssetListPage.click_Success_alrtMeg_OkBtn(SyncInAssetListPage.java:115)
+at com.advrt.testcases.AD_FM_Archive_OprAuditTest.AD_Archive_024(AD_FM_Archive_OprAuditTest.java:278)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -129,48 +108,36 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- AD_Ver_Audit_029 -->
-        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T16:03:16 IST" name="Teardown" finished-at="2024-03-01T16:03:21 IST" duration-ms="5154" status="PASS">
+        </test-method> <!-- AD_Archive_024 -->
+        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:37:55 IST" name="Teardown" finished-at="2024-04-25T17:37:55 IST" duration-ms="18" status="FAIL">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=AD_Ver_Audit_029 status=FAILURE method=AD_Audit_VerificationwithoutPrivilageTest.AD_Ver_Audit_029()[pri:6, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39] output={null}]]]>
+                <![CDATA[[TestResult name=AD_Archive_024 status=FAILURE method=AD_FM_Archive_OprAuditTest.AD_Archive_024()[pri:1, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45] output={null}]]]>
               </value>
             </param>
           </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Teardown -->
-        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T16:03:21 IST" name="Setup" finished-at="2024-03-01T16:03:29 IST" duration-ms="8337" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Setup -->
-        <test-method signature="AD_Ver_Audit_030()[pri:7, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T16:03:29 IST" name="AD_Ver_Audit_030" description="AD_Ver_Audit _030 Verify that when the logged in user has &#039;Run Verification&#039; privilege and another user without &#039;Run Verification&#039; privilege is not allowed to abort the Verification study" finished-at="2024-03-01T16:05:17 IST" duration-ms="108010" status="FAIL">
-          <exception class="org.openqa.selenium.NoSuchElementException">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
             <message>
-              <![CDATA[An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
+              <![CDATA[Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.62', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
 Driver info: io.appium.java_client.windows.WindowsDriver
 Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
-Session ID: AD383C36-A157-4F37-A8B2-E539C30592C5
-*** Element info: {Using=name, value=Select Loggers}]]>
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.62', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
 Driver info: io.appium.java_client.windows.WindowsDriver
 Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
-Session ID: AD383C36-A157-4F37-A8B2-E539C30592C5
-*** Element info: {Using=name, value=Select Loggers}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127
 at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -184,27 +151,23 @@ at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttp
 at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
 at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
 at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:42)
+at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:46)
 at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
 at io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
-at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMobileDriver.java:62)
-at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
-at io.appium.java_client.windows.WindowsDriver.findElement(WindowsDriver.java:1)
-at org.openqa.selenium.remote.RemoteWebDriver.findElementByName(RemoteWebDriver.java:404)
-at io.appium.java_client.DefaultGenericMobileDriver.findElementByName(DefaultGenericMobileDriver.java:118)
-at io.appium.java_client.AppiumDriver.findElementByName(AppiumDriver.java:1)
-at io.appium.java_client.windows.WindowsDriver.findElementByName(WindowsDriver.java:1)
-at com.advrt.pages.SelectLoggersPage.initializeEelements(SelectLoggersPage.java:22)
-at com.advrt.pages.SelectLoggersPage.<init>(SelectLoggersPage.java:31)
-at com.advrt.pages.SelectBaseStationPage.Click_ConnectBtn(SelectBaseStationPage.java:115)
-at com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest.AD_Ver_Audit_030(AD_Audit_VerificationwithoutPrivilageTest.java:622)
+at org.openqa.selenium.remote.RemoteWebDriver.getScreenshotAs(RemoteWebDriver.java:295)
+at com.advrt.utility.TestUtilities.getFailedTCScreenshot(TestUtilities.java:385)
+at com.advrt.testcases.AD_FM_Archive_OprAuditTest.Teardown(AD_FM_Archive_OprAuditTest.java:210)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:69)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:390)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:325)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:810)
+at org.testng.internal.invokers.TestInvoker.runAfterConfigurations(TestInvoker.java:779)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:755)
 at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
 at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
 at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
@@ -229,26 +192,475 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- AD_Ver_Audit_030 -->
-        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T16:05:17 IST" name="Teardown" finished-at="2024-03-01T16:05:23 IST" duration-ms="5637" status="PASS">
+        </test-method> <!-- Teardown -->
+        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:37:55 IST" name="Setup" finished-at="2024-04-25T17:38:04 IST" duration-ms="9082" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Setup -->
+        <test-method signature="AD_Archive_026()[pri:2, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:04 IST" name="AD_Archive_026" description="AD_Archive _026 Verify the no Audit trail entry is recoreded related to Equipments when peforming Archive  operation when Equipments check box is unckecked with the  Active Directory Operator  User" finished-at="2024-04-25T17:38:04 IST" duration-ms="0" status="SKIP">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
+            <message>
+              <![CDATA[Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
+at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
+at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
+at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:46)
+at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+at io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)
+at org.openqa.selenium.remote.RemoteWebDriver.getScreenshotAs(RemoteWebDriver.java:295)
+at com.advrt.utility.TestUtilities.getFailedTCScreenshot(TestUtilities.java:385)
+at com.advrt.testcases.AD_FM_Archive_OprAuditTest.Teardown(AD_FM_Archive_OprAuditTest.java:210)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:69)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:390)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:325)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:810)
+at org.testng.internal.invokers.TestInvoker.runAfterConfigurations(TestInvoker.java:779)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:755)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:848)
+at org.testng.TestRunner.run(TestRunner.java:621)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+at org.testng.TestNG.runSuites(TestNG.java:1114)
+at org.testng.TestNG.run(TestNG.java:1082)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AD_Archive_026 -->
+        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:04 IST" name="Teardown" finished-at="2024-04-25T17:38:09 IST" duration-ms="5064" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=AD_Ver_Audit_030 status=FAILURE method=AD_Audit_VerificationwithoutPrivilageTest.AD_Ver_Audit_030()[pri:7, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39] output={null}]]]>
+                <![CDATA[[TestResult name={null} status=CREATED method=AD_FM_Archive_OprAuditTest.AD_Archive_026()[pri:2, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Teardown -->
-        <test-method is-config="true" signature="endReport()[pri:0, instance:com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest@14dd7b39]" started-at="2024-03-01T16:05:23 IST" name="endReport" finished-at="2024-03-01T16:05:24 IST" duration-ms="835" status="PASS">
+        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:09 IST" name="Setup" finished-at="2024-04-25T17:38:18 IST" duration-ms="8346" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Setup -->
+        <test-method signature="AD_Archive_029()[pri:3, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:18 IST" name="AD_Archive_029" description="AD_Archive _029 Verify the  Audit trail entry is recoreded related to Equipments  when peforming Archive  operation when Equipments check box is ckecked with the  Active Directory Operator  User" finished-at="2024-04-25T17:38:18 IST" duration-ms="0" status="SKIP">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
+            <message>
+              <![CDATA[Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
+at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
+at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
+at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:46)
+at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+at io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)
+at org.openqa.selenium.remote.RemoteWebDriver.getScreenshotAs(RemoteWebDriver.java:295)
+at com.advrt.utility.TestUtilities.getFailedTCScreenshot(TestUtilities.java:385)
+at com.advrt.testcases.AD_FM_Archive_OprAuditTest.Teardown(AD_FM_Archive_OprAuditTest.java:210)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:69)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:390)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:325)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:810)
+at org.testng.internal.invokers.TestInvoker.runAfterConfigurations(TestInvoker.java:779)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:755)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:848)
+at org.testng.TestRunner.run(TestRunner.java:621)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+at org.testng.TestNG.runSuites(TestNG.java:1114)
+at org.testng.TestNG.run(TestNG.java:1082)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AD_Archive_029 -->
+        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:18 IST" name="Teardown" finished-at="2024-04-25T17:38:23 IST" duration-ms="5063" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name={null} status=CREATED method=AD_FM_Archive_OprAuditTest.AD_Archive_029()[pri:3, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Teardown -->
+        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:23 IST" name="Setup" finished-at="2024-04-25T17:38:31 IST" duration-ms="8487" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Setup -->
+        <test-method signature="AD_Archive_031()[pri:4, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:31 IST" name="AD_Archive_031" description="AD_Archive _031 Verify the Audit trail entry while peforming Archive  operation by selecting only 1 asset  with the  Active Directory Operator  User" finished-at="2024-04-25T17:38:31 IST" duration-ms="0" status="SKIP">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
+            <message>
+              <![CDATA[Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
+at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
+at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
+at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:46)
+at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+at io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)
+at org.openqa.selenium.remote.RemoteWebDriver.getScreenshotAs(RemoteWebDriver.java:295)
+at com.advrt.utility.TestUtilities.getFailedTCScreenshot(TestUtilities.java:385)
+at com.advrt.testcases.AD_FM_Archive_OprAuditTest.Teardown(AD_FM_Archive_OprAuditTest.java:210)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:69)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:390)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:325)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:810)
+at org.testng.internal.invokers.TestInvoker.runAfterConfigurations(TestInvoker.java:779)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:755)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:848)
+at org.testng.TestRunner.run(TestRunner.java:621)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+at org.testng.TestNG.runSuites(TestNG.java:1114)
+at org.testng.TestNG.run(TestNG.java:1082)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AD_Archive_031 -->
+        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:31 IST" name="Teardown" finished-at="2024-04-25T17:38:36 IST" duration-ms="5082" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name={null} status=CREATED method=AD_FM_Archive_OprAuditTest.AD_Archive_031()[pri:4, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Teardown -->
+        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:36 IST" name="Setup" finished-at="2024-04-25T17:38:45 IST" duration-ms="8499" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Setup -->
+        <test-method signature="AD_Archive_032()[pri:5, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:45 IST" name="AD_Archive_032" description="AD_Archive _032 Verify the Audit trail entry while peforming Archive  operation by selecting 200 asset  with the  Active Directory Operator  User" finished-at="2024-04-25T17:38:45 IST" duration-ms="0" status="SKIP">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
+            <message>
+              <![CDATA[Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
+at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
+at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
+at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:46)
+at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+at io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)
+at org.openqa.selenium.remote.RemoteWebDriver.getScreenshotAs(RemoteWebDriver.java:295)
+at com.advrt.utility.TestUtilities.getFailedTCScreenshot(TestUtilities.java:385)
+at com.advrt.testcases.AD_FM_Archive_OprAuditTest.Teardown(AD_FM_Archive_OprAuditTest.java:210)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:69)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:390)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:325)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:810)
+at org.testng.internal.invokers.TestInvoker.runAfterConfigurations(TestInvoker.java:779)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:755)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:848)
+at org.testng.TestRunner.run(TestRunner.java:621)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+at org.testng.TestNG.runSuites(TestNG.java:1114)
+at org.testng.TestNG.run(TestNG.java:1082)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AD_Archive_032 -->
+        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:45 IST" name="Teardown" finished-at="2024-04-25T17:38:50 IST" duration-ms="5064" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name={null} status=CREATED method=AD_FM_Archive_OprAuditTest.AD_Archive_032()[pri:5, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Teardown -->
+        <test-method is-config="true" signature="Setup()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:50 IST" name="Setup" finished-at="2024-04-25T17:38:58 IST" duration-ms="8486" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Setup -->
+        <test-method signature="AD_Archive_033()[pri:6, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:58 IST" name="AD_Archive_033" description="AD_Archive _033 Verify the Audit trail entry while peforming Archive  operation by Select All button  with the  Active Directory Operator  User" finished-at="2024-04-25T17:38:58 IST" duration-ms="0" status="SKIP">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
+            <message>
+              <![CDATA[Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: Currently selected window has been closed (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'AASHYD-847B8Y2', ip: '10.17.18.61', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.8'
+Driver info: io.appium.java_client.windows.WindowsDriver
+Capabilities {app: Kaye.ValProbeRT_racmveb2qnw..., javascriptEnabled: true, ms:waitForAppLaunch: 10, platform: WINDOWS, platformName: WINDOWS}
+Session ID: 496FF63E-498F-46A1-A6C1-BB32E2DDE127
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
+at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
+at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
+at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:46)
+at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+at io.appium.java_client.windows.WindowsDriver.execute(WindowsDriver.java:1)
+at org.openqa.selenium.remote.RemoteWebDriver.getScreenshotAs(RemoteWebDriver.java:295)
+at com.advrt.utility.TestUtilities.getFailedTCScreenshot(TestUtilities.java:385)
+at com.advrt.testcases.AD_FM_Archive_OprAuditTest.Teardown(AD_FM_Archive_OprAuditTest.java:210)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:69)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:390)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:325)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:810)
+at org.testng.internal.invokers.TestInvoker.runAfterConfigurations(TestInvoker.java:779)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:755)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:848)
+at org.testng.TestRunner.run(TestRunner.java:621)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+at org.testng.TestNG.runSuites(TestNG.java:1114)
+at org.testng.TestNG.run(TestNG.java:1082)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AD_Archive_033 -->
+        <test-method is-config="true" signature="Teardown(org.testng.ITestResult)[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:38:58 IST" name="Teardown" finished-at="2024-04-25T17:39:03 IST" duration-ms="5086" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name={null} status=CREATED method=AD_FM_Archive_OprAuditTest.AD_Archive_033()[pri:6, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Teardown -->
+        <test-method is-config="true" signature="endReport()[pri:0, instance:com.advrt.testcases.AD_FM_Archive_OprAuditTest@5dafbe45]" started-at="2024-04-25T17:39:03 IST" name="endReport" finished-at="2024-04-25T17:39:03 IST" duration-ms="0" status="SKIP">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endReport -->
-      </class> <!-- com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest -->
+      </class> <!-- com.advrt.testcases.AD_FM_Archive_OprAuditTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

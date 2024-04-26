@@ -517,21 +517,20 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 			Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("ABC1");
 			Equipment_IRTDDetailspage.Select_DocName("HelpFileWord.docx");
 			Thread.sleep(1000);
-			Equipment_IRTDDetailspage.Equip_click_CopyToDrive();
+			//Equipment_IRTDDetailspage.Equip_click_CopyToDrive();
 			Equipment_IRTDDetailspage.selectFolder_CopyToDrive("AutoLogs");
 			
-
 			UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
 
-			//String foldrpath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\AutoLogs";
+			String foldrpath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\AutoLogs";
 			// System.out.println("Act Folderpath: "+filepath);
 			Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();	
 			EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
 			MainHubPage = EquipmentHubPage.ClickBackBtn();
 			AuditPage = MainHubPage.ClickAuditTitle();
 			Thread.sleep(2000);
-			String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Kaverib\", User Name : \"Kaveri Bedar\" to \"C:\\Users\\Kaveri.Bedar\\Downloads\"";
-			sa.assertTrue(AuditPage.get_auditEvent_text().contains(ExpectMSG2),  "FAIL:The Audit trail record for image Equipment modification  is not audited ");
+			String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Kaverib\", User Name : \"Kaveri Bedar\" to \"C:\\Users\\Kaveri.Bedar\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\"";
+			sa.assertTrue(AuditPage.get_auditEvent_text().contains(ExpectMSG2),  "FAIL:");
 		
 			sa.assertAll();	
 

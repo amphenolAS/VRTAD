@@ -321,7 +321,7 @@ try {
 			
 			FileManagementPage = MainHubPage.ClickFileManagementTitle();
 			FM_SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit("kaverib","Amphenol@123","commit");
-			FM_SyncInPage.enter_Filepath("syncin");
+			FM_SyncInPage.enter_Filepath("AD_FM");
 			FM_SyncInPage.click_FltrBtn();
 			//FM_SyncInPage.unSelect_FilterBtn();
 			Thread.sleep(500);

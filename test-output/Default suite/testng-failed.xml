@@ -3,16 +3,20 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest">
+      <class name="com.advrt.testcases.AD_FM_Archive_OprAuditTest">
         <methods>
-          <include name="Setup"/>
-          <include name="AD_Ver_Audit_029"/>
-          <include name="PreSetUp"/>
-          <include name="AD_Ver_Audit_030"/>
-          <include name="Teardown"/>
+          <include name="AD_Archive_029"/>
+          <include name="AD_Archive_024"/>
           <include name="endReport"/>
+          <include name="AD_Archive_026"/>
+          <include name="Setup"/>
+          <include name="AD_Archive_031"/>
+          <include name="AD_Archive_032"/>
+          <include name="Teardown"/>
+          <include name="AD_Archive_033"/>
+          <include name="PreSetUp"/>
         </methods>
-      </class> <!-- com.advrt.testcases.AD_Audit_VerificationwithoutPrivilageTest -->
+      </class> <!-- com.advrt.testcases.AD_FM_Archive_OprAuditTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

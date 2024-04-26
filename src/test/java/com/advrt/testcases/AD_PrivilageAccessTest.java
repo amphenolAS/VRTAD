@@ -614,7 +614,7 @@ public class AD_PrivilageAccessTest extends BaseClass{
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("NewUserType");
 		DefaultUserPrivilages_page=AD_UMPage.newUserType("User");
-		//DefaultUserPrivilages_page.Click_Create_UserManagement();while running individually must uncommit
+		//DefaultUserPrivilages_page.Click_Create_UserManagement();//while running individually must uncommit
 		if(DefaultUserPrivilages_page.IsCreate_AssetCheckBox_checked()) {
 			DefaultUserPrivilages_page.Click_Create_SetUp();
 			}
