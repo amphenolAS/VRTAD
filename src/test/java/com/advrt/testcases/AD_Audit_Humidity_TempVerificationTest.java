@@ -271,7 +271,7 @@ public class AD_Audit_Humidity_TempVerificationTest extends BaseClass{
 	 * @throws IOException 
 	*********/
 
-/*		
+		
 		//AD_Ver_Audit _009 Verify the Audit trail entry  when initated verification for Humidity Loggers-Temperature Sensors from Equipment screen
 		
 		@Test(priority=7,description = "AD_Ver_Audit _009 Verify the Audit trail entry  when initated verification for Humidity Loggers-Temperature Sensors from Equipment screen")
@@ -433,10 +433,10 @@ public class AD_Audit_Humidity_TempVerificationTest extends BaseClass{
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.112";
+			String BSIP="10.17.18.114";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
-			//TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
+			TimeUnit. MINUTES. sleep(1);//need to wakeup/connect logger to bsestation
 			SelectLoggersPage.Select_LogListbox("TW74");
 			Thread.sleep(2000);
 			SensorsInformationPage=SelectLoggersPage.clickNext_SensorinfoBtn();
@@ -497,10 +497,10 @@ sa.assertAll();
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.112";
+			String BSIP="10.17.18.114";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
-			//TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
+			TimeUnit. MINUTES. sleep(1);//need to wakeup/connect logger to bsestation
 			SelectLoggersPage.Select_LogListbox("TW74");
 			Thread.sleep(2000);
 			SensorsInformationPage=SelectLoggersPage.clickNext_SensorinfoBtn();
@@ -525,7 +525,7 @@ sa.assertAll();
 			
 			
 			sa.assertAll();
-		}*/
+		}
 
 		
 		

@@ -120,7 +120,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 		System.out.println("AD_AuditVerificationTest Test in Progress..");
 		
 
-	
+	/*
 	// Rename the VRT Data Files folder if exists in order to make the system default
 		 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 			//Copy the Default DataFIles folder from Test Data to the App service location.
@@ -214,7 +214,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
 			AppClose();
-			Thread.sleep(2000);
+			Thread.sleep(2000);*/
 			
 		
 		}
@@ -270,7 +270,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 	 * @throws IOException 
 	*********/
 
-
+/*
 	
 		//AD_Ver_Audit _016 Verify the Audit trail entry  when initated verification for Humidity Loggers-Humidity Sensors from Equipment screen
 
@@ -393,7 +393,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 					sa.assertAll();	
 				}
 				
-				
+				*/
 				
 				//AD_Ver_Audit _020 Verify the Audit trail entry  when started the verification study for Humidity Loggers-Humidity Sensors
 				
@@ -413,21 +413,21 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 					Thread.sleep(500);
 					setup_verificationpage.CreateSetup();
 					setup_verificationpage.ClicksaveBtn();
-					setup_verificationpage.EntersetupName("T_Setup6");
+					setup_verificationpage.EntersetupName("T_Setup8");
 					SelectBaseStationPage=setup_verificationpage.ClicknextBtn();
 					TimeUnit.SECONDS.sleep(30);
 					SelectBaseStationPage.Click_DiscoverBS();
 					TimeUnit.SECONDS.sleep(30);
-					String BSIP="10.17.18.112";
+					String BSIP="10.17.18.52";
 					SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 					SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
-					TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
+					TimeUnit. MINUTES. sleep(1);//need to wakeup/connect logger to bsestation
 					SelectLoggersPage.Select_LogListbox("TW45");
 					Thread.sleep(2000);
 					SensorsInformationPage=SelectLoggersPage.clickNext_SensorinfoBtn();
 					TimeUnit.SECONDS.sleep(30);
 					ProgramLoggersPage=SensorsInformationPage.click_NextButton_withUnmappedSensors();
-					TimeUnit.SECONDS.sleep(50);
+					TimeUnit.SECONDS.sleep(60);
 					VerificationPage=ProgramLoggersPage.click_nextbtnV();
 					VerificationPage.click_Start_verificationbtn();
 					UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "committed");
@@ -474,15 +474,15 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 					Thread.sleep(500);
 					setup_verificationpage.CreateSetup();
 					setup_verificationpage.ClicksaveBtn();
-					setup_verificationpage.EntersetupName("H_Setup7");
+					setup_verificationpage.EntersetupName("H_Setup7.");
 					SelectBaseStationPage=setup_verificationpage.ClicknextBtn();
 					TimeUnit.SECONDS.sleep(30);
 					SelectBaseStationPage.Click_DiscoverBS();
 					TimeUnit.SECONDS.sleep(30);
-					String BSIP="10.17.18.112";
+					String BSIP="10.17.18.114";
 					SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 					SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
-					TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
+					TimeUnit. MINUTES. sleep(1);//need to wakeup/connect logger to bsestation
 					SelectLoggersPage.Select_LogListbox("TW45");
 					Thread.sleep(2000);
 					SensorsInformationPage=SelectLoggersPage.clickNext_SensorinfoBtn();

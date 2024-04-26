@@ -63,7 +63,7 @@ public class ADpopupTest extends BaseClass{
 		
 
 		// Rename the VRT Data Files folder if exists in order to make the system default
-/*		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 		//Copy the Default DataFIles folder from Test Data to the App service location.
 		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
 		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
@@ -95,7 +95,7 @@ public class ADpopupTest extends BaseClass{
 		MainHubPage = UserManagementPage.ClickBackButn();
 		LoginPage = MainHubPage.UserSignOut();
 		AppClose();
-		Thread.sleep(2000); */
+		Thread.sleep(2000); 
 		
 	}
 	

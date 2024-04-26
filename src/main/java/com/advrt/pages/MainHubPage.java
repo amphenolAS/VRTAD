@@ -26,6 +26,7 @@ public class MainHubPage extends BaseClass {
 	WebElement MainUIEquipmentTitle = null;
 	WebElement FileManagementTitle = null;
 	WebElement AuditTitle = null;
+	
 
 	private void initElements() {
 		// Main Hub Page Page Element definition

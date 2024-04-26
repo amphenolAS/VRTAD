@@ -365,7 +365,7 @@ public void UM04() throws InterruptedException, AWTException, IOException {
 	ADUM_page.enterNewUserTitle("Manager");
 	ADUM_page.ClickNewUserSaveButton();
 
-	UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+	UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"),"NA");
 	tu.click_OK_popup();
 	tu.click_OK_popup();
 }

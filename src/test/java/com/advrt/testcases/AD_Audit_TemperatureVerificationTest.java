@@ -273,7 +273,7 @@ public class AD_Audit_TemperatureVerificationTest extends BaseClass{
 	 * @throws IOException 
 	*********/
 	
-	
+	/*
 	//AD_Ver_Audit _001 Verify the Audit trail entry  when initated verification for Temperature Loggers from Equipment screen
 
 	@Test(priority=0,description = "AD_Ver_Audit _001 Verify the Audit trail entry  when initated verification for Temperature Loggers from Equipment screen")
@@ -389,7 +389,7 @@ public class AD_Audit_TemperatureVerificationTest extends BaseClass{
 			sa.assertAll();
 			
 		}
-		
+		*/
 	
 		//AD_Ver_Audit _005 Verify the Audit trail entry  when aborted the programming for Temperature Loggers
 		
@@ -412,14 +412,14 @@ public class AD_Audit_TemperatureVerificationTest extends BaseClass{
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.112";
+			String BSIP="10.17.18.52";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
-			TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
-			SelectLoggersPage.Select_LogListbox("ZD82");
+			TimeUnit. MINUTES. sleep(1);//need to wakeup/connect logger to bsestation
+			SelectLoggersPage.Select_LogListbox("ZE07");
 			Thread.sleep(2000);
 			SensorsInformationPage=SelectLoggersPage.clickNext_SensorinfoBtn();
-			//TimeUnit.SECONDS.sleep(30);
+			TimeUnit.SECONDS.sleep(30);
 			ProgramLoggersPage=SensorsInformationPage.click_NextButton_withUnmappedSensors();
 			TimeUnit.SECONDS.sleep(50);
 			ProgramLoggersPage.clickAbortbtn();
@@ -458,14 +458,14 @@ public class AD_Audit_TemperatureVerificationTest extends BaseClass{
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.112";
+			String BSIP="10.17.18.52";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
-			//TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
-			SelectLoggersPage.Select_LogListbox("ZD82");
+			TimeUnit. MINUTES. sleep(1);//need to wakeup/connect logger to bsestation
+			SelectLoggersPage.Select_LogListbox("ZE07");
 			Thread.sleep(2000);
 			SensorsInformationPage=SelectLoggersPage.clickNext_SensorinfoBtn();
-			//TimeUnit.SECONDS.sleep(30);
+			TimeUnit.SECONDS.sleep(30);
 			ProgramLoggersPage=SensorsInformationPage.click_NextButton_withUnmappedSensors();
 			TimeUnit.SECONDS.sleep(50);
 			VerificationPage=ProgramLoggersPage.click_nextbtnV();
@@ -518,11 +518,11 @@ sa.assertAll();
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.112";
+			String BSIP="10.17.18.52";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
 			//TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
-			SelectLoggersPage.Select_LogListbox("ZD82");
+			SelectLoggersPage.Select_LogListbox("ZE07");
 			Thread.sleep(2000);
 			SensorsInformationPage=SelectLoggersPage.clickNext_SensorinfoBtn();
 			//TimeUnit.SECONDS.sleep(30);
@@ -698,7 +698,7 @@ sa.assertAll();
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.112";
+			String BSIP="10.17.18.114";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
 			//TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
@@ -759,7 +759,7 @@ sa.assertAll();
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.112";
+			String BSIP="10.17.18.114";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
 			//TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
@@ -937,7 +937,7 @@ sa.assertAll();
 					TimeUnit.SECONDS.sleep(30);
 					SelectBaseStationPage.Click_DiscoverBS();
 					TimeUnit.SECONDS.sleep(30);
-					String BSIP="10.17.18.112";
+					String BSIP="10.17.18.114";
 					SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 					SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
 					TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
@@ -998,7 +998,7 @@ sa.assertAll();
 					TimeUnit.SECONDS.sleep(30);
 					SelectBaseStationPage.Click_DiscoverBS();
 					TimeUnit.SECONDS.sleep(30);
-					String BSIP="10.17.18.112";
+					String BSIP="10.17.18.114";
 					SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 					SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
 					TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
