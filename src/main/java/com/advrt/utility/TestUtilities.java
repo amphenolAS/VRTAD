@@ -577,7 +577,11 @@ public class TestUtilities extends com.advrt.base.BaseClass {
 		Thread.sleep(1000);
 		
 	}}
-	
+	// Click the Ok
+		public void clickOk() {
+			WebElement ok = driver.findElementByAccessibilityId("Button0");
+			clickOn(ok);
+		}
 	// Click the Yes button of the popup message
 	public void click_YesBtn_popup() {
 		WebElement Yes_Btn = driver.findElementByAccessibilityId("Button1");

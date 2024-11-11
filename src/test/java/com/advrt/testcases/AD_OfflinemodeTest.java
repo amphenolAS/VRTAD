@@ -1,9 +1,10 @@
-/**
- * @author kaveriB
+/*                    
 
- *
- */
+		Description              :This Test Suite TC's related to Offline mode operations
 
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -68,7 +69,7 @@ public class AD_OfflinemodeTest extends BaseClass{
 	//@BeforeTest
 	private void PreSetUp() throws IOException, InterruptedException, AWTException {
 
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_AllowGuestLoginTest"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_OfflineModeTest"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));

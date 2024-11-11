@@ -1,9 +1,9 @@
-/**
- * @author ruchika
+/*                    
 
- *
- */
-
+		Description              :This Test Suite TC's related to LDAP(Light Weight Directory Access Protocol) Audit Entry
+		Script Writer            :Ruchika	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 import java.awt.AWTException;
 import java.io.IOException;

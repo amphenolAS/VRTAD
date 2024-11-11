@@ -1,9 +1,8 @@
-/**
- * @author ruchika
-
- *
- */
-
+ /*                    
+		Description              :This Test Suite TC's related to Audit Entry of Supervisor
+		Script Writer            :Ruchika		 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 

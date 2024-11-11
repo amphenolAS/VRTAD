@@ -1,4 +1,9 @@
+/*                    
 
+		Description              :This Test Suite TC's related to User Management	
+		Script Writer            :Ruchika	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -280,7 +285,7 @@ public class AD_UMtest2 extends BaseClass{
 	}
 	
 	
-	 //UM8 TO UM17 will be handled manually
+	 //UM9 TO UM17 will be handled manually-No Test Cases
 	
 	
 	 //UM18-Verify if unmaps button displayed when the group selected where the group is already configured
@@ -295,6 +300,9 @@ public class AD_UMtest2 extends BaseClass{
 			SoftAssert sa = new SoftAssert();
 
 			ADUM_page.select_grp("QA Testers");
+			String Gname = ADUM_page.Fetch_Groupname();
+			//Validating the Groups
+			sa.assertEquals(Gname, "QA Testers", "FAIL: Group Name is not available");
 			ADUM_page.select_user(1);
 			ADUM_page.SelectUType("SystemAdministrator");
 			ADUM_page.enterNewUserTitle("Manager");
@@ -315,6 +323,9 @@ public class AD_UMtest2 extends BaseClass{
 			SoftAssert sa = new SoftAssert();
 
 			ADUM_page.select_grp("Automation");
+			String Gname = ADUM_page.Fetch_Groupname();
+			//Validating the Groups
+			sa.assertEquals(Gname, "Automation", "FAIL: Group Name is not available");
 			ADUM_page.select_user(1);
 			ADUM_page.SelectUType("SystemAdministrator");//
 			ADUM_page.enterNewUserTitle("Manager");
@@ -331,8 +342,8 @@ public class AD_UMtest2 extends BaseClass{
 			ADUM_page.SelectUType("SystemAdministrator");
 			ADUM_page.enterNewUserTitle("Manager");
 			ADUM_page.click_UnmapBtn();
-
-			sa.assertEquals(tu.UserLoginPopupVisible(), true, "Fail: User Login Popup is not visible");
+            //Unmaping the usertype and saving it
+			sa.assertEquals(tu.UserLoginPopupVisible(), true, "Fail: Not able to unmap the user from selected usertype");
 
 			sa.assertAll();
 		}
@@ -393,6 +404,7 @@ public class AD_UMtest2 extends BaseClass{
 			ADUM_page.select_grp("QA3");
 			ADUM_page.select_user(2);
 			DefaultUserPrivilages_page = ADUM_page.SelectUType1("NewUserType");
+			sa.assertEquals(DefaultUserPrivilages_page.defaultPrivilagesIsDisplayed(), true,"Fail : Not landed to Default Privilages page " );
 			Thread.sleep(1000);
 			DefaultUserPrivilages_page.Enter_NewUserType("UM30");
 			Thread.sleep(1000);

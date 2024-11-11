@@ -1,9 +1,10 @@
-/**
- * @author kaveriB
 
- *
- */
+ /*                    
 
+		Description              :This Test Suite TC's related to opeartions in the  Preferences tab
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 import java.awt.AWTException;
@@ -248,20 +249,9 @@ public class AD_PreferenceTest extends BaseClass {
 			UserLoginPopup("kiranc","Amphenol@123");
 			System.out.println("Not enabled");
 		}
-		
-
-
-		//UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","NA");
-		//tu.click_OK_popup();
-		//MainHubPage=preferencesPage.ClickBackButn();
-		//Thread.sleep(500);
-		//AuditPage = MainHubPage.ClickAuditTitle();
-
-
 		String ExpectedMsg="User Comment Audit Trail Cannot be blank.";
 		String ActualMsg= tu.get_popup_text();
 		sa.assertEquals(ActualMsg, ExpectedMsg, "FAIL:The Audit trail record for audit comments  activity is not exist ");
-		//sa.assertEquals(tu.ISpopupVisible(), true,"FAIL:popup is not visible");
 		sa.assertAll();
 	}			
 
@@ -277,7 +267,7 @@ public class AD_PreferenceTest extends BaseClass {
 				.startTest("Preferences05-Verify if instrument calibration warning field should be available in the Preferences screen");
 		SoftAssert sa = new SoftAssert();
 
-		sa.assertEquals(preferencesPage.IsInstCal_Presence(),true, "FAIL:The Audit trail record for audit comments  activity is not exist ");
+		sa.assertEquals(preferencesPage.IsInstCal_Presence(),true, "FAIL:Instrument Calibration Warning field is not exist in Preferences screen");
 
 		sa.assertAll();
 	}	
@@ -300,7 +290,7 @@ public class AD_PreferenceTest extends BaseClass {
 
 
 	//Preferences07-Verify if number of equipments which are in calibration due should be displayed for the equipment when instrument calibration warning checkbox checked
-
+	//Verify if warning message should be displayed for the equipment when instrument calibration warning checkbox checked
 	@Test(priority = 7,groups = { "Sanity",
 	"Regression" }, description = "Preferences07-Verify if number of equipments which are in calibration due should be displayed for the equipment when instrument calibration warning checkbox checked")
 

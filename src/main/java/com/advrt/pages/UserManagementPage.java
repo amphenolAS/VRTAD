@@ -6,6 +6,7 @@
 package com.advrt.pages;
 
 import java.awt.AWTException;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import com.advrt.pages.LoginPage;
+import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.base.BaseClass;
 import com.advrt.utility.TestUtilities;
 
@@ -248,6 +250,12 @@ public class UserManagementPage extends BaseClass {
 		return IsElementEnabledStatus(TitleUMField);
 	}
 
+	// Verify the Select Group presence...")
+		public boolean selectGroupPresence() {
+			WebElement selectGrp = driver.findElementByAccessibilityId("ComboBoxGroup");
+			return IsElementVisibleStatus(selectGrp);
+		}
+
 	// Verify the UserType Field presence...")
 	public boolean UserTypeField_EnableState() {
 		return IsElementEnabledStatus(UserTypeUMDropDown);
@@ -392,7 +400,11 @@ public class UserManagementPage extends BaseClass {
 		WebElement UMOperator = driver.findElementByName("Operator");
 		clickOn(UMOperator);
 	}
-
+	// Select NewUser from the UserType drop-down list
+		public void SelectNewUser() {
+			WebElement newUser = driver.findElementByName("NewUser");
+			clickOn(newUser);
+		}
 	// Enter Phone text
 	public void enterNewUserPhone(String Phone) {
 		ClearText(PhoneUMField);
@@ -1031,5 +1043,37 @@ public class UserManagementPage extends BaseClass {
 		Thread.sleep(500);
 		ClickNewUserSaveButton();
 	}
+	
+
+	// User Management Creation with new user type
+	public void UMCreation_NewUserType(String UName, String UID, String Pwd, String Title,  String phno,
+			String Email) throws InterruptedException, AWTException, IOException {
+		enterNewUserName(UName);
+		enterNewUserID(UID);
+		enterNewUserPW(Pwd);
+		enterNewUserConfPW(Pwd);
+		enterNewUserTitle(Title);
+		ClickUserTypeDropDown();
+		SelectNewUser();
+		enterNewUserPhone(phno);
+		enterNewUserEmail(Email);
+		Thread.sleep(500);
+		ClickNewUserSaveButton();
+	}
+	// Select NewUserType
+	public DefaultUserPrivilages_page select_newUserType(String Utype) throws InterruptedException, IOException {
+		// System.out.println(Utype);
+		WebElement User_type=driver.findElementByAccessibilityId("UserTypeComboBox");
+		clickOn(User_type);
+		Thread.sleep(1000);
+		WebElement UMNewUser = driver.findElementByName("NewUserType");
+		if (Utype.equals(UMNewUser.getText())) {
+			clickOn(UMNewUser);
+			Thread.sleep(500);
+		}
+		return new DefaultUserPrivilages_page();
+
+	}
+
 
 }

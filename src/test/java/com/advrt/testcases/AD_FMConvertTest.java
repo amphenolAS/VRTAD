@@ -1,8 +1,9 @@
-/**
- * @author kaveriB
- *
- */
+/*                    
 
+		Description              :This Test Suite TC's related to FM Convert operations	
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -107,13 +108,13 @@ public class AD_FMConvertTest extends BaseClass{
 	//@BeforeTest
 	private void PreSetUp() throws IOException, InterruptedException, AWTException {
 
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"AD_FMArchiveTest"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"AD_FMConvertTest"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
 		//extent.addSystemInfo("ScriptVersion-Git", prop1.getProperty("git.commit.id.describe-short").split("-")[0]);
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
-		System.out.println("AD_FMArchiveTest Test in Progress..");
+		System.out.println("AD_FMConvertTest Test in Progress..");
 
 
 		

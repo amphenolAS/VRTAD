@@ -1,9 +1,9 @@
-/**
- * @author kaveriB
+/*                    
 
- *
- */
-
+		Description              :This Test Suite TC's related to Guest Privilage operations
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 

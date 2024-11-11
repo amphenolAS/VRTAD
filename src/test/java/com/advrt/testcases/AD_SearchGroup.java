@@ -1,9 +1,9 @@
-/**
- * @author kaveriB
+/*                    
 
- *
- */
-
+		Description              :This Test Suite TC's related to search Group operations
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -115,7 +115,7 @@ public class AD_SearchGroup extends BaseClass{
 
 		
 		// Rename the VRT Data Files folder if exists in order to make the system default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+		/*renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 		//Copy the Default DataFIles folder from Test Data to the App service location.
 		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
 		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
@@ -172,7 +172,7 @@ public class AD_SearchGroup extends BaseClass{
 		//MainHubPage = AD_UMPage.click_BackBtn();
 		//LoginPage = MainHubPage.UserSignOut();
 		AppClose();
-		Thread.sleep(2000);
+		Thread.sleep(2000);*/
 
 	}
 
@@ -192,7 +192,7 @@ public class AD_SearchGroup extends BaseClass{
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
 		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
-		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
+	
 
 	}
 
@@ -238,10 +238,11 @@ public class AD_SearchGroup extends BaseClass{
 		extentTest = extent
 				.startTest("SG001-Verify if search button is avaliable under select group drop down in user management");
 		SoftAssert sa = new SoftAssert();
-
-	AD_UMPage.Select_grp();
-	String Actualvalue=AD_UMPage.selectgroupsearch();
-    String Expectedvalue="Search Group";
+		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
+		sa.assertEquals(AD_UMPage.UMtabPresence(),true,"Fail: Not landed to User Management Page");
+	   AD_UMPage.Select_grp();
+	   String Actualvalue=AD_UMPage.selectgroupsearch();
+       String Expectedvalue="Search Group";
     
 		//By default system Admin have the privilages for UM pages
 		sa.assertEquals(Actualvalue,Expectedvalue,
@@ -259,7 +260,16 @@ public class AD_SearchGroup extends BaseClass{
 		extentTest = extent
 				.startTest("Verify if user is not able to view the list of users  dropdown if group is not found");
 		SoftAssert sa = new SoftAssert();
-	
+		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
+		sa.assertEquals(AD_UMPage.UMtabPresence(),true,"Fail: Not landed to User Management Page");
+		 AD_UMPage.Select_grp();
+		 String Actualvalue=AD_UMPage.selectgroupsearch();
+	       String Expectedvalue="Search Group";
+	    
+			//By default system Admin have the privilages for UM pages
+			sa.assertEquals(Actualvalue,Expectedvalue,
+					"Fail: search button is not available");
+		AD_UMPage.Select_grp();	
 		AD_UMPage.SearchSpecificGrp("xyz");
 		AD_UMPage.Select_user();
 	
@@ -275,29 +285,35 @@ public class AD_SearchGroup extends BaseClass{
 	
 	//Verify if a message is being displayed when there are no users in configured group after clicking on save button 
 
-	@Test(priority=2,groups = { "Sanity",
-	"Regression" }, description = "Verify if a message is being displayed when there are no users in configured group after clicking on save button")
+	@Test(priority = 2, groups = { "Sanity",
+			"Regression" }, description = "Verify if a message is being displayed when there are no users in configured group after clicking on save button")
 
 	public void SG003() throws InterruptedException, IOException {
-		extentTest = extent
-				.startTest("Verify if a message is being displayed when there are no users in configured group after clicking on save button");
+		extentTest = extent.startTest(
+				"Verify if a message is being displayed when there are no users in configured group after clicking on save button");
 		SoftAssert sa = new SoftAssert();
+		AD_UMPage = MainHubPage.AD_ClickAdminTile_UMpage();
+		sa.assertEquals(AD_UMPage.UMtabPresence(), true, "Fail: Not landed to User Management Page");
+		AD_UMPage.Select_grp();
+		String Actualvalue = AD_UMPage.selectgroupsearch();
+		String Expectedvalue = "Search Group";
 
-	AD_UMPage.select_grp("Automation1");
-	AD_UMPage.select_UserTitle("Manager");
-	AD_UMPage.select_UserType1("SystemAdministrator");
-	AD_UMPage.clickSavebtn();
-	
-	String ActualMsg=tu.get_popup_text();
-	String ExpectedMsg="Users Do not Exist in the Selected Group";
-	
-		//By default system Admin have the privilages for UM pages
-		sa.assertEquals(ActualMsg,ExpectedMsg,
-				"Fail: Msg is not being displayed");
+		// By default system Admin have the privilages for UM pages
+		sa.assertEquals(Actualvalue, Expectedvalue, "Fail: search button is not available");
+		AD_UMPage.Select_grp();	
+		AD_UMPage.select_grp("Automation1");
+		AD_UMPage.select_UserTitle("Manager");
+		AD_UMPage.select_UserType1("SystemAdministrator");
+		AD_UMPage.clickSavebtn();
+
+		String ActualMsg = tu.get_popup_text();
+		String ExpectedMsg = "Users Do not Exist in the Selected Group";
+
+		// By default system Admin have the privilages for UM pages
+		sa.assertEquals(ActualMsg, ExpectedMsg, "Fail: Msg is not being displayed");
 
 		sa.assertAll();
 	}
-	
 	
 	
 	//Verify if message is being displayed when user does not give any input  and click on enter button 
@@ -309,7 +325,15 @@ public class AD_SearchGroup extends BaseClass{
 			extentTest = extent
 					.startTest("Verify if message is being displayed when user does not give any input  and click on enter button");
 			SoftAssert sa = new SoftAssert();
+			AD_UMPage = MainHubPage.AD_ClickAdminTile_UMpage();
+			sa.assertEquals(AD_UMPage.UMtabPresence(), true, "Fail: Not landed to User Management Page");
+			AD_UMPage.Select_grp();
+			String Actualvalue = AD_UMPage.selectgroupsearch();
+			String Expectedvalue = "Search Group";
 
+			// By default system Admin have the privilages for UM pages
+			sa.assertEquals(Actualvalue, Expectedvalue, "Fail: search button is not available");
+			AD_UMPage.Select_grp();	
 		AD_UMPage.select_grp("Automation");
 		
 		AD_UMPage.clickSavebtn();
@@ -335,7 +359,8 @@ public class AD_SearchGroup extends BaseClass{
 			extentTest = extent
 					.startTest("Verify if user is able to search group with maximum characters(50) ");
 			SoftAssert sa = new SoftAssert();
-			
+			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
+			sa.assertEquals(AD_UMPage.UMtabPresence(), true, "Fail: Not landed to User Management Page");
 			String expectedtxt = "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345"; // 155 char input
 			AD_UMPage.Enter_datain_searchgroup(expectedtxt);
 			
@@ -355,6 +380,8 @@ public class AD_SearchGroup extends BaseClass{
 			extentTest = extent
 					.startTest("erify if user is able to search group by entering full name of the Group");
 			SoftAssert sa = new SoftAssert();
+			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
+			sa.assertEquals(AD_UMPage.UMtabPresence(), true, "Fail: Not landed to User Management Page");
 			AD_UMPage.select_grp("Automation");
 			
 			sa.assertTrue(AD_UMPage.users_isDisplayed(),"FAIL:users box is not available");
@@ -373,7 +400,7 @@ public class AD_SearchGroup extends BaseClass{
 			extentTest = extent
 					.startTest("Verify if user is able to see the list of users in the select users drop down after entering the full group name");
 			SoftAssert sa = new SoftAssert();
-
+			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 		AD_UMPage.select_grp("Automation");
 		AD_UMPage.Select_user();
 	
@@ -392,7 +419,7 @@ public class AD_SearchGroup extends BaseClass{
 			extentTest = extent
 					.startTest("Verify if user is able to Enter data in AD search text field");
 			SoftAssert sa = new SoftAssert();
-
+			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 			AD_UMPage.Enter_datain_searchgroup("Automation");
 			
 			String Actualvalue=AD_UMPage.getgroupNameTxtBox();

@@ -551,7 +551,12 @@ public class PoliciesPage extends BaseClass {
 		clickOn(LDAPLoginPopup);
 	}
 		
-	
+	public void Click_CloseButton() throws InterruptedException {
+		WebElement windowCls = driver.findElementByAccessibilityId("Close");
+		Thread.sleep(500);
+		clickOn(windowCls);
+	}
+		
 	
 	// AuthenticationTypeComboBox
 
@@ -755,7 +760,11 @@ public class PoliciesPage extends BaseClass {
 		return IsElementEnabledStatus(GuestUserTypeComboBox);
 	}
 	
-	
+
+	public boolean IsADConnected() {
+		WebElement Yes_Btn = driver.findElementByName("Yes");
+		return IsElementEnabledStatus(Yes_Btn);
+	}
 	public void selectGuestuser(int i) {
 		clickOn(GuestUserTypeComboBox);
 		List<WebElement> user=driver.findElementByAccessibilityId("UserTypeComboBox").findElements(By.className("ComboBoxItem"));

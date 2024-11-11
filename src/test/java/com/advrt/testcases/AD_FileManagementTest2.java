@@ -1,9 +1,9 @@
-/**
- * @author kaveriB
+ /*                    
 
- *
- */
-
+		Description              :This Test Suite TC's related to File Management
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -277,10 +277,13 @@ public class AD_FileManagementTest2 extends BaseClass{
 		Thread.sleep(5000);
 		assetDetailsPage.Click_DeleteBtn_report();
 		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "usercommitted");
+		Thread.sleep(500);
+		tu.click_NOBtn_popup();
+		assetDetailsPage.Click_DeleteBtn_report();
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "usercommitted");
 		Thread.sleep(2000);
 		
 		tu.click_YesBtn_popup();
-		Thread.sleep(500);
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		Thread.sleep(500);
 		MainHubPage = assetHubPage.click_BackBtn();
@@ -334,8 +337,13 @@ public class AD_FileManagementTest2 extends BaseClass{
 		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "usercommitted");
 		Thread.sleep(2000);
 		
-		tu.click_YesBtn_popup();
+		tu.click_NOBtn_popup();
 		Thread.sleep(500);
+		assetDetailsPage.Click_DeleteBtn_report();
+		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "usercommitted");
+		Thread.sleep(2000);
+		
+		tu.click_YesBtn_popup();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		Thread.sleep(500);
 		MainHubPage = assetHubPage.click_BackBtn();

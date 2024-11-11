@@ -1,9 +1,8 @@
-/**
- * @author kaveriB
-
- *
- */
-
+ /*                    
+		Description              :This Test Suite TC's related to Audit Verification Without Privilages
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -121,7 +120,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("AD_Audit_VerificationwithoutPrivilageTest Test in Progress..");
 		
-/*
+
 
 	// Rename the VRT Data Files folder if exists in order to make the system default
 		 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
@@ -220,7 +219,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
 			AppClose();
-			Thread.sleep(2000);*/
+			Thread.sleep(2000);
 			
 		
 		}

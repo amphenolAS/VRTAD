@@ -1,9 +1,9 @@
-/**
- * @author KaveriB
+ /*                    
 
- *
- */
-
+		Description              :This Test Suite TC's related to delete the studies
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -382,6 +382,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 			AD_UMPage.select_UserTitle("Manager");
 			AD_UMPage.select_UserType1("Operator");
 			AD_UMPage.clickSavebtn();
+			
 			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
 			tu.click_OK_popup();
 			MainHubPage=AD_UMPage.click_BackBtn();
