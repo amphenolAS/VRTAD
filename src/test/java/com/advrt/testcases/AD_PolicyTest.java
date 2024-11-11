@@ -1,9 +1,9 @@
-/**
- * @author ruchika
+ /*                    
 
- *
- */
-
+		Description              :This Test Suite TC's related to operations in the Policy Tab
+		Script Writer            :Ruchika 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -122,7 +122,16 @@ public class AD_PolicyTest extends BaseClass{
 		
 		UserManagementPage = MainHubPage.ClickAdminTile_UMpage();
 		PoliciesPage = UserManagementPage.Click_Policy();
-		
+		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.clickOn_ConnectBtn();
+		PoliciesPage.ClickSaveButton();
+		PoliciesPage.clickOn_AcceptBtn();
+		//UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"),"commit");
+		tu.click_OK_popup();
+		AD_UMPage=PoliciesPage.click_AD_UMHeader();
+		PoliciesPage=AD_UMPage.AD_Click_Policy();
 		
 	}
 
@@ -172,16 +181,7 @@ public class AD_PolicyTest extends BaseClass{
 		extentTest = extent
 				.startTest("Policies01-Verify if Active Directory is activated all policies should be in disable mode");
 		SoftAssert sa = new SoftAssert();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		//UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"),"commit");
-		tu.click_OK_popup();
-		AD_UMPage=PoliciesPage.click_AD_UMHeader();
-		PoliciesPage=AD_UMPage.AD_Click_Policy();
+		
 		
 		sa.assertEquals(PoliciesPage.IspwdlengthcheckboxEnabled(), false,
 				"Fail: password length check box is not enabled");
@@ -209,7 +209,7 @@ public class AD_PolicyTest extends BaseClass{
 	
 	//Policies02-Verify if Active Directory is deactivated all policies should be in enable mode
 	
-	@Test(priority=0,groups = { "Sanity",
+	@Test(priority=3,groups = { "Sanity",
 	"Regression" }, description = "Policies02-Verify if Active Directory is deactivated all policies should be in enable mode")
 
 public void AD_Policies02() throws InterruptedException {
@@ -217,8 +217,10 @@ extentTest = extent
 		.startTest("Policies02-Verify if Active Directory is deactivated all policies should be in enable mode");
 SoftAssert sa = new SoftAssert();
 
-//PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-
+PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+PoliciesPage.ClickSaveButton();
+UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"),"commit");
+tu.click_OK_popup();
 sa.assertEquals(PoliciesPage.IspwdlengthcheckboxEnabled(), true,
 		"Fail: password length check box is not enabled");
 
@@ -249,7 +251,7 @@ sa.assertAll();
 	
 	
 
-	@Test(groups = { "Sanity",
+	@Test(priority=2, groups ={"Sanity",
 			"Regression" }, description = "AD_Policies03-Verify if Required minimum password length should not applicable when Active Directory Enabled")
 
 	public void AD_Policies03() throws InterruptedException, IOException {
@@ -257,7 +259,10 @@ sa.assertAll();
 				"AD_Policies03-Verify if Required minimum password length should not applicable when Active Directory Enabled");
 		SoftAssert sa = new SoftAssert();
 		
-		System.out.println("covered in preferencetest");
+
+		sa.assertEquals(PoliciesPage.IspwdlengthcheckboxEnabled(), false,
+				"Fail: password length check box is not enabled");
+		
 		
 		sa.assertAll();
 

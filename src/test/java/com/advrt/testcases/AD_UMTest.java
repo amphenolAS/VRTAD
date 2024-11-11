@@ -1,4 +1,9 @@
+/*                    
 
+		Description              :This Test Suite TC's related to User Management
+		Script Writer            :Ruchika	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -8,26 +13,25 @@ import java.io.IOException;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import java.text.ParseException;
 import org.testng.asserts.SoftAssert;
 
+//import com.vrt.Listners.AllureReportListner;
+import com.advrt.base.BaseClass;
+import com.advrt.pages.ADUM_page;
+import com.advrt.pages.AD_UMPage;
+import com.advrt.pages.DefaultUserPrivilages_page;
+import com.advrt.pages.LoginPage;
+import com.advrt.pages.MainHubPage;
+import com.advrt.pages.PoliciesPage;
+import com.advrt.pages.UserManagementPage;
+import com.advrt.pages.UserManagementPage_Manual;
+import com.advrt.utility.TestUtilities;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-//import com.vrt.Listners.AllureReportListner;
-import com.advrt.base.BaseClass;
-import com.advrt.pages.LoginPage;
-import com.advrt.pages.MainHubPage;
-import com.advrt.pages.UserManagementPage_Manual;
-import com.advrt.pages.PoliciesPage;
-import com.advrt.pages.UserManagementPage;
-import com.advrt.pages.ADUM_page;
-import com.advrt.utility.TestUtilities;
 
 
 public class AD_UMTest extends BaseClass{
@@ -49,8 +53,9 @@ public class AD_UMTest extends BaseClass{
 	PoliciesPage PoliciesPage;
 	UserManagementPage UserManagementPage;
 	ADUM_page ADUM_page;
+	AD_UMPage AD_UMPage;
 	static String AdmnUN = "User1";
-	
+	DefaultUserPrivilages_page DefaultUserPrivilages_page;
 	
 	//Before All the tests are conducted
 	@BeforeClass
@@ -77,34 +82,6 @@ public class AD_UMTest extends BaseClass{
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
-		PoliciesPage = LoginPage.DefaultLogin();
-		UserManagementPage = PoliciesPage.click_UMHeader();
-		Thread.sleep(1000);
-		UserManagementPage.ClickNewUser();	
-		// Create the default Admin USer
-		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");	
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage = MainHubPage.ClickAdminTile_UMpage();
-		UserManagementPage.clickAnyUserinUserList("User1");
-	
-		UserManagementPage.ClickNewUserSaveButton();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();	
-		PoliciesPage = UserManagementPage.Click_Policy();
-		
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-		MainHubPage = UserManagementPage.ClickBackButn();
-		LoginPage = MainHubPage.UserSignOut();
-		AppClose();
-		Thread.sleep(2000);
-	
 	}
 	
 	//After All the tests are conducted
@@ -119,13 +96,7 @@ public class AD_UMTest extends BaseClass{
 	
 	@BeforeMethod(alwaysRun=true)
 	public void Setup() throws InterruptedException, IOException {
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		Thread.sleep(500);
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.ADLogin_Policypage(getUID("adminFull"), getPW("adminFull"));
-		//UserManagementPage = MainHubPage.ClickAdminTile_UMpage();
-		//PoliciesPage = MainHubPage.ClickAdminTile_Polpage();
-		ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
+		Thread.sleep(100);
 	}
 
 	@AfterMethod(alwaysRun=true)
@@ -159,7 +130,108 @@ public class AD_UMTest extends BaseClass{
 	 * @throws IOException 
 	 * @throws AWTException 
 	*********/
-	
+
+	//UM01-Verify if User Management screen displays the Select Group when the Active Directory is activated
+	//UM02-Verify if the different groups are displayed in the Select group dropdown
+	@Test(priority=6,groups = { "Sanity","Regression" }, description = "UM01-Verify if User Management screen displays the Select Group when the Active Directory is activated + "
+			+ "UM02-Verify if the different groups are displayed in the Select group dropdown")
+
+	public void UM01_UM02() throws InterruptedException, AWTException, IOException {
+		extentTest = extent.startTest("UM01-Verify if User Management screen displays the Select Group when the Active Directory is activated +"
+				+ "UM02-Verify if the different groups are displayed in the Select group dropdown");
+		SoftAssert sa = new SoftAssert();
+		
+		PoliciesPage = LoginPage.DefaultLogin();
+		//Validating policies screen displayed or not
+		sa.assertEquals(PoliciesPage.IsPolicies_screenDisplayed(), true,
+				"Fail:Not landed to Policies Page");
+		UserManagementPage = PoliciesPage.click_UMHeader();
+		PoliciesPage = UserManagementPage.Click_Policy();
+		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.clickOn_ConnectBtn();
+		PoliciesPage.ClickSaveButton();
+		PoliciesPage.clickOn_AcceptBtn();
+		String expMsg= "Data saved successfully";
+		//AD Connected success message validation
+		sa.assertEquals(tu.get_popup_text(), expMsg,
+				"Fail:Active Directory is not connected.And data is not save successfully.");
+		tu.click_OK_popup();
+		//Validating AD Connected or not-Shouldreflect Yes
+		sa.assertEquals(PoliciesPage.IsADConnected(), true, "Fail: LDAP is not activated");
+		AD_UMPage = PoliciesPage.click_AD_UMHeader();
+		sa.assertEquals(AD_UMPage.SelectGroupPresence(), true,
+				"Fail:Select Group is not there in the UM Page");
+		AD_UMPage.select_grp("QA Testers");
+		String Gname = AD_UMPage.Fetch_Groupname();
+		//Validating the Groups
+		sa.assertEquals(Gname, "QA Testers", "FAIL: Group Name is not available");
+
+	}
+
+
+
+
+	//AD03-Verify if the users are displayed in the dropdown when the groups is selected from the user group
+
+	@Test(priority=8,groups = { "Sanity",
+		"Regression" }, description = "UM03-Verify if the users are displayed in the dropdown when the groups is selected from the user group")
+
+	public void UM03() throws InterruptedException, AWTException, IOException {
+	extentTest = extent.startTest("UM03-Verify if the users are displayed in the dropdown when the groups is selected from the user group");
+	SoftAssert sa = new SoftAssert();
+	PoliciesPage = LoginPage.DefaultLogin();
+	//Validating policies screen displayed or not
+	sa.assertEquals(PoliciesPage.IsPolicies_screenDisplayed(), true,
+			"Fail:Not landed to Policies Page");
+	UserManagementPage = PoliciesPage.click_UMHeader();
+	PoliciesPage = UserManagementPage.Click_Policy();
+	PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+	PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+	PoliciesPage.clickOn_ConnectBtn();
+	PoliciesPage.ClickSaveButton();
+	PoliciesPage.clickOn_AcceptBtn();
+	tu.click_OK_popup();
+	AD_UMPage = PoliciesPage.click_AD_UMHeader();
+	AD_UMPage.select_grp("QA Testers");
+	//Select Users are not displaying in the application
+	sa.assertEquals(AD_UMPage.Is_SelectUser_available(), true, "FAIL: select user option is not available");
+
+	sa.assertAll();
+	}
+
+	//UM04-Verify if System able to configure the first group as System Administrator if manual user as
+	//System Administrator exists in the application
+
+	@Test(groups = { "Sanity",
+			"Regression" }, description = "UM04-Verify if System able to configure the first group as System Administrator if manual user as System Administrator exists in the application")
+
+	public void UM04() throws InterruptedException, AWTException, IOException {
+		extentTest = extent.startTest(
+				"UM04-Verify if System able to configure the first group as System Administrator if manual user as System Administrator exists in the application");
+
+		SoftAssert sa = new SoftAssert();
+		PoliciesPage = LoginPage.DefaultLogin();
+		UserManagementPage = PoliciesPage.click_UMHeader();
+		PoliciesPage = UserManagementPage.Click_Policy();
+		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.clickOn_ConnectBtn();
+		PoliciesPage.ClickSaveButton();
+		PoliciesPage.clickOn_AcceptBtn();
+		tu.click_OK_popup();
+		AD_UMPage = PoliciesPage.click_AD_UMHeader();
+		AD_UMPage.select_grp("QA Testers");
+		AD_UMPage .select_user(1);
+		ADUM_page.SelectUType("SystemAdministrator");
+		ADUM_page.enterNewUserTitle("Manager");
+		ADUM_page.ClickNewUserSaveButton();
+		sa.assertEquals(ADUM_page.Is_LoginPopup_Displayed(), true, "FAIL: Not able to configure the first group as System Administrator");
+		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"),"NA");
+		tu.click_OK_popup();
+		tu.click_OK_popup();
+		
+	}
 	//UM37-Verify if User should not be able to create new user type while creating the first user
 	//UM52-Verify if Validation message should be displayed when there are no users in the userlist
 	
@@ -175,8 +247,9 @@ public class AD_UMTest extends BaseClass{
 
 		SoftAssert sa = new SoftAssert();
 		 
-System.out.println("THIS TC has been covered in NON-AD VRT cases");
-		
+		PoliciesPage = LoginPage.DefaultLogin();
+		UserManagementPage = PoliciesPage.click_UMHeader();
+		sa.assertEquals(UserManagementPage.IsNewUserBtnPresence(), true, "FAIL: New User Creation option is not enabled");
 		sa.assertAll();
 
 	}
@@ -194,41 +267,97 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 
 		SoftAssert sa = new SoftAssert();
 		
-		/*
-		PoliciesPage = ADUM_page.ClickOn_PoliciesHeaderText();
-		UserManagementPage_Manual = PoliciesPage.ClickUserManagement_TAB1();
-		UserManagementPage_Manual.UMCreation_MandatoryFields("UserA", "11", "Abcde@123 ", "Manager", "SystemAdministrator");
-		UserManagementPage_Manual.ClickNewUserSaveButton();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		String alert = tu.get_popup_text();
-		tu.click_OK_popup();
-		sa.assertEquals(alert, "Data Saved Sussessfully", "Fail : MESSAGE IS NOT DISPLAYING");*/
-		System.out.println("This TC has been covered in NON-AD VRT ");
+		PoliciesPage = LoginPage.DefaultLogin();
+		UserManagementPage = PoliciesPage.click_UMHeader();
+		Thread.sleep(500);
+		UserManagementPage.ClickNewUser();
+
+		// Validate presence of UserName text field
+		sa.assertEquals(UserManagementPage.UserNameFieldPresence(), true, "FAIL: No UName field present");
+
+		// Validate presence of UserID text field
+		sa.assertEquals(UserManagementPage.UserIDFieldPresence(), true, "FAIL: No UID field present");
+
+		// Validate presence of password text field
+		sa.assertEquals(UserManagementPage.PassworFieldPresence(), true, "FAIL: No PWD field present");
+
+		// Validate presence of password text field
+		sa.assertEquals(UserManagementPage.ConPassworFieldPresence(), true, "FAIL: No Confirm PWD field present");
+
+		// Validate presence of Title text field
+		sa.assertEquals(UserManagementPage.TitleFieldPresence(), true, "FAIL: No Title field present");
+
+		// Validate presence of User Type DropDown field
+		sa.assertEquals(UserManagementPage.UserTypeField_EnableState(), true, "FAIL: No Title field present");
+
+		// Validate presence of Phone text field
+		sa.assertEquals(UserManagementPage.PhoneFieldPresence(), true, "FAIL: No Phone field present");
+
+		// Validate presence of Email text field
+		sa.assertEquals(UserManagementPage.EmailFieldPresence(), true, "FAIL: No Email field present");
+
+		// Create the default superadmin USer
+		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
+				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
+
+		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
+		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(), true,
+				"Fail: Able to login with local user created. And its redirecting to Main Hub Page");
+		
 		sa.assertAll();
 		
 	}
 	
 	// UM22-Verify if user able to create the user with the Operator Privileges
 
-	@Test(priority=2,groups = { "Sanity",
+	@Test( priority=2,groups = { "Sanity",
 	"Regression" }, description = "UM22-Verify if user able to create the user with the Operator Privileges ")
 
 	public void UM22() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest("UM22-Verify if user able to create the user with the Operator Privileges ");
 
 		SoftAssert sa = new SoftAssert();
-/*
-		PoliciesPage = ADUM_page.ClickOn_PoliciesHeaderText();
-		UserManagementPage_Manual = PoliciesPage.ClickUserManagement_TAB1();
-		UserManagementPage_Manual.UMCreation_MandatoryFields("Userope", "12", "Abcde@123 ", "Manager", "Operator");
-		
-		UserManagementPage_Manual.ClickNewUserSaveButton();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		String alert = tu.get_popup_text();
-		tu.click_OK_popup();
-		sa.assertEquals(alert, "Data Saved Sussessfully", "Fail : MESSAGE IS NOT DISPLAYING");*/
-		
-		System.out.println("This TC has been covered in NON-AD VRT ");
+		PoliciesPage = LoginPage.DefaultLogin();
+		UserManagementPage = PoliciesPage.click_UMHeader();
+		UserManagementPage.ClickNewUser();
+		// Create the default superadmin USer
+		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
+				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
+
+		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
+		UserManagementPage=	MainHubPage.ClickAdminTile_UMpage();
+		UserManagementPage.ClickNewUser();
+
+		// Validate presence of UserName text field
+		sa.assertEquals(UserManagementPage.UserNameFieldPresence(), true, "FAIL: No UName field present");
+
+		// Validate presence of UserID text field
+		sa.assertEquals(UserManagementPage.UserIDFieldPresence(), true, "FAIL: No UID field present");
+
+		// Validate presence of password text field
+		sa.assertEquals(UserManagementPage.PassworFieldPresence(), true, "FAIL: No PWD field present");
+
+		// Validate presence of password text field
+		sa.assertEquals(UserManagementPage.ConPassworFieldPresence(), true, "FAIL: No Confirm PWD field present");
+
+		// Validate presence of Title text field
+		sa.assertEquals(UserManagementPage.TitleFieldPresence(), true, "FAIL: No Title field present");
+
+		// Validate presence of User Type DropDown field
+		sa.assertEquals(UserManagementPage.UserTypeField_EnableState(), true, "FAIL: No Title field present");
+
+		// Validate presence of Phone text field
+		sa.assertEquals(UserManagementPage.PhoneFieldPresence(), true, "FAIL: No Phone field present");
+
+		// Validate presence of Email text field
+		sa.assertEquals(UserManagementPage.EmailFieldPresence(), true, "FAIL: No Email field present");
+
+		// Operator User Creation
+					UserManagementPage.CreateOperatorUser(getUID("adminFull"), getPW("adminFull"), "OPE1", getUID("SysOperator"),
+							"456456", "OperatorNew", "12345678", "newOpe@gmail.com");
+		UserManagementPage.clickAnyUserinUserList("OPE1");
+		sa.assertEquals(UserManagementPage.check_UserPresenceInThe_UserList("OPE1"), true,
+				"FAIL: Created user OPE1 is not available in the Users List ");
 		sa.assertAll();
 		
 	
@@ -245,19 +374,50 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 		extentTest = extent.startTest("UM23-Verify if user able to create the user with the Supervisor Privileges");
 
 		SoftAssert sa = new SoftAssert();
+		PoliciesPage = LoginPage.DefaultLogin();
+		UserManagementPage = PoliciesPage.click_UMHeader();
+		UserManagementPage.ClickNewUser();
+		// Create the default superadmin USer
+		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
+				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
 
-		/*
-		PoliciesPage = ADUM_page.ClickOn_PoliciesHeaderText();
-		UserManagementPage_Manual = PoliciesPage.ClickUserManagement_TAB1();
-		UserManagementPage_Manual.UMCreation_MandatoryFields("Usersup", "13", "Abcde@123 ", "Manager", "Supervisor");
-		UserManagementPage_Manual.ClickNewUserSaveButton();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		String alert = tu.get_popup_text();
-		tu.click_OK_popup();
-		sa.assertEquals(alert, "Data Saved Sussessfully", "Fail : MESSAGE IS NOT DISPLAYING");*/
-		System.out.println("This TC has been covered in NON-AD VRT ");
+		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
+		UserManagementPage=	MainHubPage.ClickAdminTile_UMpage();
+		UserManagementPage.ClickNewUser();
+
+		// Validate presence of UserName text field
+		sa.assertEquals(UserManagementPage.UserNameFieldPresence(), true, "FAIL: No UName field present");
+
+		// Validate presence of UserID text field
+		sa.assertEquals(UserManagementPage.UserIDFieldPresence(), true, "FAIL: No UID field present");
+
+		// Validate presence of password text field
+		sa.assertEquals(UserManagementPage.PassworFieldPresence(), true, "FAIL: No PWD field present");
+
+		// Validate presence of password text field
+		sa.assertEquals(UserManagementPage.ConPassworFieldPresence(), true, "FAIL: No Confirm PWD field present");
+
+		// Validate presence of Title text field
+		sa.assertEquals(UserManagementPage.TitleFieldPresence(), true, "FAIL: No Title field present");
+
+		// Validate presence of User Type DropDown field
+		sa.assertEquals(UserManagementPage.UserTypeField_EnableState(), true, "FAIL: No Title field present");
+
+		// Validate presence of Phone text field
+		sa.assertEquals(UserManagementPage.PhoneFieldPresence(), true, "FAIL: No Phone field present");
+
+		// Validate presence of Email text field
+		sa.assertEquals(UserManagementPage.EmailFieldPresence(), true, "FAIL: No Email field present");
+
+		UserManagementPage.CreateSupervisorUser(getUID("adminFull"), getPW("adminFull"), "Suptest1",
+				getUID("SysSupervisor"), "123123", "SUpNew", "123345678", "newSup@gmail.com");
+		UserManagementPage.clickAnyUserinUserList("Suptest1");
+		sa.assertEquals(UserManagementPage.check_UserPresenceInThe_UserList("Suptest1"), true,
+				"FAIL: Created user Suptest1 is not available in the Users List ");
 		sa.assertAll();
 		
+	
+
 	}
 	
 	//UM24-Verify if user able to create the user with the System Administrator Privileges 
@@ -270,7 +430,7 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 
 			SoftAssert sa = new SoftAssert();
 
-			System.out.println(" UM24 is similar to the UM21");
+			System.out.println(" UM24 is covered in UM21");
 			sa.assertAll();
 		}
 	
@@ -287,88 +447,67 @@ System.out.println("THIS TC has been covered in NON-AD VRT cases");
 				.startTest("UM25-Verify if user able to create the user with the Create New User type Privileges");
 
 		SoftAssert sa = new SoftAssert();
+		PoliciesPage = LoginPage.DefaultLogin();
+		UserManagementPage = PoliciesPage.click_UMHeader();
+		UserManagementPage.ClickNewUser();
+		// Create the default superadmin USer
+		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
+				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
 
-		System.out.println("UM25 is similar to the UM21");
+		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
+		UserManagementPage=	MainHubPage.ClickAdminTile_UMpage();
+		UserManagementPage.ClickNewUser();
+
+		DefaultUserPrivilages_page = UserManagementPage.select_newUserType("NewUserType");
+		Thread.sleep(1000);
+		DefaultUserPrivilages_page.Enter_NewUserType("NewUser");
+		DefaultUserPrivilages_page.click_UPUserManagementCheckBox();
+		DefaultUserPrivilages_page.click_UPAssetsPrivlegesCheckBox();
+		UserManagementPage = DefaultUserPrivilages_page.click_Save_Button();
+		Thread.sleep(500);
+		UserManagementPage.ClickNewUser();
+		
+
+		// Validate presence of UserName text field
+		sa.assertEquals(UserManagementPage.UserNameFieldPresence(), true, "FAIL: No UName field present");
+
+		// Validate presence of UserID text field
+		sa.assertEquals(UserManagementPage.UserIDFieldPresence(), true, "FAIL: No UID field present");
+
+		// Validate presence of password text field
+		sa.assertEquals(UserManagementPage.PassworFieldPresence(), true, "FAIL: No PWD field present");
+
+		// Validate presence of password text field
+		sa.assertEquals(UserManagementPage.ConPassworFieldPresence(), true, "FAIL: No Confirm PWD field present");
+
+		// Validate presence of Title text field
+		sa.assertEquals(UserManagementPage.TitleFieldPresence(), true, "FAIL: No Title field present");
+
+		// Validate presence of User Type DropDown field
+		sa.assertEquals(UserManagementPage.UserTypeField_EnableState(), true, "FAIL: No Title field present");
+
+		// Validate presence of Phone text field
+		sa.assertEquals(UserManagementPage.PhoneFieldPresence(), true, "FAIL: No Phone field present");
+
+		// Validate presence of Email text field
+		sa.assertEquals(UserManagementPage.EmailFieldPresence(), true, "FAIL: No Email field present");
+
+		
+		
+		
+		UserManagementPage.UMCreation_NewUserType("SampleUser", "2","250496" , "Manager",
+				  "9876543210", "newusertype@gmail.com");
+		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+		tu.click_OK_popup();
+		UserManagementPage.clickAnyUserinUserList("SampleUser");
+		sa.assertEquals(UserManagementPage.check_UserPresenceInThe_UserList("SampleUser"), true,
+				"FAIL: Created user SampleUser is not available in the Users List ");
 		sa.assertAll();
+		
+	
+
 	}
 		 
-	
-	
-	
-
-
-
-
-//UM01-Verify if User Management screen displays the Select Group when the Active Directory is activated
-
-@Test(priority=6,groups = { "Sanity","Regression" }, description = "UM01-Verify if User Management screen displays the Select Group when the Active Directory is activated")
-
-public void UM01() throws InterruptedException, AWTException {
-	extentTest = extent.startTest("UM01-Verify if User Management screen displays the Select Group when the Active Directory is activated");
-	SoftAssert sa = new SoftAssert();
-
-	System.out.println("The Test Case covered in Before class");
-
-}
-
-
-
-
-//UM02-Verify if the different groups are displayed in the Select group dropdown
-
-@Test(priority=7,groups = { "Sanity","Regression" }, description = "UM02-Verify if the different groups are displayed in the Select group dropdown")
-
-public void UM02() throws InterruptedException, AWTException {
-extentTest = extent.startTest("UM02-Verify if the different groups are displayed in the Select group dropdown");
-SoftAssert sa = new SoftAssert();
-
-ADUM_page.select_grp("QA Testers");
-String Gname = ADUM_page.Fetch_Groupname();
-sa.assertEquals(Gname, "QA Testers", "FAIL: Group Name is not available");
-
-sa.assertAll();
-
-}
-
-//AD03-Verify if the users are displayed in the dropdown when the groups is selected from the user group
-
-@Test(priority=8,groups = { "Sanity",
-	"Regression" }, description = "UM03-Verify if the users are displayed in the dropdown when the groups is selected from the user group")
-
-public void UM03() throws InterruptedException, AWTException {
-extentTest = extent.startTest("UM03-Verify if the users are displayed in the dropdown when the groups is selected from the user group");
-SoftAssert sa = new SoftAssert();
-
-ADUM_page.select_grp("QA Testers");
-Thread.sleep(1000);
-//ADUM_page.select_user(1);
-Thread.sleep(1000);
-sa.assertEquals(ADUM_page.Is_SelectUser_available(), true, "FAIL: select user option is not available");
-
-sa.assertAll();
-}
-
-//UM04-Verify if System able to configure the first group as System Administrator if manual user as
-//System Administrator exists in the application
-
-@Test(groups = { "Sanity",
-		"Regression" }, description = "UM04-Verify if System able to configure the first group as System Administrator if manual user as System Administrator exists in the application")
-
-public void UM04() throws InterruptedException, AWTException, IOException {
-	extentTest = extent.startTest(
-			"UM04-Verify if System able to configure the first group as System Administrator if manual user as System Administrator exists in the application");
-
-	SoftAssert sa = new SoftAssert();
-	ADUM_page.select_grp("QA Testers");
-	ADUM_page.select_user(1);
-	ADUM_page.SelectUType("SystemAdministrator");
-	ADUM_page.enterNewUserTitle("Manager");
-	ADUM_page.ClickNewUserSaveButton();
-
-	UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"),"NA");
-	tu.click_OK_popup();
-	tu.click_OK_popup();
-}
 
 
 }

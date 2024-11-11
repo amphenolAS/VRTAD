@@ -1,9 +1,9 @@
-/**
- * @author kaveri
 
- *
- */
-
+ /*                    
+		Description              :This Test Suite TC's related to Audit trail entry while performing archive operation with Supervisor user
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -102,7 +102,7 @@ public class AD_FM_Archive_SupAuditTest extends BaseClass{
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
 		//extent.addSystemInfo("ScriptVersion-Git", prop1.getProperty("git.commit.id.describe-short").split("-")[0]);
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
-		System.out.println("AAD_FM_Archive_SupAuditTest in Progress..");
+		System.out.println("AD_FM_Archive_SupAuditTest in Progress..");
 		
 		
 		// Rename the VRT Data Files folder if exists in order to make the system default

@@ -34,7 +34,7 @@ public class AD_UMPage extends BaseClass {
 	WebElement PoliciesHeaderText=null;
 	WebElement save_btn=null;
 	WebElement cancle_btn=null;
-	
+	WebElement UNUMField = null;
 	
 	//List<WebElement> Combobx = null;
 	
@@ -113,7 +113,7 @@ public class AD_UMPage extends BaseClass {
 		
 		UsersListButton = driver.findElementByAccessibilityId("PrintUsersListButton");
 		//DisableCheckbox = driver.findElementByAccessibilityId("DisableUserCheckBox");
-		
+		UNUMField = driver.findElementByAccessibilityId("NameTextBox");
 		//ADMIN ELEMENTS
 /*
 		AdminUMPriv = driver.findElementByAccessibilityId("AdminCheckBox");
@@ -215,7 +215,7 @@ public class AD_UMPage extends BaseClass {
 		RunVerification = null;
 		HardwareHeaderText=null;
 		UsersListButton=null;
-
+		UNUMField = null;
 	}
 
 	//METHODS
@@ -343,7 +343,20 @@ public class AD_UMPage extends BaseClass {
 		Thread.sleep(1000);
 		return new MainHubPage();
 	}
-
+	//NewUserType
+	
+			public void SelectUType(String name) throws IOException, InterruptedException {
+				WebElement utype = driver.findElementByAccessibilityId("UserTypeComboBox");
+				clickOn(utype);
+				Thread.sleep(500);
+				List<WebElement> userlist=driver.findElementByAccessibilityId("UserTypeComboBox").findElements(By.className("ComboBoxItem"));
+				
+				WebElement userName = userlist.get(1);
+				userName.sendKeys(name); //EditableCombo
+				WebElement ele=driver.findElementByName(name);
+				clickOn(ele);
+			
+			}
 
 	/*
 	// Select UserType
@@ -654,8 +667,8 @@ public  int users_count() {
 				
 				//Select User
 				public boolean Is_SelectUser_available() throws AWTException {
-					WebElement SelectGroup = driver.findElementByName("Select User");
-					return IsElementVisibleStatus(SelectGroup);
+					WebElement SelectUser = driver.findElementByAccessibilityId("ComboBoxLDAPUsers");
+					return IsElementVisibleStatus(SelectUser);
 				}
 
 				
@@ -876,7 +889,59 @@ public  int users_count() {
 		Thread.sleep(500);
 		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
 		}
+		// Fetch User Name text
+		public String GetUserNametext() {
+			return FetchText(UNUMField);
+		}
+		
+		// Verify if any User available in the UserList Panel
+		public boolean check_UserPresenceInThe_UserList(String UN) throws InterruptedException {
+			boolean flag = false;
+			List<WebElement> Userslist = driver.findElementByAccessibilityId("UsersListBox")
+					.findElements(By.className("ListBoxItem"));
+			// System.out.println("Total Number of Users created: " + Userslist.size());
+			if (Userslist.size()==0) {
+				return flag;
+			} else {
+				Userslist.get(0).click();
 
+				for (int i = 0; i < Userslist.size(); i++) {
+
+					String UNtext1 = GetUserNametext();
+					// System.out.println(UNtext1);
+					if (UNtext1.equalsIgnoreCase(UN)) {
+						clickOn(UNUMField);
+						flag = true;
+						break;
+					} else {
+						Actions ac = new Actions(driver);
+						ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
+					}
+				}
+				return flag;
+			}
+		}
+		
+		// Select/Click any User in the UserList Panel
+		public void clickAnyUserinUserList(String UN) throws InterruptedException {
+			List<WebElement> Userslist = driver.findElementByAccessibilityId("UsersListBox")
+					.findElements(By.className("ListBoxItem"));
+			// System.out.println("Total Number of Users created: " + Userslist.size());
+			Userslist.get(0).click();
+
+			for (int i = 0; i < Userslist.size(); i++) {
+
+				String UNtext1 = GetUserNametext();
+				// System.out.println(UNtext1);
+				if (UNtext1.equalsIgnoreCase(UN)) {
+					clickOn(UNUMField);
+					break;
+				} else {
+					Actions ac = new Actions(driver);
+					ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
+				}
+			}
+		}
 }
 
 

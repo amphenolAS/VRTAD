@@ -1,9 +1,9 @@
-/**
- * @author kaveriB
+/*                    
 
- *
- */
-
+		Description              :This Test Suite TC's related to Audit Temperature Verification Test
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -273,7 +273,7 @@ public class AD_Audit_TemperatureVerificationTest extends BaseClass{
 	 * @throws IOException 
 	*********/
 	
-	/*
+	
 	//AD_Ver_Audit _001 Verify the Audit trail entry  when initated verification for Temperature Loggers from Equipment screen
 
 	@Test(priority=0,description = "AD_Ver_Audit _001 Verify the Audit trail entry  when initated verification for Temperature Loggers from Equipment screen")
@@ -389,7 +389,7 @@ public class AD_Audit_TemperatureVerificationTest extends BaseClass{
 			sa.assertAll();
 			
 		}
-		*/
+	
 	
 		//AD_Ver_Audit _005 Verify the Audit trail entry  when aborted the programming for Temperature Loggers
 		

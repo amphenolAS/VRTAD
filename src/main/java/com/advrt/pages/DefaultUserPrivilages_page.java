@@ -64,6 +64,7 @@ public class DefaultUserPrivilages_page extends BaseClass {
 	WebElement NUManualSync=null;
 	WebElement	NUChangeConsleTime=null;
 	WebElement	NUAuditTrail=null;
+	WebElement defaultPrivilage=null;
 
 
 
@@ -101,7 +102,7 @@ public class DefaultUserPrivilages_page extends BaseClass {
 		NUManualSync=driver.findElementByAccessibilityId("UPManualSyncCheckBox");
 		NUChangeConsleTime=driver.findElementByAccessibilityId("UPChngConsoleTimeCheckBox");
 		NUAuditTrail=driver.findElementByAccessibilityId("UPAuditViewPrintCheckBox");
-
+	 defaultPrivilage=driver.findElementByAccessibilityId("DefaultUPTextBlock");
 
 
 		
@@ -161,12 +162,17 @@ public class DefaultUserPrivilages_page extends BaseClass {
 		NUChangeConsleTime=null;
 		NUAuditTrail=null;
 
-
+		defaultPrivilage = null;
 
 
 	}
 
 	//METHODS
+	
+	// Click on the Create Asset Privilege Check Box
+    public boolean defaultPrivilagesIsDisplayed() {
+    	return IsElementVisibleStatus(defaultPrivilage);
+    }
 			
 			// Click on the Create Asset Privilege Check Box
             public void Click_Create_AssetCheckBox1() {
@@ -422,7 +428,17 @@ public class DefaultUserPrivilages_page extends BaseClass {
 
             		}
             	  
-            	  
+            	  public UserManagementPage click_Save_Button() throws IOException, InterruptedException {
+
+          			WebElement btnConnect = driver.findElementByAccessibilityId("btnConnect");
+          			clickOn(btnConnect);
+          			tu.UserLoginPopup_UserCommentTextBox("1","111111","comment");
+          			
+          			Thread.sleep(1000);
+          			return new UserManagementPage();
+
+          		}
+          	  
             	// UPAssetsPrivlegesCheckBox
 
             		public void click_UPAssetsPrivlegesCheckBox() throws IOException, InterruptedException {

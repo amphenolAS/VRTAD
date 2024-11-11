@@ -1,9 +1,9 @@
-/**
- * @author ruchika
+/*                    
 
- *
- */
-
+		Description              :This Test Suite TC's related to Audit trail entry while performing Syncin operation 
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 

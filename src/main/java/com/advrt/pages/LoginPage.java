@@ -278,7 +278,14 @@ public class LoginPage extends BaseClass {
 			ClickLoginBtn();
 			Thread.sleep(2000);
 		}
-		
+
+		//Checking userid and password presence
+			public void UserIdPwdPresence(String UID, String PW) throws InterruptedException {
+				EnterUserID(UID);
+				EnterUserPW(PW);
+				
+				Thread.sleep(2000);
+			}
 	
 	public void LockedLogin(String UID, String PW) throws InterruptedException {
 		EnterUserID(UID);
@@ -528,7 +535,11 @@ public class LoginPage extends BaseClass {
 			WebElement DomainNameTextbox = driver.findElementByAccessibilityId("DomainNameTextbox");
 			ClearText(DomainNameTextbox);
 		}
-		
+		public void enterTxt_DomainTextBox(String val)
+       	{
+			WebElement DomainNameTextbox = driver.findElementByAccessibilityId("DomainNameTextbox");
+       		enterText(DomainNameTextbox, val);
+       	}
 		
 		//ADLogin_PPpage
 		public PoliciesPage ADLogin_Policypage(String UID, String PW) throws InterruptedException, IOException {

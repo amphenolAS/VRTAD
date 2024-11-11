@@ -1,9 +1,9 @@
-/**
- * @author kaveriB
+ /*                    
 
- *
- */
-
+		Description              :This Test Suite TC's related to Privilage access
+		Script Writer            :Kaveri Bedar	 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -117,7 +117,7 @@ public class AD_PrivilageAccessTest extends BaseClass{
 
 		
 		// Rename the VRT Data Files folder if exists in order to make the system default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+		/*renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 		//Copy the Default DataFIles folder from Test Data to the App service location.
 		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
 		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
@@ -169,7 +169,7 @@ public class AD_PrivilageAccessTest extends BaseClass{
 		//MainHubPage = AD_UMPage.click_BackBtn();
 		//LoginPage = MainHubPage.UserSignOut();
 		AppClose();
-		Thread.sleep(2000);
+		Thread.sleep(2000);*/
 
 	}
 
@@ -254,7 +254,13 @@ public class AD_PrivilageAccessTest extends BaseClass{
 		//By default system Admin have the privilages for UM page
 		sa.assertEquals(AD_UMPage.UMtabPresence(), true,
 				"Fail: AdminUmPriv is Not checked");
-
+		MainHubPage=AD_UMPage.click_BackBtn();
+		AuditPage = MainHubPage.ClickAuditTitle();
+		AuditPage.Click_ActionFilter_Icon();
+		AuditPage.EnterTxt_ActionFilter("User Group : \"QA Testers\"  , User Type : \"SystemAdministrator\" to \"SystemAdministrator\" , User Privileges : \"Delete Setup & Create Reports & Delete StudyFiles/Reports & Audit Trail & User Management & Delete Assets & Create Equipment & Delete Equipment & Manual Sync & Archive Data & Copy Files/Reports & Camera Access & Create Pass Fail Template & Edit Pass Fail Template & Delete Pass Fail Template & Modify Equipment & Preferences & Policies & HardwareMaintenance\" , Modified by User ID : \"kiranc\" , User Name : \"kiran c\"");
+		AuditPage.click_Action_FilterBtn();
+		sa.assertEquals(AuditPage.get_auditEvent_text(),
+				"User Group : \"QA Testers\"  , User Type : \"SystemAdministrator\" to \"SystemAdministrator\" , User Privileges : \"Delete Setup & Create Reports & Delete StudyFiles/Reports & Audit Trail & User Management & Delete Assets & Create Equipment & Delete Equipment & Manual Sync & Archive Data & Copy Files/Reports & Camera Access & Create Pass Fail Template & Edit Pass Fail Template & Delete Pass Fail Template & Modify Equipment & Preferences & Policies & HardwareMaintenance\" , Modified by User ID : \"kiranc\" , User Name : \"kiran c\"");
 		sa.assertAll();
 	}
 
@@ -270,14 +276,17 @@ public class AD_PrivilageAccessTest extends BaseClass{
 		SoftAssert sa = new SoftAssert();
 
 		//AD_UMPage.Select_grp();
-		AD_UMPage.select_grp("QA Testers");
+		AD_UMPage.select_grp("QA Testers2");
 		//AD_UMPage.Select_user();
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("NewUserType");
-		DefaultUserPrivilages_page=AD_UMPage.newUserType("NUserType");
-		//DefaultUserPrivilages_page.Click_Create_UserManagement();while running individually must uncommit
+		DefaultUserPrivilages_page=AD_UMPage.newUserType("PrivilageUser");
+		//while running individually must uncommit
+		DefaultUserPrivilages_page.Click_Create_UserManagement();
 		DefaultUserPrivilages_page.Click_RunQualification();
+		DefaultUserPrivilages_page.Click_Create_AssetCheckBox1();
+		DefaultUserPrivilages_page.Click_Create_SetUp();
 		DefaultUserPrivilages_page.NewSaveButton();
 		Thread.sleep(500);
 		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
@@ -289,8 +298,13 @@ public class AD_PrivilageAccessTest extends BaseClass{
 
 		sa.assertEquals(ActualMsg,ExpectedMsg,
 				"Fail:User unable to access Run qualification even if it is checked");
-			
-
+		MainHubPage=AuditPage.Click_BackBtn();
+		LoginPage = MainHubPage.UserSignOut();
+		LoginPage = new LoginPage();
+		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		assetHubPage = MainHubPage.Click_AssetTile2();
+		assetCreationPage = assetHubPage.ClickAddAssetBtn();
+		assetCreationPage.assetCreation("TestAsset", "3", "HeatBath", "Amphenol", "Hyderabad");
 		sa.assertAll();
 	}
 

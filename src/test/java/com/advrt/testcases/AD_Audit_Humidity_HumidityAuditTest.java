@@ -1,7 +1,9 @@
-/*
-  @author kaveriB
- */
+ /*                    
 
+		Description              :This Test Suite TC's related to Audit Entry for Humidity Loggers	
+		Script Writer            :Ruchika		 
+		Last Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
@@ -120,7 +122,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 		System.out.println("AD_AuditVerificationTest Test in Progress..");
 		
 
-	/*
+	
 	// Rename the VRT Data Files folder if exists in order to make the system default
 		 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
 			//Copy the Default DataFIles folder from Test Data to the App service location.
@@ -214,7 +216,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
 			AppClose();
-			Thread.sleep(2000);*/
+			Thread.sleep(2000);
 			
 		
 		}

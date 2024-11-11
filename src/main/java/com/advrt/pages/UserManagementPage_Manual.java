@@ -307,7 +307,11 @@ public class UserManagementPage_Manual extends BaseClass {
 	public String get_UserTitle() {
 		return FetchText(TitleUMField);
 	}
-
+	// Verify the Select Group presence...")
+			public boolean selectGroupPresence() {
+				WebElement selectGrp = driver.findElementByAccessibilityId("ComboBoxGroup");
+				return IsElementEnabledStatus(selectGrp);
+			}
 	// Enter Title text
 	public void ClickTitlefield() {
 		clickOn(TitleUMField);

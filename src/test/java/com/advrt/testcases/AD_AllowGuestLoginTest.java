@@ -1,9 +1,9 @@
-/**
- * @author kaveriB
+/*                    
 
- *
- */
-
+		Description: 	      This Test Suite TC's related to allow Guest Login
+		Script Writer:	      Kaveri Bedar			 
+		Modified/ Updated by: Deepika Arjala								 
+*/
 package com.advrt.testcases;
 
 
