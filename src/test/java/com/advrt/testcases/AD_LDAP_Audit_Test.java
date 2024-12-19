@@ -431,7 +431,39 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 		extentTest = extent.startTest("Audit09-Verify if audit should be recorded for the User Type Modification");
 		SoftAssert sa = new SoftAssert();
 		
-		System.out.println("This Tc is done in  Audit08");
+		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+		ADUM_page = MainHubPage.ClickAdminTile_ADUM();
+		ADUM_page.select_grp("Automation");
+		
+		ADUM_page.enterNewUserTitle("Manager");
+		DefaultUserPrivilages_page=ADUM_page.SelectUType1("NewUserType");
+		DefaultUserPrivilages_page.Enter_NewUserType("Newuser");
+		DefaultUserPrivilages_page.click_UPAssetsPrivlegesCheckBox();
+		ADUM_page = DefaultUserPrivilages_page.click_save_btn();
+		
+		ADUM_page.select_grp("Automation");
+		//ADUM_page.select_user(3);
+		ADUM_page.enterNewUserTitle("Manager");
+		
+		ADUM_page.SelectUType("Newuser");
+		ADUM_page.ClickNewUserSaveButton();
+		
+		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "updated");
+		tu.click_OK_popup();
+		
+		MainHubPage =	ADUM_page.ClickBackButn();
+		
+		AuditPage = MainHubPage.ClickAuditTitle();
+		Thread.sleep(2000);
+		AuditPage.Click_ActionFilter_Icon();
+		AuditPage.EnterTxt_ActionFilter(
+				"User Group : \"Automation\"  , User Type : \"SystemAdministrator\" to \"newuser\" , User Privileges : \"Create Assets\" , Modified by User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"");
+		AuditPage.click_Action_FilterBtn();
+		sa.assertEquals(AuditPage.get_auditEvent_text(),
+				"User Group : \"Automation\"  , User Type : \"SystemAdministrator\" to \"newuser\" , User Privileges : \"Create Assets\" , Modified by User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"");
+
+		sa.assertAll();
+
 		
 	}
 	

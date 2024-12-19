@@ -651,6 +651,7 @@ public class AD_Asset_Sup_AuditTest extends BaseClass{
 		extentTest = extent.startTest("AD_Asset_Audit_033 - Verify the Audit trail entry after Deleting  Asset Model with the  Active Directory Supervisor User");
 
 		System.out.println("This Tc has handeled in  AD_Asset_Audit_032");
+		System.out.println("Covered multiple operations in the AD_Asset_Audit_032");
 	
 	}
 	
@@ -665,6 +666,7 @@ public class AD_Asset_Sup_AuditTest extends BaseClass{
 			extentTest = extent.startTest("AD_Asset_ Audit 034 Verify the Audit trail entry after Defining new   Asset Model with the  Active Directory Supervisor User");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_032");
+			System.out.println("Covered multiple operations in the AD_Asset_Audit_032");
 		}
 		
     //AD_Asset_ Audit_035 Verify the Audit trail entry after modifying Asset Size with the  Active Directory Supervisor User
@@ -744,6 +746,7 @@ public class AD_Asset_Sup_AuditTest extends BaseClass{
 			extentTest = extent.startTest("AD_Asset_ Audit 040 Verify the Audit trail entry after modifying Asset Validation frequency with Months option form drop down with the  Active Directory Supervisor   User");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_032");
+			System.out.println("Covered multiple operations in the AD_Asset_Audit_032");
 		}
 		
 		
@@ -757,6 +760,7 @@ public class AD_Asset_Sup_AuditTest extends BaseClass{
 					"AD_Asset_ Audit 041 Verify the Audit trail entry after modifying Asset Validation frequency with Year option form drop down with the  Active Directory Supervisor   User");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_032");
+			System.out.println("Covered multiple operations in the AD_Asset_Audit_032");
 		}
 		
    //AD_Asset_ Audit 042 Verify the Audit trail entry after modifying Asset Description with the  Active Directory Supervisor   User

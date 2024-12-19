@@ -676,6 +676,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		extentTest = extent.startTest("AD_Asset_ Audit 009 Verify the Audit trail entry after Deleting  Asset Model with the  Active Directory Admin User");
 
 		System.out.println("This Tc has handeled in  AD_Asset_Audit_008");
+		System.out.println("We have handled all the operations");
 	
 	}
 	
@@ -691,6 +692,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 					+ "	");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_008");
+			System.out.println("We have handled all the operations");
 		}
 		
 		// AD_Asset_ Audit 011 Verify the Audit trail entry after modifying Asset Size
@@ -704,6 +706,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 					+ "	");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_008");
+			System.out.println("We have handled all the operations");
 		}
 		
 
@@ -727,6 +730,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 					+ "	");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_008");
+			System.out.println("We have handled all the operations");
 		}
 		
 		
@@ -742,6 +746,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 					+ "	");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_008");
+			System.out.println("We have handled all the operations");
 		}
 		
 		
@@ -757,6 +762,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 					+ "	");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_008");
+			System.out.println("We have handled all the operations");
 		}
 		
 //AD_Asset_ Audit 016 Verify the Audit trail entry after modifying Asset Validation frequency with Months option form drop down with the  Active Directory Admin   User
@@ -769,6 +775,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 					+ "	");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_008");
+			System.out.println("We have handled all the operations");
 		}
 		
 		
@@ -784,6 +791,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 							+ "	");
 
 			System.out.println("This Tc has handeled in  AD_Asset_Audit_008");
+			System.out.println("We have handled all the operations");
 		}
 		
 //AD_Asset_ Audit 018 Verify the Audit trail entry after modifying Asset Description with the  Active Directory Admin   User
@@ -1108,7 +1116,22 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				extentTest = extent
 						.startTest("CA011-Verify the on-click functionality of the copy button in Copy Asset screen");
 
-				System.out.println("This TC has covered in CA010 ");
+				SoftAssert sa = new SoftAssert();
+				Copyassetpage = assetDetailsPage.clickCopyasset();
+				Copyassetpage.Enter_NewAssetNameField("abcc");
+				Copyassetpage.clickBackBtn_alertMsg();
+				String ActalertTxt = Copyassetpage.get_text_back_popup();
+				String ExpalertTxt = "You are about to lose your changes.Do you want to continue ?";
+				sa.assertEquals(ActalertTxt, ExpalertTxt, "FAIL: Alert message is not displayed");
+				Copyassetpage.click_No_fromAlert();
+				sa.assertEquals(Copyassetpage.IsCopyAssetPageTitle_presence(), true,
+						"FAIL: Copy Asset title is not displaying");
+				Copyassetpage.clickBackBtn_alertMsg();
+				assetDetailsPage = Copyassetpage.Yes_Alert();
+
+				sa.assertEquals(assetDetailsPage.assetDetail_PageTitle(), "HeatBath - Asset01",
+						"FAIL:Incorrect AssetDetails Page title or landed into incorrect Page");
+				sa.assertAll();
 
 			}
 			
@@ -1121,7 +1144,27 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			public void CA013() throws InterruptedException, IOException, AWTException, ParseException {
 				extentTest = extent.startTest("CA013-Verify the date and time of the copied setups in the copied Asset");
 
-				System.out.println("This TC has covered in CA010 ");
+				SoftAssert sa = new SoftAssert();
+
+				String CreatedSetupDateFormat = assetDetailsPage.Get_Setup_Date();
+				System.out.println("Date1:" + CreatedSetupDateFormat);
+
+				Copyassetpage = assetDetailsPage.clickCopyasset();
+				Copyassetpage.Enter_NewAssetNameField("CA013");
+				Copyassetpage.Enter_NewAssetIDField("13");
+				Copyassetpage.Click_Checkbox();
+				Copyassetpage.click_copy_Btn();
+				UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+				Thread.sleep(3000);
+				assetDetailsPage = Copyassetpage.clickBack_Button();
+				assetHubPage = assetDetailsPage.ClickBackBtn();
+				assetDetailsPage = assetHubPage.click_assetTile("CA013");
+
+				String SetupDateFormat_CopiedAseet = assetDetailsPage.Get_Setup_Date();
+				System.out.println("Date2:" + SetupDateFormat_CopiedAseet);
+				sa.assertEquals(SetupDateFormat_CopiedAseet, CreatedSetupDateFormat, "FAIL: Format is not matched");
+
+				sa.assertAll();
 
 	         }
 			
@@ -1134,7 +1177,27 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			public void CA014() throws InterruptedException, IOException, AWTException, ParseException {
 				extentTest = extent.startTest("CA014-Verify if Audit trial record exists for copy asset");
 
-				System.out.println("This TC has covered in CA010 ");
+				SoftAssert sa = new SoftAssert();
+				Copyassetpage = assetDetailsPage.clickCopyasset();
+
+				Copyassetpage.copyAsset_Creation("CA011", "11");
+				Thread.sleep(2000);
+				UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+				Thread.sleep(2000);
+				String ActAlrtMsg = tu.get_AlertMsg_text();
+				String ExpAlrtMsg = "CA011 Created Successfully";
+				sa.assertEquals(ActAlrtMsg, ExpAlrtMsg, "FAIL: Alert message is not displayed");
+				assetDetailsPage = Copyassetpage.clickBack_Button();
+				assetHubPage = assetDetailsPage.ClickBackBtn();
+				MainHubPage = assetHubPage.click_BackBtn();
+				AuditPage = MainHubPage.ClickAuditTitle();
+				Thread.sleep(5000);
+				String Actionmsg = AuditPage.get_auditEvent_text();
+				String ExpectMSG = "Asset : \"CA011\" is created by User Id : \"1\" , User Name : \"User1\".";
+
+				sa.assertEquals(Actionmsg, ExpectMSG, "FAIL:The Audit trail record for copy Assets activity is not exist ");
+				sa.assertAll();
+
 
 	         }
 			
@@ -1184,8 +1247,21 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			public void CA016() throws InterruptedException, IOException, AWTException, ParseException {
 				extentTest = extent
 						.startTest("CA016-Verify user is able to delete the copied asset if it has no files in it");
-				
-				System.out.println("This has covered in CA015");
+				SoftAssert sa = new SoftAssert();
+				assetHubPage = MainHubPage.Click_AssetTile2();
+				assetCreationPage = assetHubPage.Click_AddAssetButton();
+				assetCreationPage.assetCreation("CA005B1", "A16", "HeatBath", "Aas", "Vskp");
+				tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "Assetcreation");
+				tu.click_Close_alertmsg();
+				assetHubPage = assetDetailsPage.ClickBackBtn();
+				assetDetailsPage = assetHubPage.click_assetTile("CA005B1");
+				assetDetailsPage.Click_DeleteAsset();
+				UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+				assetHubPage = assetDetailsPage.Delete_ClickYesBtn();
+				assetHubPage.click_serachAstBtn();
+				assetHubPage.enter_serachAsttxt("CA005B1");
+				sa.assertEquals(assetHubPage.IsNoRecordFoundVisible(), true, "FAIL: Asset is visible");
+				sa.assertAll();
 				
 			}
 			

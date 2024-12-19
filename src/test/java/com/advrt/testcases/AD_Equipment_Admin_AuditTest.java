@@ -9,42 +9,37 @@ package com.advrt.testcases;
 
 import java.awt.AWTException;
 import java.io.IOException;
+import java.text.ParseException;
 
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import java.text.ParseException;
 import org.testng.asserts.SoftAssert;
-
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
 //import com.vrt.Listners.AllureReportListner;
 import com.advrt.base.BaseClass;
-import com.advrt.pages.LoginPage;
-import com.advrt.pages.MainHubPage;
-import com.advrt.pages.UserManagementPage_Manual;
-import com.advrt.pages.PoliciesPage;
-import com.advrt.pages.AuditPage;
-import com.advrt.pages.assetHubPage;
-
 import com.advrt.pages.ADUM_page;
-import com.advrt.pages.assetDetailsPage;
-import com.advrt.pages.EquipmentHubPage;
-import com.advrt.pages.NewEquipmentCreation_Page;
+import com.advrt.pages.AuditPage;
 import com.advrt.pages.Copyassetpage;
 import com.advrt.pages.DefaultUserPrivilages_page;
-import com.advrt.pages.Equipment_IRTDHubPage;
+import com.advrt.pages.EquipmentHubPage;
 import com.advrt.pages.Equipment_IRTDDetailspage;
-import com.advrt.utility.ADUserManagementUtility;
+import com.advrt.pages.Equipment_IRTDHubPage;
+import com.advrt.pages.LoginPage;
+import com.advrt.pages.MainHubPage;
+import com.advrt.pages.NewEquipmentCreation_Page;
+import com.advrt.pages.PoliciesPage;
+import com.advrt.pages.UserManagementPage_Manual;
+import com.advrt.pages.assetCreationPage;
+import com.advrt.pages.assetDetailsPage;
+import com.advrt.pages.assetHubPage;
 import com.advrt.utility.TestUtilities;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 
 public class AD_Equipment_Admin_AuditTest extends BaseClass{
@@ -70,6 +65,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 	DefaultUserPrivilages_page DefaultUserPrivilages_page;
 	AuditPage AuditPage;
 	assetHubPage assetHubPage;
+	assetCreationPage assetCreationPage;
 
 	EquipmentHubPage EquipmentHubPage;
 	NewEquipmentCreation_Page NewEquipmentCreation_Page;
@@ -469,11 +465,102 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 
 		@Test(description = "AD_Equipment_Audit _008 Verify the Audit trail entry while Deleting  Equipment Image with the  Active Directory Admin  User")
 
-		public void AD_Equipment_Audit_008() throws InterruptedException, AWTException, IOException {
+		public void AD_Equipment_Audit_008() throws InterruptedException, AWTException, IOException, ParseException {
 			extentTest = extent.startTest(
 					"AD_Equipment_Audit _008 Verify the Audit trail entry while Deleting  Equipment Image with the  Active Directory Admin  User");
 
-			System.out.println("This test case is covered on AD_Asset_Audit_007");
+			SoftAssert sa = new SoftAssert();
+			assetHubPage = MainHubPage.Click_AssetTile2();
+			assetCreationPage = assetHubPage.ClickAddAssetBtn();
+			//assetCreationPage.assetCreation("Ast004", "04", "HeatBath", "AAS", "HYBD");
+			String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
+			assetCreationPage.assetCreationWithAllFieldEntry("Ast004", "04", "HeatBath", "Aas", "Hyderabad", "AVS", "2",
+					"cu", crntDate, "5", "Weeks", "3rd Asset Creation");
+			
+			tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "Assetcreation");
+			tu.click_Close_alertmsg();
+			assetHubPage = assetCreationPage.clickBackBtn();
+
+			assetDetailsPage = assetHubPage.click_assetTile("Ast004");
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetCreationPage.enterAssetID("A4");
+			assetCreationPage.clickSaveBtn();
+			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.click_Close_alertmsg();
+
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			MainHubPage = assetHubPage.click_BackBtn();
+
+			AuditPage = MainHubPage.ClickAuditTitle();
+			Thread.sleep(2000);
+
+			sa.assertEquals(AuditPage.get_auditEvent_text(),
+					"Asset : \"Ast004\" \"Asset ID\" field modified from \"04\" to \"A4 \" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+			
+			
+			MainHubPage = AuditPage.Click_BackBtn();
+			assetHubPage = MainHubPage.Click_AssetTile2();
+			assetDetailsPage = assetHubPage.click_assetTile("Ast004");
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetCreationPage.enterAssetType("Sterilizer");
+			assetCreationPage.clickSaveBtn();
+			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.click_Close_alertmsg();
+
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			MainHubPage = assetHubPage.click_BackBtn();
+
+			AuditPage = MainHubPage.ClickAuditTitle();
+			Thread.sleep(2000);
+
+			sa.assertEquals(AuditPage.get_auditEvent_text(),
+					"Asset : \"Ast004\" \"Type\" field modified from \"HeatBath\" to \"HeatBathSterilizer\" by  User ID : Kiranc1 , User Name : Kiranc1.");
+			Thread.sleep(1000);
+			MainHubPage = AuditPage.Click_BackBtn();
+			assetHubPage = MainHubPage.Click_AssetTile2();
+			assetDetailsPage = assetHubPage.click_assetTile("Ast004");
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetCreationPage.enterManufacturerName("M1");
+			assetCreationPage.clickSaveBtn();
+			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.click_Close_alertmsg();
+			
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			MainHubPage = assetHubPage.click_BackBtn();
+
+			AuditPage = MainHubPage.ClickAuditTitle();
+			Thread.sleep(2000);
+
+			sa.assertEquals(AuditPage.get_auditEvent_text(),
+					"Asset : \"Ast004\" \"Manufacturer\" field modified from \"Aas\" to \"M1\" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+		
+			
+			
+			Thread.sleep(1000);
+			MainHubPage = AuditPage.Click_BackBtn();
+			assetHubPage = MainHubPage.Click_AssetTile2();
+			assetDetailsPage = assetHubPage.click_assetTile("Ast004");
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetCreationPage.enterLocation("India");
+			assetCreationPage.clickSaveBtn();
+			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.click_Close_alertmsg();
+			
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			MainHubPage = assetHubPage.click_BackBtn();
+
+			AuditPage = MainHubPage.ClickAuditTitle();
+			Thread.sleep(2000);
+
+			sa.assertEquals(AuditPage.get_auditEvent_text(),
+					"Asset : \"Ast004\" \"Location\" field modified from \"Hyderabad\" to \"India\" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+			
+			sa.assertAll();
+
 
 		}
 		
@@ -481,11 +568,101 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 		
 		@Test(description = "AD_Equipment_Audit _009 Verify the Audit trail entry while Adding new  Equipment Image with the  Active Directory Admin  User")
 
-		public void AD_Equipment_Audit_009() throws InterruptedException, AWTException, IOException {
+		public void AD_Equipment_Audit_009() throws InterruptedException, AWTException, IOException, ParseException {
 			extentTest = extent.startTest(
 					"AD_Equipment_Audit _009 Verify the Audit trail entry while Adding new  Equipment Image with the  Active Directory Admin  User");
 
-			System.out.println("This test case is covered on AD_Asset_Audit_007");
+			SoftAssert sa = new SoftAssert();
+			assetHubPage = MainHubPage.Click_AssetTile2();
+			assetCreationPage = assetHubPage.ClickAddAssetBtn();
+			//assetCreationPage.assetCreation("Ast004", "04", "HeatBath", "AAS", "HYBD");
+			String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
+			assetCreationPage.assetCreationWithAllFieldEntry("Ast004", "04", "HeatBath", "Aas", "Hyderabad", "AVS", "2",
+					"cu", crntDate, "5", "Weeks", "3rd Asset Creation");
+			
+			tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "Assetcreation");
+			tu.click_Close_alertmsg();
+			assetHubPage = assetCreationPage.clickBackBtn();
+
+			assetDetailsPage = assetHubPage.click_assetTile("Ast004");
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetCreationPage.enterAssetID("A4");
+			assetCreationPage.clickSaveBtn();
+			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.click_Close_alertmsg();
+
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			MainHubPage = assetHubPage.click_BackBtn();
+
+			AuditPage = MainHubPage.ClickAuditTitle();
+			Thread.sleep(2000);
+
+			sa.assertEquals(AuditPage.get_auditEvent_text(),
+					"Asset : \"Ast004\" \"Asset ID\" field modified from \"04\" to \"A4 \" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+			
+			
+			MainHubPage = AuditPage.Click_BackBtn();
+			assetHubPage = MainHubPage.Click_AssetTile2();
+			assetDetailsPage = assetHubPage.click_assetTile("Ast004");
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetCreationPage.enterAssetType("Sterilizer");
+			assetCreationPage.clickSaveBtn();
+			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.click_Close_alertmsg();
+
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			MainHubPage = assetHubPage.click_BackBtn();
+
+			AuditPage = MainHubPage.ClickAuditTitle();
+			Thread.sleep(2000);
+
+			sa.assertEquals(AuditPage.get_auditEvent_text(),
+					"Asset : \"Ast004\" \"Type\" field modified from \"HeatBath\" to \"HeatBathSterilizer\" by  User ID : Kiranc1 , User Name : Kiranc1.");
+			Thread.sleep(1000);
+			MainHubPage = AuditPage.Click_BackBtn();
+			assetHubPage = MainHubPage.Click_AssetTile2();
+			assetDetailsPage = assetHubPage.click_assetTile("Ast004");
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetCreationPage.enterManufacturerName("M1");
+			assetCreationPage.clickSaveBtn();
+			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.click_Close_alertmsg();
+			
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			MainHubPage = assetHubPage.click_BackBtn();
+
+			AuditPage = MainHubPage.ClickAuditTitle();
+			Thread.sleep(2000);
+
+			sa.assertEquals(AuditPage.get_auditEvent_text(),
+					"Asset : \"Ast004\" \"Manufacturer\" field modified from \"Aas\" to \"M1\" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+		
+			
+			
+			Thread.sleep(1000);
+			MainHubPage = AuditPage.Click_BackBtn();
+			assetHubPage = MainHubPage.Click_AssetTile2();
+			assetDetailsPage = assetHubPage.click_assetTile("Ast004");
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetCreationPage.enterLocation("India");
+			assetCreationPage.clickSaveBtn();
+			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.click_Close_alertmsg();
+			
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			MainHubPage = assetHubPage.click_BackBtn();
+
+			AuditPage = MainHubPage.ClickAuditTitle();
+			Thread.sleep(2000);
+
+			sa.assertEquals(AuditPage.get_auditEvent_text(),
+					"Asset : \"Ast004\" \"Location\" field modified from \"Hyderabad\" to \"India\" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+			
+			sa.assertAll();
 
 		}
 		
