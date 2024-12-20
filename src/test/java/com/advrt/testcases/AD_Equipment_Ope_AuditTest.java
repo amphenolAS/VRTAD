@@ -400,7 +400,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		extentTest = extent.startTest(
 				"AD_Equipment_Audit _016 Verify the Audit trail entry while Deleting  Equipment ID with the  Active Directory Operator  User");
 
-		System.out.println("This test case is covered on AD_Asset_Audit_025");
+		System.out.println("This test case is covered in AD_Equipment_Audit _024");
 
 	}
 
@@ -412,7 +412,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		extentTest = extent.startTest(
 				"AD_Equipment_Audit _017 Verify the Audit trail entry while Adding new   Equipment ID with the  Active Directory Operator  User");
 
-		System.out.println("This test case is covered on AD_Asset_Audit_025");
+		System.out.println("This test case is covered in AD_Equipment_Audit _024");
 
 	}
 	

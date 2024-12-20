@@ -448,7 +448,22 @@ public class AD_UMtest2 extends BaseClass{
 			extentTest = extent.startTest(
 					"UM31-Verify if Newly added user type should display in the user type dropdown in the User management screen");
 
-			System.out.println("UM31-Similar to UM08 the above tc");
+			SoftAssert sa = new SoftAssert();
+			
+			ADUM_page.select_grp("QA3");
+			ADUM_page.select_user(2);
+			DefaultUserPrivilages_page = ADUM_page.SelectUType1("NewUserType");
+			Thread.sleep(1000);
+			DefaultUserPrivilages_page.Enter_NewUserType("res");
+			DefaultUserPrivilages_page.click_UPUserManagementCheckBox();
+			DefaultUserPrivilages_page.click_UPAssetsPrivlegesCheckBox();
+			ADUM_page = DefaultUserPrivilages_page.click_save_btn();
+			Thread.sleep(1000);
+			
+			ADUM_page.SelectUType("res");
+			
+			sa.assertEquals(ADUM_page.Fetch_UserType(),"res","FAIL: User Type has not selected as per the users selection");
+			sa.assertAll();
 		}
 		
 		// UM32-Verify if user should not be able to create the new user type with the
