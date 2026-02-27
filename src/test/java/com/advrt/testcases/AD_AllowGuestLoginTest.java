@@ -8,6 +8,7 @@ package com.advrt.testcases;
 
 
 import java.awt.AWTException;
+
 import java.io.IOException;
 
 import org.testng.ITestResult;
@@ -33,9 +34,7 @@ import com.advrt.utility.TestUtilities;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-<<<<<<< HEAD
-=======
-//import com.vrt.Listners.AllureReportListner;
+
 import com.advrt.base.BaseClass;
 import com.advrt.pages.LoginPage;
 import com.advrt.pages.MainHubPage;
@@ -47,7 +46,7 @@ import com.advrt.pages.AuditPage;
 import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.utility.TestUtilities;
->>>>>>> 76c10684c1fdbabac66fa1fd2f3b467e39a482d9
+
 
 
 public class AD_AllowGuestLoginTest extends BaseClass{
