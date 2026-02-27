@@ -124,6 +124,20 @@ public class LoginPage extends BaseClass {
 		return FetchText(MainLoginPW);
 	}
 
+	public Database_configPage DefaultLogin1() throws InterruptedException, IOException {
+		Thread.sleep(500);
+		MainLoginUID.click();
+		Thread.sleep(500);
+		MainLoginUID.sendKeys("Kaye");
+		Thread.sleep(500);
+		MainLoginPW.click();
+		Thread.sleep(500);
+		MainLoginPW.sendKeys("411");
+		MainLoginBtn.click();
+		Thread.sleep(2000);
+	
+		return new Database_configPage();
+	}
 	// Verify the change User PW field active or not...")
 	public boolean ChangePWCheckBoxEnableStatus() {
 		WebElement MainLoginChgPWChckBx = driver.findElementByName("Change Password");
@@ -418,27 +432,7 @@ public class LoginPage extends BaseClass {
 		return SWVer[1];
 	}
 	
-	
-	//DatabaseConfigButton
-	
-	
-	
-	public Database_configPage DefaultLogin1() throws InterruptedException, IOException {
-		Thread.sleep(500);
-		MainLoginUID.click();
-		Thread.sleep(500);
-		MainLoginUID.sendKeys("Kaye");
-		Thread.sleep(500);
-		MainLoginPW.click();
-		Thread.sleep(500);
-		MainLoginPW.sendKeys("411");
-		MainLoginBtn.click();
-		Thread.sleep(2000);
-	
-		return new Database_configPage();
-	}
-	
-	
+
 	
 	public AD_UMPage ADLogin_UMpage(String UID, String PW) throws InterruptedException, IOException {
 		MainLoginUID.click();

@@ -38,6 +38,7 @@ import com.advrt.pages.assetCreationPage;
 import com.advrt.pages.ADUM_page;
 import com.advrt.pages.assetDetailsPage;
 import com.advrt.pages.Copyassetpage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.utility.ADUserManagementUtility;
 import com.advrt.utility.TestUtilities;
@@ -66,6 +67,7 @@ public class AD_Asset_Ope_AuditTest extends BaseClass{
 	AuditPage AuditPage;
 	assetHubPage assetHubPage;
 	assetCreationPage assetCreationPage;
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 	
 	

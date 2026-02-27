@@ -24,6 +24,7 @@ import com.advrt.base.BaseClass;
 import com.advrt.pages.ADUM_page;
 import com.advrt.pages.AuditPage;
 import com.advrt.pages.Copyassetpage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.pages.EquipmentHubPage;
 import com.advrt.pages.Equipment_IRTDDetailspage;
@@ -71,6 +72,7 @@ public class AD_Equipment_Admin_AuditTest extends BaseClass{
 	NewEquipmentCreation_Page NewEquipmentCreation_Page;
 	Equipment_IRTDHubPage Equipment_IRTDHubPage;
 	Equipment_IRTDDetailspage Equipment_IRTDDetailspage;
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 	
 	

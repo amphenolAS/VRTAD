@@ -28,6 +28,7 @@ import com.advrt.pages.MainHubPage;
 import com.advrt.pages.UserManagementPage_Manual;
 import com.advrt.pages.PoliciesPage;
 import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.UserManagementPage;
 import com.advrt.pages.ADUM_page;
 import com.advrt.pages.DefaultUserPrivilages_page;
@@ -55,6 +56,7 @@ public class AD_UMtest2 extends BaseClass{
 	ADUM_page ADUM_page;
 	DefaultUserPrivilages_page DefaultUserPrivilages_page;
 	AuditPage AuditPage;
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 	
 	

@@ -1,6 +1,7 @@
 package com.advrt.pages;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import com.advrt.base.BaseClass;
+import com.advrt.pages.MappingSensorsPage;
 
 public class SelectLoggersPage extends BaseClass {
 
@@ -177,7 +179,22 @@ public class SelectLoggersPage extends BaseClass {
 			Thread.sleep(2000);
 		}
 	}
-	
+
+	// Click the Mapping sensors button t0 navigate to Mapping sensors page
+		public MappingSensorsPage clickNext_MappingSensorBtn1() throws InterruptedException, IOException {
+			clickOn(NextButton);
+			try {
+				WebElement Yes_Btn = driver.findElementByAccessibilityId("Button1");
+				Thread.sleep(1000);
+				clickOn(Yes_Btn);
+				
+			} catch (Exception e) {
+				
+				e.getMessage();
+			}
+			Thread.sleep(2000);
+			return new MappingSensorsPage();
+		}
 
 	//click on mapping sensor btn
 	public MappingSensorsPage lgrStatusPopup_wait() throws IOException, InterruptedException {

@@ -1,13 +1,16 @@
 package com.advrt.pages;
 
 import java.io.IOException;
+
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.advrt.base.BaseClass;
 import com.advrt.pages.MainHubPage;
+import com.advrt.pages.SelectLoggersPage;
 
 public class SelectBaseStationPage extends BaseClass {
 
@@ -162,5 +165,79 @@ public class SelectBaseStationPage extends BaseClass {
 			//UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "committed");
 			
 		}}
+		public void click_BaseStation(String ip) throws InterruptedException
+		{
+			List<WebElement> ipAdd = driver.findElementsByAccessibilityId("textBlockIpAddress");
+			
+			for(WebElement AVSIP:ipAdd)
+			{
+				if(FetchText(AVSIP).equalsIgnoreCase("Ethernet IP-- "+ip))
+				{
+					Thread.sleep(2000);
+					clickOn(AVSIP);
+					break;
+				}
+				
+			}
+			
 		
+			
+			
 }
+		public SelectLoggersPage Click_ConnectBtn1() throws IOException, InterruptedException {
+			Thread.sleep(2000);
+			clickOn(Connect_Btn);
+			Thread.sleep(4000);
+			try
+			{
+				WebElement alert_Msg = driver.findElementByName("Base station is in Join Mode. Use ‘BS Settings’ Screen to set Base Station to IDLE and try to connect again.");
+				WebElement dltBtn = driver.findElementByAccessibilityId("btnDelete");
+				WebElement bsSetting = driver.findElementByAccessibilityId("btnBsSettings");
+				int explicitWaitTimeout = 40;
+		        driver.manage().timeouts().implicitlyWait(explicitWaitTimeout, TimeUnit.SECONDS);
+				if(IsElementVisibleStatus(alert_Msg))
+				{
+					Thread.sleep(4000);
+					clickOn(dltBtn);
+					Thread.sleep(5000);
+					clickOn(bsSetting);
+					Click_SetBSideal();
+					UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+					Thread.sleep(30000);
+					clickOn(Connect_Btn);
+					Thread.sleep(2000);
+					
+				}
+				
+			}
+			catch (Exception e) {
+				e.getMessage();
+			}
+			try
+			{
+				WebElement qualMode = driver.findElementByAccessibilityId("Content_String");
+				WebElement bsSetting = driver.findElementByAccessibilityId("btnBsSettings");
+				if(IsElementVisibleStatus(qualMode))
+				{
+					WebElement Yes = driver.findElementByAccessibilityId("Button0");
+					clickOn(Yes);
+					Thread.sleep(1000);
+					clickOn(bsSetting);
+					Click_SetBSideal();
+					UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+					Thread.sleep(30000);
+					clickOn(Connect_Btn);
+					Thread.sleep(2000);
+				}
+			}
+				catch (Exception e) {
+					e.getMessage();
+				}
+		
+//			int explicitWaitTimeout = 50;
+//	        driver.manage().timeouts().implicitlyWait(explicitWaitTimeout, TimeUnit.SECONDS);
+			
+			return new SelectLoggersPage();
+		}
+}
+		

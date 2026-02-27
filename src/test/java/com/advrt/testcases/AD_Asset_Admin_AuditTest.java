@@ -38,6 +38,7 @@ import com.advrt.pages.assetCreationPage;
 import com.advrt.pages.ADUM_page;
 import com.advrt.pages.assetDetailsPage;
 import com.advrt.pages.Copyassetpage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.utility.ADUserManagementUtility;
 import com.advrt.utility.TestUtilities;
@@ -70,6 +71,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 	AuditPage AuditPage;
 	assetHubPage assetHubPage;
 	assetCreationPage assetCreationPage;
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 	
 	
@@ -98,8 +100,8 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			LoginPage = new LoginPage();
 			extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 			LoginPage.clickOn_AppName();
-			PoliciesPage = LoginPage.DefaultLogin();
-			UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
+			 Database_configPage= LoginPage.DefaultLogin1();
+			UserManagementPage_Manual = Database_configPage.click_UMHeaderManual();
 			Thread.sleep(1000);
 			UserManagementPage_Manual.ClickNewUser();	
 			// Create the default Admin USer

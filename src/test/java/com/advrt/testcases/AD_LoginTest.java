@@ -31,6 +31,7 @@ import com.advrt.pages.MainHubPage;
 import com.advrt.pages.UserManagementPage_Manual;
 import com.advrt.pages.PoliciesPage;
 import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.AD_UMPage;
 import com.advrt.pages.ADUM_page;
 import com.advrt.pages.DefaultUserPrivilages_page;
@@ -58,6 +59,7 @@ public class AD_LoginTest extends BaseClass {
 	DefaultUserPrivilages_page DefaultUserPrivilages_page;
 	AuditPage AuditPage;
 	AD_UMPage AD_UMPage;
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 
 	// Before All the tests are conducted

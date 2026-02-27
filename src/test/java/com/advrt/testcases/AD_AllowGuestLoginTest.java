@@ -33,6 +33,21 @@ import com.advrt.utility.TestUtilities;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
+<<<<<<< HEAD
+=======
+//import com.vrt.Listners.AllureReportListner;
+import com.advrt.base.BaseClass;
+import com.advrt.pages.LoginPage;
+import com.advrt.pages.MainHubPage;
+import com.advrt.pages.UserManagementPage;//
+import com.advrt.pages.PoliciesPage;
+import com.advrt.pages.PreferencesPage;
+import com.advrt.pages.AD_UMPage;
+import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
+import com.advrt.pages.DefaultUserPrivilages_page;
+import com.advrt.utility.TestUtilities;
+>>>>>>> 76c10684c1fdbabac66fa1fd2f3b467e39a482d9
 
 
 public class AD_AllowGuestLoginTest extends BaseClass{
@@ -85,8 +100,10 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
+
 		Database_configPage = LoginPage.DefaultLogin1();
 		UserManagementPage = Database_configPage.click_UMHeader();
+		
 		//UserManagementPage.ClickNewUser();	
 		// Create the default Admin USer
 		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
@@ -101,7 +118,10 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 		PoliciesPage = UserManagementPage.Click_Policy();
 
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
+
 		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
+
+		
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
 		PoliciesPage.clickonOkBtn();

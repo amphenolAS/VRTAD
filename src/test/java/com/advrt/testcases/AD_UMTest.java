@@ -22,6 +22,7 @@ import org.testng.asserts.SoftAssert;
 import com.advrt.base.BaseClass;
 import com.advrt.pages.ADUM_page;
 import com.advrt.pages.AD_UMPage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.pages.LoginPage;
 import com.advrt.pages.MainHubPage;
@@ -56,7 +57,7 @@ public class AD_UMTest extends BaseClass{
 	AD_UMPage AD_UMPage;
 	static String AdmnUN = "User1";
 	DefaultUserPrivilages_page DefaultUserPrivilages_page;
-	
+	Database_configPage Database_configPage;
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
@@ -140,12 +141,10 @@ public class AD_UMTest extends BaseClass{
 		extentTest = extent.startTest("UM01-Verify if User Management screen displays the Select Group when the Active Directory is activated +"
 				+ "UM02-Verify if the different groups are displayed in the Select group dropdown");
 		SoftAssert sa = new SoftAssert();
+		 Database_configPage= LoginPage.DefaultLogin1();
+		 UserManagementPage = Database_configPage.click_UMHeader();
 		
-		PoliciesPage = LoginPage.DefaultLogin();
-		//Validating policies screen displayed or not
-		sa.assertEquals(PoliciesPage.IsPolicies_screenDisplayed(), true,
-				"Fail:Not landed to Policies Page");
-		UserManagementPage = PoliciesPage.click_UMHeader();
+		
 		PoliciesPage = UserManagementPage.Click_Policy();
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
 		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");

@@ -34,6 +34,7 @@ import com.advrt.pages.PoliciesPage;
 import com.advrt.pages.PreferencesPage;
 import com.advrt.pages.AD_UMPage;
 import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.utility.TestUtilities;
 
@@ -57,7 +58,7 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 	PreferencesPage PreferencesPage;
 	AuditPage AuditPage;
 	DefaultUserPrivilages_page AD_NewUserPopup;
-
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 
 	// Before All the tests are conducted
@@ -87,7 +88,8 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
-		PoliciesPage = LoginPage.DefaultLogin();
+		 Database_configPage= LoginPage.DefaultLogin1();
+		 PoliciesPage = Database_configPage.click_PolicyPage();
 
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
 		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
