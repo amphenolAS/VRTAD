@@ -42,6 +42,7 @@ import com.advrt.pages.assetDetailsPage;
 import com.advrt.pages.EquipmentHubPage;
 import com.advrt.pages.NewEquipmentCreation_Page;
 import com.advrt.pages.Copyassetpage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.pages.Equipment_IRTDHubPage;
 import com.advrt.pages.Equipment_IRTDDetailspage;
@@ -87,7 +88,7 @@ public class AD_FM_Archive_SupAuditTest extends BaseClass{
 	FM_ArchivePage FM_ArchivePage;
 	FM_ArchiveSelectionPage FM_ArchiveSelectionPage;
 	FM_SyncInPage FM_SyncInPage;
-	
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 	
 	

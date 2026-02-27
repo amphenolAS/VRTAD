@@ -36,6 +36,7 @@ import com.advrt.pages.FM_SyncInPage;
 import com.advrt.pages.SyncInAssetListPage;
 import com.advrt.pages.AD_UMPage;
 import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.assetHubPage;
 import com.advrt.pages.assetDetailsPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
@@ -67,6 +68,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 	assetHubPage assetHubPage;
 	assetDetailsPage assetDetailsPage;
 	DefaultUserPrivilages_page DefaultUserPrivilages_page;
+	Database_configPage Database_configPage;
 	
 	static String AdmnUN = "User1";
 	

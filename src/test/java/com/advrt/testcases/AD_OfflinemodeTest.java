@@ -35,6 +35,7 @@ import com.advrt.pages.PoliciesPage;
 import com.advrt.pages.PreferencesPage;
 import com.advrt.pages.AD_UMPage;
 import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.utility.TestUtilities;
 
@@ -60,7 +61,7 @@ public class AD_OfflinemodeTest extends BaseClass{
 	PreferencesPage PreferencesPage;
 	DefaultUserPrivilages_page DefaultUserPrivilages_page;
 	AuditPage AuditPage;
-	
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 
 

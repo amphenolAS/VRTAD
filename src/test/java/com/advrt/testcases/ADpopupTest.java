@@ -26,6 +26,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 //import com.vrt.Listners.AllureReportListner;
 import com.advrt.base.BaseClass;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.LoginPage;
 import com.advrt.pages.MainHubPage;
 import com.advrt.pages.UserManagementPage;
@@ -50,6 +51,7 @@ public class ADpopupTest extends BaseClass{
 	MainHubPage MainHubPage;
 	UserManagementPage UserManagementPage;
 	PoliciesPage PoliciesPage;
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 	
 	

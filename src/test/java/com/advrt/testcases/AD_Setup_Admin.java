@@ -43,6 +43,7 @@ import com.advrt.pages.assetDetailsPage;
 import com.advrt.pages.EquipmentHubPage;
 import com.advrt.pages.NewEquipmentCreation_Page;
 import com.advrt.pages.Copyassetpage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.pages.Equipment_IRTDHubPage;
 import com.advrt.pages.Setup_defineSetupPage;
@@ -93,6 +94,7 @@ public class AD_Setup_Admin extends BaseClass {
 	Setup_QualParamPage Setup_QualParamPage;
 	Setup_ReviewPage Setup_ReviewPage ;
 	assetCreationPage assetCreationPage;
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 
 	// Before All the tests are conducted

@@ -45,6 +45,7 @@ import com.advrt.pages.assetDetailsPage;
 import com.advrt.pages.EquipmentHubPage;
 import com.advrt.pages.NewEquipmentCreation_Page;
 import com.advrt.pages.Copyassetpage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.pages.Equipment_IRTDHubPage;
 import com.advrt.pages.FM_SyncInPage;
@@ -98,7 +99,8 @@ public class AD_Audit_Humidity_TempVerificationTest extends BaseClass {
 	SensorsInformationPage SensorsInformationPage;
 	ProgramLoggersPage ProgramLoggersPage;
 	VerificationPage VerificationPage;
-
+	Database_configPage Database_configPage;
+	
 	static String AdmnUN = "User1";
 
 	// Before All the tests are conducted

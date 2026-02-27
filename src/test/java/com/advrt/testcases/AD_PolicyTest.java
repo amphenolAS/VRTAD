@@ -31,6 +31,7 @@ import com.advrt.pages.MainHubPage;
 import com.advrt.pages.UserManagementPage;//AD_UMpage
 import com.advrt.pages.PoliciesPage;
 import com.advrt.pages.AD_UMPage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.utility.TestUtilities;
 
 
@@ -52,6 +53,7 @@ public class AD_PolicyTest extends BaseClass{
 	UserManagementPage UserManagementPage;
 	PoliciesPage PoliciesPage;
 	AD_UMPage AD_UMPage;
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 	
 	
