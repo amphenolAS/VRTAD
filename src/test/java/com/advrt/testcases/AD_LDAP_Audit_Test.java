@@ -31,6 +31,7 @@ import com.advrt.pages.UserManagementPage_Manual;
 import com.advrt.pages.PoliciesPage;
 import com.advrt.utility.TestUtilities;
 import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.ADUM_page;
 import com.advrt.pages.DefaultUserPrivilages_page;
 
@@ -54,7 +55,7 @@ public class AD_LDAP_Audit_Test extends BaseClass{
 	AuditPage AuditPage ;
 	ADUM_page ADUM_page ;
 	DefaultUserPrivilages_page DefaultUserPrivilages_page ;
-	
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 	
 	

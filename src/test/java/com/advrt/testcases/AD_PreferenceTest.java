@@ -25,6 +25,7 @@ import com.advrt.pages.PoliciesPage;
 import com.advrt.pages.PreferencesPage;
 import com.advrt.pages.UserManagementPage;//
 import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.AD_UMPage;
 import com.advrt.pages.EquipmentHubPage;
 import com.advrt.pages.NewEquipmentCreation_Page;
@@ -54,6 +55,7 @@ public class AD_PreferenceTest extends BaseClass {
 	AuditPage AuditPage;
 	EquipmentHubPage EquipmentHubPage;
 	NewEquipmentCreation_Page NewEquipmentCreation_Page;
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 
 

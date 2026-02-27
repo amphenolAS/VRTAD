@@ -38,6 +38,7 @@ import com.advrt.pages.AD_UMPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.pages.EquipmentHubPage;
 import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
 import com.advrt.pages.assetHubPage;
 import com.advrt.pages.assetCreationPage;
 import com.advrt.pages.assetDetailsPage;
@@ -98,6 +99,7 @@ public class AD_PrivilageAccessTest1 extends BaseClass{
 	Equipment_IRTDDetailspage Equipment_IRTDDetailspage;
 	Equipment_IRTDHubPage Equipment_IRTDHubPage;
 	SyncInAssetListPage SyncInAssetListPage;
+	Database_configPage Database_configPage;
 	static String AdmnUN = "User1";
 
 
