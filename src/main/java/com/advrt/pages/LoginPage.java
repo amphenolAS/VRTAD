@@ -7,6 +7,7 @@ package com.advrt.pages;
 
 import java.io.IOException;
 
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,6 +19,7 @@ import java.awt.event.KeyEvent;
 import com.advrt.pages.AD_UMPage;
 import com.advrt.base.BaseClass;
 import com.advrt.utility.TestUtilities;
+
 
 //import io.qameta.allure.Step;
 
@@ -417,6 +419,24 @@ public class LoginPage extends BaseClass {
 	}
 	
 	
+	//DatabaseConfigButton
+	
+	
+	
+	public Database_configPage DefaultLogin1() throws InterruptedException, IOException {
+		Thread.sleep(500);
+		MainLoginUID.click();
+		Thread.sleep(500);
+		MainLoginUID.sendKeys("Kaye");
+		Thread.sleep(500);
+		MainLoginPW.click();
+		Thread.sleep(500);
+		MainLoginPW.sendKeys("411");
+		MainLoginBtn.click();
+		Thread.sleep(2000);
+	
+		return new Database_configPage();
+	}
 	
 	
 	
@@ -442,7 +462,16 @@ public class LoginPage extends BaseClass {
 		return new PoliciesPage();
 	}
 	
-	
+	public Database_configPage ADLoginDBpage(String UID, String PW) throws InterruptedException, IOException {
+		MainLoginUID.click();
+		EnterUserID(UID);
+		EnterUserPW(PW);
+		Thread.sleep(500);
+		ClickLoginBtn();
+		Thread.sleep(1000);
+
+		return new Database_configPage();
+	}
 /*
 	public PasswordToolPage Presscrtl_E() throws IOException, AWTException, InterruptedException {
 		clickOn(MainLoginPW);

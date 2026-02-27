@@ -210,22 +210,31 @@ public class BaseClass {
 		return status;
 	}
 	
-
 	//Login Popup function to be called where invoked in respective pages 
-	public void UserLoginPopup(String UN, String PW) throws InterruptedException {
-		WebElement LgInPopup = driver.findElementByName("Enter User Credentials");
-		WebElement LgInUID = driver.findElementByAccessibilityId("UserIdTextBox");
-		WebElement LgInPW = driver.findElementByAccessibilityId("PasswordTextBox");
-		WebElement LgInOK = driver.findElementByAccessibilityId("ValidateUserOK");
-		
-		if (LgInPopup.isDisplayed()) {
-			LgInUID.sendKeys(UN);
-			LgInPW.sendKeys(PW);
-			LgInOK.click();
-			Thread.sleep(1000);
-		}		
-	}
-		
+		public void UserLoginPopup(String UN, String PW) throws InterruptedException {
+			WebElement LgInPopup = driver.findElementByName("Enter User Credentials");
+			WebElement LgInUID = driver.findElementByAccessibilityId("UserIdTextBox");
+			WebElement LgInPW = driver.findElementByAccessibilityId("PasswordTextBox");
+			WebElement LgInOK = driver.findElementByAccessibilityId("ValidateUserOK");
+			WebElement LoginComments=driver.findElementByAccessibilityId("UserCommentTextBox");
+			
+			if (LgInPopup.isDisplayed()) {
+				Thread.sleep(3000);
+			
+					LgInUID.click();
+					LgInUID.sendKeys(UN);
+				
+				//LgInUID.sendKeys(UN);
+					LgInPW.click();
+					Thread.sleep(2000);
+				LgInPW.sendKeys(PW);
+				Thread.sleep(500);
+				LoginComments.sendKeys("NA");
+				LgInOK.click();
+				Thread.sleep(1000);
+			}		
+		}
+			
 	
 	//Login Popup function to be called where invoked in respective pages 
 			public void UserLoginPopup_UserCommentTextBox(String UN, String PW,String usercomm) throws InterruptedException {
