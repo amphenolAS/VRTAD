@@ -92,9 +92,10 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 		 PoliciesPage = Database_configPage.click_PolicyPage();
 
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
+		PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
 		tu.click_OK_popup();
 

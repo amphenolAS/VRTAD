@@ -432,10 +432,7 @@ public class LoginPage extends BaseClass {
 		return SWVer[1];
 	}
 	
-	
 
-	
-	
 	
 	public AD_UMPage ADLogin_UMpage(String UID, String PW) throws InterruptedException, IOException {
 		MainLoginUID.click();
@@ -459,7 +456,16 @@ public class LoginPage extends BaseClass {
 		return new PoliciesPage();
 	}
 	
-	
+	public Database_configPage ADLoginDBpage(String UID, String PW) throws InterruptedException, IOException {
+		MainLoginUID.click();
+		EnterUserID(UID);
+		EnterUserPW(PW);
+		Thread.sleep(500);
+		ClickLoginBtn();
+		Thread.sleep(1000);
+
+		return new Database_configPage();
+	}
 /*
 	public PasswordToolPage Presscrtl_E() throws IOException, AWTException, InterruptedException {
 		clickOn(MainLoginPW);

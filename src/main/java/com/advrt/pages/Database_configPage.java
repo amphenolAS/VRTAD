@@ -3,18 +3,19 @@ package com.advrt.pages;
 
 import java.io.IOException;
 
+
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-
 import com.advrt.base.BaseClass;
 
 
 
 public class Database_configPage extends BaseClass {
+
 
 	// FileManagementPage Element definition
 	WebElement fileSystem = null;
@@ -64,12 +65,14 @@ public class Database_configPage extends BaseClass {
 			return new UserManagementPage();
 		}
 
+
 		//Navigate to UM page
 			public UserManagementPage_Manual click_UMHeaderManual() throws IOException {
 				UserManagement_TAB = driver.findElementByAccessibilityId("UserManagementButton");
 				clickOn(UserManagement_TAB);
 				return new UserManagementPage_Manual();
 			}
+
 		
 		// Check if Policies page is displayed
 		public boolean IsDataConfig_screenDisplayed() {

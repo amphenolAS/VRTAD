@@ -8,24 +8,33 @@ package com.advrt.testcases;
 
 
 import java.awt.AWTException;
+
 import java.io.IOException;
 
-import org.openqa.selenium.WebElement;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import java.text.ParseException;
 import org.testng.asserts.SoftAssert;
 
+//import com.vrt.Listners.AllureReportListner;
+import com.advrt.base.BaseClass;
+import com.advrt.pages.AD_UMPage;
+import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
+import com.advrt.pages.DefaultUserPrivilages_page;
+import com.advrt.pages.LoginPage;
+import com.advrt.pages.MainHubPage;
+import com.advrt.pages.PoliciesPage;
+import com.advrt.pages.PreferencesPage;
+import com.advrt.pages.UserManagementPage;//
+import com.advrt.utility.TestUtilities;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-//import com.vrt.Listners.AllureReportListner;
+
 import com.advrt.base.BaseClass;
 import com.advrt.pages.LoginPage;
 import com.advrt.pages.MainHubPage;
@@ -37,6 +46,7 @@ import com.advrt.pages.AuditPage;
 import com.advrt.pages.Database_configPage;
 import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.utility.TestUtilities;
+
 
 
 public class AD_AllowGuestLoginTest extends BaseClass{
@@ -89,8 +99,10 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
-		 Database_configPage= LoginPage.DefaultLogin1();
-		 UserManagementPage = Database_configPage.click_UMHeader();
+
+		Database_configPage = LoginPage.DefaultLogin1();
+		UserManagementPage = Database_configPage.click_UMHeader();
+		
 		//UserManagementPage.ClickNewUser();	
 		// Create the default Admin USer
 		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
@@ -105,9 +117,13 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 		PoliciesPage = UserManagementPage.Click_Policy();
 
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc1", "Amphenol@123", "VRTHYD.LOCAL", "Secure");
+
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
+
+		
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
+		PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
@@ -133,7 +149,7 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 	public void Setup() throws InterruptedException, IOException {
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		PoliciesPage	 = LoginPage.ADLogin_PPpage(getUID("adminFull"), getPW("adminFull"));
+		Database_configPage	 = LoginPage.ADLoginDBpage(getUID("adminFull"), getPW("adminFull"));
 		Thread.sleep(1000);
 	}
 
@@ -165,6 +181,7 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 
 	/********
 	Test Cases
+	 * @throws IOException 
 	 *********/
 
 
@@ -175,11 +192,11 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 	@Test(groups = { "Sanity",
 	"Regression" }, description = "ALG01-Verify if Allow Guset login should be disabled when there are no users in the application")
 
-	public void AD_GL01() throws InterruptedException {
+	public void AD_GL01() throws InterruptedException, IOException {
 		extentTest = extent
 				.startTest("ALG01-Verify if Allow Guset login should be disabled when there are no users in the application");
 		SoftAssert sa = new SoftAssert();
-
+		PoliciesPage=Database_configPage.click_PolicyPage();
 		sa.assertEquals(PoliciesPage.IsAllowGuestEnabled(), false,
 				"Fail:Allowcheck check box is not enabled");
 
@@ -192,11 +209,11 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 	@Test(groups = { "Sanity",
 	"Regression" }, description = "ALG02-Verify if User type should be disabled when there are no users in the application")
 
-	public void AD_GL02() throws InterruptedException {
+	public void AD_GL02() throws InterruptedException, IOException {
 		extentTest = extent
 				.startTest("ALG02-Verify if User type should be disabled when there are no users in the application");
 		SoftAssert sa = new SoftAssert();
-
+		PoliciesPage=Database_configPage.click_PolicyPage();
 		sa.assertEquals(PoliciesPage.IsGuestUsertypeEnabled(), false,
 				"Fail:Allowcheck check box is not enabled");
 
@@ -214,10 +231,10 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 			extentTest = extent
 					.startTest("ALG08-Verify if System Administrator able to activate the Allow Guest login as created New user type");
 			SoftAssert sa = new SoftAssert();
-			
+			PoliciesPage=Database_configPage.click_PolicyPage();
 			AD_UMPage=PoliciesPage.click_AD_UMHeader();
 			//AD_UMPage.Select_grp();
-			AD_UMPage.select_grp("QA Testers");
+			AD_UMPage.select_grp("QA Grp2");
 			//AD_UMPage.Select_user();
 			AD_UMPage.select_user(1);
 			AD_UMPage.select_UserTitle("Manager");
@@ -230,7 +247,7 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			Thread.sleep(500);
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+			MainHubPage = LoginPage.Login("ajay2","Amphenol@123");
 			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 			
 			AD_UMPage.select_UserTitle("Manager");
@@ -240,7 +257,7 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 			DefaultUserPrivilages_page.Click_AuditCheckBox();
 			DefaultUserPrivilages_page.NewSaveButton();
 			Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox("ajay2","Amphenol@123","usercommitted.");
 			//AD_UMPage.select_UserType1("NewUserType");//test
 			//tu.click_OK_popup();
 			
@@ -254,19 +271,20 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 			Thread.sleep(1000);
 			PoliciesPage.selectGuestuser(4);
 			PoliciesPage.ClickSaveButton();
+			PoliciesPage.clickonOkBtn();
 			PoliciesPage.clickOn_AcceptBtn();
 			Thread.sleep(1000);
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox("ajay2","Amphenol@123","usercommitted.");
 			//AD_UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
 			tu.click_OK_popup();
 			MainHubPage=AD_UMPage.click_BackBtn();
 			LoginPage=MainHubPage.UserSignOut();
-			MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+			MainHubPage = LoginPage.Login("User1","Amphenol@123");
 			Thread.sleep(1000);
 			AuditPage=MainHubPage.ClickAuditTitle();
 			Thread.sleep(1000);
 			String ActualMsg1=AuditPage.get_auditEvent_text();
-			String ExpectedMsg1="User ID : \"kiranc1\",User Name : \"Guest\" Logged in to System.";
+			String ExpectedMsg1="User ID : \"User1\",User Name : \"Guest\" Logged in to System.";
 
 			sa.assertEquals(ActualMsg1,ExpectedMsg1,
 					"Fail:Audit trial record does not exists change of user");

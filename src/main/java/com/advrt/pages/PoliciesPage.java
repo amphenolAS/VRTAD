@@ -61,7 +61,7 @@ public class PoliciesPage extends BaseClass {
 		UserManagement_TAB = driver.findElementByAccessibilityId("UserManagementButton");
 		Preferences_TAB = driver.findElementByAccessibilityId("PreferencesButton");
 		LoginFailuresComboBox = driver.findElementByAccessibilityId("LoginFailuresComboBox");
-		DisplayUserIdEntryCheckBox = driver.findElementByName("Display user id during entry");
+		DisplayUserIdEntryCheckBox = driver.findElementByAccessibilityId("DisplayUserIdEntryCheckBox");
 		// DisablePasswordSystemCheckBox =
 		// driver.findElementByAccessibilityId("DisablePasswordSystemCheckBox");
 		PasswordAplhaNumericSystemCheckBox = driver.findElementByAccessibilityId("PasswordAplhaNumericSystemCheckBox");
@@ -710,7 +710,12 @@ public class PoliciesPage extends BaseClass {
 				
 			}
 	
-	
+
+			public void clickonOkBtn() {
+				WebElement okbtn = driver.findElementByAccessibilityId("Button0");
+				clickOn(okbtn);
+			}
+			
 	//click on Accept btn 
 	
 	public void clickOn_AcceptBtn() {
