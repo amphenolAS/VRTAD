@@ -82,27 +82,41 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 		
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_Equipment_Ope_AuditTest"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_Equipment_Ope_AuditTestRegression(1.6.14)"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "AD_Equipment_Ope");
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("AD-UM Equipment for Operator role Test in Progress..");
 		
 
-	// Rename the VRT Data Files folder if exists in order to make the system default
-		 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-			//Copy the Default DataFIles folder from Test Data to the App service location.
-			String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-			String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-			tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+		// stop service
+			Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 			
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
 			extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 			LoginPage.clickOn_AppName();
-			PoliciesPage = LoginPage.DefaultLogin();
-			UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
+			Database_configPage= LoginPage.DefaultLogin1();
+			UserManagementPage_Manual = Database_configPage.click_UMHeaderMnl();
 			Thread.sleep(1000);
 			UserManagementPage_Manual.ClickNewUser();	
 			// Create the default Admin USer
@@ -120,18 +134,16 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 			PoliciesPage = UserManagementPage_Manual.Click_Policy();
 			
 			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-			PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 			PoliciesPage.clickOn_ConnectBtn();
 			PoliciesPage.ClickSaveButton();
-			Thread.sleep(1000);
+			//PoliciesPage.clickonOkBtn();
 			PoliciesPage.clickOn_AcceptBtn();
 			UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 			tu.click_OK_popup();
 			Thread.sleep(1000);
 			ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
-			ADUM_page.select_grp("QA Testers");//Automation
-			//AD_UMPage.Select_user();
-			//ADUM_page.select_user(0);
+			ADUM_page.select_grp(prop.getProperty("Group1"));//Automation
 			ADUM_page.enterNewUserTitle("Manager");
 			ADUM_page.SelectUType("SystemAdministrator");
 			Thread.sleep(1000);
@@ -144,10 +156,10 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 			
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			ADUM_page=MainHubPage.ClickAdminTile_ADUM();
 			//AD_UMPage.Select_grp();
-			ADUM_page.select_grp("Automation");//Automation
+			ADUM_page.select_grp(prop.getProperty("Group2"));//Automation
 			//AD_UMPage.Select_user();
 			//ADUM_page.select_user(0);
 			ADUM_page.enterNewUserTitle("Manager");
@@ -155,7 +167,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 			Thread.sleep(1000);
 			ADUM_page.ClickNewUserSaveButton();
 			
-			tu.UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "updated");
+			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "updated");
 			tu.click_OK_popup();
 			
 			MainHubPage = ADUM_page.ClickBackButn();
@@ -169,14 +181,14 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 			DefaultUserPrivilages_page.click_ModifyEquipmentPrivlegesCheckBox();
 			DefaultUserPrivilages_page.click_UPEquipmentDeleteCheckBox();
 			DefaultUserPrivilages_page.Click_CopyFiles_Reports();
-			ADUM_page =	DefaultUserPrivilages_page.clickOn_UpdateBtn();//"kiranc", "Amphenol@123", "updated"
+			ADUM_page =	DefaultUserPrivilages_page.clickOn_UpdateBtn();//prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "updated"
 			
-			ADUM_page.select_grp("Automation");
+			ADUM_page.select_grp(prop.getProperty("Group2"));
 			ADUM_page.SelectUType("Operator");
 			ADUM_page.enterNewUserTitle("Manager");
 			Thread.sleep(1000);
 			ADUM_page.ClickNewUserSaveButton();
-			tu.UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "updated");
+			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "updated");
 			tu.click_OK_popup();
 			MainHubPage = ADUM_page.ClickBackButn();
 			LoginPage =MainHubPage.UserSignOut();
@@ -202,7 +214,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		//ADUM_page = MainHubPage.ClickAdminTile_UMpage();
 		//PoliciesPage = MainHubPage.ClickAdminTile_Polpage();
 		//ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
@@ -252,7 +264,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		SoftAssert sa = new SoftAssert();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		
-		sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Kaverib\",User Name : \"Kaveri Bedar\" Logged in to System.");
+		sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Ajay2\",User Name : \"Ajay Mashal\" Logged in to System.");
 		sa.assertAll();
 		
 
@@ -270,13 +282,16 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		EquipmentHubPage = MainHubPage.ClickEquipmentTile();
 		NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 
-		NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "EN023", "23");
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		NewEquipmentCreation_Page.EqipCreation_WithoutClickingSaveBtn("IRTD", "EN023", "23");
+		NewEquipmentCreation_Page.ClickOn_ManufacturingCalDate();
+		NewEquipmentCreation_Page.click_OKDateBtn();
+		NewEquipmentCreation_Page.ClickSaveButton();
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		EquipmentHubPage = NewEquipmentCreation_Page.ClickBackBtn();
 		MainHubPage = EquipmentHubPage.ClickBackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG = "Equipment : \"EN023\" is created by  User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
+		String ExpectMSG = "Equipment : \"EN023\" is created by  User ID : \"Ajay2\" , User Name : \"Ajay Mashal\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG, "FAIL:The Audit trail record for Equipment creation is not audited ");
 		sa.assertAll();
 		
@@ -296,21 +311,24 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		EquipmentHubPage = MainHubPage.ClickEquipmentTile();
 		NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 
-		NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "EN024", "24");
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		NewEquipmentCreation_Page.EqipCreation_WithoutClickingSaveBtn("IRTD", "EN024", "24");
+		NewEquipmentCreation_Page.ClickOn_ManufacturingCalDate();;
+		NewEquipmentCreation_Page.click_OKDateBtn();
+		NewEquipmentCreation_Page.ClickSaveButton();
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		EquipmentHubPage = NewEquipmentCreation_Page.ClickBackBtn();
 		Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
 		Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EN024");
 		Equipment_IRTDDetailspage.clickDeleteEquipmentIcon();
 		Equipment_IRTDDetailspage.ClickYesBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
 		MainHubPage = EquipmentHubPage.ClickBackBtn();
 		
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG = "Equipment : \"EN024\" is deleted by  User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
+		String ExpectMSG = "Equipment : \"EN024\" is deleted by  User ID : \"Ajay2\" , User Name : \"Ajay Mashal\"";
 		
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG, "FAIL:The Audit trail record for Equipment delete is not audited ");
 		sa.assertAll();
@@ -330,13 +348,16 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 
 		NewEquipmentCreation_Page.EqipCreation("IRTD", "EN025", "SL25", "15");
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		NewEquipmentCreation_Page.ClickOn_ManufacturingCalDate();;
+		NewEquipmentCreation_Page.click_OKDateBtn();
+		NewEquipmentCreation_Page.ClickSaveButton();
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		EquipmentHubPage = NewEquipmentCreation_Page.ClickBackBtn();
 		Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
 		Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EN025");
 		Equipment_IRTDDetailspage.enter_IDname("A15");
 		Equipment_IRTDDetailspage.ClickSaveButton();
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();
 		
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
@@ -344,7 +365,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG = "“Equipment Name” field of  “EN025” updated from “15” to “A15” modified by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
+		String ExpectMSG = "“Equipment Name” field of  “EN025” updated from “15” to “A15” modified by User ID : \"Ajay2\" , User Name: \"Kaveri Bedar\"";
 		
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG, "FAIL:The Audit trail record for Modifying Equipment ID  is not audited ");
 		
@@ -356,7 +377,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EN025");
 		Equipment_IRTDDetailspage.enter_IDname("");
 		Equipment_IRTDDetailspage.ClickSaveButton();
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();
 		
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
@@ -364,7 +385,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG1 = "“Equipment Name” field of  “EN025” updated from “A15” to “” modified by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
+		String ExpectMSG1 = "“Equipment Name” field of  “EN025” updated from “A15” to “” modified by User ID : \"Ajay2\" , User Name: \"Kaveri Bedar\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG1, "FAIL:The Audit trail record for delete Equipment ID  is not audited ");
 
 		
@@ -378,7 +399,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EN025");
 		Equipment_IRTDDetailspage.enter_IDname("NewID15");
 		Equipment_IRTDDetailspage.ClickSaveButton();
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();
 		
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
@@ -386,7 +407,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG2 = "“Equipment Name” field of  “EN025” updated from “” to “NewID15” modified by User ID : \"Kaverib\" , User Name: \"Kaveri Bedar\"";
+		String ExpectMSG2 = "“Equipment Name” field of  “EN025” updated from “” to “NewID15” modified by User ID : \"Ajay2\" , User Name: \"Kaveri Bedar\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG2, "FAIL:The Audit trail record for delete Equipment ID  is not audited ");
 	
 		sa.assertAll();	
@@ -433,12 +454,15 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		
 		NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 		NewEquipmentCreation_Page.EqipCreation_WithoutClickingSaveBtn("IRTD", "E028", "MD18");
+		NewEquipmentCreation_Page.ClickOn_ManufacturingCalDate();;
+		NewEquipmentCreation_Page.click_OKDateBtn();
+		NewEquipmentCreation_Page.ClickSaveButton();
 		NewEquipmentCreation_Page.click_EquipmentImage_UploadButton();
 		Thread.sleep(2000);
 		tu.uploadDoc("VRT_Pro.JPG");
 		Thread.sleep(1000);
 		NewEquipmentCreation_Page.ClickSaveButton();
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		EquipmentHubPage =	NewEquipmentCreation_Page.ClickBackBtn();
 		Thread.sleep(2000);
 	
@@ -451,13 +475,13 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		tu.uploadDoc("Pressure.jpg");
 		Equipment_IRTDDetailspage.ClickSaveButton();
 		
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
         Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();	
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
 		MainHubPage = EquipmentHubPage.ClickBackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG = "Equipment Image field of \"E028\" modified by  User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
+		String ExpectMSG = "Equipment Image field of \"E028\" modified by  User ID : \"Ajay2\" , User Name : \"Ajay Mashal\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 	
 		MainHubPage = AuditPage.Click_BackBtn();
@@ -469,14 +493,14 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		Equipment_IRTDDetailspage.click_DeleteEquipImage();
 		Equipment_IRTDDetailspage.Click_HistoryButton();
 		Equipment_IRTDDetailspage.ClickSaveButton();
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		
 		Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();	
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
 		MainHubPage = EquipmentHubPage.ClickBackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG1 = "Equipment Image field of \"E028\" deleted by  User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
+		String ExpectMSG1 = "Equipment Image field of \"E028\" deleted by  User ID : \"Ajay2\" , User Name : \"Ajay Mashal\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG1, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 	
 		//
@@ -491,14 +515,14 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		tu.uploadDoc("VRT_Pro.JPG");
 		Thread.sleep(1000);
 		Equipment_IRTDDetailspage.ClickSaveButton();
-		tu.UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		
 		Equipment_IRTDHubPage = Equipment_IRTDDetailspage.click_Back_btn();	
 		EquipmentHubPage = Equipment_IRTDHubPage.click_Back_btn();
 		MainHubPage = EquipmentHubPage.ClickBackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG2 = "Equipment Image field of \"E028\" added by  User ID : \"Kaverib\" , User Name : \"Kaveri Bedar\"";
+		String ExpectMSG2 = "Equipment Image field of \"E028\" added by  User ID : \"Ajay2\" , User Name : \"Ajay Mashal\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(), ExpectMSG2, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 	
 		sa.assertAll();	
@@ -543,13 +567,16 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 
 		NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 		NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "ABC1", "10l");
-		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		NewEquipmentCreation_Page.ClickOn_ManufacturingCalDate();;
+		NewEquipmentCreation_Page.click_OKDateBtn();
+		NewEquipmentCreation_Page.ClickSaveButton();
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		EquipmentHubPage = NewEquipmentCreation_Page.ClickBackBtn();
 		
 		Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
 		Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("ABC1");
 		Equipment_IRTDDetailspage.click_UploadDocsBtn();
-		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 		Thread.sleep(2000);
 		tu.uploadDoc("HelpFileWord");
 		Equipment_IRTDHubPage=Equipment_IRTDDetailspage.click_Back_btn();
@@ -561,7 +588,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		//Equipment_IRTDDetailspage.Equip_click_CopyToDrive();
 		Equipment_IRTDDetailspage.selectFolder_CopyToDrive("AutoLogs");
 		
-		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "Eqipcreation");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "Eqipcreation");
 
 		String foldrpath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\AutoLogs";
 		// System.out.println("Act Folderpath: "+filepath);
@@ -570,7 +597,7 @@ public class AD_Equipment_Ope_AuditTest  extends BaseClass{
 		MainHubPage = EquipmentHubPage.ClickBackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User Id : \"Kaverib\", User Name : \"Kaveri Bedar\" to \"C:\\Users\\Kaveri.Bedar\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\"";
+		String ExpectMSG2 = "Verification - \"HelpFileWord.docx\" , \"Copy to drive\" operation was performed by User ID : \"Ajay2\", User Name : \"Ajay Mashal\" to \"C:\\Users\\SVSC\\git\\VRTAD\\src\\test\\resources\\TestData\\AutoLogs\"";
 		sa.assertEquals(AuditPage.get_auditEvent_text(),ExpectMSG2, "FAIL:The Audit trail record for image Equipment modification  is not audited ");
 	
 		sa.assertAll();	

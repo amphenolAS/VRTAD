@@ -42,7 +42,7 @@ public class assetCreationPage extends BaseClass {
 
 	private void initElements() {
 		// LoginPage Page Element definition
-		CreateAssetPageTitle = driver.findElementByAccessibilityId("pageTitle");
+		//CreateAssetPageTitle = driver.findElementByAccessibilityId("pageTitle");
 		AssetNameTxtBox = driver.findElementByAccessibilityId("NameTextBox");
 		AssetIDTxtBox = driver.findElementByAccessibilityId("EqidTextBox");
 		Combobx = driver.findElementsByAccessibilityId("EditableCombo");
@@ -209,9 +209,9 @@ public class assetCreationPage extends BaseClass {
 
 	// Enter Manufacturer Name
 	public void enterManufacturerName(String AMN) throws InterruptedException {
-		clickOn(AssetEditBox.get(3));
-		ClearText(AssetEditBox.get(3));
-		enterText(AssetEditBox.get(3), AMN);
+		clickOn(AssetEditBox.get(1));
+		ClearText(AssetEditBox.get(1));
+		enterText(AssetEditBox.get(1), AMN);
 		Thread.sleep(1000);
 	}
 
@@ -262,9 +262,9 @@ public class assetCreationPage extends BaseClass {
 
 	// Enter Location
 	public void enterLocation(String AL) throws InterruptedException {
-		clickOn(AssetEditBox.get(1));
-		ClearText(AssetEditBox.get(1));
-		enterText(AssetEditBox.get(1), AL);
+		clickOn(AssetEditBox.get(2));
+		ClearText(AssetEditBox.get(2));
+		enterText(AssetEditBox.get(2), AL);
 		Thread.sleep(500);
 	}
 
@@ -314,9 +314,9 @@ public class assetCreationPage extends BaseClass {
 
 	// Enter Asset Size Unit data
 	public void enterAssetSizeUnit(String ASizeUnit) {
-		clickOn(AssetEditBox.get(2));
-		ClearText(AssetEditBox.get(2));
-		AssetEditBox.get(2).sendKeys(ASizeUnit);
+		clickOn(AssetEditBox.get(3));
+		ClearText(AssetEditBox.get(3));
+		AssetEditBox.get(3).sendKeys(ASizeUnit);
 	}
 
 	// Select Asset Size Unit data from CuM/Ft/in
@@ -472,18 +472,22 @@ public class assetCreationPage extends BaseClass {
 		clickOn(AssetFrqBtn);
 		// System.out.println("---"+AF);
 		List<WebElement> Combobxlist = driver.findElementsByClassName("ComboBoxItem");
-		// System.out.println(Combobxlist.size());
+		 System.out.println(Combobxlist.size());
 		Actions ac = new Actions(driver);
 
-		for (int i = 0; i < Combobxlist.size(); i++) {
-			ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
-			if (FetchText(AssetFrqBtn).contains(AF)) {
-				// ac.sendKeys(Keys.TAB).sendKeys(Keys.RETURN).build().perform();
-				break;
+		 for (int i=0;i<=Combobxlist.size();i++) {
+			 
+			// List<WebElement> Combobxlist1 = driver.findElementByClassName("Textblock").findElements(By.name(AF));
+			// for (int j=0;j<=Combobxlist1.size();j++)// {
+				 if(Combobxlist.get(i).getText().equals(AF)) {
+					 Combobxlist.get(i).click();
+					 break;
+				 }
+				 else {
+					 ac.sendKeys(Keys.ARROW_DOWN).build().perform();
+				 }
+				
 			}
-		}
-		ac.sendKeys(Keys.TAB).sendKeys(Keys.RETURN).build().perform();
-		ac.sendKeys(Keys.TAB).sendKeys(Keys.RETURN).build().perform();
 	}
 
 	// Fetch the Asset Frequency text
@@ -493,19 +497,25 @@ public class assetCreationPage extends BaseClass {
 
 	// Select Asset Frequency Interval
 	public void selectAssetFreqIntrvl(String FI) throws InterruptedException {
+
 		clickOn(AssetFrqIntrvlBtn);
-		Thread.sleep(500);
+		//clickOn(AssetFrqIntrvlBtn);//CalibrationFrequencyMeasurementComboBox
 		List<WebElement> Combobxlist = driver.findElementsByClassName("ComboBoxItem");
-		// System.out.println(Combobxlist.size());
+		 System.out.println(Combobxlist.size());
 		Actions ac = new Actions(driver);
 
-		for (int i = 0; i < Combobxlist.size(); i++) {
-			ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
-			if (FetchText(AssetFrqIntrvlBtn).contains(FI)) {
-				break;
-			}
-		}
-		ac.sendKeys(Keys.TAB).sendKeys(Keys.RETURN).build().perform();
+		 for (int i=0;i<=Combobxlist.size();i++) {
+			 if(Combobxlist.get(i).getText().equals(FI)) {
+				 Combobxlist.get(i).click();
+				 break;
+			 }
+			 else {
+				 ac.sendKeys(Keys.ARROW_DOWN).build().perform();
+			 
+		 }
+
+	
+	}
 	}
 
 	// Fetch the Asset Frequency Interval text
@@ -684,8 +694,9 @@ public class assetCreationPage extends BaseClass {
 		SelectAssetType(AType);
 		enterManufacturerName(AManufaturer);
 		enterLocation(ALocation);
-
+		Thread.sleep(500);
 		clickSaveBtn();
+		Thread.sleep(500);
 	}
 
 	public String AlertMsg() {
@@ -712,13 +723,13 @@ public class assetCreationPage extends BaseClass {
 			enterSize_Unit(ASize, AUnit);
 			selectAssetLastVldDate(AstLstVldDate[1], AstLstVldDate[0], AstLstVldDate[2]);
 			selectAssetFreq(AFreq);
+			Thread.sleep(3000);
 			selectAssetFreqIntrvl(AFreqInt);
 			enterAstDescription(ADesc);
-
+Thread.sleep(5000);
 			clickSaveBtn();
 
 		}
-
 	}
 
 	// Asset Creation with Type

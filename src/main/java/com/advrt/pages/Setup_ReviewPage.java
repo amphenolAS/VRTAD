@@ -68,8 +68,8 @@ public class Setup_ReviewPage extends BaseClass {
 		CopyAsNewSetup_Button = driver.findElementByAccessibilityId("CopySetupButton");
 		CreateSetupReport_Button = driver.findElementByAccessibilityId("CreateSetupReportButton");
 
-		Bottom_VScrollBar = driver.findElementByAccessibilityId("VerticalSmallIncrease");
-		Back_btn = driver.findElementByAccessibilityId("GoButton");
+		Bottom_VScrollBar = driver.findElementByAccessibilityId("VerticalScrollBar");
+		Back_btn = driver.findElementByAccessibilityId("ArrowGlyph");
 		Previous_Btn = driver.findElementByAccessibilityId("PreviousButton");
 		AssetDetails_Section = driver.findElementByName("Asset Details");
 		EditSensorDetailsButton = driver.findElementByAccessibilityId("EditSensorDetailsButton");
@@ -90,7 +90,7 @@ public class Setup_ReviewPage extends BaseClass {
 		EditQualificationParametersButton = driver.findElementByAccessibilityId("EditQualificationParametersButton");
 		Calculations_Section = driver.findElementByName("Calculations");
 		// image = driver.findElementByName("image");
-		Asset_ID = driver.findElementByName("Asset ID");
+		Asset_ID = driver.findElementByName("Asset ID #");
 		Model = driver.findElementByName("Model");
 		Manufacturer = driver.findElementByName("Manufacturer");
 		Type = driver.findElementByName("Type");

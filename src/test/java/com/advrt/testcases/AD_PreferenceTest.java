@@ -7,7 +7,6 @@
 */
 package com.advrt.testcases;
 
-import java.awt.AWTException;
 import java.io.IOException;
 
 import org.testng.ITestResult;
@@ -62,37 +61,49 @@ public class AD_PreferenceTest extends BaseClass {
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_ADpreferenceTest"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_ADpreferenceTestReg(1.6.14)"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
-		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
-		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
+		extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
+		extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
 		//extent.addSystemInfo("ScriptVersion-Git", prop1.getProperty("git.commit.id.describe-short").split("-")[0]);
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("ADpreference Test in Progress..");
 
 
-		
-		// Rename the VRT Data Files folder if exists in order to make the system default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-		//Copy the Default DataFIles folder from Test Data to the App service location.
-		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-		tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
 
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
-		PoliciesPage = LoginPage.DefaultLogin();
-		//---UserManagementPage = PoliciesPage.click_UMHeader();
-		//UserManagementPage.ClickNewUser();
+		Database_configPage = LoginPage.DefaultLogin1();
+		PoliciesPage = Database_configPage.click_PolicyPage();
 
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
 		//---UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
@@ -100,8 +111,7 @@ public class AD_PreferenceTest extends BaseClass {
 
 		AD_UMPage=PoliciesPage.click_AD_UMHeader();
 		//AD_UMPage.select_grp();
-		AD_UMPage.select_grp("QA Testers");
-		//AD_UMPage.Select_user();
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("SystemAdministrator");
@@ -131,7 +141,7 @@ public class AD_PreferenceTest extends BaseClass {
 		LoginPage = new LoginPage();
 
 		//--MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 		preferencesPage =AD_UMPage.Click_PreferenceTab();
 
@@ -214,8 +224,8 @@ public class AD_PreferenceTest extends BaseClass {
 
 		preferencesPage.click_Mandatory_user_comment();
 		preferencesPage.click_SaveBtn();
-		//UserLoginPopup("kiranc","Amphenol@123");
-		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+		//UserLoginPopup(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 
 		tu.click_OK_popup();
 		MainHubPage=preferencesPage.ClickBackButn();
@@ -223,7 +233,7 @@ public class AD_PreferenceTest extends BaseClass {
 		AuditPage = MainHubPage.ClickAuditTitle();
 
 		String ExpectedMsg="usercommitted.";
-		String ActualMsg= AuditPage.get_auditUsercommit_text();
+		String ActualMsg= AuditPage.get_auditEvent_text_1(3);
 		sa.assertEquals(ActualMsg, ExpectedMsg, "FAIL:The Audit trail record for audit comments  activity is not exist ");
 
 
@@ -245,10 +255,10 @@ public class AD_PreferenceTest extends BaseClass {
 		{
 		preferencesPage.click_Mandatory_user_comment();
 		preferencesPage.click_SaveBtn();
-		UserLoginPopup("kiranc","Amphenol@123");
+		UserLoginPopup(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		}else {
 			preferencesPage.click_SaveBtn();
-			UserLoginPopup("kiranc","Amphenol@123");
+			UserLoginPopup(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			System.out.println("Not enabled");
 		}
 		String ExpectedMsg="User Comment Audit Trail Cannot be blank.";
@@ -306,7 +316,7 @@ public class AD_PreferenceTest extends BaseClass {
 		}else {
 			preferencesPage.clickon_IsInstCal();
 			preferencesPage.click_SaveBtn();
-			UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "NA");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "NA");
 			tu.click_OK_popup();
 		}
 		MainHubPage=preferencesPage.ClickBackButn();
@@ -316,10 +326,13 @@ public class AD_PreferenceTest extends BaseClass {
 		NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 		//As instrumnt calibration is 12month we are creating equipment with due calibration date less than a year it is visible in equipment tile
 		NewEquipmentCreation_Page.EqipCreation_WithoutClickingSaveBtn( "IRTD", "Asset","1234");
-		NewEquipmentCreation_Page.selectReqDate("November","12","2024");
-		NewEquipmentCreation_Page. select_LastDate();
+		
+		NewEquipmentCreation_Page.ClickOn_ManufacturingCalDate();
+		NewEquipmentCreation_Page.click_OKDateBtn();
+		//NewEquipmentCreation_Page.selectReqDate("November","12","2024");
+		//NewEquipmentCreation_Page. select_LastDate();
 		NewEquipmentCreation_Page.ClickSaveButton();
-		UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "NA");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "NA");
 		EquipmentHubPage=NewEquipmentCreation_Page.ClickBackBtn();
 		MainHubPage=EquipmentHubPage.ClickBackBtn();
 		String actual= MainHubPage.EquipmentCntInEquipmentTileOfMainHubPage();
@@ -344,20 +357,20 @@ public class AD_PreferenceTest extends BaseClass {
 		if(preferencesPage.IsInstCal_checked()) {
 			preferencesPage.clickon_IsInstCal();
 			preferencesPage.click_SaveBtn();
-			UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "NA");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "NA");
 			tu.click_OK_popup();
 			System.out.println("checked");
 		}else {
 			preferencesPage.clickon_IsInstCal();
 			preferencesPage.click_SaveBtn();
-			UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "NA");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "NA");
 			tu.click_OK_popup();
 		}
 		
 		MainHubPage=preferencesPage.ClickBackButn();
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		//EquipmentHubPage = MainHubPage.ClickEquipmentTile();
 
 

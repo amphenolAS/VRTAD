@@ -33,7 +33,7 @@ public class Setup_CalculationsPage extends BaseClass {
 		SetupHeaderTextBlock = driver.findElementByAccessibilityId("SetupHeaderTextBlock");
 		PreviousButton = driver.findElementByAccessibilityId("PreviousButton");
 		NxtBtn = driver.findElementByAccessibilityId("NextButton");
-		Back_btn = driver.findElementByAccessibilityId("GoButton");
+		Back_btn = driver.findElementByAccessibilityId("ArrowGlyph");
 		leth_Btn = driver.findElementByName("Lethality Calculation");
 		Statistical_Calculation = driver.findElementByName("Statistical Calculation");
 		SatTP_btn = driver.findElementByName("Saturation P/T Calculation");

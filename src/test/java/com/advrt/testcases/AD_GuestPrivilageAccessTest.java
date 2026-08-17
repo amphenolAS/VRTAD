@@ -108,9 +108,9 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"AD_GuestPrivilageAccessTest"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"AD_GuestPrivilageAccessTestReg(1.6.14)"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
@@ -119,20 +119,32 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		System.out.println("ADprivilageAccess Test in Progress..");
 
 
-		
-		// Rename the VRT Data Files folder if exists in order to make the system default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-		//Copy the Default DataFIles folder from Test Data to the App service location.
-		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-		tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
 
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
-		PoliciesPage = LoginPage.DefaultLogin();
-		UserManagementPage = PoliciesPage.click_UMHeader();
+		Database_configPage = LoginPage.DefaultLogin1();
+		UserManagementPage = Database_configPage.click_UMHeader();
 		//UserManagementPage.ClickNewUser();	
 		// Create the default Admin USer
 		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
@@ -153,15 +165,16 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 
 		PoliciesPage=UserManagementPage.Click_Policy();
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();	
+		//PoliciesPage.clickonOkBtn();
+		PoliciesPage.clickOn_AcceptBtn();
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
         Thread.sleep(1000);
 		AD_UMPage=PoliciesPage.click_AD_UMHeader();
-		AD_UMPage.select_grp("QA Testers");
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("SystemAdministrator");
@@ -175,10 +188,10 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 		Thread.sleep(500);
-		AD_UMPage.select_grp("QA Testers");
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("NewUserType");
@@ -186,7 +199,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		DefaultUserPrivilages_page.AllPrivilages();
 		DefaultUserPrivilages_page.NewSaveButton();
 		Thread.sleep(500);
-		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 		PoliciesPage=AD_UMPage.AD_Click_Policy();
 		Thread.sleep(5000);
 	    AD_UMPage=PoliciesPage.click_AD_UMHeader();
@@ -195,10 +208,10 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		PoliciesPage.click_on_AllowGuest();
 		PoliciesPage.selectGuestuser(4);
 		PoliciesPage.ClickSaveButton();
-		Thread.sleep(500);
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
 		//tu.click_OK_popup();
-		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 		tu.click_OK_popup();
 		MainHubPage=PoliciesPage.click_BackBtn();
 		MainHubPage.UserSignOut();
@@ -223,9 +236,9 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
-		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
-		PoliciesPage=AD_UMPage.AD_Click_Policy();
+		MainHubPage = LoginPage.Login(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"));
+		PoliciesPage=MainHubPage.ClickAdminTile_Polpage();
+		
 	}
 
 	@AfterMethod(alwaysRun=true)
@@ -270,30 +283,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		extentTest = extent
 				.startTest("PA055-Verify if GuestUser able to access the User Management Module when the User Management Privilege is checked");
 		SoftAssert sa = new SoftAssert();
-		
-//		AD_UMPage=PoliciesPage.click_AD_UMHeader();
-//		AD_UMPage.Select_grp();
-//		AD_UMPage.select_grp("QA Testers");
-//		AD_UMPage.Select_user();
-//		AD_UMPage.select_user(1);
-//		AD_UMPage.select_UserTitle("Manager");
-//		AD_UMPage.select_UserType1("NewUserType");
-//		DefaultUserPrivilages_page=AD_UMPage.newUserType("NUserType");
-//		DefaultUserPrivilages_page.Click_Create_UserManagement();
-//		DefaultUserPrivilages_page.NewSaveButton();
-//		Thread.sleep(500);
-//		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
-//		PoliciesPage=AD_UMPage.AD_Click_Policy();
-//		PoliciesPage.click_on_AllowGuest();
-//		PoliciesPage.selectGuestuser(4);
-//		PoliciesPage.ClickSaveButton();
-//		tu.click_OK_popup();
-//		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
-//		tu.click_OK_popup();
-//		MainHubPage=PoliciesPage.click_BackBtn();
-//		MainHubPage.UserSignOut();
-//		LoginPage = new LoginPage();
-//		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+
 		AD_UMPage=PoliciesPage.click_AD_UMHeader();
 		
 	
@@ -324,7 +314,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset01", "01", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "1st Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		assetHubPage=assetCreationPage.clickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("Asset01");
@@ -348,7 +338,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 				//Setup_CalVerParametersPage=	Setup_CalculationsPage.Click_NxtBtn();
 				Setup_QualParamPage=	Setup_CalculationsPage.Click_NxtBtn();
 				Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
-				Setup_ReviewPage.click_Save_Btn("Manual", "Yes", "kiranc1","Amphenol@123","usercommitted.");
+				Setup_ReviewPage.click_Save_Btn("Manual", "Yes", prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 				assetDetailsPage = Setup_ReviewPage.click_backBtn();
 				Thread.sleep(2000);
 				assetDetailsPage.Click_SetupName("SetUp");
@@ -380,7 +370,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset04", "04", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "2nd Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		assetHubPage=assetCreationPage.clickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("Asset04");
@@ -407,7 +397,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset05", "05", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "2nd Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		assetHubPage=assetCreationPage.clickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("Asset05");
@@ -415,7 +405,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		String NewassetID = "04";
 		assetCreationPage.enterAssetID(NewassetID);
 		assetCreationPage.clickSaveBtn();
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		//tu.click_OK_popup();
 		assetDetailsPage = assetCreationPage.click_BackBtn();
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
@@ -445,12 +435,12 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset06", "06", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "2nd Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		assetHubPage=assetCreationPage.clickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("Asset06");
 		assetDetailsPage.Click_DeleteAsset();
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		//assetDetailsPage.ClickOK_btn();
 		assetDetailsPage.click_YesBtn_popup();
 		Thread.sleep(500);
@@ -460,7 +450,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
         AuditPage=MainHubPage.ClickAuditTitle();
         Thread.sleep(500);
 		String ActualMsg=AuditPage.get_auditEvent_text();
-		String ExpectedMsg="Asset: \"Asset06\" is deleted by User Id : \"kiranc1\" , User Name : \"Guest\"";
+		String ExpectedMsg="Asset: \"Asset06\" is deleted by User Id : \"User1\" , User Name : \"Guest\"";
 
 		sa.assertEquals(ActualMsg,ExpectedMsg,
 				"Fail:Asset is not deleted");
@@ -489,7 +479,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset07", "07", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "2nd Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);		
 		assetHubPage=assetCreationPage.clickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("Asset07");
@@ -513,7 +503,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 				//Setup_CalVerParametersPage=	Setup_CalculationsPage.Click_NxtBtn();
 				Setup_QualParamPage=	Setup_CalculationsPage.Click_NxtBtn();
 				Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
-				Setup_ReviewPage.click_Save_Btn("Manual", "Yes", "kiranc1","Amphenol@123","usercommitted.");
+				Setup_ReviewPage.click_Save_Btn("Manual", "Yes", prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 				assetDetailsPage = Setup_ReviewPage.click_backBtn();
 				Thread.sleep(2000);
 				sa.assertEquals(assetDetailsPage.SetupName_Visible1(), "SetUp3",
@@ -543,7 +533,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset08", "08", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "2nd Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);		
 		assetHubPage=assetCreationPage.clickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("Asset08");
@@ -567,7 +557,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 				//Setup_CalVerParametersPage=	Setup_CalculationsPage.Click_NxtBtn();
 				Setup_QualParamPage=	Setup_CalculationsPage.Click_NxtBtn();
 				Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
-				Setup_ReviewPage.click_Save_Btn("Manual", "Yes", "kiranc1","Amphenol@123","usercommitted.");
+				Setup_ReviewPage.click_Save_Btn("Manual", "Yes", prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 				assetDetailsPage = Setup_ReviewPage.click_backBtn();
 				Thread.sleep(2000);
 				assetDetailsPage.Click_SetupName("SetUp4");
@@ -604,7 +594,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 				//Setup_CalVerParametersPage=	Setup_CalculationsPage.Click_NxtBtn();
 				Setup_QualParamPage=	Setup_CalculationsPage.Click_NxtBtn();
 				Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
-				Setup_ReviewPage.click_Save_Btn("Manual", "Yes", "kiranc1","Amphenol@123","usercommitted.");
+				Setup_ReviewPage.click_Save_Btn("Manual", "Yes", prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 				// Thread.sleep(1000);
 				assetDetailsPage = Setup_ReviewPage.click_backBtn();
 
@@ -647,7 +637,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset09", "09", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "2nd Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);		
 		assetHubPage=assetCreationPage.clickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("Asset09");
@@ -671,14 +661,14 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 				//Setup_CalVerParametersPage=	Setup_CalculationsPage.Click_NxtBtn();
 				Setup_QualParamPage=	Setup_CalculationsPage.Click_NxtBtn();
 				Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
-				Setup_ReviewPage.click_Save_Btn("Manual", "Yes", "kiranc1","Amphenol@123","usercommitted.");
+				Setup_ReviewPage.click_Save_Btn("Manual", "Yes", prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 				assetDetailsPage = Setup_ReviewPage.click_backBtn();
 				Thread.sleep(2000);
 				assetDetailsPage.Click_SetupName("SetUp5");
 				
 				
 				assetDetailsPage.Click_DeleteBtn_report();
-				UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+				UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 				tu.click_YesBtn_popup();
 				Thread.sleep(500);
 				assetHubPage = assetDetailsPage.ClickBackBtn();
@@ -687,7 +677,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 				AuditPage=MainHubPage.ClickAuditTitle();
 				Thread.sleep(2000);
 				String Actionmsg = AuditPage.get_auditEvent_text();
-				String ExpectMSG = "Setup : \"SetUp5\"  deleted by User ID : \"kiranc1\", User Name : \"Guest\"";
+				String ExpectMSG = "Setup : \"SetUp5\"  deleted by User ID : \"User1\", User Name : \"Guest\"";
 				sa.assertEquals(Actionmsg, ExpectMSG,
 						"FAIL: Audit trial record does not exists for Delete study file activity");
 				sa.assertAll();
@@ -713,7 +703,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 			//Creating 1st Equipment
 	       NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "EL009b", "009b");
 	       Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 			EquipmentHubPage=NewEquipmentCreation_Page.ClickBackBtn();
 		    MainHubPage=	EquipmentHubPage.ClickBackBtn();
 			
@@ -745,14 +735,17 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		
 		//Creating 1st Equipment
 		NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "EL010b", "010b");
+		NewEquipmentCreation_Page.ClickOn_ManufacturingCalDate();
+		NewEquipmentCreation_Page.click_OKDateBtn();
+		NewEquipmentCreation_Page.ClickSaveButton();
 		Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		EquipmentHubPage=NewEquipmentCreation_Page.ClickBackBtn();
 		Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
 		Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EL010b");
 		Equipment_IRTDDetailspage.enter_IRTDEquipName("test1");
 		String expid = Equipment_IRTDDetailspage.fetch_ID();
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		
 		String actmsg = Equipment_IRTDDetailspage.AlertMsg();
 		String Expmsg = "Equipment \"EL010b\" Updated successfully.";
@@ -785,13 +778,13 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 			
 			//Creating 1st Equipment
 		   NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "EL011b", "011b");
-			UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 			EquipmentHubPage=NewEquipmentCreation_Page.ClickBackBtn();
 			Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
 			Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EL011b");
 			Equipment_IRTDDetailspage.clickDeleteEquipmentIcon();
 			tu.click_YesBtn_popup();
-			UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 			Thread.sleep(2000);
 		
 			sa.assertFalse(EquipmentHubPage.is_ReqEpuipmentVisible("12AD"), "Fail: Application still showing Equipment after deleting");
@@ -813,7 +806,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 
 		MainHubPage=PoliciesPage.click_BackBtn();
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit("kiranc1","Amphenol@123","usercommited");
+		SyncInPage = FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommited");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		SyncInAssetListPage = SyncInPage.click_SyncInOK_btn();
@@ -864,7 +857,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset10", "10", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "1st Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		
 		assetHubPage = assetCreationPage.clickBackBtn();
@@ -985,7 +978,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		System.out.println("CRT DEPENDENT from build 16");
 		MainHubPage=PoliciesPage.click_BackBtn();
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit("kiranc","Amphenol@123","usercommited");
+		SyncInPage = FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommited");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		SyncInAssetListPage = SyncInPage.click_SyncInOK_btn();
@@ -1001,7 +994,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		
 		assetHubPage=MainHubPage.Click_AssetTile2();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
@@ -1030,7 +1023,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		
 		MainHubPage=PoliciesPage.click_BackBtn();
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit("kiranc","Amphenol@123","usercommited");
+		SyncInPage = FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommited");
 		SyncInPage.enter_Filepath("syncin");
 		SyncInPage.click_FltrBtn();
 		SyncInAssetListPage = SyncInPage.click_SyncInOK_btn();
@@ -1046,7 +1039,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"));
 		
 		assetHubPage=MainHubPage.Click_AssetTile2();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
@@ -1055,7 +1048,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		
 		//RW_FileSelctionPage=assetDetailsPage.Click_GenerateReportsBtn_RWpage();
 		assetDetailsPage.Qual_DeleteBtn();
-		UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "committed");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"), "committed");
 		Thread.sleep(2000);
 		
 		tu.click_YesBtn_popup();
@@ -1067,7 +1060,7 @@ public class AD_GuestPrivilageAccessTest extends BaseClass{
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
 		String Actionmsg = AuditPage.get_auditEvent_text();
-		String ExpectMSG = "Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"kiranc1\", User Name : \"Guest\"";
+		String ExpectMSG = "Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"User1\", User Name : \"Guest\"";
 
 		sa.assertEquals(Actionmsg, ExpectMSG,
 				"FAIL: Audit trial record does not exists for Deletion of a Detailed report ");

@@ -26,7 +26,7 @@ public class Setup_defineSetupPage extends BaseClass {
 	private void initializeEelements() {
 		DefineSetupPageName = driver.findElementByName("Define Setup");
 		DefineSetupPageTitle = driver.findElementByAccessibilityId("SetupHeaderTextBlock");
-		DefineSetup_backBtn = driver.findElementByAccessibilityId("GoButton");
+		DefineSetup_backBtn = driver.findElementByAccessibilityId("ArrowGlyph");
 		DefineSetup_SetupName_txtBx = driver.findElementByAccessibilityId("SetupNameTextBox");
 		DefineSetup_Sensordata_txtBx = driver.findElementByAccessibilityId("PART_TextBox");
 		DefineSetup_AssetID_txtBx = driver.findElementByAccessibilityId("VessalTextBox");
