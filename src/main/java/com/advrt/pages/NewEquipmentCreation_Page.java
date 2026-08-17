@@ -41,7 +41,7 @@ public class NewEquipmentCreation_Page extends BaseClass {
 
 		EquipmentTypeUMDropDown = driver.findElementByAccessibilityId("EquipmentTypeComboBox");
 
-		ManufacturingCal_Date = driver.findElementByAccessibilityId("ManufacturingCalDateDatePicker");
+		ManufacturingCal_Date = driver.findElementByAccessibilityId("PART_PickerButton");
 
 		ManufacturingCal_Due_Date = driver.findElementByAccessibilityId("lstCAlDate");
 
@@ -247,12 +247,9 @@ public class NewEquipmentCreation_Page extends BaseClass {
 		Thread.sleep(2000);
 
 		WebElement EPSelect = driver.findElementByName("Select");
-		// WebElement EPValidator = driver.findElementByName("Validator");
-		WebElement EPVRTLogger = driver.findElementByName("VRT Logger");
-		// WebElement EPAVS = driver.findElementByName("AVS");
+		WebElement EPVRTLogger = driver.findElementByName("VRT/VRM Loggers");
 		WebElement EPIRTD = driver.findElementByName("IRTD");
-		// WebElement EPBath = driver.findElementByName("Calibration Bath");
-		// WebElement EPBaseStation = driver.findElementByName("Base Station");
+		
 
 		if (Etype.equals(EPSelect.getText())) {
 			clickOn(EPSelect);
@@ -268,7 +265,10 @@ public class NewEquipmentCreation_Page extends BaseClass {
 		}
 
 	}
-
+	public void click_OKDateBtn() {
+		WebElement okBtn = driver.findElementByAccessibilityId("PART_SelectorOKButton");
+		clickOn(okBtn);
+	}
 	public void click_EquipmentType_DD() {
 		clickOn(EquipmentTypeUMDropDown);
 	}
@@ -314,7 +314,7 @@ public class NewEquipmentCreation_Page extends BaseClass {
 		enterSN(ESN);
 		enterNewModelNumber(EMN);
 		enter_ID(id);
-		ClickSaveButton();
+		//ClickSaveButton();
 	}
 
 	public void EqipCreation_VRTDLogger(String Etype, String ESN) throws InterruptedException {
@@ -416,9 +416,10 @@ public class NewEquipmentCreation_Page extends BaseClass {
 
 	// click on ManufacturingCalDueDate
 
-	public void ClickOn_ManufacturingCalDate() {
+	public void ClickOn_ManufacturingCalDate() throws InterruptedException {
 
 		clickOn(ManufacturingCal_Date);
+		Thread.sleep(1000);
 	}
 
 	// click on ManufacturingCalDueDate

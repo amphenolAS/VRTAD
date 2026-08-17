@@ -7,7 +7,6 @@
 package com.advrt.testcases;
 
 
-import java.awt.AWTException;
 import java.io.IOException;
 
 import org.testng.ITestResult;
@@ -104,9 +103,9 @@ public class AD_SearchGroup extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_SearchGroupTest"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_SearchGroupTestReg(1.6.14)"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
@@ -115,20 +114,33 @@ public class AD_SearchGroup extends BaseClass{
 		System.out.println("AD_PrivilageAccessTest Test in Progress..");
 
 
-		
-		// Rename the VRT Data Files folder if exists in order to make the system default
-		/*renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-		//Copy the Default DataFIles folder from Test Data to the App service location.
-		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-		tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
-		PoliciesPage = LoginPage.DefaultLogin();
-		UserManagementPage = PoliciesPage.click_UMHeader();
+		Database_configPage= LoginPage.DefaultLogin1();
+		UserManagementPage = Database_configPage.click_UMHeader();
 		//UserManagementPage.ClickNewUser();	
 		// Create the default Admin USer
 		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
@@ -149,9 +161,10 @@ public class AD_SearchGroup extends BaseClass{
 
 		PoliciesPage=UserManagementPage.Click_Policy();
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
 		//tu.click_OK_popup();
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
@@ -159,7 +172,7 @@ public class AD_SearchGroup extends BaseClass{
         Thread.sleep(5000);
 		AD_UMPage=PoliciesPage.click_AD_UMHeader();
 		//AD_UMPage.Select_grp();
-		AD_UMPage.select_grp("Automation");
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		//AD_UMPage.Select_user();
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
@@ -174,7 +187,7 @@ public class AD_SearchGroup extends BaseClass{
 		//MainHubPage = AD_UMPage.click_BackBtn();
 		//LoginPage = MainHubPage.UserSignOut();
 		AppClose();
-		Thread.sleep(2000);*/
+		Thread.sleep(2000);
 
 	}
 
@@ -193,7 +206,7 @@ public class AD_SearchGroup extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 	
 
 	}
@@ -303,7 +316,7 @@ public class AD_SearchGroup extends BaseClass{
 		// By default system Admin have the privilages for UM pages
 		sa.assertEquals(Actualvalue, Expectedvalue, "Fail: search button is not available");
 		AD_UMPage.Select_grp();	
-		AD_UMPage.select_grp("Automation1");
+		AD_UMPage.select_grp(prop.getProperty("Group2"));
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("SystemAdministrator");
 		AD_UMPage.clickSavebtn();

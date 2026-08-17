@@ -55,11 +55,11 @@ public class Setup_QualParamPage extends BaseClass {
 		NxtBtn = driver.findElementByAccessibilityId("NextButton");
 		PreviousButton = driver.findElementByAccessibilityId("PreviousButton");
 
-		BackButton = driver.findElementByAccessibilityId("GoButton");
+		BackButton = driver.findElementByAccessibilityId("ArrowGlyph");
 		start_Stopcond = driver.findElementByName("Start Stop Conditions:");
 		Data_Storage = driver.findElementByName("Data Storage");
 		RF_Transmit = driver.findElementByName("RF Transmit Threshold");
-		sub_header = driver.findElementByName("Define The Qualification Details");
+		sub_header = driver.findElementByName("Define the Qualification details");
 
 	}
 

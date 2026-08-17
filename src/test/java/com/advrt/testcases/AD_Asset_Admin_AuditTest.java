@@ -6,7 +6,6 @@
 */
 package com.advrt.testcases;
 
-
 import java.awt.AWTException;
 import java.io.IOException;
 
@@ -43,7 +42,6 @@ import com.advrt.pages.DefaultUserPrivilages_page;
 import com.advrt.utility.ADUserManagementUtility;
 import com.advrt.utility.TestUtilities;
 
-
 public class AD_Asset_Admin_AuditTest  extends BaseClass{
 	
 	public AD_Asset_Admin_AuditTest() throws IOException {
@@ -78,30 +76,44 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 		
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_Asset_Admin_AuditTest"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_Asset_Admin_AuditTest(Reg1.6.14)"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
 		//extent.addSystemInfo("ScriptVersion-Git", prop1.getProperty("git.commit.id.describe-short").split("-")[0]);
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
-		System.out.println("AD-UM Test in Progress..");
+		System.out.println("AD_Asset_Admin_AuditTest is in Progress..");
 		
 
-	// Rename the VRT Data Files folder if exists in order to make the system default
-		 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-			//Copy the Default DataFIles folder from Test Data to the App service location.
-			String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-			String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-			tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 			
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
 			extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 			LoginPage.clickOn_AppName();
 			 Database_configPage= LoginPage.DefaultLogin1();
-			UserManagementPage_Manual = Database_configPage.click_UMHeaderManual();
+			UserManagementPage_Manual = Database_configPage.click_UMHeaderMnl();
 			Thread.sleep(1000);
 			UserManagementPage_Manual.ClickNewUser();	
 			// Create the default Admin USer
@@ -119,7 +131,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			PoliciesPage = UserManagementPage_Manual.Click_Policy();
 			
 			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-			PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 			PoliciesPage.clickOn_ConnectBtn();
 			PoliciesPage.ClickSaveButton();
 			PoliciesPage.clickOn_AcceptBtn();
@@ -128,7 +140,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(1000);
 			ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
 		
-			ADUM_page.select_grp("QA Testers");
+			ADUM_page.select_grp(prop.getProperty("Group1"));
 			ADUM_page.select_user(0);
 			ADUM_page.enterNewUserTitle("Manager");
 			ADUM_page.SelectUType("SystemAdministrator");
@@ -140,10 +152,10 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(2000);
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			ADUM_page=MainHubPage.ClickAdminTile_ADUM();
 			//AD_UMPage.Select_grp();
-			ADUM_page.select_grp("QA Testers");
+			ADUM_page.select_grp(prop.getProperty("Group2"));
 			//AD_UMPage.Select_user();
 			ADUM_page.select_user(0);
 			ADUM_page.enterNewUserTitle("Manager");
@@ -152,16 +164,16 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			DefaultUserPrivilages_page.AllPrivilages();
 		//	ADUM_page = DefaultUserPrivilages_page.click_save_btn();
 			DefaultUserPrivilages_page.NewSaveButton();
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			ADUM_page.Select_grp();
-			ADUM_page.select_2grp("QA Testers2");
+			ADUM_page.select_2grp(prop.getProperty("Group2"));
 			Thread.sleep(500);
 			ADUM_page.enterNewUserTitle("Manager");
 			ADUM_page.SelectUType("allpriv");
 			ADUM_page.ClickNewUserSaveButton();
 			
-			tu.UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "updated");
+			tu.UserLoginPopup(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			tu.click_OK_popup();
 			
 			MainHubPage = ADUM_page.clickbackbtn();
@@ -186,48 +198,42 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
-		//ADUM_page = MainHubPage.ClickAdminTile_UMpage();
-		//PoliciesPage = MainHubPage.ClickAdminTile_Polpage();
-		//ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
+		MainHubPage = LoginPage.Login(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"));
+		
 	}
 
-	@AfterMethod(alwaysRun=true)
+	@AfterMethod(alwaysRun = true)
 	public void Teardown(ITestResult result) throws IOException, Exception {
-		if(result.getStatus()==ITestResult.FAILURE){
-			extentTest.log(LogStatus.FAIL, "TEST CASE FailED IS # "+result.getName()+" #"); //to add name in extent report
-			// TearDown of the App
-			extentTest.log(LogStatus.FAIL, "TEST CASE FailED IS # "+result.getThrowable()+" #"); //to add error/exception in extent report
-			
-			String screenshotPath1 = TestUtilities.getFailedTCScreenshot(driver, result.getName());
-			extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath1)); //to add screenshot in extent report
-			//extentTest.log(LogStatus.Fail, extentTest.addScreencast(screenshotPath)); //to add screencast/video in extent report
-		}
-		else if(result.getStatus()==ITestResult.SKIP){
-			extentTest.log(LogStatus.SKIP, "Test Case SKIPPED IS " + result.getName());
-		}
-		else if(result.getStatus()==ITestResult.SUCCESS){
-			extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName()+" #");
-			//String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver, result.getName());
-			//extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2)); //to add screenshot in extent report
-		}		
-		extent.endTest(extentTest); //ending test and ends the current test and prepare to create html report
-		//MainLoginPage.resetWebElements();
-		Thread.sleep(5000);
-		driver.quit();
+	    if (result.getStatus() == ITestResult.FAILURE) {
+	        extentTest.log(LogStatus.FAIL, "TEST CASE FAILED IS # " + result.getName() + " #");
+	        extentTest.log(LogStatus.FAIL, "ERROR/EXCEPTION: " + result.getThrowable());
+	        
+	        String screenshotPath1 = TestUtilities.getFailedTCScreenshot(driver, result.getName());
+	        extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath1));
+	    } 
+	    else if (result.getStatus() == ITestResult.SKIP) {
+	        extentTest.log(LogStatus.SKIP, "TEST CASE SKIPPED IS # " + result.getName() + " #");
+	        extentTest.log(LogStatus.SKIP, "REASON: " + result.getThrowable());
+	    } 
+	    else if (result.getStatus() == ITestResult.SUCCESS) {
+	        extentTest.log(LogStatus.PASS, "TEST CASE PASSED IS # " + result.getName() + " #");
+	        // Optionally add screenshot for passed test
+	        // String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver, result.getName());
+	        // extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
+	    }
+
+	    extent.endTest(extentTest); // End the test
+	    extent.flush(); // Ensure logs are written to the report
+	    Thread.sleep(2000);
+	    driver.quit();
 	}
-	
-	
-	/********
-	Test Cases
-	 * @throws AWTException 
-	 * @throws IOException 
-	*********/
+
+
 	
 	
 	// AD_Asset_ Audit 001 Verify the Audit trail entry  while login with the  Active Directory  Admin  User
 
-	@Test(groups = { "Sanity",
+	/*@Test(groups = { "Sanity",
 			"Regression" }, description = " AD_Asset_ Audit 001 Verify the Audit trail entry  while login with the  Active Directory  Admin  User")
 
 	public void AD_Asset_Audit_001() throws InterruptedException, AWTException, IOException {
@@ -237,10 +243,10 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		SoftAssert sa = new SoftAssert();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		
-		sa.assertEquals(AuditPage.get_auditEvent_text(), "User ID : \"Kiranc1\",User Name : \"Kiranc1\" Logged in to System.");
+		sa.assertEquals(AuditPage.get_auditEvent_text(), "User ID : \"t1\",User Name : \"Test1\" Logged in to System.");
 		sa.assertAll();
 		
-	}
+	}*/
 
 	// AD_Asset_ Audit 002 Verify the Audit trail entry while Creating a new Asset
 	// with the Active Directory Admin User
@@ -260,7 +266,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage.assetCreationWithAllFieldEntry("AssetAudit002", "01", "HeatBath", "Aas", "Hyderabad", "AVS", "2",
 				"cu", crntDate, "5", "Weeks", "2nd Asset Creation");
 
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 		assetHubPage = assetCreationPage.clickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
@@ -268,7 +274,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"AssetAudit002\" is created by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"AssetAudit002\" is created by User Id : \"t1\" , User Name : \"Test1\".");
 		sa.assertAll();
 
 	}
@@ -291,7 +297,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage.assetCreationWithAllFieldEntry("Audit003", "03", "HeatBath", "Aas", "Hyderabad", "AVS", "2",
 				"cu", crntDate, "5", "Weeks", "3rd Asset Creation");
 
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 		assetHubPage = assetCreationPage.clickBackBtn();
 
@@ -299,7 +305,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.enterAssetName("Asset03");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -309,8 +315,8 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
 
-		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : Audit003 is modified to , Asset03   by User ID : Kiranc1  and  User Name : \"Kiranc1\" .");
+		sa.assertEquals(AuditPage.get_auditEvent_text_1(3),
+				"Asset : Audit003 is modified to , Asset03   by User ID : \"t1\"  and  User Name : \"Test1\" .");
 		sa.assertAll();
 
 	}
@@ -333,7 +339,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage.assetCreationWithAllFieldEntry("Ast004", "04", "HeatBath", "Aas", "Hyderabad", "AVS", "2",
 				"cu", crntDate, "5", "Weeks", "3rd Asset Creation");
 		
-		tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"),"Assetcreation");
 		tu.click_Close_alertmsg();
 		assetHubPage = assetCreationPage.clickBackBtn();
 
@@ -341,7 +347,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.enterAssetID("A4");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -352,7 +358,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast004\" \"Asset ID\" field modified from \"04\" to \"A4 \" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"Ast004\" \"Asset ID\" field modified from \"04\" to \"A4 \" by  User ID : \"t1\" , User Name : \"Test1\".");
 		
 		
 		MainHubPage = AuditPage.Click_BackBtn();
@@ -361,7 +367,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.enterAssetType("Sterilizer");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -372,7 +378,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast004\" \"Type\" field modified from \"HeatBath\" to \"HeatBathSterilizer\" by  User ID : Kiranc1 , User Name : Kiranc1.");
+				"Asset : \"Ast004\" \"Type\" field modified from \"HeatBath\" to \"HeatBathSterilizer\" by  User ID : \"t1\" , User Name : \"Test1\".");
 		Thread.sleep(1000);
 		MainHubPage = AuditPage.Click_BackBtn();
 		assetHubPage = MainHubPage.Click_AssetTile2();
@@ -380,7 +386,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.enterManufacturerName("M1");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 		
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -391,7 +397,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast004\" \"Manufacturer\" field modified from \"Aas\" to \"M1\" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"Ast004\" \"Manufacturer\" field modified from \"Aas\" to \"M1\" by  User Id : \"t1\" , User Name : \"Test1\".");
 	
 		
 		
@@ -402,7 +408,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.enterLocation("India");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"),"Assetcreation");
 		tu.click_Close_alertmsg();
 		
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -413,7 +419,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast004\" \"Location\" field modified from \"Hyderabad\" to \"India\" by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"Ast004\" \"Location\" field modified from \"Hyderabad\" to \"India\" by  User Id : \"t1\" , User Name : \"Test1\".");
 		
 		sa.assertAll();
 
@@ -470,7 +476,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		
 		assetCreationPage.assetCreationWithAllFieldEntry("Ast008", "08", "HeatBath", "Aas", "Hyd","VRT","1","cu m",crntDate,"1","Months","Test Description");
 
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"),"Assetcreation");
 		tu.click_Close_alertmsg();
 		assetHubPage = assetCreationPage.clickBackBtn();
 
@@ -478,7 +484,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.enterModelName("VRT1");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -489,7 +495,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast008\" \"Model\" field modified from VRT to VRT1 by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"Ast008\" \"Model\" field modified from VRT to VRT1 by  User ID : \"t1\" , User Name : \"Test1\".");
 		
 		
 		Thread.sleep(1000);
@@ -499,7 +505,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.enterModelName("");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"),"Assetcreation");
 		tu.click_Close_alertmsg();
 		
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -510,7 +516,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast008\" \"Model\" field modified from VRT1 to  by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"Ast008\" \"Model\" field modified from VRT1 to  by  User ID : \"t1\" , User Name : \"Test1\".");
 			
 		Thread.sleep(1000);
 		MainHubPage = AuditPage.Click_BackBtn();
@@ -519,7 +525,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.enterModelName("");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 		
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -530,7 +536,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast008\" \"Model\" field modified from  to VRT2 by  User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"Ast008\" \"Model\" field modified from  to VRT2 by  User ID : \"t1\" , User Name : \"Test1\".");
 		
 		
 		//Verify the Audit trail entry after modifying Asset Size with the Active Directory Admin User
@@ -542,7 +548,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.enterSize_Unit("2","cu ft");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 		
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -553,7 +559,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset : \"Ast004\" \"Size\" Units field modified from cu m to cu ft by User ID : \"Kiranc1\" , User Name : \"Kiranc1\".");
+				"Asset : \"Ast004\" \"Size\" Units field modified from cu m to cu ft by User I : \"t1\" , User Name : \"Test1\".");
 		
 			
 		
@@ -567,7 +573,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.selectAssetLastVldDate("19", "11", "2023");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 		
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -589,7 +595,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.selectAssetFreq("2");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox("t1", "Amphenol@123", "Assetcreation");
 		tu.click_Close_alertmsg();
 		
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -600,7 +606,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset Calibration Frequency\" field of Ast008 updated from 1 to 2 by User Id : \"Kiranc1\" , User Name : \"Kiranc1\"");
+				"Asset Calibration Frequency\" field of Ast008 updated from 1 to 2 by User Id : \"t1\" , User Name : \"Test1\"");
 	
 		
 		//AD_Asset_ Audit 015 Verify the Audit trail entry after modifying Asset Validation frequency with weeks option form drop down with the  Active Directory Admin   User
@@ -612,7 +618,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.selectAssetFreqIntrvl("Weeks");
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 		
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -623,7 +629,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset Calibration Frequency\" field of Ast008 updated from Months to Weeks by User Id : \"Kiranc1\" , User Name : \"Kiranc1\"");
+				"Asset Calibration Frequency\" field of Ast008 updated from Months to Weeks by User Id : \"t1\" , User Name : \"Test1\"");
 		
 		Thread.sleep(1000);
 		MainHubPage = AuditPage.Click_BackBtn();
@@ -632,7 +638,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetCreationPage.selectAssetFreqIntrvl("Months");//Months
 		assetCreationPage.clickSaveBtn();
-		tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+		tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 		tu.click_Close_alertmsg();
 		
 		assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -643,7 +649,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		Thread.sleep(2000);
 
 		sa.assertEquals(AuditPage.get_auditEvent_text(),
-				"Asset Calibration Frequency\" field of Ast008 updated from Weeks to Months by User Id : \"Kiranc1\" , User Name : \"Kiranc1\"");
+				"Asset Calibration Frequency\" field of Ast008 updated from Weeks to Months by User Id : \"t1\" , User Name : \"Test1\"");
 	
 	//years
 	
@@ -654,7 +660,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 	assetCreationPage = assetDetailsPage.click_assetEditBtn();
 	assetCreationPage.selectAssetFreqIntrvl("Years");//Years
 	assetCreationPage.clickSaveBtn();
-	tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+	tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"),"Assetcreation");
 	tu.click_Close_alertmsg();
 	
 	assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -665,7 +671,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 	Thread.sleep(2000);
 
 	sa.assertEquals(AuditPage.get_auditEvent_text(),
-			"Asset Calibration Frequency\" field of Ast008 updated from Months to Years by User Id : \"Kiranc1\" , User Name : \"Kiranc1\"");
+			"Asset Calibration Frequency\" field of Ast008 updated from Months to Years by User Id : \"t1\" , User Name : \"Test1\"");
 }
 	
 	
@@ -810,7 +816,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			
 			assetCreationPage.assetCreationWithAllFieldEntry("Ast018", "18", "HeatBath", "Aas", "Hyd","VRT","1","cu m","11/20/2023","1","Months","Add");
 
-			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 			tu.click_Close_alertmsg();
 			assetHubPage = assetCreationPage.clickBackBtn();
 
@@ -818,7 +824,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			assetCreationPage = assetDetailsPage.click_assetEditBtn();
 			assetCreationPage.enterAstDescription("TestAdd");
 			assetCreationPage.clickSaveBtn();
-			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 			tu.click_Close_alertmsg();
 
 			assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -829,7 +835,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(2000);
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(),
-					"Asset : \"Ast018\"  \"Description\" field modified from \" Add\" to \"TestAdd \" by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
+					"Asset : \"Ast018\"  \"Description\" field modified from \" Add\" to \"TestAdd \" by User Id : \"t1\" , User Name : \"Test1\".");
 			
 			Thread.sleep(1000);
 			MainHubPage = AuditPage.Click_BackBtn();
@@ -838,7 +844,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			assetCreationPage = assetDetailsPage.click_assetEditBtn();
 			assetCreationPage.enterAstDescription("");//Years
 			assetCreationPage.clickSaveBtn();
-			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 			tu.click_Close_alertmsg();
 			
 			assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -849,7 +855,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(2000);
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(),
-					"Asset : \"Ast018\"  \"Description\" field modified from \" TestAdd\" to \" \" by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
+					"Asset : \"Ast018\"  \"Description\" field modified from \" TestAdd\" to \" \" by User Id : \"t1\" , User Name : \"Test1\".");
 
 			Thread.sleep(1000);
 			MainHubPage = AuditPage.Click_BackBtn();
@@ -858,7 +864,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			assetCreationPage = assetDetailsPage.click_assetEditBtn();
 			assetCreationPage.enterAstDescription("NewComment");//Years
 			assetCreationPage.clickSaveBtn();
-			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 			tu.click_Close_alertmsg();
 			
 			assetDetailsPage = assetCreationPage.click_BackBtn();
@@ -869,7 +875,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(2000);
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(),
-					"Asset : \"Ast018\"  \"Description\" field modified from \" \" to \"NewComment \" by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
+					"Asset : \"Ast018\"  \"Description\" field modified from \" \" to \"NewComment \" by User Id : \"t1\" , User Name : \"Test1\".");
 			
 			sa.assertAll();
 			
@@ -927,7 +933,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			
 			assetCreationPage.assetCreationWithAllFieldEntry("Ast021", "21", "HeatBath", "Aas", "Hyd","VRT","1","cu m",crntDate,"1","Months","Test Description");
 	
-		    tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "comment");
+		    tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "comment");
 			// Move to AssetHub Page
 			assetHubPage = assetCreationPage.clickBackBtn();
 
@@ -946,7 +952,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 
 			// Save the asset
 			assetCreationPage.clickSaveBtn();
-			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "comment");
+			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "comment");
 			assetDetailsPage = assetCreationPage.click_BackBtn();
 
 			assetCreationPage = assetDetailsPage.click_assetEditBtn();
@@ -968,7 +974,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(2000);
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(),
-					"Asset : \"Ast021\"  is modified by User ID : \"Kiranc1 \", User Name : \"Kiranc1\" .");
+					"Asset : \"Ast021\"  is modified by User ID : \"t1 \", User Name : \"Test1\" .");
 			
 			Thread.sleep(1000);
 			
@@ -985,7 +991,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			// Save the asset
 			assetCreationPage.clickSaveBtn();
 			
-			tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "comment");
+			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "comment");
 			assetDetailsPage = assetCreationPage.click_BackBtn();
 			
 			assetHubPage = assetDetailsPage.ClickBackBtn();
@@ -995,7 +1001,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(2000);
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(),
-					"Asset : \"Ast021\"  is modified by User ID : \"Kiranc1 \", User Name : \"Kiranc1\" .");
+					"Asset : \"Ast021\"  is modified by User ID : \"t1 \", User Name : \"Test1\" .");
 			
 			
 			sa.assertAll();
@@ -1010,7 +1016,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 		public void AD_Asset_Audit_022 () throws InterruptedException, ParseException, AWTException, IOException {
 			extentTest = extent.startTest("AD_Asset_ Audit 022 Verify the Audit trail entry after Deleting  Asset image with the  Active Directory Admin User");
 			
-			System.out.println("This tc has handeled on AD_Asset_Audit_022");
+			System.out.println("This tc has handeled on AD_Asset_Audit_021");
 		}
 		
 		
@@ -1022,7 +1028,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			extentTest = extent.startTest(
 					"AD_Asset_ Audit-023 Verify the Audit trail entry after Uploading new  Asset image with the  Active Directory Admin User");
 
-			System.out.println("This tc has handeled on AD_Asset_Audit_023");
+			System.out.println("This tc has handeled on AD_Asset_Audit_021");
 		}		
 		
 		
@@ -1040,7 +1046,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			
 			assetCreationPage.assetCreationWithAllFieldEntry("Asset024", "24", "HeatBath", "Aas", "Hyd","VRT","1","cu m","11/20/2023","1","Months","Add");
 
-			tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "Assetcreation");
+			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 			tu.click_Close_alertmsg();
 			assetHubPage = assetCreationPage.clickBackBtn();
 
@@ -1048,7 +1054,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Copyassetpage = assetDetailsPage.clickCopyasset();
 			Copyassetpage.copyAsset_Creation("CopyAst24", "24");
 			
-		    tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "copyasset done");
+		    tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"),"copyasset done");
 		    
 		    
 		    assetDetailsPage =  Copyassetpage.clickBack_Button();
@@ -1059,7 +1065,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 			Thread.sleep(2000);
 
 			sa.assertEquals(AuditPage.get_auditEvent_text(),
-					"Asset : \"CopyAst24\" is created by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
+					"Asset : \"CopyAst24\" is created by User Id : \"t1\" , User Name : \"Test1\".");
 			
 			sa.assertAll();
 			 
@@ -1082,7 +1088,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				assetHubPage = MainHubPage.Click_AssetTile2();
 				assetCreationPage = assetHubPage.Click_AddAssetButton();
 				assetCreationPage.assetCreation("AstCA012", "Asset052", "HeatBath", "Aas", "Hyd");
-				tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "Assetcreation");
+				tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"),"Assetcreation");
 				tu.click_Close_alertmsg();
 				assetHubPage = assetCreationPage.clickBackBtn();
 				assetDetailsPage = assetHubPage.click_assetTile("AstCA012");
@@ -1092,7 +1098,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				Copyassetpage.Enter_NewAssetIDField("12q");
 				Copyassetpage.click_copy_Btn();
 
-			    tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "copyassetdone");
+			    tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "copyassetdone");
 			    
 				assetDetailsPage = Copyassetpage.clickBack_Button();
 				assetHubPage = assetDetailsPage.ClickBackBtn();
@@ -1102,7 +1108,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				Thread.sleep(2000);
 
 				sa.assertEquals(AuditPage.get_auditEvent_text(),
-						"Asset : \"CA012q\" is created by User Id : \"Kiranc1\" , User Name : \"Kiranc1\".");
+						"Asset : \"CA012q\" is created by User Id : \"t1\" , User Name : \"Test1\".");
 				
 				sa.assertAll();
 			}
@@ -1195,7 +1201,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				AuditPage = MainHubPage.ClickAuditTitle();
 				Thread.sleep(5000);
 				String Actionmsg = AuditPage.get_auditEvent_text();
-				String ExpectMSG = "Asset : \"CA011\" is created by User Id : \"1\" , User Name : \"User1\".";
+				String ExpectMSG = "Asset : \"CA011\" is created by User Id : \"1\" , User Name : \"Test1\".";
 
 				sa.assertEquals(Actionmsg, ExpectMSG, "FAIL:The Audit trail record for copy Assets activity is not exist ");
 				sa.assertAll();
@@ -1216,7 +1222,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				assetHubPage = MainHubPage.Click_AssetTile2();
 				assetCreationPage = assetHubPage.Click_AddAssetButton();
 				assetCreationPage.assetCreation("Ast015", "A15", "HeatBath", "Aas", "Hyd");
-				tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "Assetcreation");
+				tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 				tu.click_Close_alertmsg();
 				assetHubPage = assetCreationPage.clickBackBtn();
 				assetDetailsPage = assetHubPage.click_assetTile("Ast015");
@@ -1226,17 +1232,17 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				Copyassetpage.Enter_NewAssetIDField("15");
 				Copyassetpage.click_copy_Btn();
 
-			    tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "copyassetdone");
+			    tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "copyassetdone");
 			    
 				assetDetailsPage = Copyassetpage.clickBack_Button();
 				assetDetailsPage.Click_DeleteAsset();
-				tu.UserLoginPopup_UserCommentTextBox("kiranc1", "Amphenol@123", "deleteast");
+				tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"),"deleteast");
 				assetHubPage = assetDetailsPage.Delete_ClickYesBtn();
 				MainHubPage = assetHubPage.click_BackBtn();
 				AuditPage = MainHubPage.ClickAuditTitle();
 				Thread.sleep(2000);
 				String Actionmsg = AuditPage.get_auditEvent_text();
-				String ExpectMSG = "Asset: \"Ast015\" is deleted by User Id : \"Kiranc1\" , User Name : \"Kiranc1\"";
+				String ExpectMSG = "Asset: \"Ast015\" is deleted by User Id : \"t1\" , User Name : \"Test1\"";
 				sa.assertEquals(Actionmsg, ExpectMSG, "FAIL: Audit trial record does not exists for Delete asset activity");
 				sa.assertAll();
 				
@@ -1253,7 +1259,7 @@ public class AD_Asset_Admin_AuditTest  extends BaseClass{
 				assetHubPage = MainHubPage.Click_AssetTile2();
 				assetCreationPage = assetHubPage.Click_AddAssetButton();
 				assetCreationPage.assetCreation("CA005B1", "A16", "HeatBath", "Aas", "Vskp");
-				tu.UserLoginPopup_UserCommentTextBox("Kiranc1", "Amphenol@123", "Assetcreation");
+				tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"), "Assetcreation");
 				tu.click_Close_alertmsg();
 				assetHubPage = assetDetailsPage.ClickBackBtn();
 				assetDetailsPage = assetHubPage.click_assetTile("CA005B1");

@@ -146,30 +146,20 @@ public class ADUM_page extends BaseClass {
 		
 		//NewDefaultUserPermissionsPopup		
 		
-		public void select_grp(String name) throws AWTException {
-			WebElement SelectGroup = driver.findElementByAccessibilityId("ComboBoxGroup");
-			clickOn(SelectGroup);
-			List<WebElement> grplist=driver.findElementByAccessibilityId("ComboBoxGroup").findElements(By.className("ComboBoxItem"));
-			
-			//System.out.println(grplist.size());
-			WebElement grpName=grplist.get(1);
-				grpName.sendKeys(name);//EditableCombo
-			WebElement ele=driver.findElementByName(name);
-			clickOn(ele);
-
-	/*	for (int i = 0; i < grplist.size(); i++) {
-				
-				//String UNtext1 = grplist.get(i).getText();
-				 System.out.println(grplist.get(i).getText());
-				if (grplist.get(i).getText().equalsIgnoreCase(name)) {
-					grplist.get(i).click();
-					break;
-					
-				} else {
-					Actions ac = new Actions(driver);
-					ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
-				}
-			}*/
+		public void select_grp(String name) throws AWTException, InterruptedException {
+			Thread.sleep(3000);
+	        WebElement SelectGroup = driver.findElementByAccessibilityId("ComboBoxGroup");
+	        clickOn(SelectGroup);
+	        Thread.sleep(500);
+	        List<WebElement> grplist=driver.findElementByAccessibilityId("ComboBoxGroup").findElements(By.className("ComboBoxItem"));
+	        //grplist.get(1).sendKeys("QA Testers");
+	       Thread.sleep(500);
+	        WebElement grpName=grplist.get(1);
+	              grpName.sendKeys(name);//EditableCombo
+	        WebElement click=driver.findElementByName(name);
+	        Thread.sleep(1000);
+	        clickOn(click);
+	        Thread.sleep(1000);
 		}
 		
 		
@@ -502,6 +492,10 @@ public boolean Is_HardwareMaintenanceCheckBox_checkedin() {
 		clickOn(select_grp);
 		Thread.sleep(1000);
 
+	}
+	
+	public boolean UMtabPresence() {
+		return IsElementEnabledStatus(UMHeaderText);
 	}
 	
 	

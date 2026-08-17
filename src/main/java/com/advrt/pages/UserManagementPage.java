@@ -28,16 +28,13 @@ public class UserManagementPage extends BaseClass {
 	WebElement UMHeaderText = null;
 	WebElement PreferencesHeaderText = null;
 	WebElement PoliciesHeaderText = null;
-	WebElement NewUserUMBtn = null;
 	WebElement UNUMField = null;
 	WebElement UserIDUMField = null;
-	WebElement PWUMField = null;
-	WebElement ConPWUMField = null;
+	
 	WebElement TitleUMField = null;
 	WebElement UserTypeUMDropDown = null;
 	WebElement PhoneUMField = null;
 	WebElement EmailUMField = null;
-	WebElement DeleteUMBtn = null;
 	WebElement UMAssetPriv = null;
 	WebElement CreateSetupPriv = null;
 	WebElement EditSetupPriv = null;
@@ -67,9 +64,9 @@ public class UserManagementPage extends BaseClass {
 	WebElement CameraAccess = null;
 	WebElement DeletePassFailTemplate = null;
 	WebElement ChangeConsoleTime = null;
-	WebElement DisableCheckbox = null;
+	//WebElement DisableCheckbox = null;
 	WebElement UsersListButton = null;
-	WebElement UMImgBtn = null;
+	//WebElement UMImgBtn = null;
 	//List<WebElement> Combobx = null;
 
 	private void initElements() {
@@ -77,22 +74,20 @@ public class UserManagementPage extends BaseClass {
 		UMHeaderText = driver.findElementByName("User Management");
 		PreferencesHeaderText = driver.findElementByAccessibilityId("PreferencesButton");
 		PoliciesHeaderText = driver.findElementByAccessibilityId("PoliciesButton");
-		NewUserUMBtn = driver.findElementByAccessibilityId("NewUserButton");
+		
 		UNUMField = driver.findElementByAccessibilityId("NameTextBox");
 		UserIDUMField = driver.findElementByAccessibilityId("UserIDTextBox");
-		PWUMField = driver.findElementByAccessibilityId("UMCPasswordTextBox");
-		ConPWUMField = driver.findElementByAccessibilityId("ConfirmPasswordTextBox");
+		
 		TitleUMField = driver.findElementByAccessibilityId("EditableTextBox");
 		UserTypeUMDropDown = driver.findElementByAccessibilityId("UserTypeComboBox");
 		//Combobx = driver.findElementsByAccessibilityId("UserTypeComboBox");
 		PhoneUMField = driver.findElementByAccessibilityId("PhoneTextBox");
 		EmailUMField = driver.findElementByAccessibilityId("EmailTextBox");
-		DeleteUMBtn = driver.findElementByName("Delete");
-		UMImgBtn = driver.findElementByAccessibilityId("UserImage");
+		//UMImgBtn = driver.findElementByAccessibilityId("UserImage");
 		SaveUMBtn = driver.findElementByAccessibilityId("SaveButton");
 		//CancelUMBtn = driver.findElementByName("CancelButton");
 		UsersListButton = driver.findElementByAccessibilityId("PrintUsersListButton");
-		DisableCheckbox = driver.findElementByAccessibilityId("DisableUserCheckBox");
+		//DisableCheckbox = driver.findElementByAccessibilityId("DisableUserCheckBox");
 
 		// User Privilege element definition for Admin
 		
@@ -141,16 +136,13 @@ public class UserManagementPage extends BaseClass {
 		UMHeaderText = null;
 		PreferencesHeaderText = null;
 		PoliciesHeaderText = null;
-		NewUserUMBtn = null;
 		UNUMField = null;
 		UserIDUMField = null;
-		PWUMField = null;
-		ConPWUMField = null;
+		
 		TitleUMField = null;
 		UserTypeUMDropDown = null;
 		PhoneUMField = null;
 		EmailUMField = null;
-		DeleteUMBtn = null;
 		UMAssetPriv = null;
 		CreateSetupPriv = null;
 		EditSetupPriv = null;
@@ -181,9 +173,9 @@ public class UserManagementPage extends BaseClass {
 		CameraAccess = null;
 		DeletePassFailTemplate = null;
 		ChangeConsoleTime = null;
-		DisableCheckbox = null;
+		//DisableCheckbox = null;
 		UsersListButton = null;
-		UMImgBtn = null;
+		//UMImgBtn = null;
 		//Combobx = null;
 	}
 
@@ -196,6 +188,7 @@ public class UserManagementPage extends BaseClass {
 	}
 	
 	public boolean IsNewUserBtnPresence() {
+		WebElement	NewUserUMBtn = driver.findElementByAccessibilityId("NewUserButton");
 		return IsElementEnabledStatus(NewUserUMBtn);
 	}
 
@@ -215,6 +208,7 @@ public class UserManagementPage extends BaseClass {
 	// Click NewUser button
 	public void ClickNewUser() throws InterruptedException {
 		Thread.sleep(1000);
+		WebElement	NewUserUMBtn = driver.findElementByAccessibilityId("NewUserButton");
 		clickOn(NewUserUMBtn);
 		clickOn(NewUserUMBtn);
 	}
@@ -237,11 +231,13 @@ public class UserManagementPage extends BaseClass {
 
 	// Verify the Password Field presence...")
 	public boolean PassworFieldPresence() {
+		WebElement PWUMField = driver.findElementByAccessibilityId("UMCPasswordTextBox");
 		return IsElementEnabledStatus(PWUMField);
 	}
 
 	// Verify the ConPassword Field presence...")
 	public boolean ConPassworFieldPresence() {
+		WebElement	ConPWUMField = driver.findElementByAccessibilityId("ConfirmPasswordTextBox");
 		return IsElementEnabledStatus(ConPWUMField);
 	}
 
@@ -289,17 +285,20 @@ public class UserManagementPage extends BaseClass {
 
 	// Enter PW text
 	public void enterNewUserPW(String NewPW) {
+		WebElement PWUMField = driver.findElementByAccessibilityId("UMCPasswordTextBox");
 		ClearText(PWUMField);
 		enterText(PWUMField, NewPW);
 	}
 
 	// fetch PW text
 	public String get_PWField_text() {
+		WebElement PWUMField = driver.findElementByAccessibilityId("UMCPasswordTextBox");
 		return FetchText(PWUMField);
 	}
 
 	// Enter ConfirmPW text
 	public void enterNewUserConfPW(String NewCPW) {
+		WebElement	ConPWUMField = driver.findElementByAccessibilityId("ConfirmPasswordTextBox");
 		ClearText(ConPWUMField);
 		enterText(ConPWUMField, NewCPW);
 	}
@@ -376,6 +375,7 @@ public class UserManagementPage extends BaseClass {
 
 	// Select User image
 	public void selectUserImg(String imgName) throws AWTException, IOException, InterruptedException {
+		WebElement UMImgBtn = driver.findElementByAccessibilityId("UserImage");
 		clickOn(UMImgBtn);
 		WebElement ImgBrowseBtn = driver.findElementByAccessibilityId("BrowseImage");
 		clickOn(ImgBrowseBtn);
@@ -650,8 +650,9 @@ public class UserManagementPage extends BaseClass {
 	}
 
 	// Click on the User Image Tile Button
-	public void click_UserImageTile() throws InterruptedException {		
-		clickOn(UMImgBtn);
+	public void click_UserImageTile() throws InterruptedException {
+		WebElement UMImgBtn = driver.findElementByAccessibilityId("UserImage");
+				clickOn(UMImgBtn);
 		// Thread.sleep(1000);
 	}
 
@@ -670,7 +671,8 @@ public class UserManagementPage extends BaseClass {
 	}
 	
 	//Save the image clicked
-	public void Capture_Img(String Img_Name) throws IOException {		
+	public void Capture_Img(String Img_Name) throws IOException {	
+		WebElement UMImgBtn = driver.findElementByAccessibilityId("UserImage");
 		tu.capture_element_screenshot(driver, UMImgBtn, "TestData", Img_Name);
 
 	}
@@ -683,16 +685,19 @@ public class UserManagementPage extends BaseClass {
 
 	// check/select Disable User CheckBox
 	public void Select_DisableUserCheckBox() throws InterruptedException {
+	WebElement	DisableCheckbox = driver.findElementByAccessibilityId("DisableUserCheckBox");
 		clickOn(DisableCheckbox);
 	}
 
 	// Get DisableUserCheckBox enable status 
 	public boolean DisableUserCheckBox_Enablestate() {
+		WebElement	DisableCheckbox = driver.findElementByAccessibilityId("DisableUserCheckBox");
 		return IsElementEnabledStatus(DisableCheckbox);
 	}
 	
 	// Check if DisableUserCheckBox checked or not
 	public boolean DisableUserCheckBox_IsChecked() {
+		WebElement	DisableCheckbox = driver.findElementByAccessibilityId("DisableUserCheckBox");
 		String checkUncheckTxt = DisableCheckbox.getAttribute("Toggle.ToggleState");
 		//System.out.println(checkUncheckTxt);
 		boolean flag;
@@ -857,6 +862,7 @@ public class UserManagementPage extends BaseClass {
 
 	// Click on Delete button
 	public void ClickDeletebtn() {
+	WebElement DeleteUMBtn = driver.findElementByName("Delete");
 		clickOn(DeleteUMBtn);
 	}
 

@@ -76,30 +76,43 @@ public class AD_DeleteStudiesTest extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 		
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_ADDeleteStudiesTest"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_ADDeleteStudiesTest(1.6.14)06"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
 		//extent.addSystemInfo("ScriptVersion-Git", prop1.getProperty("git.commit.id.describe-short").split("-")[0]);
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("ADDeleteStudies Test in Progress..");
-		
 
-		// Rename the VRT Data Files folder if exists in order to make the system default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-		//Copy the Default DataFIles folder from Test Data to the App service location.
-		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-		tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+		// stop service
+				/*Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 		
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
-		PoliciesPage = LoginPage.DefaultLogin();
-		UserManagementPage = PoliciesPage.click_UMHeader();
+		Database_configPage = LoginPage.DefaultLogin1();
+		UserManagementPage = Database_configPage.click_UMHeader();
 		UserManagementPage.ClickNewUser();	
 		// Create the default Admin USer
 		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
@@ -121,9 +134,10 @@ public class AD_DeleteStudiesTest extends BaseClass{
 		
 		PoliciesPage=UserManagementPage.Click_Policy();
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
 		//tu.click_OK_popup();
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
@@ -131,7 +145,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
         Thread.sleep(5000);
 		AD_UMPage=PoliciesPage.click_AD_UMHeader();
 		//AD_UMPage.Select_grp();
-		AD_UMPage.select_grp("QA Testers");
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		//AD_UMPage.Select_user();
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
@@ -142,13 +156,13 @@ public class AD_DeleteStudiesTest extends BaseClass{
 		tu.click_OK_popup();
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		
 		//MainHubPage=AD_UMPage.click_BackBtn();
 		/*
 		//SyncIn
 				FileManagementPage = MainHubPage.ClickFileManagementTitle();
-				SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit("kiranc","Amphenol@123","usercommitted");
+				SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted");
 				Thread.sleep(500);
 				SyncInPage.enter_Filepath("syncin");
 				Thread.sleep(500);
@@ -163,13 +177,13 @@ public class AD_DeleteStudiesTest extends BaseClass{
 				Thread.sleep(2000);
 				LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 				LoginPage = new LoginPage();
-				MainHubPage = LoginPage.Login("kiranc","Amphenol@123");*/
+				MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));*/
 				
-				
+				/*
 		
 		LoginPage = MainHubPage.UserSignOut();
 		AppClose();
-		Thread.sleep(2000);
+		Thread.sleep(2000);*/
 	
 	}
 	
@@ -188,10 +202,10 @@ public class AD_DeleteStudiesTest extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		//SyncIn
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit("kiranc","Amphenol@123","usercommitted");
+		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted");
 		Thread.sleep(700);
 		SyncInPage.enter_Filepath("syncin");//syncin
 		Thread.sleep(700);
@@ -206,7 +220,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 		Thread.sleep(5000);
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 		Thread.sleep(500);
 	}
@@ -258,7 +272,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 		
 		
 		String ActualMsg=AuditPage.get_auditEvent_text();
-		String ExpectedMsg="User ID : \"kiranc\",User Name : \"kiran c\" Logged in to System.";
+		String ExpectedMsg="User ID : \"ajay2\",User Name : \"Ajay Mashal\" Logged in to System.";
 		
 		sa.assertEquals(ActualMsg,ExpectedMsg,
 				"Fail: There is NO Audit trail  entry  while login with the  Active Directory Admin  User");
@@ -284,7 +298,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 			assetDetailsPage.Select_QualFile("manual 1 min sampling");
 			Thread.sleep(1000);
 			assetDetailsPage.click_DeleteQualificationButton();
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted");
 			tu.click_YesBtn_popup();
 			assetHubPage = assetDetailsPage.ClickBackBtn();
 			Thread.sleep(1000);
@@ -293,7 +307,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 			AuditPage = MainHubPage.ClickAuditTitle();
 			Thread.sleep(2000);
 			String ActualMsg = AuditPage.get_auditEvent_text();
-			String ExpectedMsg ="Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"kiranc\", User Name : \"kiran c\"";
+			String ExpectedMsg ="Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"Ajay2\", User Name : \"Ajay Mashal\"";
 			
 			sa.assertEquals(ActualMsg,ExpectedMsg,
 					"Fail: No audit recorded in Audit trail when Qual study is deleted from Qualification tile form asset screen  with the  Active Directory Admin  User ");
@@ -312,7 +326,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 					.startTest("AD_Delete study_003-Verify the Audit trail entry  when Qual study is deleted from Qualification tile form asset screen  with the  Active Directory Supervisor  User");
 			SoftAssert sa = new SoftAssert();
 			
-			AD_UMPage.select_grp("Automation");
+			AD_UMPage.select_grp(prop.getProperty("Group2"));
 			//AD_UMPage.Select_user();
 			AD_UMPage.select_user(3);
 			AD_UMPage.select_UserTitle("Manager");
@@ -321,24 +335,24 @@ public class AD_DeleteStudiesTest extends BaseClass{
 			DefaultUserPrivilages_page.Click_DeleteStudyFiles_Reports();
 			DefaultUserPrivilages_page.NewSaveButton();
 			Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			AD_UMPage.select_UserTitle("Manager");
 			AD_UMPage.select_UserType1("Supervisor");
 			AD_UMPage.clickSavebtn();
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			tu.click_OK_popup();
 			MainHubPage=AD_UMPage.click_BackBtn();
 			MainHubPage.UserSignOut();
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"));
 			assetHubPage=MainHubPage.Click_AssetTile2();
 			assetDetailsPage	=assetHubPage.click_assetTile2("SyncInAsset");
 			assetDetailsPage.click_QualTile();
 			assetDetailsPage.Select_QualFile("manual 1 min sampling");
 			Thread.sleep(1000);
 			assetDetailsPage.click_DeleteQualificationButton();
-			UserLoginPopup_UserCommentTextBox("kaverib","Amphenol@123","usercommitted");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"),"usercommitted");
 			tu.click_YesBtn_popup();
 			Thread.sleep(500);
 			assetHubPage = assetDetailsPage.ClickBackBtn();
@@ -346,7 +360,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 			AuditPage = MainHubPage.ClickAuditTitle();
 			Thread.sleep(2000);
 			String ActualMsg = AuditPage.get_auditEvent_text();
-			String ExpectedMsg ="Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"";
+			String ExpectedMsg ="Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"t1\", User Name : \"Test1\"";
 			
 			sa.assertEquals(ActualMsg,ExpectedMsg,
 					"Fail: No audit recorded in Audit trail when Qual study is deleted from Qualification tile form asset screen  with the  Active Directory Supervisor  User ");
@@ -370,7 +384,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 					.startTest("AD_Delete study_004-Verify the Audit trail entry  when Qual study is deleted from Qualification tile form asset screen  with the  Active Directory Operatore   User");
 			SoftAssert sa = new SoftAssert();
 			
-			AD_UMPage.select_grp("Automation");
+			AD_UMPage.select_grp(prop.getProperty("Group2"));
 			//AD_UMPage.Select_user();
 			AD_UMPage.select_user(3);
 			AD_UMPage.select_UserTitle("Manager");
@@ -379,25 +393,25 @@ public class AD_DeleteStudiesTest extends BaseClass{
 			DefaultUserPrivilages_page.Click_DeleteStudyFiles_Reports();
 			DefaultUserPrivilages_page.NewSaveButton();
 			Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			AD_UMPage.select_UserTitle("Manager");
 			AD_UMPage.select_UserType1("Operator");
 			AD_UMPage.clickSavebtn();
 			
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			tu.click_OK_popup();
 			MainHubPage=AD_UMPage.click_BackBtn();
 			MainHubPage.UserSignOut();
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"));
 			assetHubPage=MainHubPage.Click_AssetTile2();
 			assetDetailsPage	=assetHubPage.click_assetTile2("SyncInAsset");
 			assetDetailsPage.click_QualTile();
 			assetDetailsPage.Select_QualFile("manual 1 min sampling");
 			Thread.sleep(1000);
 			assetDetailsPage.click_DeleteQualificationButton();
-			UserLoginPopup_UserCommentTextBox("kaverib","Amphenol@123","usercommitted");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"),"usercommitted");
 			tu.click_YesBtn_popup();
 			Thread.sleep(500);
 			assetHubPage=assetDetailsPage.ClickBackBtn();
@@ -406,7 +420,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 				
 				
 			String ActualMsg = AuditPage.get_auditEvent_text();
-			String ExpectedMsg ="Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"";
+			String ExpectedMsg ="Qualification Study : \"manual 1 min sampling\"  deleted by User ID : \"t1\", User Name : \"Test1\"";
 			
 			
 			sa.assertEquals(ActualMsg,ExpectedMsg,
@@ -430,7 +444,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 			
 			
 			
-		AD_UMPage.select_grp("QA Testers");
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		//AD_UMPage.Select_user();
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
@@ -439,24 +453,24 @@ public class AD_DeleteStudiesTest extends BaseClass{
 		DefaultUserPrivilages_page.Click_DeleteStudyFiles_Reports();
 		DefaultUserPrivilages_page.NewSaveButton();
 		Thread.sleep(500);
-		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("SystemAdministrator");
 		AD_UMPage.clickSavebtn();
-		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 		tu.click_OK_popup();
 		MainHubPage=AD_UMPage.click_BackBtn();
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		assetHubPage=MainHubPage.Click_AssetTile2();
 		assetDetailsPage	=assetHubPage.click_assetTile2("SyncInAsset");
 		assetDetailsPage.click_QualTile();
 		assetDetailsPage.Select_QualFile("manual 1 min sampling");
 		Thread.sleep(1000);
 		assetDetailsPage.click_DeleteQualificationButton();
-		//UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted");
+		//UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted");
 		
 		assetHubPage=assetDetailsPage.ClickBackBtn();
 		MainHubPage=assetHubPage.click_BackBtn();
@@ -464,7 +478,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 			
 			
 		String ActualMsg = AuditPage.get_auditEvent_text();
-		String ExpectedMsg ="User ID : \"kiranc\", User Name : \"kiran c\"  has insufficient Privileges to perform Qualification study deletion  ";
+		String ExpectedMsg ="User ID : \"Ajay2\", User Name : \"Ajay Mashal\"  has insufficient Privileges to perform Qualification study deletion  ";
 		
 		
 		sa.assertEquals(ActualMsg,ExpectedMsg,
@@ -484,32 +498,32 @@ public class AD_DeleteStudiesTest extends BaseClass{
 			SoftAssert sa = new SoftAssert();
 			
 			
-			AD_UMPage.select_grp("Automation");
+			AD_UMPage.select_grp(prop.getProperty("Group2"));
 			AD_UMPage.select_user(3);
 			AD_UMPage.select_UserTitle("Manager");
 			AD_UMPage.select_UserType1("Supervisor");
 			AD_UMPage.clickSavebtn();
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			tu.click_OK_popup();
 			Thread.sleep(1000);
 			MainHubPage=AD_UMPage.click_BackBtn();
 			MainHubPage.UserSignOut();
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"));
 			assetHubPage=MainHubPage.Click_AssetTile2();
 			assetDetailsPage	=assetHubPage.click_assetTile2("SyncInAsset");
 			assetDetailsPage.click_QualTile();
 			assetDetailsPage.Select_QualFile("manual 1 min sampling");
 			Thread.sleep(1000);
 			assetDetailsPage.click_DeleteQualificationButton();
-			
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			assetHubPage=assetDetailsPage.ClickBackBtn();
 			MainHubPage=assetHubPage.click_BackBtn();
 			AuditPage=MainHubPage.ClickAuditTitle();
 				
 				
 			String ActualMsg = AuditPage.get_auditEvent_text();
-			String ExpectedMsg ="User ID : \"kaverib\", User Name : \"kaveri Bedar\"  has insufficient Privileges to perform Qualification study deletion  ";
+			String ExpectedMsg ="User ID : \"Ajay2\", User Name : \"Ajay Mashal\"  has insufficient Privileges to perform Qualification study deletion  ";
 			
 			sa.assertAll();
 	}
@@ -525,18 +539,18 @@ public class AD_DeleteStudiesTest extends BaseClass{
 					.startTest("AD_Delete study_007-Verify if no Audit trail entry  is recorded when user is not having delete study privilegs   with the  Active Directory operatore  User");
 			SoftAssert sa = new SoftAssert();
 			
-			AD_UMPage.select_grp("Automation");
+			AD_UMPage.select_grp(prop.getProperty("Group2"));
 			AD_UMPage.select_user(3);
 			AD_UMPage.select_UserTitle("Manager");
 			AD_UMPage.select_UserType1("Operator");
 			AD_UMPage.clickSavebtn();
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			tu.click_OK_popup();
 			Thread.sleep(1000);
 			MainHubPage=AD_UMPage.click_BackBtn();
 			MainHubPage.UserSignOut();
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group2UserId"),prop.getProperty("Group2Pwd"));
 			assetHubPage=MainHubPage.Click_AssetTile2();
 			assetDetailsPage	=assetHubPage.click_assetTile2("SyncInAsset");
 			assetDetailsPage.click_QualTile();
@@ -550,7 +564,7 @@ public class AD_DeleteStudiesTest extends BaseClass{
 				
 				
 			String ActualMsg = AuditPage.get_auditEvent_text();
-			String ExpectedMsg ="User ID : \"kaverib\", User Name : \"kaveri Bedar\"  has insufficient Privileges to perform Qualification study deletion  ";
+			String ExpectedMsg ="User ID : \"t1\", User Name : \"Test1\"  has insufficient Privileges to perform Qualification study deletion  ";
 			
 			sa.assertAll();
 			

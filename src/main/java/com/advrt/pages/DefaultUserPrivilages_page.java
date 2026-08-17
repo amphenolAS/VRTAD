@@ -421,7 +421,7 @@ public class DefaultUserPrivilages_page extends BaseClass {
 
             			WebElement btnConnect = driver.findElementByAccessibilityId("btnConnect");
             			clickOn(btnConnect);
-            			tu.UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","comment");
+            			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"comment");
             			
             			Thread.sleep(1000);
             			return new ADUM_page();
@@ -603,7 +603,7 @@ public class DefaultUserPrivilages_page extends BaseClass {
             			WebElement btnconnect = driver.findElementByAccessibilityId("btnConnect");
             			clickOn(btnconnect);
 
-            			tu.UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "comment");
+            			tu.UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "comment");
 
             			Thread.sleep(1000);
             			return new ADUM_page();
