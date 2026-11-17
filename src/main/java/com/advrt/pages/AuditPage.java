@@ -69,9 +69,18 @@ public class AuditPage extends BaseClass {
 		// WebElement msg = driver.findElementByName(");
 
 	}
+
+	// Verify that the below details is displaying when user filter the particular action
+		public String get_auditEvent_text_1(int n) {
+			List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_CellsHost")
+					.findElements(By.className("TextBlock"));
+			return FetchText(Act_Txt.get(n));
+		}
+	
+	
 	// Verify that the below details is displaying when user filter the particular action
 	public boolean get_auditEvent_text17() {
-		List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+		List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_CellsHost")
 				.findElements(By.className("TextBlock"));
 		String text= FetchText(Act_Txt.get(17));
 		return false;
@@ -93,7 +102,7 @@ public class AuditPage extends BaseClass {
 
 	// Verify that the below details is displaying when user filter the particular action
 	public String get_auditEvent_text() {
-		List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+		List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_CellsHost")
 				.findElements(By.className("TextBlock"));
 		return FetchText(Act_Txt.get(3));
 	}
@@ -129,14 +138,14 @@ public class AuditPage extends BaseClass {
 
 	// Verify that the below details is displaying when user filter the particular action
 			public String get_userName_text() {
-				List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+				List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_CellsHost")
 						.findElements(By.className("TextBlock"));
 				return FetchText(Act_Txt.get(1));
 			}
 			
 			
 			public String get_auditUsercommit_text() {
-				List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer")
+				List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_CellsHost")
 						.findElements(By.className("TextBlock"));
 				return FetchText(Act_Txt.get(4));
 			}

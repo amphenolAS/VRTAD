@@ -111,7 +111,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 		
 		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"AD_AD_Audit_VerificationwithoutPrivilageTest"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
@@ -122,14 +122,26 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 		System.out.println("AD_Audit_VerificationwithoutPrivilageTest Test in Progress..");
 		
 
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
 
-	// Rename the VRT Data Files folder if exists in order to make the system default
-		 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-			//Copy the Default DataFIles folder from Test Data to the App service location.
-			String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-			String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-			tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
-			
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
 			extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
@@ -153,10 +165,10 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			PoliciesPage = UserManagementPage_Manual.Click_Policy();
 			
 			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-			PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 			PoliciesPage.clickOn_ConnectBtn();
 			PoliciesPage.ClickSaveButton();
-			Thread.sleep(1000);
+			PoliciesPage.clickonOkBtn();
 			PoliciesPage.clickOn_AcceptBtn();
 			UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 			tu.click_OK_popup();
@@ -176,7 +188,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			Thread.sleep(500);
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 			AD_UMPage.select_grp("Automation");
 			AD_UMPage.select_UserTitle("Manager");
@@ -189,14 +201,14 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			//DefaultUserPrivilages_page.Click_RunQualification();
 			//DefaultUserPrivilages_page.NewSaveButton();
 			//Thread.sleep(500);
-			//UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			//UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			//Thread.sleep(1000);
 			//AD_UMPage.select_UserTitle("Manager");
 			ADUM_page.SelectUType("Supervisor");
 			Thread.sleep(1000);
 			ADUM_page.ClickNewUserSaveButton();
 			Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			tu.click_OK_popup();
 			MainHubPage=AD_UMPage.click_BackBtn();
@@ -204,7 +216,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			//SyncIn
 			
 			FileManagementPage = MainHubPage.ClickFileManagementTitle();
-			SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit("kiranc","Amphenol@123","usercommitted");
+			SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted");
 			Thread.sleep(500);
 			SyncInPage.enter_Filepath("AD_FM");
 			Thread.sleep(500);
@@ -240,7 +252,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		
 	}
 
@@ -286,15 +298,15 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			
 			SoftAssert sa = new SoftAssert();
 			LoginPage=MainHubPage.UserSignOut();
-			//here kiranc is system admin who doesnt have Run verification privilage
-			MainHubPage	=LoginPage.Login("kiranc", "Amphenol@123");
+			//here Ajay2 is system admin who doesnt have Run verification privilage
+			MainHubPage	=LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			EquipmentHubPage	=MainHubPage.ClickEquipmentTile();
 			EquipmentHubPage.IntiQual_Btn_Alert();
 			Thread.sleep(500);
 			MainHubPage=EquipmentHubPage.ClickBackBtn();
 			AuditPage=MainHubPage.ClickAuditTitle();
 			
-			sa.assertEquals(AuditPage.get_auditEvent_text(),"User  ID : \"kiranc\"  , User Name :\"kiran c\"   has insufficient Privileges to perform  Verification study");
+			sa.assertEquals(AuditPage.get_auditEvent_text(),"User  ID : \"Ajay2\"  , User Name :\"Ajay Mashal\"   has insufficient Privileges to perform  Verification study");
 			sa.assertAll();
 			
 		}
@@ -310,11 +322,11 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			
 			EquipmentHubPage	=MainHubPage.ClickEquipmentTile();
 			EquipmentHubPage.IntiQual_Btn1();
-			UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "commited");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "commited");
 			MainHubPage=EquipmentHubPage.ClickBackBtn();
 			AuditPage=MainHubPage.ClickAuditTitle();
 			
-			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"kiranc\" , User Name: \"kiran c\" do not have permission to do \"RunVerification\" operation in \"Equipment Details\" screen");
+			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"Ajay2\" , User Name :\"Ajay Mashal\" do not have permission to do \"RunVerification\" operation in \"Equipment Details\" screen");
 			sa.assertAll();
 			
 		}
@@ -337,13 +349,13 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			Thread.sleep(500);
 			setup_verificationpage.CreateSetup();
 			setup_verificationpage.ClicksaveBtn1();
-			UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "committed");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 			//setup_verificationpage.EntersetupName("T_Setup");
 			EquipmentHubPage=setup_verificationpage.ClickBackBtn();
 			MainHubPage=EquipmentHubPage.ClickBackBtn();
 			AuditPage=MainHubPage.ClickAuditTitle();
 			
-			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"kiranc\" , User Name: \"kiran c\" do not have permission to do \"Save\" operation in \"Verification\" screen");
+			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"Ajay2\" , User Name :\"Ajay Mashal\" do not have permission to do \"Save\" operation in \"Verification\" screen");
 			sa.assertAll();
 			
 		}
@@ -359,7 +371,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			
 			LoginPage=MainHubPage.UserSignOut();
 
-			MainHubPage	=LoginPage.Login("kiranc", "Amphenol@123");
+			MainHubPage	=LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 			AD_UMPage.select_grp("QA Testers");
 			AD_UMPage.select_UserTitle("Manager");
@@ -368,20 +380,20 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			DefaultUserPrivilages_page.Click_Create_Reports();
 			DefaultUserPrivilages_page.NewSaveButton();
 			Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			AD_UMPage.select_UserTitle("Manager");
 			AD_UMPage.select_UserType1("SystemAdministrator");
 			Thread.sleep(1000);
 			AD_UMPage.ClickNewUserSaveButton();
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			tu.click_OK_popup();
 
 			MainHubPage=AD_UMPage.click_BackBtn();
 			MainHubPage.UserSignOut();
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			EquipmentHubPage	=MainHubPage.ClickEquipmentTile();
 			EquipmentHubPage.IntiQual_Btn();
 			setup_verificationpage=EquipmentHubPage.loggerokbutton();
@@ -390,12 +402,12 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			setup_verificationpage.ClicksaveBtn();
 			setup_verificationpage.EntersetupName("Setup");
 			setup_verificationpage.PrintSetup();
-			UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "committed");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 			EquipmentHubPage=setup_verificationpage.ClickBackBtn();
 			MainHubPage=EquipmentHubPage.ClickBackBtn();
 			AuditPage=MainHubPage.ClickAuditTitle();
 			
-			sa.assertEquals(AuditPage.get_auditEvent_text(),"User : \"kiranc\"  failed to do  \"verification setup print\" operation in \"verification setup\" screen");
+			sa.assertEquals(AuditPage.get_auditEvent_text(),"User : \"Ajay2\"  failed to do  \"verification setup print\" operation in \"verification setup\" screen");
 			sa.assertAll();
 			
 		}
@@ -413,7 +425,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			
 			LoginPage=MainHubPage.UserSignOut();
 
-			MainHubPage	=LoginPage.Login("kiranc", "Amphenol@123");
+			MainHubPage	=LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 			AD_UMPage.select_grp("QA Testers");
 			AD_UMPage.select_UserTitle("Manager");
@@ -422,20 +434,20 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			DefaultUserPrivilages_page.Click_DeleteSetUp();
 			DefaultUserPrivilages_page.NewSaveButton();
 			Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			AD_UMPage.select_UserTitle("Manager");
 			AD_UMPage.select_UserType1("SystemAdministrator");
 			Thread.sleep(1000);
 			AD_UMPage.ClickNewUserSaveButton();
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			tu.click_OK_popup();
 
 			MainHubPage=AD_UMPage.click_BackBtn();
 			MainHubPage.UserSignOut();
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			EquipmentHubPage	=MainHubPage.ClickEquipmentTile();
 			EquipmentHubPage.IntiQual_Btn();
 			setup_verificationpage=EquipmentHubPage.loggerokbutton();
@@ -445,23 +457,23 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			setup_verificationpage.EntersetupName("Setup2");
 			setup_verificationpage.DeleteSetup();
 			//tu.click_YesBtn_popup();
-			UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "committed");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 			EquipmentHubPage=setup_verificationpage.ClickBackBtn();
 			MainHubPage=EquipmentHubPage.ClickBackBtn();
 			AuditPage=MainHubPage.ClickAuditTitle();
 			
-			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"kiranc\" , User Name: \"kiran c\" do not have permission to do \"Delete Setup\" operation in \"Verification\" screen");
+			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"Ajay2\" , User Name :\"Ajay Mashal\" do not have permission to do \"Delete Setup\" operation in \"Verification\" screen");
 			
 			MainHubPage=AuditPage.Click_BackBtn();
 			SelectBaseStationPage=MainHubPage.Click_Discover();
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.52";
+			String BSIP="10.17.18.49";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);
 			SelectBaseStationPage.Click_BSsettingsBtn();
 			SelectBaseStationPage.Click_SetBSideal();
-			UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "committed");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 			TimeUnit.SECONDS.sleep(30);
 			MainHubPage=	SelectBaseStationPage.clickBackBtn();
 			MainHubPage.UserSignOut();
@@ -493,7 +505,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.52";
+			String BSIP="10.17.18.49";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
 			TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
@@ -505,14 +517,14 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			TimeUnit.SECONDS.sleep(50);
 			ProgramLoggersPage.clickAbortbtn();
 			tu.click_YesBtn_popup();
-			UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "committed");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 			ProgramLoggersPage.clickBackbtn();
 			MainHubPage	=ProgramLoggersPage.click_YesBtn_popup();
 			
 			Thread.sleep(1000);
 			AuditPage=MainHubPage.ClickAuditTitle();
 			
-			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"kiranc\" , User Name: \"kiran c\" do not have permission to do \"RunVerification\" operation in \"Program Loggers \" screen");
+			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"Ajay2\" , User Name :\"Ajay Mashal\" do not have permission to do \"RunVerification\" operation in \"Program Loggers \" screen");
 			sa.assertAll();
 			
 		}	
@@ -528,7 +540,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 		
 			LoginPage=MainHubPage.UserSignOut();
 
-			MainHubPage	=LoginPage.Login("kiranc", "Amphenol@123");
+			MainHubPage	=LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 			AD_UMPage.select_grp("QA Testers");
 			AD_UMPage.select_UserTitle("Manager");
@@ -537,20 +549,20 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			DefaultUserPrivilages_page.Click_RunVerification();
 			DefaultUserPrivilages_page.NewSaveButton();
 			Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			AD_UMPage.select_UserTitle("Manager");
 			AD_UMPage.select_UserType1("SystemAdministrator");
 			Thread.sleep(1000);
 			AD_UMPage.ClickNewUserSaveButton();
-			UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			tu.click_OK_popup();
 
 			MainHubPage=AD_UMPage.click_BackBtn();
 			MainHubPage.UserSignOut();
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			EquipmentHubPage	=MainHubPage.ClickEquipmentTile();
 			EquipmentHubPage.IntiQual_Btn();
 			setup_verificationpage=EquipmentHubPage.loggerokbutton();
@@ -562,7 +574,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.52";
+			String BSIP="10.17.18.49";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
 			TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
@@ -574,13 +586,13 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			TimeUnit.SECONDS.sleep(50);
 			VerificationPage=ProgramLoggersPage.click_nextbtnV();
 			VerificationPage.click_Start_verificationbtn();
-			UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "committed");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 			Thread.sleep(500);
 			MainHubPage=VerificationPage.click_backbtn();
 			Thread.sleep(500);
 			AuditPage=MainHubPage.ClickAuditTitle();
 			
-			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"kiranc\" , User Name: \"kiran c\" do not have permission to do \"RunVerification\" operation in \"Verification\" screen");
+			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"Ajay2\" , User Name :\"Ajay Mashal\" do not have permission to do \"RunVerification\" operation in \"Verification\" screen");
 			
 			MainHubPage=AuditPage.Click_BackBtn();
 			SelectBaseStationPage=MainHubPage.Click_Discover();
@@ -590,7 +602,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);
 			SelectBaseStationPage.Click_BSsettingsBtn();
 			SelectBaseStationPage.Click_SetBSideal();
-			UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "committed");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 			TimeUnit.SECONDS.sleep(10);
 			MainHubPage=	SelectBaseStationPage.clickBackBtn();
 			MainHubPage.UserSignOut();
@@ -620,7 +632,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			TimeUnit.SECONDS.sleep(30);
 			SelectBaseStationPage.Click_DiscoverBS();
 			TimeUnit.SECONDS.sleep(30);
-			String BSIP="10.17.18.52";
+			String BSIP="10.17.18.49";
 			SelectBaseStationPage.Select_BSListbox("Ethernet IP-- " + BSIP);	
 			SelectLoggersPage=SelectBaseStationPage.Click_ConnectBtn();
 			TimeUnit. MINUTES. sleep(2);//need to wakeup/connect logger to bsestation
@@ -633,7 +645,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			VerificationPage=ProgramLoggersPage.click_nextbtnV();
 			VerificationPage.click_Abort_verificationbtn();
 			  //String date1=tu.CurrentDatenTime_certainformat(); System.out.println(date1);		
-			UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "committed");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 			
 			MainHubPage	=VerificationPage.click_backbtn();
 			
@@ -641,7 +653,7 @@ public class AD_Audit_VerificationwithoutPrivilageTest extends BaseClass{
 			AuditPage=MainHubPage.ClickAuditTitle();
 			
 			
-			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"kiranc\" , User Name: \"kiran c\" do not have permission to do \"RunVerification\" operation in \"VerificationCancelOperation\" screen");
+			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID: \"Ajay2\" , User Name :\"Ajay Mashal\" do not have permission to do \"RunVerification\" operation in \"VerificationCancelOperation\" screen");
 			sa.assertAll();
 			
 		}		

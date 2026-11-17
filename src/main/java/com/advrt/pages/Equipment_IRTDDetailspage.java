@@ -183,7 +183,7 @@ public class Equipment_IRTDDetailspage extends BaseClass {
 	}
 
 	// Delete Pop up Window  presence...
-	public boolean Is_Equip_DeletePopupWindow_Visible(String Equip) {
+	public boolean Is_Equip_DeletePopupWindow_Visible(String Equip) throws InterruptedException {
 		boolean flag = false;
 		String actmsg = tu.get_popup_text();
 		String expmsg = "Do you want to delete the '  "+Equip+" ' Equipment?";

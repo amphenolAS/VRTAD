@@ -246,11 +246,18 @@ public class BaseClass {
 				WebElement LgInOK = driver.findElementByAccessibilityId("ValidateUserOK");
 				//UserCommentTextBox
 				if (LgInPopup.isDisplayed()) {
+
+					LgInUID.click();
 					LgInUID.sendKeys(UN);
-					LgInPW.sendKeys(PW);
-					UserCommentTextBox.sendKeys(usercomm);
-					LgInOK.click();
-					Thread.sleep(1000);
+				
+				//LgInUID.sendKeys(UN);
+					LgInPW.click();
+					Thread.sleep(2000);
+				LgInPW.sendKeys(PW);
+				Thread.sleep(500);
+				UserCommentTextBox.sendKeys("NA");
+				LgInOK.click();
+				Thread.sleep(1000);
 				}		
 			}
 			

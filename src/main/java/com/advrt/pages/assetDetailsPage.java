@@ -87,7 +87,7 @@ public class assetDetailsPage extends BaseClass {
 		AssetEdit_Btn = driver.findElementByAccessibilityId("EditAssetsButton");
 		AssetHub_ImgHldr = driver.findElementByClassName("Image");
 		CopyAsset = driver.findElementByAccessibilityId("CopyAssetsButton");
-		AssetID = driver.findElementByName("Asset ID");
+		AssetID = driver.findElementByName("Asset ID #");
 		Model = driver.findElementByName("Model");
 		Manufacturer = driver.findElementByName("Manufacturer");
 		Type = driver.findElementByName("Type");

@@ -259,6 +259,11 @@ public class MainHubPage extends BaseClass {
 			}
 			
 			
+			public AD_UMPage ClickAdminTileUM() throws InterruptedException, IOException {
+				clickOn(MainUIAdminTile);
+				Thread.sleep(500);
+				return new AD_UMPage();
+			}	
 			
 			
 }

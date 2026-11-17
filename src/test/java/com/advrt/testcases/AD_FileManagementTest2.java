@@ -1,7 +1,7 @@
  /*                    
 
 		Description              :This Test Suite TC's related to File Management
-		Script Writer            :Kaveri Bedar	 
+		Script Writer            :Ajay Mashal	 
 		Last Modified/ Updated by: Deepika Arjala								 
 */
 package com.advrt.testcases;
@@ -107,9 +107,9 @@ public class AD_FileManagementTest2 extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"AD_FileManagementTest2"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"AD_FileManagementTest2(1.6.14)"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
@@ -118,20 +118,33 @@ public class AD_FileManagementTest2 extends BaseClass{
 		System.out.println("AD_FileManagementTest2 Test in Progress..");
 
 
-		
-		// Rename the VRT Data Files folder if exists in order to make the system default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-		//Copy the Default DataFIles folder from Test Data to the App service location.
-		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-		tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
-		PoliciesPage = LoginPage.DefaultLogin();
-		UserManagementPage = PoliciesPage.click_UMHeader();
+		Database_configPage= LoginPage.DefaultLogin1();
+		UserManagementPage = Database_configPage.click_UMHeader();
 		//UserManagementPage.ClickNewUser();	
 		// Create the default Admin USer
 		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
@@ -152,9 +165,10 @@ public class AD_FileManagementTest2 extends BaseClass{
 
 		PoliciesPage=UserManagementPage.Click_Policy();
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
 		//tu.click_OK_popup();
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
@@ -162,7 +176,7 @@ public class AD_FileManagementTest2 extends BaseClass{
         Thread.sleep(5000);
 		AD_UMPage=PoliciesPage.click_AD_UMHeader();
 		//AD_UMPage.Select_grp();
-		AD_UMPage.select_grp("Automation");
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		//AD_UMPage.Select_user();
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
@@ -176,11 +190,11 @@ public class AD_FileManagementTest2 extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+		MainHubPage = LoginPage.Login("ajay2","Amphenol@123");
 	
 		//SyncIn
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit("kaverib","Amphenol@123","usercommitted");
+		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit("ajay2","Amphenol@123","usercommitted");
 		Thread.sleep(500);
 		SyncInPage.enter_Filepath("AD_FM");
 		Thread.sleep(500);
@@ -195,7 +209,7 @@ public class AD_FileManagementTest2 extends BaseClass{
 		Thread.sleep(2000);
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		//MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+		//MainHubPage = LoginPage.Login("ajay2","Amphenol@123");
 		
 		//MainHubPage = AD_UMPage.click_BackBtn();
 		//LoginPage = MainHubPage.UserSignOut();
@@ -220,7 +234,7 @@ public class AD_FileManagementTest2 extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+		MainHubPage = LoginPage.Login("ajay2","Amphenol@123");
 		assetHubPage=MainHubPage.Click_AssetTile2();
 
 	}
@@ -278,11 +292,11 @@ public class AD_FileManagementTest2 extends BaseClass{
 		assetDetailsPage.Select_ReportFile("case-35");
 		Thread.sleep(5000);
 		assetDetailsPage.Click_DeleteBtn_report();
-		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "usercommitted");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "usercommitted");
 		Thread.sleep(500);
 		tu.click_NOBtn_popup();
 		assetDetailsPage.Click_DeleteBtn_report();
-		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "usercommitted");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "usercommitted");
 		Thread.sleep(2000);
 		
 		tu.click_YesBtn_popup();
@@ -292,8 +306,8 @@ public class AD_FileManagementTest2 extends BaseClass{
 		Thread.sleep(500);
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String Actionmsg = AuditPage.get_auditEvent_text();
-		String ExpectMSG = "Audit Report: \"case-35\"  deleted by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"";
+		String Actionmsg = AuditPage.get_auditEvent_text_1(3);
+		String ExpectMSG = "Audit Report: \"case-35\"  deleted by User ID : \"Ajay2\", User Name : \"Ajay Mashal\"";
 		sa.assertEquals(Actionmsg, ExpectMSG,
 				"FAIL: Audit trial record does not exists for Deletion of a Detailed report ");
 		sa.assertAll();
@@ -336,13 +350,13 @@ public class AD_FileManagementTest2 extends BaseClass{
 		assetDetailsPage.Select_ReportFile("case-35");
 		Thread.sleep(5000);
 		assetDetailsPage.Click_DeleteBtn_report();
-		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "usercommitted");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "usercommitted");
 		Thread.sleep(2000);
 		
 		tu.click_NOBtn_popup();
 		Thread.sleep(500);
 		assetDetailsPage.Click_DeleteBtn_report();
-		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "usercommitted");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "usercommitted");
 		Thread.sleep(2000);
 		
 		tu.click_YesBtn_popup();
@@ -352,8 +366,8 @@ public class AD_FileManagementTest2 extends BaseClass{
 		Thread.sleep(500);
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(2000);
-		String Actionmsg = AuditPage.get_auditEvent_text();
-		String ExpectMSG = "Graph Report: \"case-35\"  deleted by User ID : \"Kaverib\", User Name : \"Kaveri Bedar\"";
+		String Actionmsg = AuditPage.get_auditEvent_text_1(3);
+		String ExpectMSG = "Graph Report: \"case-35\"  deleted by User ID : \"Ajay2\", User Name : \"Ajay Mashal\"";
 		sa.assertEquals(Actionmsg, ExpectMSG,
 				"FAIL: Audit trial record does not exists for Deletion of a Detailed report ");
 		sa.assertAll();

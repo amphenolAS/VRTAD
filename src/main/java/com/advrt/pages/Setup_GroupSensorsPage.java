@@ -33,7 +33,7 @@ public class Setup_GroupSensorsPage extends BaseClass {
 		GrpSensorPageTitle = driver.findElementByName("Group Sensors");
 		GrpWiring_Btn = driver.findElementByAccessibilityId("GroupsGraphButton");
 		NxtBtn = driver.findElementByAccessibilityId("NextButton");
-		Back_Button = driver.findElementByAccessibilityId("GoButton");
+		Back_Button = driver.findElementByAccessibilityId("ArrowGlyph");
 		SetupHeaderTextBlock = driver.findElementByAccessibilityId("SetupHeaderTextBlock");
 		NewGroupButton = driver.findElementByAccessibilityId("NewGroupButton");
 		GroupsListButton = driver.findElementByAccessibilityId("GroupsListButton");

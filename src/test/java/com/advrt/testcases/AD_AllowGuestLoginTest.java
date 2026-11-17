@@ -7,8 +7,6 @@
 package com.advrt.testcases;
 
 
-import java.awt.AWTException;
-
 import java.io.IOException;
 
 import org.testng.ITestResult;
@@ -34,18 +32,6 @@ import com.advrt.utility.TestUtilities;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-
-import com.advrt.base.BaseClass;
-import com.advrt.pages.LoginPage;
-import com.advrt.pages.MainHubPage;
-import com.advrt.pages.UserManagementPage;//
-import com.advrt.pages.PoliciesPage;
-import com.advrt.pages.PreferencesPage;
-import com.advrt.pages.AD_UMPage;
-import com.advrt.pages.AuditPage;
-import com.advrt.pages.Database_configPage;
-import com.advrt.pages.DefaultUserPrivilages_page;
-import com.advrt.utility.TestUtilities;
 
 
 
@@ -76,9 +62,9 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_AllowGuestLoginTest"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_AllowGuestLoginTest(1.6.14)"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
@@ -86,14 +72,27 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("ADGuestLogin Test in Progress..");
 
-		
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
 
-		// Rename the VRT Data Files folder if exists in order to make the system default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-		//Copy the Default DataFIles folder from Test Data to the App service location.
-		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-		tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
+				Thread.sleep(5000);
 
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
@@ -123,7 +122,7 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 		
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickonOkBtn();
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
@@ -234,7 +233,7 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 			PoliciesPage=Database_configPage.click_PolicyPage();
 			AD_UMPage=PoliciesPage.click_AD_UMHeader();
 			//AD_UMPage.Select_grp();
-			AD_UMPage.select_grp("QA Grp2");
+			AD_UMPage.select_grp(prop.getProperty("Group1"));
 			//AD_UMPage.Select_user();
 			AD_UMPage.select_user(1);
 			AD_UMPage.select_UserTitle("Manager");
@@ -247,7 +246,7 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			Thread.sleep(500);
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("ajay2","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 			
 			AD_UMPage.select_UserTitle("Manager");
@@ -257,7 +256,7 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 			DefaultUserPrivilages_page.Click_AuditCheckBox();
 			DefaultUserPrivilages_page.NewSaveButton();
 			Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("ajay2","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			//AD_UMPage.select_UserType1("NewUserType");//test
 			//tu.click_OK_popup();
 			
@@ -269,17 +268,16 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 			PoliciesPage=AD_UMPage.Click_Policy();
 			PoliciesPage.click_on_AllowGuest();
 			Thread.sleep(1000);
-			PoliciesPage.selectGuestuser(4);
+			PoliciesPage.selectGuestuser(5);
 			PoliciesPage.ClickSaveButton();
-			PoliciesPage.clickonOkBtn();
+			
 			PoliciesPage.clickOn_AcceptBtn();
 			Thread.sleep(1000);
-			UserLoginPopup_UserCommentTextBox("ajay2","Amphenol@123","usercommitted.");
-			//AD_UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			tu.click_OK_popup();
 			MainHubPage=AD_UMPage.click_BackBtn();
 			LoginPage=MainHubPage.UserSignOut();
-			MainHubPage = LoginPage.Login("User1","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"));
 			Thread.sleep(1000);
 			AuditPage=MainHubPage.ClickAuditTitle();
 			Thread.sleep(1000);
@@ -289,7 +287,7 @@ public class AD_AllowGuestLoginTest extends BaseClass{
 			sa.assertEquals(ActualMsg1,ExpectedMsg1,
 					"Fail:Audit trial record does not exists change of user");
 			sa.assertEquals(AuditPage.get_userName_text(),"Guest",
-					"Fail:System Administrator NOT able to activate the Allow Guest login as Operator");
+					"Fail:System Administrator NOT able to activate the Allow Guest login as New user Type");
 
 
 			sa.assertAll();

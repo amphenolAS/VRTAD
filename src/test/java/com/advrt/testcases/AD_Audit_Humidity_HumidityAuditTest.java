@@ -112,7 +112,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 		
 		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"AD_AuditVerificationTest"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
@@ -123,20 +123,33 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 		System.out.println("AD_AuditVerificationTest Test in Progress..");
 		
 
-	
-	// Rename the VRT Data Files folder if exists in order to make the system default
-		 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-			//Copy the Default DataFIles folder from Test Data to the App service location.
-			String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-			String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-			tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 			
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
 			extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 			LoginPage.clickOn_AppName();
-			PoliciesPage = LoginPage.DefaultLogin();
-			UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
+			Database_configPage= LoginPage.DefaultLogin1();
+			UserManagementPage_Manual = Database_configPage.click_UMHeaderMnl();
 			Thread.sleep(1000);
 			UserManagementPage_Manual.ClickNewUser();	
 			// Create the default Admin USer
@@ -154,16 +167,16 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 			PoliciesPage = UserManagementPage_Manual.Click_Policy();
 			
 			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-			PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 			PoliciesPage.clickOn_ConnectBtn();
 			PoliciesPage.ClickSaveButton();
-			Thread.sleep(1000);
+			PoliciesPage.clickonOkBtn();
 			PoliciesPage.clickOn_AcceptBtn();
 			UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 			tu.click_OK_popup();
 			Thread.sleep(1000);
 			ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
-			ADUM_page.select_grp("Automation");
+			ADUM_page.select_grp(prop.getProperty("Group1"));
 			ADUM_page.enterNewUserTitle("Manager");
 			ADUM_page.SelectUType("SystemAdministrator");
 			Thread.sleep(1000);
@@ -176,9 +189,9 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			Thread.sleep(500);
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
-			AD_UMPage.select_grp("Automation");
+			AD_UMPage.select_grp(prop.getProperty("Group1"));
 			AD_UMPage.select_UserTitle("Manager");
 			AD_UMPage.select_UserType1("NewUserType");
 			DefaultUserPrivilages_page=AD_UMPage.newUserType("SystemAdministrator");
@@ -187,21 +200,21 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 			DefaultUserPrivilages_page.Click_RunQualification();
 			DefaultUserPrivilages_page.NewSaveButton();
 			Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kaverib","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			AD_UMPage.select_UserTitle("Manager");
 			ADUM_page.SelectUType("SystemAdministrator");
 			Thread.sleep(1000);
 			ADUM_page.ClickNewUserSaveButton();
 			Thread.sleep(500);
-			UserLoginPopup_UserCommentTextBox("kaverib","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 			Thread.sleep(1000);
 			tu.click_OK_popup();
 			MainHubPage=AD_UMPage.click_BackBtn();
 			
 			//SyncIn
 			FileManagementPage = MainHubPage.ClickFileManagementTitle();
-			SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit("kaverib","Amphenol@123","usercommitted");
+			SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPagewithcommit(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted");
 			Thread.sleep(500);
 			SyncInPage.enter_Filepath("AD_FM");
 			Thread.sleep(500);
@@ -237,7 +250,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		
 	}
 
@@ -273,7 +286,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 	 * @throws IOException 
 	*********/
 
-/*
+
 	
 		//AD_Ver_Audit _016 Verify the Audit trail entry  when initated verification for Humidity Loggers-Humidity Sensors from Equipment screen
 
@@ -294,7 +307,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 			MainHubPage=EquipmentHubPage.ClickBackBtn();
 			AuditPage=MainHubPage.ClickAuditTitle();
 			
-			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"Initiate Verification\" operation in \"Equipment Details\" screen");
+			sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Ajay2\" ,  User Name: \"Ajay Mashal\" logged in to do  \"Initiate Verification\" operation in \"Equipment Details\" screen");
 			sa.assertAll();
 			
 		}
@@ -302,7 +315,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 			
 		//AD_Ver_Audit _017 Verify the Audit trail entry  when started the verification setup for Humidity Loggers-Humidity Sensors
 		
-		@Test(priority=14,description = "AD_Ver_Audit _017 Verify the Audit trail entry  when started the verification setup for Humidity Loggers-Humidity Sensors")
+		/*@Test(priority=14,description = "AD_Ver_Audit _017 Verify the Audit trail entry  when started the verification setup for Humidity Loggers-Humidity Sensors")
 
 				public void AD_Ver_Audit_017() throws InterruptedException, AWTException, IOException {
 					extentTest = extent
@@ -322,7 +335,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 					MainHubPage=EquipmentHubPage.ClickBackBtn();
 					AuditPage=MainHubPage.ClickAuditTitle();
 					
-					sa.assertEquals(AuditPage.get_auditEvent_text(),"Verification Setup : \"H_Setup\" is created by  User Id : \"Kaverib\" , User Name : \"Kaveri Bedar\"");
+					sa.assertEquals(AuditPage.get_auditEvent_text(),"Verification Setup : \"H_Setup\" is created by  User ID : \"Ajay2\" , User Name : \"Kaveri Bedar\"");
 					sa.assertAll();
 					
 				}
@@ -351,13 +364,13 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 					setup_verificationpage.EntersetupName("H_Setup1");
 					setup_verificationpage.Click_SetupName("H_Setup1");
 					setup_verificationpage.DeleteSetup();
-					UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "committed");
+					UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 					tu.click_YesBtn_popup();
 					EquipmentHubPage=setup_verificationpage.ClickBackBtn();
 					MainHubPage=EquipmentHubPage.ClickBackBtn();
 					AuditPage=MainHubPage.ClickAuditTitle();
 					
-					sa.assertEquals(AuditPage.get_auditEvent_text(),"Verification Setup : \"H_Setup\" is deleted by  User Id : \"Kaverib\" , User Name : \"Kaveri Bedar\"");
+					sa.assertEquals(AuditPage.get_auditEvent_text(),"Verification Setup : \"H_Setup\" is deleted by  User ID : \"Ajay2\" , User Name : \"Kaveri Bedar\"");
 					sa.assertAll();
 					
 				}
@@ -382,7 +395,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 					setup_verificationpage.ClicksaveBtn();
 					setup_verificationpage.EntersetupName("H_Setup2");
 					setup_verificationpage.PrintSetup();
-					UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "committed");
+					UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 					Thread.sleep(4000);
 					setup_verificationpage.click_PDFpopup_OkBtn();
 					Thread.sleep(3000);
@@ -392,7 +405,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 					MainHubPage=EquipmentHubPage.ClickBackBtn();
 					AuditPage=MainHubPage.ClickAuditTitle();
 					
-					sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"verification setup print\" operation in \"verification setup\" screen");
+					sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Ajay2\" ,  User Name: \"Ajay Mashal\" logged in to do  \"verification setup print\" operation in \"verification setup\" screen");
 					sa.assertAll();	
 				}
 				
@@ -433,13 +446,13 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 					TimeUnit.SECONDS.sleep(60);
 					VerificationPage=ProgramLoggersPage.click_nextbtnV();
 					VerificationPage.click_Start_verificationbtn();
-					UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "committed");
+					UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 					Thread.sleep(500);
 					MainHubPage=VerificationPage.click_backbtn();
 					Thread.sleep(500);
 					AuditPage=MainHubPage.ClickAuditTitle();
 					
-		sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"Start Verification\" operation in \"Verification\" screen");
+		sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Ajay2\" ,  User Name: \"Ajay Mashal\" logged in to do  \"Start Verification\" operation in \"Verification\" screen");
 
 
 
@@ -452,7 +465,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 		SelectBaseStationPage.Click_BSsettingsBtn();
 		SelectBaseStationPage.Click_SetBSideal();
 		//tu.click_OK_popup();
-		UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "committed");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 	TimeUnit.SECONDS.sleep(10);
 		MainHubPage=	SelectBaseStationPage.clickBackBtn();
 		MainHubPage.UserSignOut();
@@ -497,7 +510,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 					
 					  String date1=tu.CurrentDatenTime_certainformat(); System.out.println(date1);
 					 			
-					UserLoginPopup_UserCommentTextBox("kaverib", "Amphenol@123", "committed");
+					UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "committed");
 					MainHubPage	=VerificationPage.click_YesBtn_popup();
 					Thread.sleep(500);
 					 String date2=tu.CurrentDatenTime_certainformat();
@@ -506,7 +519,7 @@ public class AD_Audit_Humidity_HumidityAuditTest extends BaseClass{
 					AuditPage=MainHubPage.ClickAuditTitle();
 				   
 			      	//System.out.println(date);
-					sa.assertTrue(AuditPage.get_auditEvent_text().contains("Verification aborted by User: Kaveri Bedar, ID: Kaverib at "+ date2));
+					sa.assertTrue(AuditPage.get_auditEvent_text().contains("Verification aborted by User: Ajay Mashal, ID: Ajay2 at "+ date2));
 					
 					
 					sa.assertAll();

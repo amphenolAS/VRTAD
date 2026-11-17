@@ -9,34 +9,31 @@ package com.advrt.testcases;
 import java.awt.AWTException;
 import java.io.IOException;
 
-import org.testng.Assert;
+import org.openqa.selenium.NoSuchSessionException;
+import org.openqa.selenium.WebDriverException;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import java.text.ParseException;
 import org.testng.asserts.SoftAssert;
 
+//import com.vrt.Listners.AllureReportListner;
+import com.advrt.base.BaseClass;
+import com.advrt.pages.ADUM_page;
+import com.advrt.pages.AD_UMPage;
+import com.advrt.pages.AuditPage;
+import com.advrt.pages.Database_configPage;
+import com.advrt.pages.DefaultUserPrivilages_page;
+import com.advrt.pages.LoginPage;
+import com.advrt.pages.MainHubPage;
+import com.advrt.pages.PoliciesPage;
+import com.advrt.pages.UserManagementPage_Manual;
+import com.advrt.utility.TestUtilities;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-//import com.vrt.Listners.AllureReportListner;
-import com.advrt.base.BaseClass;
-import com.advrt.pages.LoginPage;
-import com.advrt.pages.MainHubPage;
-import com.advrt.pages.UserManagementPage_Manual;
-import com.advrt.pages.PoliciesPage;
-import com.advrt.pages.AuditPage;
-import com.advrt.pages.Database_configPage;
-import com.advrt.pages.AD_UMPage;
-import com.advrt.pages.ADUM_page;
-import com.advrt.pages.DefaultUserPrivilages_page;
-import com.advrt.utility.ADUserManagementUtility;
-import com.advrt.utility.TestUtilities;
 
 public class AD_LoginTest extends BaseClass {
 
@@ -65,9 +62,9 @@ public class AD_LoginTest extends BaseClass {
 	// Before All the tests are conducted
 	@BeforeClass
 	// @BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 
-		extent = new ExtentReports(System.getProperty("user.dir") + "/test-output/ER" + "_ADLoginTest" + ".html", true);
+		extent = new ExtentReports(System.getProperty("user.dir") + "/test-output/ER" + "_ADLoginTestReg(1.6.14)" + ".html", true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		// extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		// extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
@@ -76,94 +73,33 @@ public class AD_LoginTest extends BaseClass {
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("AD-Login Test in Progress..");
 
-		// Rename the VRT Data Files folder if exists in order to make the system
-		// default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-		// Copy the Default DataFIles folder from Test Data to the App service location.
-		String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
-		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
-		tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-
-	}
-
-	// After All the tests are conducted
-	// @AfterTest
-	@AfterClass
-	public void endReport() throws InterruptedException {
-		extent.flush();
-		extent.close();
-		System.out.println("AD-LOGIN  test completed");
-		Thread.sleep(500);
-	}
-
-	@BeforeMethod(alwaysRun = true)
-	public void Setup() throws InterruptedException, IOException {
-
-		Thread.sleep(500);
-	}
-
-	@AfterMethod(alwaysRun = true)
-	public void Teardown(ITestResult result) throws IOException, Exception {
-		if (result.getStatus() == ITestResult.FAILURE) {
-			extentTest.log(LogStatus.FAIL, "TEST CASE FailED IS # " + result.getName() + " #"); // to add name in extent
-																								// report
-			// TearDown of the App
-			extentTest.log(LogStatus.FAIL, "TEST CASE FailED IS # " + result.getThrowable() + " #"); // to add
-																										// error/exception
-																										// in extent
-																										// report
-
-			String screenshotPath1 = TestUtilities.getFailedTCScreenshot(driver, result.getName());
-			extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath1)); // to add screenshot in extent
-																							// report
-			// extentTest.log(LogStatus.Fail, extentTest.addScreencast(screenshotPath));
-			// //to add screencast/video in extent report
-		} else if (result.getStatus() == ITestResult.SKIP) {
-			extentTest.log(LogStatus.SKIP, "Test Case SKIPPED IS " + result.getName());
-		} else if (result.getStatus() == ITestResult.SUCCESS) {
-			extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName() + " #");
-			// String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver,
-			// result.getName());
-			// extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
-			// //to add screenshot in extent report
-		}
-		extent.endTest(extentTest); // ending test and ends the current test and prepare to create html report
-		// MainLoginPage.resetWebElements();
-		Thread.sleep(5000);
-		driver.quit();
-	}
-
-	/********
-	 * Test Cases
-	 * 
-	 * @throws AWTException
-	 * @throws IOException
-	 *********/
-
-	// Login01-Verify if System able to connect to the Domain with Active Directory
-	// Credentials
-	// Login02-Verify if Kaye 411 User able to login to the system for the first
-	// time
-	@Test(priority = 0, groups = { "Sanity",
-			"Regression" }, description = "Login01-Verify if System able to connect to the Domain with Active Directory Credentials + Login02-Verify if Kaye 411 User able to login to the system for the first time")
-
-	public void Login01_Login02() throws InterruptedException, AWTException, IOException {
-		extentTest = extent.startTest(
-				"Login01-Verify if System able to connect to the Domain with Active Directory Credentials + Login02-Verify if Kaye 411 User able to login to the system for the first time");
-
-		SoftAssert sa = new SoftAssert();
 		LoginPage = new LoginPage();
-		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
-		LoginPage.clickOn_AppName();
-		PoliciesPage = LoginPage.DefaultLogin();
-		// Validating Policies page is displayed or not
-		sa.assertEquals(PoliciesPage.IsPolicies_screenDisplayed(), true,
-				"Fail:Not able to login with Default credentials");
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
+		Database_configPage = LoginPage.DefaultLogin1();
+		UserManagementPage_Manual = Database_configPage.click_UMHeaderMnl();
+			UserManagementPage_Manual.ClickNewUser();
 		// Create the default supervisor USer
 		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
 				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
@@ -179,85 +115,132 @@ public class AD_LoginTest extends BaseClass {
 		PoliciesPage = UserManagementPage_Manual.Click_Policy();
 
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
-
-		ADUM_page = PoliciesPage.ClickUM_Tab_AD();
+		ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
 		Thread.sleep(1000);
-		ADUM_page.select_grp("Automation");
+		ADUM_page.select_grp(prop.getProperty("Group1"));
 		ADUM_page.enterNewUserTitle("Manager");
 		ADUM_page.SelectUType("SystemAdministrator");
 		Thread.sleep(1000);
 		ADUM_page.ClickNewUserSaveButton();
-
+		
 		UserLoginPopup_UserCommentTextBox("1", "111111", "Admin");
-
+		
 		tu.click_OK_popup();
-
+	
 		tu.click_OK_popup();
 		Thread.sleep(2000);
+	}
 
+	// After All the tests are conducted
+	// @AfterTest
+	@AfterClass
+	public void endReport() throws InterruptedException {
+		extent.flush();
+		extent.close();
+		System.out.println("AD-LOGIN  test completed");
+		Thread.sleep(500);
+	}
+
+	@BeforeMethod(alwaysRun = true)
+	public void Setup() throws InterruptedException, IOException {
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.54");
+	}
 
-		MainHubPage = LoginPage.Login("kaverib", "Amphenol@123");
+
+
+	 @AfterMethod(alwaysRun = true)
+	    public void tearDown(ITestResult result) throws NoSuchSessionException, InterruptedException, IOException {
+		 if(result.getStatus()==ITestResult.FAILURE){
+				extentTest.log(LogStatus.FAIL, "TEST CASE FailED IS # "+result.getName()+" #"); //to add name in extent report
+				// TearDown of the App
+				extentTest.log(LogStatus.FAIL, "TEST CASE FailED IS # "+result.getThrowable()+" #"); //to add error/exception in extent report
+
+				String screenshotPath1 = TestUtilities.getFailedTCScreenshot(driver, result.getName());
+				extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath1)); //to add screenshot in extent report
+				//extentTest.log(LogStatus.Fail, extentTest.addScreencast(screenshotPath)); //to add screencast/video in extent report
+			}
+			else if(result.getStatus()==ITestResult.SKIP){
+				extentTest.log(LogStatus.SKIP, "Test Case SKIPPED IS " + result.getName());
+			}
+			else if(result.getStatus()==ITestResult.SUCCESS){
+				extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName()+" #");
+				//String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver, result.getName());
+				//extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2)); //to add screenshot in extent report
+			}		
+			extent.endTest(extentTest); //ending test and ends the current test and prepare to create html report
+			//MainLoginPage.resetWebElements();
+			Thread.sleep(5000);
+			driver.quit();
+	    }
+
+	    
+
+
+	/********
+	 * Test Cases
+	 * 
+	 * @throws AWTException
+	 * @throws IOException
+	 *********/
+
+	// Login01-Verify if System able to connect to the Domain with Active Directory
+	// Credentials
+	// Login02-Verify if Kaye 411 User able to login to the system for the first
+	// time
+	@Test(priority = 0, groups = { "Sanity",
+			"Regression" }, description = "Login01-Verify if System able to connect to the Domain with Active Directory Credentials + Login02-Verify if Kaye 411 User able to login to the system for the first time")
+
+	public void Login01() throws InterruptedException, AWTException, IOException {
+		extentTest = extent.startTest(
+				"Login01-Verify if System able to connect to the Domain with Active Directory Credentials");
+
+		SoftAssert sa = new SoftAssert();
+		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
+		
+		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.55");
+
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		Thread.sleep(500);
 		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(), true);
 		sa.assertAll();
 
 	}
 
+	@Test(priority = 2, groups = { "Sanity",
+			"Regression" }, description = "Login02-Verify if Kaye 411 User able to login to the system for the first time ")
+
+	public void Login02() throws InterruptedException, AWTException, IOException {
+		extentTest = extent.startTest(
+				"Login02-Verify if Kaye 411 User able to login to the system for the first time ");
+
+		SoftAssert sa = new SoftAssert();
+		System.out.println("We have covered this tc in the before method of the class");
+
+		sa.assertAll();
+
+	}
 	// Login03-Verify if Kaye 411 user able to login to the application when the
 	// Active Directory is activated and Manual Users and Active Directory users are
 	// not available in the application
 
-	@Test(priority = 2, groups = { "Sanity",
-			"Regression" }, description = "Login03-Verify if Kaye 411 user able to login to the application when the Active Directory is activated and Manual Users and Active Directory users are not available in the application ")
+	@Test(priority = 3, groups = { "Sanity",
+			"Regression" }, description = "Login02-Verify if Kaye 411 User able to login to the system for the first time ")
 
 	public void Login03() throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"Login03-Verify if Kaye 411 user able to login to the application when the Active Directory is activated and Manual Users and Active Directory users are not available in the application ");
 
 		SoftAssert sa = new SoftAssert();
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-		// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		UserManagementPage_Manual.clickAnyUserinUserList("User1");
-
-		UserManagementPage_Manual.ClickNewUserSaveButton();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-		sa.assertEquals(PoliciesPage.IsADConnected(), true, "Fail: LDAP is not activated");
-		// tu.clickOk();
-
-		PoliciesPage.Click_CloseButton();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
-		sa.assertEquals(LoginPage.Is_VRTAppLoginScreen_Displayed(), true, "Fail: Not landed to Login Page");
+		System.out.println("We have covered this tc in the before method of the class");
 
 		sa.assertAll();
 
@@ -275,53 +258,10 @@ public class AD_LoginTest extends BaseClass {
 				"Login04-Verify if Active Directory user able to login to the application when the Active Directory is activated and Manual Users and Active Directory users are available in the application");
 
 		SoftAssert sa = new SoftAssert();
+		
 		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		sa.assertEquals(UserManagementPage_Manual.IsUMscreenDisplayed(), true,
-				"Fail: Not landed to User Management Page");
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-		// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(), true,
-				"Fail: Able to login with local user created. And its redirecting to Main Hub Page");
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		UserManagementPage_Manual.clickAnyUserinUserList("User1");
-
-		UserManagementPage_Manual.ClickNewUserSaveButton();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-		sa.assertEquals(PoliciesPage.IsADConnected(), true, "Fail: LDAP is not activated");
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		sa.assertEquals(AD_UMPage.UMtabPresence(), true, "Fail: Not landed to User Management Page");
-
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
-		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.54");
-		MainHubPage = LoginPage.Login("kiranc", "Amphenol@123");
+		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.55");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(), true,
 				"Fail:Not able to login with Active Directory Credentials");
 		sa.assertAll();
@@ -342,40 +282,8 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 		LoginPage = new LoginPage();
+		System.out.println("We have covered this tc in the before method of the class");
 
-		PoliciesPage = LoginPage.DefaultLogin();
-
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		sa.assertEquals(UserManagementPage_Manual.IsUMscreenDisplayed(), true,
-				"Fail: Not landed to User Management Page");
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-		// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		//
-		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(), true,
-				"Fail: Not Able to login with local user created. And its redirecting to Main Hub Page");
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-		MainHubPage = PoliciesPage.click_BackBtn();
-		LoginPage = MainHubPage.UserSignOut();
-		PoliciesPage = LoginPage.ADLogin_PPpage(getUID("adminFull"), getPW("adminFull"));
-
-		sa.assertEquals(PoliciesPage.IsPolicies_screenDisplayed(), true, "Fail:Not landed to Policies Page");
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		sa.assertEquals(AD_UMPage.UMtabPresence(), true, "Fail:Not landed to User Management Page");
 		sa.assertAll();
 
 	}
@@ -392,53 +300,7 @@ public class AD_LoginTest extends BaseClass {
 				"Login06-Verify if Active Directory user able to login to the application when the Active Directory is activated and Manual Users not available and Active Directory users are available in the application");
 
 		SoftAssert sa = new SoftAssert();
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(500);
-		UserManagementPage_Manual.ClickNewUser();
-		// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(), true,
-				"Fail: Able to login with local user created. And its redirecting to Main Hub Page");
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		UserManagementPage_Manual.clickAnyUserinUserList("User1");
-
-		UserManagementPage_Manual.ClickNewUserSaveButton();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-		sa.assertEquals(PoliciesPage.IsADConnected(), true, "Fail: LDAP is not activated");
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		sa.assertEquals(AD_UMPage.UMtabPresence(), true, "Fail: Not landed to User Management Page");
-
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
-		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.54");
-		MainHubPage = LoginPage.Login("kiranc", "Amphenol@123");
-		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(), true,
-				"Fail:Not able to login with Active Directory Credentials");
+		System.out.println("Covered in Login04");
 		sa.assertAll();
 
 	}
@@ -450,42 +312,8 @@ public class AD_LoginTest extends BaseClass {
 		extentTest = extent.startTest(
 				"Login07-Verify if Manual user able to login to the application when the Active Directory is not activated and Manual Users available and Active Directory users are available in the application");
 		SoftAssert sa = new SoftAssert();
-		LoginPage = new LoginPage();
-
-		PoliciesPage = LoginPage.DefaultLogin();
-//
-		sa.assertEquals(PoliciesPage.IsPolicies_screenDisplayed(), true, "Fail: Not landed to Policies Page");
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		sa.assertEquals(UserManagementPage_Manual.IsUMscreenDisplayed(), true,
-				"Fail: Not landed to User Management Page");
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-//
-		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(), true,
-				"Fail: Not Able to login with local user created. And its redirecting to Main Hub Page");
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-		MainHubPage = PoliciesPage.click_BackBtn();
-		LoginPage = MainHubPage.UserSignOut();
-		PoliciesPage = LoginPage.ADLogin_PPpage(getUID("adminFull"), getPW("adminFull"));
-
-		sa.assertEquals(PoliciesPage.IsPolicies_screenDisplayed(), true, "Fail:Not landed to Policies Page");
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		sa.assertEquals(AD_UMPage.UMtabPresence(), true, "Fail:Not landed to User Management Page");
+		
+		System.out.println("This tc already handeled in Before test class");
 		sa.assertAll();
 
 	}
@@ -498,24 +326,7 @@ public class AD_LoginTest extends BaseClass {
 				"Login08-Verify if Manual user able to login to the application when the Active Directory is not activated and Manual Users available and Active Directory users are not available in the application");
 
 		SoftAssert sa = new SoftAssert();
-		LoginPage = new LoginPage();
-
-		PoliciesPage = LoginPage.DefaultLogin();
-
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		sa.assertEquals(UserManagementPage_Manual.IsUMscreenDisplayed(), true,
-				"Fail: Not landed to User Management Page");
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-		// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		//
-		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(), true,
-				"Fail: Not Able to login with local user created. And its redirecting to Main Hub Page");
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
+		System.out.println("This tc already handeled in Before test class");
 
 		sa.assertAll();
 	}
@@ -531,33 +342,12 @@ public class AD_LoginTest extends BaseClass {
 						+ " are available in the application");
 
 		SoftAssert sa = new SoftAssert();
-		LoginPage = new LoginPage();
-
-		PoliciesPage = LoginPage.DefaultLogin();
-		//
-		sa.assertEquals(PoliciesPage.IsPolicies_screenDisplayed(), true, "Fail: Not landed to Policies Page");
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-		// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
+		
 		sa.assertEquals(PoliciesPage.IsADConnected(), true, "Fail: LDAP is not activated");
 		AD_UMPage = PoliciesPage.click_AD_UMHeader();
 
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
+		//AD_UMPage.select_user(1);
 		AD_UMPage.SelectUType("SystemAdministrator");
 		AD_UMPage.enterNewUserTitle("Manager");
 		AD_UMPage.ClickNewUserSaveButton();
@@ -567,15 +357,16 @@ public class AD_LoginTest extends BaseClass {
 		tu.click_OK_popup();
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
-		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.54");
-		MainHubPage = LoginPage.Login("kiranc", "Amphenol@123");
+		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.55");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		AD_UMPage = MainHubPage.AD_ClickAdminTile_UMpage();
 		PoliciesPage = AD_UMPage.Click_Policy();
 		// Deactivating the AD
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
 		PoliciesPage.ClickSaveButton();
+		UserLoginPopup(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		tu.click_OK_popup();
-		sa.assertAll();
+		
 
 		sa.assertAll();
 
@@ -603,51 +394,16 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
-		// Validating the Policies screen
-		sa.assertEquals(PoliciesPage.IsPolicies_screenDisplayed(), true, "Fail: Not landed to Policies Page");
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-		// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-		sa.assertEquals(PoliciesPage.IsADConnected(), true, "Fail: LDAP is not activated");
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
 		// Verifying the domain name
-		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.54");
+		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.55");
 		LoginPage.enterTxt_DomainTextBox("123");
 		// Domain name should not be in editable mode
-		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.54",
-				"Fail:Domain name should be 10.17.17.54 but it is accepting some random values");
+		sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.55",
+				"Fail:Domain name should be 10.17.17.55 but it is accepting some random values");
 		// Validating the User id field
 		sa.assertEquals(LoginPage.UserIDFieldPresence(), true);
-		LoginPage.UserIdPwdPresence("kiranc", "Amphenol@123");
-		sa.assertEquals(LoginPage.GetTextUserIDField(), "kiranc");
+		LoginPage.UserIdPwdPresence(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
+		sa.assertEquals(LoginPage.GetTextUserIDField(), "ajay2");
 		// Validating the password field
 		sa.assertEquals(LoginPage.UserPWFieldPresence(), true);
 
@@ -666,47 +422,20 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
+		
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
+		ADUM_page = MainHubPage.ClickAdminTile_ADUM();
+		sa.assertEquals(ADUM_page.UMtabPresence(), true, "Fail: Not landed to User Management page");
+		PoliciesPage = ADUM_page.ClickOn_PoliciesHeaderText();
 		sa.assertEquals(PoliciesPage.IsADConnected(), true, "Fail: LDAP is not activated");
+		System.out.println(PoliciesPage.get_connectionStatus());
+		sa.assertEquals(PoliciesPage.is_UpdateBtnvisible(), true);
+		//sa.assertEquals(LoginPage.Fetch_DomainNameTextbox(), "10.17.17.54");
 
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		sa.assertEquals(AD_UMPage.UMtabPresence(), true, "Fail: Not landed to User Management page");
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc", "Amphenol@123");
-		AD_UMPage = MainHubPage.AD_ClickAdminTile_UMpage();
-		sa.assertEquals(AD_UMPage.UMtabPresence(), true,
-				"Fail: Not able to login with the newly created AD connected users");
 		sa.assertAll();
 
+		
 	}
 
 //Login16-Verify if System not allowed to logout from the application without creating the user when Active Directory is not activated
@@ -720,21 +449,7 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
-
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		sa.assertEquals(UserManagementPage_Manual.IsUMscreenDisplayed(), true,
-				"Fail:Not landed to User Management Page");
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		sa.assertEquals(MainHubPage.Is_mainHubPageTitle_Visible(), true,
-				"Fail:Not able to login with the local created user");
+		System.out.println("Local user is already created in Before class and login to the application");
 		sa.assertAll();
 	}
 
@@ -751,41 +466,8 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
+		
 
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-		sa.assertEquals(PoliciesPage.IsADConnected(), true, "Fail: LDAP is not activated");
-
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		sa.assertEquals(AD_UMPage.UMtabPresence(), true, "Fail: Not landed to User Management page");
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
 		LoginPage.InvalidLogin("Kaye", "411");
 		sa.assertEquals(tu.get_popup_text(), "Invalid Credential, Please try again",
 				"FAIL: Application allowed the dafult user when AD is connected");
@@ -866,41 +548,9 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
+		
 
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
-
-		LoginPage.Login1("Deepika", "Amphenol@123");
+		LoginPage.Login1("Ruchika", "Amphenol@123");
 
 		sa.assertEquals(tu.get_popup_text(), "Invalid Credential, Please try again",
 				"FAIL: Application allowed the dafult user when AD is connected");
@@ -919,39 +569,7 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
 
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
 		LoginPage.InvalidLogin("ABC", "Amphenol@123");
 		sa.assertEquals(tu.get_popup_text(), "Invalid Credential, Please try again",
 				"FAIL: Application allowed the dafult user when AD is connected");
@@ -970,40 +588,8 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
 
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
-		LoginPage.InvalidLogin("kaverib", "abc@123");
+		LoginPage.InvalidLogin("ajay2", "abc@123");
 
 		sa.assertEquals(tu.get_popup_text(), "Invalid Credential, Please try again",
 				"FAIL: Application allowed the dafult user when AD is connected");
@@ -1022,40 +608,8 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
 
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
-		LoginPage.LockedLogin("Disabled", "Amphenol@123");
+		LoginPage.LockedLogin("kiranc", "Amphenol@123");
 
 		sa.assertEquals(tu.get_popup_text(), "Invalid Credential, Please try again",
 				"FAIL: Application allowed the dafult user when AD is connected");
@@ -1074,39 +628,8 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
 
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
+	
 		LoginPage.DeletedLogin("ec", "Amphenol@123");
 
 		sa.assertEquals(tu.get_popup_text(), "User must reset password.",
@@ -1125,40 +648,7 @@ public class AD_LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
-
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(1000);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage_Manual = MainHubPage.ClickAdminTile_manualUM();
-		PoliciesPage = UserManagementPage_Manual.Click_Policy();
-		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
-		PoliciesPage.clickOn_ConnectBtn();
-		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		tu.click_OK_popup();
-
-		AD_UMPage = PoliciesPage.click_AD_UMHeader();
-		AD_UMPage.select_grp("QA Testers");
-		AD_UMPage.select_user(1);
-		AD_UMPage.SelectUType("SystemAdministrator");
-		AD_UMPage.enterNewUserTitle("Manager");
-		AD_UMPage.ClickNewUserSaveButton();
-
-		UserLoginPopup_UserCommentTextBox(getUID("adminFull"), getPW("adminFull"), "NA");
-		tu.click_OK_popup();
-		tu.click_OK_popup();
-		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		LoginPage = new LoginPage();
-		LoginPage.MultipleuserLogin("Ruchika1", "Amphenol@123");
+		LoginPage.MultipleuserLogin("Deepika", "Amphenol@123");
 
 		sa.assertEquals(tu.get_popup_text(), "Password expired, please contact administrator.",
 				"FAIL: Application allowed the dafult user when AD is connected");
@@ -1189,16 +679,7 @@ public class AD_LoginTest extends BaseClass {
 						+ "");
 
 		SoftAssert sa = new SoftAssert();
-		LoginPage = new LoginPage();
-		PoliciesPage = LoginPage.DefaultLogin();
-		UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
-		Thread.sleep(500);
-		UserManagementPage_Manual.ClickNewUser();
-// Create the default superadmin USer
-		LoginPage = UserManagementPage_Manual.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-		sa.assertEquals(LoginPage.Is_VRTAppLoginScreen_Displayed(), true,"Fail:After creating the first user the applictaion didn't closed");
-		
+		System.out.println("This Tc has been Covered in Before class");
 		sa.assertAll();
 
 

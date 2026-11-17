@@ -29,10 +29,12 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.advrt.base.BaseClass;
 import com.advrt.pages.MainHubPage;
 
+import io.appium.java_client.windows.WindowsDriver;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
 import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 
@@ -564,9 +566,12 @@ public class TestUtilities extends com.advrt.base.BaseClass {
 	}
 
 	// Fetch the popup message data by virtue of Name attribute
-	public String get_popup_text() {
+	public String get_popup_text() throws InterruptedException {
+		String text = "";
 		WebElement LogMsg = driver.findElementByAccessibilityId("Content_String");
-		return LogMsg.getAttribute("Name");
+		Thread.sleep(1000);
+		text = LogMsg.getAttribute("Name");
+		return text;
 	}
 	
 	// Click the OK button of the popup message
@@ -655,6 +660,35 @@ public class TestUtilities extends com.advrt.base.BaseClass {
 		Thread.sleep(1000);
 		return new MainHubPage();
 	}
+
+/** Session guard for WindowsDriver. */
+    public boolean isSessionActive(WindowsDriver drv) {
+        try {
+            return drv != null && ((RemoteWebDriver) drv).getSessionId() != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /** Safe screenshot helper to avoid teardown crashes. */
+    public String getFailedTCScreenshotSafe(WindowsDriver drv, String name) {
+        try {
+            if (!isSessionActive(drv)) return null;
+
+            File src = ((TakesScreenshot) drv).getScreenshotAs(OutputType.FILE);
+            String timestamp = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
+            String destPath = System.getProperty("user.dir") + File.separator + "screenshots" + File.separator +
+                    name + "_" + timestamp + ".png";
+
+            java.nio.file.Path dest = java.nio.file.Paths.get(destPath);
+            java.nio.file.Files.createDirectories(dest.getParent());
+            java.nio.file.Files.copy(src.toPath(), dest, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            return destPath;
+        } catch (Exception e) {
+            return null; // swallow; @AfterMethod will just log INFO
+        }
+    }
+
 
 
 	// Click on the Help icon of the bottom apps bar to move to Main Hub page
@@ -770,7 +804,22 @@ public class TestUtilities extends com.advrt.base.BaseClass {
         
      return formattedDateTime;
     }
-	
+	public void waitForServiceRunning(String serviceName, int timeoutSeconds)
+	        throws Exception {
+
+	    int waited = 0;
+	    while (waited < timeoutSeconds) {
+	        Process p = Runtime.getRuntime().exec(
+	                "cmd /c sc query " + serviceName + " | find \"RUNNING\"");
+	        if (p.waitFor() == 0) {
+	            System.out.println(serviceName + " is RUNNING");
+	            return;
+	        }
+	        Thread.sleep(2000);
+	        waited += 2;
+	    }
+	    throw new RuntimeException("Service did not reach RUNNING state");
+	}
 	
 	/*
 	public String CurrentDatenTime_certainformat1() {

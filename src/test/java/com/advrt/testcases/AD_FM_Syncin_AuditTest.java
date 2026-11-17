@@ -87,9 +87,9 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 		
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_FM_Syncin_AuditTest"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"_AD_FM_Syncin_AuditTest(1.6.14)"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
@@ -98,19 +98,33 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 		System.out.println("AD_FM_Syncin_AuditTest in Progress..");
 		
 
-	// Rename the VRT Data Files folder if exists in order to make the system default
-		 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-			//Copy the Default DataFIles folder from Test Data to the App service location.
-			String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-			String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
-			tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 			
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			LoginPage = new LoginPage();
 			extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 			LoginPage.clickOn_AppName();
-			PoliciesPage = LoginPage.DefaultLogin();
-			UserManagementPage_Manual = PoliciesPage.click_UMHeader1();
+			Database_configPage = LoginPage.DefaultLogin1();
+			UserManagementPage_Manual = Database_configPage.click_UMHeaderMnl();
 			Thread.sleep(1000);
 			UserManagementPage_Manual.ClickNewUser();	
 			// Create the default Admin USer
@@ -128,18 +142,16 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 			PoliciesPage = UserManagementPage_Manual.Click_Policy();
 			
 			PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-			PoliciesPage.ActiveDirectoryUserLoginPopup("kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+			PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 			PoliciesPage.clickOn_ConnectBtn();
 			PoliciesPage.ClickSaveButton();
-			Thread.sleep(1000);
+			//PoliciesPage.clickonOkBtn();
 			PoliciesPage.clickOn_AcceptBtn();
 			UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 			tu.click_OK_popup();
 			Thread.sleep(1000);
 			ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
-			ADUM_page.select_grp("Automation");//Automation
-			//AD_UMPage.Select_user();
-			//ADUM_page.select_user(0);
+			ADUM_page.select_grp(prop.getProperty("Group1"));//Automation
 			ADUM_page.enterNewUserTitle("Manager");
 			ADUM_page.SelectUType("SystemAdministrator");
 			Thread.sleep(1000);
@@ -169,7 +181,7 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		//ADUM_page = MainHubPage.ClickAdminTile_UMpage();
 		//PoliciesPage = MainHubPage.ClickAdminTile_Polpage();
 		//ADUM_page =	PoliciesPage.ClickUM_Tab_AD();
@@ -207,21 +219,22 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 	 * @throws IOException 
 	*********/
 	
-	
+
 	//AD_SYNCIN_001 Verify the Audit trail entry  while login with the  Active Directory Admin  User
 
 	@Test(description = "AD_SYNCIN_001 Verify the Audit trail entry  while login with the  Active Directory Admin  User")
 
-	public void AD_SYNCIN_Audit_001() throws InterruptedException, AWTException, IOException {
+	public void AD_SYNCIN_001() throws InterruptedException, AWTException, IOException {
 		extentTest = extent
 				.startTest("AD_SYNCIN_001 Verify the Audit trail entry  while login with the  Active Directory Admin  User");
 		
 		SoftAssert sa = new SoftAssert();
 		AuditPage = MainHubPage.ClickAuditTitle();
 		
-		sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"kaverib\",User Name : \"Kaveri Bedar\" Logged in to System.");
+		sa.assertEquals(AuditPage.get_auditEvent_text(),"User ID : \"Ajay2\",User Name : \"Ajay Mashal\" Logged in to System.");
 		
 		sa.assertAll();
+		
 	}
 
 	
@@ -229,7 +242,7 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 	
 	@Test(description = "AD_SYNCIN_002 Verify the Audit trail entry while peforming SYNCIN operation with the  Active Directory Admin  User")
 
-	public void AD_SYNCIN_Audit_002() throws InterruptedException, AWTException, IOException {
+	public void AD_SYNCIN_002() throws InterruptedException, AWTException, IOException {
 		extentTest = extent
 				.startTest("AD_SYNCIN_002 Verify the Audit trail entry while peforming SYNCIN operation with the  Active Directory Admin  User");
 		
@@ -238,7 +251,7 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 	// Conduct a Syncin operation
 		
 			FileManagementPage = MainHubPage.ClickFileManagementTitle();
-			SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("kaverib","Amphenol@123","comm");
+			SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"comm");
 			SyncInPage.enter_Filepath("syncin");
 			SyncInPage.click_FltrBtn();
 			Thread.sleep(1000);
@@ -251,27 +264,27 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 			SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 			Thread.sleep(3000); 
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-			LoginPage LoginPage=new LoginPage();
-			MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+			LoginPage = new LoginPage();
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
+			MainHubPage.ClickAuditTitle();
 			
 			AuditPage = MainHubPage.ClickAuditTitle();
 			AuditPage.Click_ActionFilter_Icon();
-			AuditPage.EnterTxt_ActionFilter("User ID : \"kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
-			
+			AuditPage.EnterTxt_ActionFilter("User ID : \"Ajay2\" ,  User Name: \"Ajay Mashal\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 			AuditPage.click_Action_FilterBtn();
 			sa.assertEquals(AuditPage.get_auditEvent_text(),
-					"User ID : \"kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+					"User ID : \"Ajay2\" ,  User Name: \"Ajay Mashal\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 			
 			sa.assertAll();
 			
 		}
 	
 	
-	//AD_SYNCIN_003 Verify the no Audit trail entry is recoreded related to users when peforming SYNCIN operation when User check box is unckecked with the  Active Directory Admin  User
+	//AD_SYNCIN_003 Verify the no Audit trail entry is recorded related to users when performing SYNCIN operation when User check box is unckecked with the  Active Directory Admin  User
 	
 		@Test(description = "AD_SYNCIN_003 Verify the no Audit trail entry is recoreded related to users when peforming SYNCIN operation when User check box is unckecked with the  Active Directory Admin  User")
 
-		public void AD_SYNCIN_Audit_003() throws InterruptedException, AWTException, IOException {
+		public void AD_SYNCIN_003() throws InterruptedException, AWTException, IOException {
 			extentTest = extent
 					.startTest("AD_SYNCIN_003 Verify the no Audit trail entry is recoreded related to users when peforming SYNCIN operation when User check box is unckecked with the  Active Directory Admin  User");
 			
@@ -280,11 +293,12 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 		// Conduct a Syncin operation
 			
 				FileManagementPage = MainHubPage.ClickFileManagementTitle();
-				SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage("kaverib","Amphenol@123","comm");
+				SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"comm");
 				SyncInPage.enter_Filepath("syncin");
 				SyncInPage.click_FltrBtn();
 				Thread.sleep(1000);
 				SyncInAssetListPage = SyncInPage.click_SyncInOK_btn();
+				//clicking here to uncheck the user box
 				SyncInAssetListPage.click_Users_CheckBox();
 				SyncInAssetListPage.click_OkBtn();
 				SyncInAssetListPage.click_AlrtYesBtn();
@@ -292,16 +306,16 @@ public class AD_FM_Syncin_AuditTest extends BaseClass{
 				SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 				Thread.sleep(3000); 
 				LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-				LoginPage LoginPage=new LoginPage();
-				MainHubPage = LoginPage.Login("kaverib","Amphenol@123");
+				LoginPage = new LoginPage();
+				MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 				MainHubPage.ClickAuditTitle();
 				
 				AuditPage = MainHubPage.ClickAuditTitle();
 				AuditPage.Click_ActionFilter_Icon();
-				AuditPage.EnterTxt_ActionFilter("User ID : \"kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+				AuditPage.EnterTxt_ActionFilter("User ID : \"Ajay2\" ,  User Name: \"Ajay Mashal\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 				AuditPage.click_Action_FilterBtn();
 				sa.assertEquals(AuditPage.get_auditEvent_text(),
-						"User ID : \"kaverib\" ,  User Name: \"Kaveri Bedar\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
+						"User ID : \"Ajay2\" ,  User Name: \"Ajay Mashal\" logged in to do  \"ManualSync\" operation in \"FileManagementScreen\" screen");
 				
 				sa.assertAll();
 				

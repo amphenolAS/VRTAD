@@ -1,12 +1,12 @@
 /*                    
 
-		Description: 	      This Test Suite TC's related to allow Guest Login
+s		Description: 	      This Test Suite TC's related to allow Guest Login
+
 		Script Writer:	      Kaveri Bedar			 
 		Modified/ Updated by: Deepika Arjala								 
 */
 package com.advrt.testcases;
 
-import java.awt.AWTException;
 import java.io.IOException;
 
 import org.apache.tools.ant.Main;
@@ -64,10 +64,10 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 	// Before All the tests are conducted
 	@BeforeClass
 	// @BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 
 		extent = new ExtentReports(
-				System.getProperty("user.dir") + "/test-output/ER" + "_AD_AllowGuestLoginTest1" + ".html", true);
+				System.getProperty("user.dir") + "/test-output/ER" + "_AD_AllowGuestLoginTest1Reg(1.6.14)" + ".html", true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		// extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		// extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
@@ -76,37 +76,64 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("ADGuestLogin1 Test in Progress..");
 
-		// Rename the VRT Data Files folder if exists in order to make the system
-		// default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-		// Copy the Default DataFIles folder from Test Data to the App service location.
-		String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
-		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
-		tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
+
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
+
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
 		 Database_configPage= LoginPage.DefaultLogin1();
-		 PoliciesPage = Database_configPage.click_PolicyPage();
+		 UserManagementPage = Database_configPage.click_UMHeader();
+			// Create the default Admin USer
+			LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
+					getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");	
+			MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
+			UserManagementPage = MainHubPage.ClickAdminTile_UMpage();
+			UserManagementPage.clickAnyUserinUserList("User1");
 
+			UserManagementPage.ClickNewUserSaveButton();
+			UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+			tu.click_OK_popup();	
+			PoliciesPage = UserManagementPage.Click_Policy();
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
 		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
+
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
-		PoliciesPage.clickonOkBtn();
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
+		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
 
 		AD_UMPage = PoliciesPage.click_AD_UMHeader();
 		// AD_UMPage.Select_grp();
-		AD_UMPage.select_grp("QA Testers");
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		// AD_UMPage.Select_user();
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("SystemAdministrator");
 		AD_UMPage.clickSavebtn();
+		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
 
 		AppClose();
@@ -129,9 +156,8 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		// --MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		MainHubPage = LoginPage.Login("kiranc", "Amphenol@123");
-		AD_UMPage = MainHubPage.AD_ClickAdminTile_UMpage();
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
+		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 		Thread.sleep(1000);
 		PoliciesPage = AD_UMPage.Click_Policy();
 		PoliciesPage.click_on_AllowGuest();
@@ -140,31 +166,25 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 
 	@AfterMethod(alwaysRun = true)
 	public void Teardown(ITestResult result) throws IOException, Exception {
-		if (result.getStatus() == ITestResult.FAILURE) {
-			extentTest.log(LogStatus.FAIL, "TEST CASE FailED IS # " + result.getName() + " #"); // to add name in extent
-																								// report
+		if(result.getStatus()==ITestResult.FAILURE){
+			extentTest.log(LogStatus.FAIL, "TEST CASE FailED IS # "+result.getName()+" #"); //to add name in extent report
 			// TearDown of the App
-			extentTest.log(LogStatus.FAIL, "TEST CASE FailED IS # " + result.getThrowable() + " #"); // to add
-																										// error/exception
-																										// in extent
-																										// report
+			extentTest.log(LogStatus.FAIL, "TEST CASE FailED IS # "+result.getThrowable()+" #"); //to add error/exception in extent report
 
 			String screenshotPath1 = TestUtilities.getFailedTCScreenshot(driver, result.getName());
-			extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath1)); // to add screenshot in extent
-																							// report
-			// extentTest.log(LogStatus.Fail, extentTest.addScreencast(screenshotPath));
-			// //to add screencast/video in extent report
-		} else if (result.getStatus() == ITestResult.SKIP) {
-			extentTest.log(LogStatus.SKIP, "Test Case SKIPPED IS " + result.getName());
-		} else if (result.getStatus() == ITestResult.SUCCESS) {
-			extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName() + " #");
-			// String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver,
-			// result.getName());
-			// extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
-			// //to add screenshot in extent report
+			extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath1)); //to add screenshot in extent report
+			//extentTest.log(LogStatus.Fail, extentTest.addScreencast(screenshotPath)); //to add screencast/video in extent report
 		}
-		extent.endTest(extentTest); // ending test and ends the current test and prepare to create html report
-		// MainLoginPage.resetWebElements();
+		else if(result.getStatus()==ITestResult.SKIP){
+			extentTest.log(LogStatus.SKIP, "Test Case SKIPPED IS " + result.getName());
+		}
+		else if(result.getStatus()==ITestResult.SUCCESS){
+			extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName()+" #");
+			//String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver, result.getName());
+			//extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2)); //to add screenshot in extent report
+		}		
+		extent.endTest(extentTest); //ending test and ends the current test and prepare to create html report
+		//MainLoginPage.resetWebElements();
 		Thread.sleep(5000);
 		driver.quit();
 	}
@@ -186,37 +206,25 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 		// PoliciesPage.click_on_AllowGuest();
 		PoliciesPage.selectGuestuser(2);
 		PoliciesPage.ClickSaveButton();
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "usercommitted.");
 		tu.click_OK_popup();
 		MainHubPage = PoliciesPage.click_BackBtn();
-		// AuditPage=MainHubPage.ClickAuditTitle();
-		// Thread.sleep(2000);
-		// String ActualMsg=AuditPage.get_auditEvent_text();
-		// MainHubPage= AuditPage.Click_BackBtn();
+		
 		LoginPage = MainHubPage.UserSignOut();
-		MainHubPage = LoginPage.Login("kiranc1", "Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"));
 		Thread.sleep(1000);
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(1000);
 		String ActualMsg1 = AuditPage.get_auditEvent_text();
-		String ExpectedMsg1 = "User ID : \"kiranc1\",User Name : \"Guest\" Logged in to System.";
+		String ExpectedMsg1 = "User ID : \"User1\",User Name : \"Guest\" Logged in to System.";
 
-		// String ExpectedMsg="\"Active Directory Allow Guest Login UserType\" field
-		// modified and accepted from \"AllowGuestLoginisDisabled\" to \"Supervisor\" by
-		// User ID : \"kiranc\", User Name : \"kiran c\"";
-
-		// sa.assertEquals(ActualMsg,ExpectedMsg,
-		// "Fail:Audit trial record does not exists change of user");
-
-		// sa.assertEquals(MainHubPage.UserNameText(),"Guest",
-		// "Fail:System Administrator NOT able to activate the Allow Guest login as
-		// supervisor");
-
+	
 		sa.assertEquals(ActualMsg1, ExpectedMsg1, "Fail:Audit trial record does not exists change of user");
 
 		sa.assertEquals(AuditPage.get_userName_text(), "Guest",
-				"Fail:System Administrator NOT able to activate the Allow Guest login as Operator");
+				"Fail:System Administrator NOT able to activate the Allow Guest login as Supervisor");
 
 		sa.assertAll();
 	}
@@ -231,40 +239,22 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 		extentTest = extent
 				.startTest("ALG06-Verify if System Administrator able to activate the Allow Guest login as Operator");
 		SoftAssert sa = new SoftAssert();
-
 		PoliciesPage.click_on_AllowGuest();
-		// PoliciesPage.click_on_AllowGuest2();
 		PoliciesPage.selectGuestuser(3);
 		PoliciesPage.ClickSaveButton();
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "usercommitted.");
 		tu.click_OK_popup();
 		MainHubPage = PoliciesPage.click_BackBtn();
-		// -AuditPage=MainHubPage.ClickAuditTitle();
-		// -Thread.sleep(2000);
-		// String ActualMsg=AuditPage.get_auditEvent_text();
-		// MainHubPage= AuditPage.Click_BackBtn();
 		LoginPage = MainHubPage.UserSignOut();
-		MainHubPage = LoginPage.Login("kiranc1", "Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"));
 		Thread.sleep(1000);
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(1000);
 		String ActualMsg1 = AuditPage.get_auditEvent_text();
-
-		// String ExpectedMsg="\"Active Directory Allow Guest Login UserType\" field
-		// modified and accepted from \"AllowGuestLoginisDisabled\" to \"Operator\" by
-		// User ID : \"kiranc\", User Name : \"kiran c\"";
-
-		String ExpectedMsg1 = "User ID : \"kiranc1\",User Name : \"Guest\" Logged in to System.";
-
-		// sa.assertEquals(ActualMsg,ExpectedMsg,
-		// "Fail:Audit trial record does not exists change of user");
-
+		String ExpectedMsg1 = "User ID : \"User1\",User Name : \"Guest\" Logged in to System.";
 		sa.assertEquals(ActualMsg1, ExpectedMsg1, "Fail:Audit trial record does not exists change of user");
-
-		// sa.assertEquals(MainHubPage.UserNameText(),"Guest",
-		// "Fail:System Administrator NOT able to activate the Allow Guest login as
-		// Operator");
 
 		sa.assertEquals(AuditPage.get_userName_text(), "Guest",
 				"Fail:System Administrator NOT able to activate the Allow Guest login as Operator");
@@ -283,36 +273,23 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 		SoftAssert sa = new SoftAssert();
 
 		PoliciesPage.click_on_AllowGuest();
-		// PoliciesPage.click_on_AllowGuest2();
 		PoliciesPage.selectGuestuser(1);
 		PoliciesPage.ClickSaveButton();
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
-		UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"), "usercommitted.");
 		tu.click_OK_popup();
 		MainHubPage = PoliciesPage.click_BackBtn();
-		// AuditPage=MainHubPage.ClickAuditTitle();
-		// Thread.sleep(2000);
-		// String ActualMsg=AuditPage.get_auditEvent_text();
-		// MainHubPage= AuditPage.Click_BackBtn();
+		
 		LoginPage = MainHubPage.UserSignOut();
-		MainHubPage = LoginPage.Login("kiranc1", "Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"));
 		Thread.sleep(1000);
 		AuditPage = MainHubPage.ClickAuditTitle();
 		Thread.sleep(1000);
 		String ActualMsg1 = AuditPage.get_auditEvent_text();
-		String ExpectedMsg1 = "User ID : \"kiranc1\",User Name : \"Guest\" Logged in to System.";
+		String ExpectedMsg1 = "User ID : \"User1\",User Name : \"Guest\" Logged in to System.";
 
-		// String ExpectedMsg="\"Active Directory Allow Guest Login UserType\" field
-		// modified and accepted from \"AllowGuestLoginisDisabled\" to \"System
-		// Administrator\" by User ID : \"kiranc\", User Name : \"kiran c\"";
-
-		// sa.assertEquals(ActualMsg,ExpectedMsg,
-		// "Fail:Audit trial record does not exists change of user");
-
-		// sa.assertEquals(MainHubPage.UserNameText(),"Guest",
-		// "Fail:System Administrator NOT able to activate the Allow Guest login as
-		// System Administrator");
-
+		
 		sa.assertEquals(ActualMsg1, ExpectedMsg1, "Fail:Audit trial record does not exists change of user");
 		sa.assertEquals(AuditPage.get_userName_text(), "Guest",
 				"Fail:System Administrator NOT able to activate the Allow Guest login as Operator");
@@ -327,10 +304,8 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 		extentTest = extent.startTest(
 				"ALG09-Verify if Validation message should be displayed once clicking on the save button without selecting the User type value from the drop down");
 		SoftAssert sa = new SoftAssert();
-
-		sa.assertEquals(PoliciesPage.IsGuestUsertypeEnabled(), true, "Fail:Allowcheck check box is not enabled");
-
 		PoliciesPage.click_on_AllowGuest();
+		sa.assertEquals(PoliciesPage.IsGuestUsertypeEnabled(), true, "Fail:Allowcheck check box is not enabled");
 		PoliciesPage.ClickSaveButton();
 
 		String ExpMsg = "User Type Is Mandatory. So Please Select any User Type";
@@ -352,7 +327,8 @@ public class AD_AllowGuestLoginTest1 extends BaseClass {
 		extentTest = extent
 				.startTest("ALG04-Verify if User type is enabled once Allow Guest Login Check box is checked");
 		SoftAssert sa = new SoftAssert();
-
+		PoliciesPage.click_on_AllowGuest();
+		PoliciesPage.click_on_AllowGuest();
 		sa.assertEquals(PoliciesPage.IsGuestUsertypeEnabled(), true, "Fail:Allowcheck check box is not enabled");
 
 		sa.assertAll();

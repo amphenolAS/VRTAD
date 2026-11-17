@@ -104,9 +104,9 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 	//Before All the tests are conducted
 	@BeforeClass
 	//@BeforeTest
-	private void PreSetUp() throws IOException, InterruptedException, AWTException {
+	private void PreSetUp() throws Exception {
 
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"AD_GuestPrivilageAccessTest1"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER"+"AD_GuestPrivilageAccessTest(1.6.14)"+".html",true);
 		extent.addSystemInfo("TestSuiteName", "LoginTest");
 		//extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		//extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
@@ -114,21 +114,34 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("AD_GuestPrivilageAccessTest1 Test in Progress..");
 
+		// stop service
+				Process stopService = Runtime.getRuntime().exec("cmd /c net stop VRT.DataAccessService.Host");
+				stopService.waitFor();
+				System.out.println("VRT Services stopped");
+				Thread.sleep(5000);
+				// Rename the VRT Data Files folder if exists in order to make the system
+				// default
+				renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
+				// Copy the Default DataFIles folder from Test Data to the App service location.
+				String SrcLocation = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\DataFiles";
+				String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";
+				tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
+				System.out.println("Application is Launching");
 
+		//Start the services
+				Runtime.getRuntime().exec("cmd /c net start VRT.DataAccessService.Host").waitFor();
+				System.out.println("VRT Services started");
 
-		// Rename the VRT Data Files folder if exists in order to make the system default
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service", "DataFiles");
-		//Copy the Default DataFIles folder from Test Data to the App service location.
-		String SrcLocation  = System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\DataFiles"; 
-		String DestLocation = "C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles";	
+				tu.waitForServiceRunning("VRT.DataAccessService.Host", 60);
+
 		tu.Copy_FolderFromOneDirectoryToANother(SrcLocation, DestLocation);
 
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
 		extent.addSystemInfo("VRT Version", LoginPage.get_SWVersion_About_Text());
 		LoginPage.clickOn_AppName();
-		PoliciesPage = LoginPage.DefaultLogin();
-		UserManagementPage = PoliciesPage.click_UMHeader();
+		Database_configPage = LoginPage.DefaultLogin1();
+		UserManagementPage = Database_configPage.click_UMHeader();
 		//UserManagementPage.ClickNewUser();	
 		// Create the default Admin USer
 		LoginPage = UserManagementPage.FirstUserCreation(AdmnUN, getUID("adminFull"), getPW("adminFull"),
@@ -149,17 +162,17 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 
 		PoliciesPage=UserManagementPage.Click_Policy();
 		PoliciesPage.Click_ActiveDirectoryUserbutton_Btn();
-		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc@VRT.LOCAL", "Amphenol@123", "10.17.17.54", "Secure");
+		PoliciesPage.ActiveDirectoryUserLoginPopup("Kiranc1@VRTHYD.LOCAL", "Amphenol@123", "10.17.17.55", "Secure");
 		PoliciesPage.clickOn_ConnectBtn();
 		PoliciesPage.ClickSaveButton();
-		Thread.sleep(500);
+		//PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();	
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		tu.click_OK_popup();
 		Thread.sleep(1000);
 		AD_UMPage=PoliciesPage.click_AD_UMHeader();
 		//Thread.sleep(5000);
-		AD_UMPage.select_grp("QA Testers");
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		//Thread.sleep(5000);
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
@@ -175,9 +188,9 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
-		AD_UMPage.select_grp("QA Testers");
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("NewUserType");
@@ -185,7 +198,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		DefaultUserPrivilages_page.AllPrivilages();
 		DefaultUserPrivilages_page.NewSaveButton();
 		Thread.sleep(500);
-		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 		PoliciesPage=AD_UMPage.AD_Click_Policy();
 		Thread.sleep(5000);
 		AD_UMPage=PoliciesPage.click_AD_UMHeader();
@@ -194,10 +207,10 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		PoliciesPage.click_on_AllowGuest();
 		PoliciesPage.selectGuestuser(4);
 		PoliciesPage.ClickSaveButton();
-		Thread.sleep(500);
+		PoliciesPage.clickonOkBtn();
 		PoliciesPage.clickOn_AcceptBtn();
 		//tu.click_OK_popup();
-		UserLoginPopup_UserCommentTextBox("kiranc","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"),"usercommitted.");
 		tu.click_OK_popup();
 		MainHubPage=PoliciesPage.click_BackBtn();
 		MainHubPage.UserSignOut();
@@ -222,9 +235,9 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		Thread.sleep(500);
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"));
 		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
-		AD_UMPage.select_grp("QA Testers");
+		AD_UMPage.select_grp(prop.getProperty("Group1"));
 		AD_UMPage.select_user(1);
 		AD_UMPage.select_UserTitle("Manager");
 		AD_UMPage.select_UserType1("NewUserType");
@@ -277,13 +290,13 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 
 		DefaultUserPrivilages_page.Click_Create_UserManagement();
 		DefaultUserPrivilages_page.NewSaveButton();
-		UserLoginPopup_UserCommentTextBox("kiranc", "Amphenol@123", "usercomitted");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"), "usercomitted");
 		//tu.click_OK_popup();
 		MainHubPage=AD_UMPage.click_BackBtn();
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"));
 		Thread.sleep(500);
 		PoliciesPage=MainHubPage.ClickAdminTile_Polpage();
 
@@ -313,13 +326,13 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		assetHubPage=MainHubPage.Click_AssetTile2();
 		assetCreationPage = assetHubPage.ClickAddAssetBtn();
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset01", "01", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "1st Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		assetHubPage=assetCreationPage.clickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("Asset01");
@@ -345,7 +358,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		//Setup_CalVerParametersPage=	Setup_CalculationsPage.Click_NxtBtn();
 		Setup_QualParamPage=	Setup_CalculationsPage.Click_NxtBtn();
 		Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
-		Setup_ReviewPage.click_Save_Btn("Manual", "Yes", "kiranc1","Amphenol@123","usercommitted.");
+		Setup_ReviewPage.click_Save_Btn("Manual", "Yes", prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		assetDetailsPage = Setup_ReviewPage.click_backBtn();
 		Thread.sleep(2000);
 		assetDetailsPage.Click_SetupName("SetUp");
@@ -383,7 +396,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		//PoliciesPage=MainHubPage.ClickAdminTile_Polpage();
 		assetHubPage=MainHubPage.Click_AssetTile2();
 		// assetCreationPage= assetHubPage.Click_AddAssetButton();//
@@ -421,14 +434,14 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		assetHubPage = MainHubPage.Click_AssetTile2();
 		assetCreationPage = assetHubPage.ClickAddAssetBtn();
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset04", "04", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "1st Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		//assetDetailsPage=assetCreationPage.click_BackBtn();//
 		assetHubPage=assetCreationPage.clickBackBtn();
@@ -468,19 +481,19 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		assetHubPage = MainHubPage.Click_AssetTile2();
 		assetCreationPage = assetHubPage.ClickAddAssetBtn();
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset05", "05", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "1st Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		//assetDetailsPage=assetCreationPage.click_BackBtn();//
 		assetHubPage=assetCreationPage.clickBackBtn();
 		assetDetailsPage=assetHubPage.click_assetTile("Asset05");
 		assetDetailsPage.Click_DeleteAsset();
-		//UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted."); 
+		//UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted."); 
 
 		Thread.sleep(500);
 
@@ -516,13 +529,13 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		assetHubPage = MainHubPage.Click_AssetTile2();
 		assetCreationPage = assetHubPage.ClickAddAssetBtn();
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset06", "06", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "1st Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		//assetDetailsPage=assetCreationPage.click_BackBtn();//
 		assetHubPage=assetCreationPage.clickBackBtn();
@@ -559,13 +572,13 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		assetHubPage = MainHubPage.Click_AssetTile2();
 		assetCreationPage = assetHubPage.ClickAddAssetBtn();
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset07", "07", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "1st Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		//assetDetailsPage=assetCreationPage.click_BackBtn();//
 		assetHubPage=assetCreationPage.clickBackBtn();
@@ -591,7 +604,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		//Setup_CalVerParametersPage=	Setup_CalculationsPage.Click_NxtBtn();
 		Setup_QualParamPage=	Setup_CalculationsPage.Click_NxtBtn();
 		Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
-		Setup_ReviewPage.click_Save_Btn("Manual", "Yes", "kiranc1","Amphenol@123","usercommitted.");
+		Setup_ReviewPage.click_Save_Btn("Manual", "Yes", prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		assetDetailsPage = Setup_ReviewPage.click_backBtn();
 		Thread.sleep(2000);
 		assetDetailsPage.Click_SetupName("SetUp9");
@@ -630,13 +643,13 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		assetHubPage = MainHubPage.Click_AssetTile2();
 		assetCreationPage = assetHubPage.ClickAddAssetBtn();
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset08", "08", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
 				"cu", crntDate, "5", "Weeks", "1st Asset Creation");
-		UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+		UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		Thread.sleep(1000);
 		//assetDetailsPage=assetCreationPage.click_BackBtn();//
 		assetHubPage=assetCreationPage.clickBackBtn();
@@ -664,13 +677,13 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		//Setup_CalVerParametersPage=	Setup_CalculationsPage.Click_NxtBtn();
 		Setup_QualParamPage=	Setup_CalculationsPage.Click_NxtBtn();
 		Setup_ReviewPage = Setup_QualParamPage.Click_NxtBtn();
-		Setup_ReviewPage.click_Save_Btn("Manual", "Yes", "kiranc1","Amphenol@123","usercommitted.");
+		Setup_ReviewPage.click_Save_Btn("Manual", "Yes", prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 		assetDetailsPage = Setup_ReviewPage.click_backBtn();
 		Thread.sleep(2000);
 		assetDetailsPage.Click_SetupName("SetUp1");
 
 		assetDetailsPage.click_DeleteButton();
-		//UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted."); 
+		//UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted."); 
 
 		Thread.sleep(500);
 
@@ -704,9 +717,9 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		FileManagementPage=MainHubPage.ClickFileManagementTitle();
-		FileManagementPage.Click_ArchiveTabwithcomment_alert("kiranc1","Amphenol@123","commit");
+		FileManagementPage.Click_ArchiveTabwithcomment_alert(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"commit");
 
 		Thread.sleep(500);
 
@@ -740,7 +753,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		EquipmentHubPage=MainHubPage.ClickEquipmentTile();
 		EquipmentHubPage.ClickAddButton_alrt();
 
@@ -776,14 +789,14 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		EquipmentHubPage=MainHubPage.ClickEquipmentTile();
 		   NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 			
 			//Creating 1st Equipment
 		   NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "EL010b", "010b");
 			Thread.sleep(500);
-				UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+				UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 			EquipmentHubPage=NewEquipmentCreation_Page.ClickBackBtn();
 
 
@@ -818,13 +831,13 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		EquipmentHubPage=MainHubPage.ClickEquipmentTile();
 		 NewEquipmentCreation_Page = EquipmentHubPage.ClickAddButton();
 			
 			//Creating 1st Equipment
 		   NewEquipmentCreation_Page.EqipCreation_MandatoryFields("IRTD", "EL011b", "011b");
-			UserLoginPopup_UserCommentTextBox("kiranc1","Amphenol@123","usercommitted.");
+			UserLoginPopup_UserCommentTextBox(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommitted.");
 			EquipmentHubPage=NewEquipmentCreation_Page.ClickBackBtn();
 			Equipment_IRTDHubPage = EquipmentHubPage.click_IRTDTile();
 			Equipment_IRTDDetailspage = Equipment_IRTDHubPage.Click_IrtdSerialNo("EL011b");
@@ -859,9 +872,9 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit_alrt("kiranc1","Amphenol@123","usercommited");
+		FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit_alrt(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommited");
 
 		//String ActualMsg=tu.get_popup_text();
 		String ActualMsg=tu.get_AlertMsg_text();
@@ -892,7 +905,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		assetHubPage = MainHubPage.Click_AssetTile2();
 		assetCreationPage = assetHubPage.ClickAddAssetBtn();
 		assetCreationPage.click_Img_Camera_Btn();
@@ -924,7 +937,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		MainHubPage.ClickAuditTitle_alrt();
 
 		Thread.sleep(500);
@@ -958,7 +971,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(3000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		AD_UMPage= MainHubPage.AD_ClickAdminTile_UMpage();
 
 		Thread.sleep(500);
@@ -990,7 +1003,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(3000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		AD_UMPage= MainHubPage.AD_ClickAdminTile_UMpage();
 		// AD_UMPage.ClickPreferenceTab();
 
@@ -1021,7 +1034,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 		Thread.sleep(2000);
 		MainHubPage.UserSignOut();
 		LoginPage = new LoginPage();
-		MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+		MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 		//MainHubPage.Click_Discover_alrt();
 		AD_UMPage=MainHubPage.AD_ClickAdminTile_UMpage();
 
@@ -1062,10 +1075,10 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 			Thread.sleep(2000);
 			MainHubPage.UserSignOut();
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			
 			FileManagementPage = MainHubPage.ClickFileManagementTitle();
-			SyncInPage = FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit("kiranc","Amphenol@123","usercommited");
+			SyncInPage = FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommited");
 			SyncInPage.enter_Filepath("syncin");
 			SyncInPage.click_FltrBtn();
 			SyncInAssetListPage = SyncInPage.click_SyncInOK_btn();
@@ -1079,7 +1092,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			Thread.sleep(500);
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			assetHubPage=MainHubPage.Click_AssetTile2();
 			assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 			assetDetailsPage.click_QualTile();
@@ -1121,10 +1134,10 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 			Thread.sleep(2000);
 			MainHubPage.UserSignOut();
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			
 			FileManagementPage = MainHubPage.ClickFileManagementTitle();
-			SyncInPage = FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit("kiranc","Amphenol@123","usercommited");
+			SyncInPage = FileManagementPage.AD_ClickSyncInBtn_SyncinPage_withcommit(prop.getProperty("GuestUser1"),prop.getProperty("GuestUser1Pwd"),"usercommited");
 			SyncInPage.enter_Filepath("syncin");
 			SyncInPage.click_FltrBtn();
 			SyncInAssetListPage = SyncInPage.click_SyncInOK_btn();
@@ -1138,7 +1151,7 @@ public class AD_GuestPrivilageAccessTest1 extends BaseClass{
 			LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 			Thread.sleep(500);
 			LoginPage = new LoginPage();
-			MainHubPage = LoginPage.Login("kiranc1","Amphenol@123");
+			MainHubPage = LoginPage.Login(prop.getProperty("Group1UserId"),prop.getProperty("Group1Pwd"));
 			assetHubPage=MainHubPage.Click_AssetTile2();
 			assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 			assetDetailsPage.click_QualTile();
